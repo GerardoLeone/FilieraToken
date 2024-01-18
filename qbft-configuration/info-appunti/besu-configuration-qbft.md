@@ -129,6 +129,9 @@ Use a smart contract to specify the validators used to propose and validate bloc
 }
 ```
 
+- Link: https://besu.hyperledger.org/private-networks/how-to/configure/consensus/qbft#genesis-file
+
+
 # Verifica che QBFT funziona 
 
 Per verificare che la rete QBFT è up, basta inserire il comando sul terminale e verificare che il comando produce un determinato output json 

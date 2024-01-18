@@ -1,0 +1,10 @@
+version: "3"
+services:
+  node:
+    image: hyperledger/besu:latest
+    container_name: "node-1"
+    volumes:
+      - .:/usr/app/
+    command: --config-file=/usr/app/config.toml
+volumes:
+  .:

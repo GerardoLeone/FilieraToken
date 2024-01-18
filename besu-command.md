@@ -35,14 +35,3 @@ data-path="/tmp/tmpdata-path"
 ```sh
 curl -X POST --data '{"jsonrpc":"2.0","method":"eth_chainId","params":[],"id":1}' localhost:8545
 ```
-
-
-# Configure Consensus -- Private Network 
-
-### Genesis File : qbftConfigFile.json
-The configuration file defines the QBFT genesis file and the number of node key pairs to generate.
-
-The configuration file has two nested JSON nodes.  
-Property : 
-1. 'genesis' property : defining the QBFT genesis file, except for the 'extradata'
-2. 'blockchain' property defining the number of key pairs to generate.

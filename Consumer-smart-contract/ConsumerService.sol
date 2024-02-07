@@ -35,6 +35,7 @@ contract ConsumerService {
     function registerConsumer(string memory fullName, string memory password, string memory email) external {
         // Verifico che l'address sia diverso da quello di Deploy 
         require(msg.sender != ConsumerOrg,"Address non Valido!");
+        
         //Call function of Storage 
         consumerStorage.addUser(fullName, password, email, msg.sender);
 

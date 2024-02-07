@@ -63,6 +63,7 @@ contract ConsumerStorage is IUserStorageInterface {
 
     // Funzione per eliminare il Consumer dato il suo indirizzo del wallet 
     function deleteUser(address walletConsumer) external returns(bool value){
+        
         require(consumers[walletConsumer].id!=0, "Utente non presente!");
 
         uint256 lastIdConsumer = uint256(keccak256(abi.encodePacked(
@@ -75,7 +76,11 @@ contract ConsumerStorage is IUserStorageInterface {
 
         delete consumers[walletConsumer];
 
-        return true;
+        if(consumers[walletConsumer].id == 0 ){
+            return true;
+        }else {
+            return false;
+        }
     }
 
 

@@ -17,9 +17,9 @@ contract MilkHubService {
     address private  MilkHubOrg;
     
     // Evento emesso al momento della cancellazione di un consumatore
-    event ConsumerDeleted(address indexed walletMilkHub, string message);
+    event MilkHubDeleted(address indexed walletMilkHub, string message);
     // Evento emesso al momento della registrazione di un consumatore
-    event ConsumerRegistered(address indexed walletMilkHub, string fullName, string message);
+    event MilkHubRegistered(address indexed walletMilkHub, string fullName, string message);
 
     /**
      * modifier --- OnlyOwner specifica che solo il possessore può effettuare quella chiamata
@@ -53,7 +53,7 @@ contract MilkHubService {
         filieraToken.transfer(walletMilkHub, 100);
 
         // Emit Event on FireFly 
-        emit ConsumerRegistered(walletMilkHub, fullName, "Utente e' stato registrato!");
+        emit MilkHubRegistered(walletMilkHub, fullName, "Utente e' stato registrato!");
     }
 
     /**
@@ -90,7 +90,7 @@ contract MilkHubService {
         // Burn all token 
         filieraToken.burnToken(walletMilkHub, filieraToken.balanceOf(walletMilkHub));
         // Emit Event on FireFly 
-        emit ConsumerDeleted(walletMilkHub,"Utente e' stato eliminato!");
+        emit MilkHubDeleted(walletMilkHub,"Utente e' stato eliminato!");
     }
 
 // -------------------------------------------------------------------------------- CheeseProducer -----------------------------------------------------------------------//

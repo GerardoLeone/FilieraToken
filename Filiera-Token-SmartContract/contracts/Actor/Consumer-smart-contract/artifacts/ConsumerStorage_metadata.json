@@ -1,0 +1,230 @@
+{
+	"compiler": {
+		"version": "0.8.22+commit.4fc1097e"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_fullName",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_password",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_email",
+						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "walletConsumer",
+						"type": "address"
+					}
+				],
+				"name": "addUser",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletConsumer",
+						"type": "address"
+					}
+				],
+				"name": "deleteUser",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "value",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletConsumer",
+						"type": "address"
+					}
+				],
+				"name": "getConsumerToCheeseProducer",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletConsumer",
+						"type": "address"
+					}
+				],
+				"name": "getUser",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletConsumer",
+						"type": "address"
+					}
+				],
+				"name": "isUserPresent",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletConsumer",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "_email",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_password",
+						"type": "string"
+					}
+				],
+				"name": "loginUser",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {
+				"addUser(string,string,string,address)": {
+					"notice": "addUser() effettuiamo la registrazione dell'utente Consumer "
+				},
+				"getConsumerToCheeseProducer(address)": {
+					"notice": "getConsumerToCheeseProducer() otteniamo le informazioni sensibili per un singolo cheeseProducer  - email e fullName "
+				},
+				"getUser(address)": {
+					"notice": "getUser(walletConsumer) :  Consumer visualizza le sue informazioni principali - email, password , fullName , balance "
+				},
+				"loginUser(address,string,string)": {
+					"notice": "LoginUser() effettua il login dell'utente  La comparazione Hash tra (email e password) di input e quelli salvati return true se la comparazione è vera, La comparazione è falsa se l'hashing non risulta valido"
+				}
+			},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/Actor/Consumer-smart-contract/ConsumerStorage.sol": "ConsumerStorage"
+		},
+		"evmVersion": "shanghai",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/Actor/Consumer-smart-contract/ConsumerStorage.sol": {
+			"keccak256": "0x8cb680a7cb08d5cc0c7c886e636490675f9b4231f76a5e83611d149fafaa7d6a",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://9a43eadf2153831e6bc3609341cb8c64b1b783ad142ed19feffe107e77416307",
+				"dweb:/ipfs/QmdPeAfVUSxVq542ZUApNdBvX4eSviPy5mP6XUvQpVHWYC"
+			]
+		},
+		"contracts/Actor/IUserStorageInterface.sol": {
+			"keccak256": "0x189fa5db899f0a31af11fdee9ce97b8e30fe427e719f0714a4dc8a43ffa5535f",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://aa4f56b832aa26f31e110851d264fc17be95be67ba96c3557786fd55c61b4388",
+				"dweb:/ipfs/QmbobmrLhM78V7udeRfaFF3DCXR7TEp9hsQBxgbMYgunHM"
+			]
+		}
+	},
+	"version": 1
+}

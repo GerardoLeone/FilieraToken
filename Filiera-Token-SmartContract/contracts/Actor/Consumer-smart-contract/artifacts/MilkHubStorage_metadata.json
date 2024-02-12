@@ -1,0 +1,230 @@
+{
+	"compiler": {
+		"version": "0.8.22+commit.4fc1097e"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_fullName",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_password",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_email",
+						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "walletMilkHub",
+						"type": "address"
+					}
+				],
+				"name": "addUser",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletMilkHub",
+						"type": "address"
+					}
+				],
+				"name": "deleteUser",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "value",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletMilkHub",
+						"type": "address"
+					}
+				],
+				"name": "getMilkHubToCheeseProducer",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletMilkHub",
+						"type": "address"
+					}
+				],
+				"name": "getUser",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletMilkHub",
+						"type": "address"
+					}
+				],
+				"name": "isUserPresent",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletMilkHub",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "_email",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_password",
+						"type": "string"
+					}
+				],
+				"name": "loginUser",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {
+				"addUser(string,string,string,address)": {
+					"notice": "addUser() effettuiamo la registrazione dell'utente MilkHub "
+				},
+				"getMilkHubToCheeseProducer(address)": {
+					"notice": "getMilkHubToCheeseProducer() otteniamo le informazioni sensibili per un singolo cheeseProducer  - email e fullName "
+				},
+				"getUser(address)": {
+					"notice": "getUser(walletMilkHub) :  MilkHub visualizza le sue informazioni principali - email, password , fullName , balance "
+				},
+				"loginUser(address,string,string)": {
+					"notice": "LoginUser() effettua il login dell'utente  La comparazione Hash tra (email e password) di input e quelli salvati return true se la comparazione è vera, La comparazione è falsa se l'hashing non risulta valido"
+				}
+			},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/Actor/Consumer-smart-contract/ConsumerStorage.sol": "MilkHubStorage"
+		},
+		"evmVersion": "shanghai",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/Actor/Consumer-smart-contract/ConsumerStorage.sol": {
+			"keccak256": "0xd5eea10bd86fff9bdee70ee4e83f028ddb4f72b66383c8bc41c051123febfb48",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://15a5fd0a283477e078e30fcca040a7cd58aa038b18816b23e72da91d3e0c4b10",
+				"dweb:/ipfs/QmTQqj1Du11yJ9ihkHuPSZFGXmyF4QDajWnWL1LVe1EhWz"
+			]
+		},
+		"contracts/Actor/IUserStorageInterface.sol": {
+			"keccak256": "0x189fa5db899f0a31af11fdee9ce97b8e30fe427e719f0714a4dc8a43ffa5535f",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://aa4f56b832aa26f31e110851d264fc17be95be67ba96c3557786fd55c61b4388",
+				"dweb:/ipfs/QmbobmrLhM78V7udeRfaFF3DCXR7TEp9hsQBxgbMYgunHM"
+			]
+		}
+	},
+	"version": 1
+}

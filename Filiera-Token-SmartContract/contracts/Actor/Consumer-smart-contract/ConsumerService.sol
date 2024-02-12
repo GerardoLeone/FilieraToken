@@ -2,68 +2,119 @@
 pragma solidity ^0.8.0;
 
 import "./ConsumerStorage.sol";
-import "./Filieratoken.sol";
+import "../Filieratoken.sol";
 
 
 contract ConsumerService {
 
     // Address of Consumer Storage 
     ConsumerStorage private consumerStorage;
+    
     // Address of Token FT - ERC-20
     Filieratoken private filieraToken;
 
     // Address of Organization che gestisce gli utenti
     address private  ConsumerOrg;
-
+    
     // Evento emesso al momento della cancellazione di un consumatore
     event ConsumerDeleted(address indexed walletConsumer, string message);
-
     // Evento emesso al momento della registrazione di un consumatore
     event ConsumerRegistered(address indexed walletConsumer, string fullName, string message);
 
-    // We must deploy first : 
-    // - ConsumerStorage 
-    // - ConsumerService 
+    /**
+     * modifier --- OnlyOwner specifica che solo il possessore può effettuare quella chiamata
+     */
+    modifier onlyOwner(address walletConsumer) {
+        require(msg.sender != address(consumerStorage), "Address Not valid!");
+        require(msg.sender != address(filieraToken), "Address Not valid!" );
+        require(msg.sender != ConsumerOrg ," Address not Valid, it is organization address");
+        require(msg.sender == walletConsumer, "Only the account owner can perform this action");
+        _;
+    }
+
     constructor(address _consumerStorage, address _filieraToken) {
         consumerStorage = ConsumerStorage(_consumerStorage);
         filieraToken = Filieratoken(_filieraToken);
         ConsumerOrg = msg.sender;
     }
 
-    // Function to Register Consumer to Application 
-    // Settiamo  - msg.sender come il valore del wallet del Consumer 
+    /**
+     * registerConsumer() registra gli utenti della piattaforma che sono Consumer 
+     * - Inserisce i dati all'interno della Blockchain
+     * - Trasferisce 100 token dal contratto di FilieraToken 
+     * - Emette un evento appena l'utente è stato registrato 
+     *  */ 
     function registerConsumer(string memory fullName, string memory password, string memory email) external {
-        // Verifico che l'address sia diverso da quello di Deploy 
-        require(msg.sender != ConsumerOrg,"Address non Valido!");
-        
-        //Call function of Storage 
-        consumerStorage.addUser(fullName, password, email, msg.sender);
 
-        filieraToken.transfer(msg.sender, 100);
+        address walletConsumer = msg.sender;        
+        //Call function of Storage 
+        consumerStorage.addUser(fullName, password, email,walletConsumer);
+
+        filieraToken.transfer(walletConsumer, 100);
 
         // Emit Event on FireFly 
-        emit ConsumerRegistered(msg.sender, fullName, "Utente e' stato registrato!");
+        emit ConsumerRegistered(walletConsumer, fullName, "Utente e' stato registrato!");
     }
 
-    function getConsumerData() external view returns (uint256, string memory, string memory, string memory, uint256) {
-        // Call function of Storage 
+    /**
+     * login() effettua la Login con email e password 
+     * - Inserisce l'email e la password 
+     * - return True se l'utente esiste ed ha accesso con le giuste credenziali 
+     * - return False altrimenti 
+     */
+    function login(string memory email, string memory password) external view returns(bool) {
         address walletConsumer = msg.sender;
-        // Verifico che l'address sia diverso da quello di Deploy 
-        require(walletConsumer != ConsumerOrg,"Address non Valido!");
+        
+        return consumerStorage.loginUser(walletConsumer, email, password);
+    }
 
+    /**
+     * getConsumerData() otteniamo i dati del Consumer
+     * - tramite l'address del Consumer riusciamo a visualizzare anche i suoi dati
+     * - Dati sensibili e visibili solo dal Consumer stesso 
+     */
+    function getConsumerData(address walletConsumer) external onlyOwner(walletConsumer) view returns (uint256, string memory, string memory, string memory, uint256) {
+        // Call function of Storage         
         return consumerStorage.getUser(walletConsumer);
     }
 
 
 
-    // Delete Consumer - we can delete consumer on Blockchain
-    function deleteConsumer() external {
-        address walletConsumer = msg.sender;
+    /**
+     * deleteConsumer() elimina un Consumer all'interno del sistema 
+     * - Solo l'owner può effettuare l'eliminazione 
+     * - msg.sender dovrebbe essere solo quello dell'owner 
+     */
+    function deleteConsumer(address walletConsumer) external onlyOwner(walletConsumer)  {
         require(consumerStorage.deleteUser(walletConsumer), "Errore durante la cancellazione");
         // Burn all token 
         filieraToken.burnToken(walletConsumer, filieraToken.balanceOf(walletConsumer));
         // Emit Event on FireFly 
         emit ConsumerDeleted(walletConsumer,"Utente e' stato eliminato!");
     }
+
+// -------------------------------------------------------------------------------- CheeseProducer -----------------------------------------------------------------------//
+
+    /**
+     * viewConsumer() inseriamo l'address del Consumer per poter visualizzare i dati meno sensibili del Consumer
+     * - Visualizziamo il Consumer ( email , fullname )
+     */
+    function viewConsumer(address walletConsumer) external view returns(string memory,string memory) {
+        // Address dovrebbe essere il ruolo del CheeseProducer 
+        address caller = msg.sender;
+
+        require(address(walletConsumer)!=address(0), "Address Consumer non valido!");
+        require(address(caller)!=address(0), "Address non valido!");
+
+        return consumerStorage.getConsumerToCheeseProducer(walletConsumer);
+    }
+
+// --------------------------------------------------------------------------- ConsumerInventoryService ----------------------------------------------------//
+
+    function isUserPresent(address walletConsumer) external view returns(bool){
+        return consumerStorage.isUserPresent(walletConsumer);
+    }
+
+
 
 }

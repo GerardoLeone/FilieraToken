@@ -20,7 +20,6 @@ contract MilkHubInventoryStorage {
     
     mapping(address => mapping(uint256 => MilkBatch)) private milkBatches;
 
-
     // Add function to add CheesePiece
     function addMilkBatch(address walletMilkHub, string memory _scadenza, uint256 _quantity, uint256 _price) external {
         // Generazione dell'ID 

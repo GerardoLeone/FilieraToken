@@ -29,6 +29,13 @@ contract CheeseProducerService {
         CheeseProducerOrg = msg.sender;
     }
 
+
+    modifier onlyIfUserPresent() {
+        require(this.isUserPresent(msg.sender), "User is not present in data");
+        _;
+    }
+
+
     // Function to Register Consumer to Application 
     // Settiamo  - msg.sender come il valore del wallet del Consumer 
     function registerConsumer(string memory fullName, string memory password, string memory email) external {
@@ -48,7 +55,7 @@ contract CheeseProducerService {
         emit CheeseProducerRegistered(walletCheeseProducer, fullName, "Utente e' stato registrato!");
     }
 
-    function getCheeseProducerData() external view returns (uint256, string memory, string memory, string memory, uint256) {
+    function getCheeseProducerData() external onlyIfUserPresent view returns (uint256, string memory, string memory, string memory, uint256) {
         // Call function of Storage 
         address walletCheeseProducer = msg.sender;
         // Verifico che l'address sia diverso da quello di Deploy 
@@ -57,10 +64,14 @@ contract CheeseProducerService {
         return cheeseProducerStorage.getUser(walletCheeseProducer);
     }
 
+    function isUserPresent(address walletCheeseProducer) external view returns (bool){
+        require(cheeseProducerStorage.getUser(walletCheeseProducer)!=0, "Utente non e' presente, wallet : "+walletCheeseProducer);
+        return true;
+    }
 
 
     // Delete Consumer - we can delete consumer on Blockchain
-    function deleteCheeseProducer() external {
+    function deleteCheeseProducer() external onlyIfUserPresent {
         address walletCheeseProducer = msg.sender;
         require(cheeseProducerStorage.deleteUser(walletCheeseProducer), "Errore durante la cancellazione");
         // Burn all token 

@@ -1,50 +1,47 @@
-//SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.21;
 
-
-import "./IUserStorageInterface.sol";
-
+import "../IUserStorageInterface.sol";
 
 contract RetailerStorage is IUserStorageInterface {
 
-    // Address of Organization che gestisce gli utenti
-    address private  RetailerOrg;
+    // Address of Organization managing users
+    address private RetailerOrg;
 
     constructor(){
         RetailerOrg = msg.sender;
     }
 
-
-    // Struttura per rappresentare gli attributi di un consumatore
+    // Structure to represent the attributes of a retailer
     struct Retailer {
         uint256 id;
         string fullName;
-        string password; // Si presume che sia già crittografata dal Front-End
+        string password; // Presumed to be already encrypted by the Front-End
         string email;
         uint256 balance;
     }
 
-    // Mapping che collega l'indirizzo del portafoglio (wallet address) ai dati del consumatore
-    mapping(address => Retailer) private  retailers;
+    // Mapping linking the wallet address to the data of the retailer
+    mapping(address => Retailer) private retailers;
 
     /**
-     * addUser() effettuiamo la registrazione dell'utente retailer 
+     * addUser() registers the Retailer user
      */
-    function addUser(string memory _fullName, string memory _password,string memory _email, address walletRetailer) external {
+    function addUser(string memory _fullName, string memory _password, string memory _email, address walletRetailer) external {
         
-        // Verifico che il walletRetailer non sia l'address che ha deployato il contratto
-        require(walletRetailer != RetailerOrg,"Address non Valido!");
+        // Verify that the walletRetailer is not the address that deployed the contract
+        require(walletRetailer != RetailerOrg,"Address not Valid!");
         
-        // Genera l'ID manualmente utilizzando keccak256
+        // Manually generate the ID using keccak256
         bytes32 idHash = keccak256(abi.encodePacked(_fullName, _password, _email, walletRetailer));
-        uint256 id = uint256(idHash);
+        uint256 lastIdRetailer = uint256(idHash);
 
         require(retailers[walletRetailer].id == 0, "Retailer already registered");
         require(bytes(_fullName).length > 0, "Full name cannot be empty");
         require(bytes(_password).length > 0, "Password cannot be empty");
         require(bytes(_email).length > 0, "Email cannot be empty");
         
-        // Crea un nuovo consumatore con l'ID univoco
+        // Create a new retailer with the unique ID
         Retailer memory newRetailer = Retailer({
             id: lastIdRetailer,
             fullName: _fullName,
@@ -53,51 +50,49 @@ contract RetailerStorage is IUserStorageInterface {
             balance: 100
         });
 
-        // Inserisce il nuovo consumer all'interno della Lista dei Consumer 
+        // Insert the new retailer into the list of retailers
         retailers[walletRetailer] = newRetailer;
     }
 
     /**
-     * LoginUser() effettua il login dell'utente 
-     * La comparazione Hash tra (email e password) di input e quelli salvati
-     * return true se la comparazione è vera, La comparazione è falsa se l'hashing non risulta valido
+     * loginUser() logs in the user
+     * Compares the hash between (email and password) of input and those saved
+     * Returns true if the comparison is true, false if the hashing is not valid
      */
     function loginUser(address walletRetailer, string memory _email, string memory _password) external view returns(bool){
 
-        require(address(walletRetailer)!=0, "Address utilizzato non valido, pari a 0!");
-        // Verifico che il walletretailer non sia l'address che ha deployato il contratto
-        require(walletRetailer != RetailerOrg,"Address non Valido!");
-        // Verifica che l'utente esista all'interno della Lista dei Retailer 
-        require( retailers[walletRetailer].id!=0  , "Utente non presente!");
-        // Recupero il Retailer 
+        require(address(walletRetailer)!= address(0), "Invalid address, equals to 0!");
+        // Verify that the walletRetailer is not the address that deployed the contract
+        require(walletRetailer != RetailerOrg,"Address not Valid!");
+        // Verify that the user exists in the list of Retailers 
+        require( retailers[walletRetailer].id!=0  , "User not present!");
+        // Retrieve the Retailer 
         Retailer storage retailer = retailers[walletRetailer];
         
-        // Verifico che l'email e la password hashate sono uguali tra di loro 
+        // Verify that the hashed email and password are equal to each other 
         return keccak256(abi.encodePacked(retailer.email, retailer.password)) == keccak256(abi.encodePacked(_email, _password));
     }
 
     /**
-     * getUser(walletretailer) : 
-     * retailer visualizza le sue informazioni principali
-     * - email, password , fullName , balance 
+     * getUser(walletRetailer): 
+     * Retailer views their main information
+     * - email, password, fullName, balance
      */
     function getUser(address walletRetailer) external  view returns (uint256, string memory, string memory, string memory, uint256) {
 
-        // Verifica che l'utente sia presente
-        require( retailers[walletRetailer].id!=0  , "Utente non presente!");
+        // Verify that the user is present
+        require( retailers[walletRetailer].id!=0  , "User not present!");
 
         Retailer memory retailer = retailers[walletRetailer];
 
-        // Restituisce i dati del consumatore
+        // Return the data of the retailer
         return (retailer.id, retailer.fullName, retailer.password, retailer.email, retailer.balance);
     }
 
-    
-
-    // Funzione per eliminare il Consumer dato il suo indirizzo del wallet 
+    // Function to delete the Retailer given their wallet address
     function deleteUser(address walletRetailer) external returns(bool value){
-        // Check exists retailers
-        require(retailers[walletRetailer].id!=0, "Utente non presente!");
+        // Check if Retailer exists
+        require(retailers[walletRetailer].id!=0, "User not present!");
 
         uint256 lastIdRetailer = uint256(keccak256(abi.encodePacked(
             retailers[walletRetailer].fullName,
@@ -105,7 +100,7 @@ contract RetailerStorage is IUserStorageInterface {
             retailers[walletRetailer].email,
             walletRetailer
                )));
-        require (retailers[walletRetailer].id==lastIdRetailer, "Utente non Autorizzato!");
+        require (retailers[walletRetailer].id==lastIdRetailer, "User not authorized!");
 
         delete retailers[walletRetailer];
 
@@ -116,33 +111,24 @@ contract RetailerStorage is IUserStorageInterface {
         }
     }
 
-// ------------------------------------------------------------ CheeseProducer ------------------------------------------------------//
-
-
-
     /**
-     * getRetailerToCheeseProducer() otteniamo le informazioni sensibili per un singolo cheeseProducer 
-     * - email e fullName 
+     * getRetailerToRetailer() obtains sensitive information for a single retailer
+     * - email and fullName
      */
-    function getRetailerToCheeseProducer(address walletRetailer) view returns (string memory, string memory){
-        // Check exists walletretailer
-        require(retailers[walletRetailer].id!=0, "Utente non presente!");
+    function getRetailerToRetailer(address walletRetailer) external view returns (string memory, string memory){
+        // Check if walletRetailer exists
+        require(retailers[walletRetailer].id!=0, "User not present!");
 
         Retailer storage retailer = retailers[walletRetailer];
 
-        return (retailer.fullName,retailer.email);
+        return (retailer.fullName, retailer.email);
     }
 
-// ------------------------------------------------------------------------ RetailerInventoryService ----------------------------------------------------------//
-
+    // Function to check if a user is present
     function isUserPresent(address walletRetailer) external view returns(bool){
-        require(address(walletRetailer)!=0, "Address Retailer non valido!");
+        require(address(walletRetailer)!= address(0), "Invalid Retailer address!");
         
         return retailers[walletRetailer].id!=0;
     }
 
-
-
-
-}   
-
+}

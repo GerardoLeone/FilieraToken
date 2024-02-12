@@ -9,62 +9,112 @@ contract RetailerService {
 
     // Address of Consumer Storage 
     RetailerStorage private retailerStorage;
+    
     // Address of Token FT - ERC-20
     Filieratoken private filieraToken;
 
     // Address of Organization che gestisce gli utenti
     address private  RetailerOrg;
-
+    
     // Evento emesso al momento della cancellazione di un consumatore
-    event RetailerDeleted(address indexed walletRetailer, string message);
-
+    event ConsumerDeleted(address indexed walletRetailer, string message);
     // Evento emesso al momento della registrazione di un consumatore
-    event RetailerRegistered(address indexed walletRetailer, string fullName, string message);
+    event ConsumerRegistered(address indexed walletRetailer, string fullName, string message);
 
-    // We must deploy first : 
-    // - ConsumerStorage 
-    // - ConsumerService 
+    /**
+     * modifier --- OnlyOwner specifica che solo il possessore può effettuare quella chiamata
+     */
+    modifier onlyOwner(address walletRetailer) {
+        require(msg.sender != retailerStorage, "Address Not valid!");
+        require(msg.sender != filieraToken, "Address Not valid!" );
+        require(msg.sender != RetailerOrg ," Address not Valid, it is organization address");
+        require(msg.sender == walletRetailer, "Only the account owner can perform this action");
+        _;
+    }
+
     constructor(address _retailerStorage, address _filieraToken) {
-        retailerStorage = RetailerStorage(_retailerStorage);
+        retailerStorage = ConsumerStorage(_retailerStorage);
         filieraToken = Filieratoken(_filieraToken);
         RetailerOrg = msg.sender;
     }
 
-    // Function to Register Consumer to Application 
-    // Settiamo  - msg.sender come il valore del wallet del Consumer 
+    /**
+     * registerRetailer() registra gli utenti della piattaforma che sono Retailer 
+     * - Inserisce i dati all'interno della Blockchain
+     * - Trasferisce 100 token dal contratto di FilieraToken 
+     * - Emette un evento appena l'utente è stato registrato 
+     *  */ 
     function registerRetailer(string memory fullName, string memory password, string memory email) external {
-        // Verifico che l'address sia diverso da quello di Deploy 
-        require(msg.sender != RetailerOrg,"Address non Valido!");
-        //Call function of Storage 
-        retailerStorage.addUser(fullName, password, email, msg.sender);
 
-        filieraToken.transfer(msg.sender, 100);
+        address walletRetailer = msg.sender;        
+        //Call function of Storage 
+        retailerStorage.addUser(fullName, password, email,walletRetailer);
+
+        filieraToken.transfer(walletRetailer, 100);
 
         // Emit Event on FireFly 
-        emit RetailerRegistered(msg.sender, fullName, "Utente e' stato registrato!");
+        emit ConsumerRegistered(walletRetailer, fullName, "Utente e' stato registrato!");
     }
 
-    function getRetailerData() external view returns (uint256, string memory, string memory, string memory, uint256) {
-        // Call function of Storage 
+    /**
+     * login() effettua la Login con email e password 
+     * - Inserisce l'email e la password 
+     * - return True se l'utente esiste ed ha accesso con le giuste credenziali 
+     * - return False altrimenti 
+     */
+    function login(string email, string password) view returns(bool) {
         address walletRetailer = msg.sender;
-        // Verifico che l'address sia diverso da quello di Deploy 
-        require(walletRetailer != RetailerOrg,"Address non Valido!");
+        
+        return retailerStorage.loginUser(walletRetailer, email, password);
+    }
 
+    /**
+     * getRetailerData() otteniamo i dati del Retailer
+     * - tramite l'address del Retailer riusciamo a visualizzare anche i suoi dati
+     * - Dati sensibili e visibili solo dal Retailer stesso 
+     */
+    function getRetailerData(address walletRetailer) external onlyOwner view returns (uint256, string memory, string memory, string memory, uint256) {
+        // Call function of Storage         
         return retailerStorage.getUser(walletRetailer);
     }
 
 
 
-    // Delete Consumer - we can delete consumer on Blockchain
-    function deleteConsumer() external {
-
-        address walletRetailer = msg.sender;
-        
+    /**
+     * deleteRetailer() elimina un Retailer all'interno del sistema 
+     * - Solo l'owner può effettuare l'eliminazione 
+     * - msg.sender dovrebbe essere solo quello dell'owner 
+     */
+    function deleteRetailer(address walletRetailer) external onlyOwner  {
         require(retailerStorage.deleteUser(walletRetailer), "Errore durante la cancellazione");
         // Burn all token 
         filieraToken.burnToken(walletRetailer, filieraToken.balanceOf(walletRetailer));
         // Emit Event on FireFly 
-        emit RetailerDeleted(walletRetailer,"Utente e' stato eliminato!");
+        emit ConsumerDeleted(walletRetailer,"Utente e' stato eliminato!");
     }
+
+// -------------------------------------------------------------------------------- CheeseProducer -----------------------------------------------------------------------//
+
+    /**
+     * viewRetailer() inseriamo l'address del Retailer per poter visualizzare i dati meno sensibili del Retailer
+     * - Visualizziamo il Retailer ( email , fullname )
+     */
+    function viewRetailer(address walletRetailer) external view returns(string memory,string memory) {
+        // Address dovrebbe essere il ruolo del CheeseProducer 
+        address caller = msg.sender;
+
+        require(address(walletRetailer)!=0, "Address Retailer non valido!");
+        require(address(caller)!=0, "Address non valido!");
+
+        return retailerStorage.getRetailerToCheeseProducer(walletRetailer);
+    }
+
+// --------------------------------------------------------------------------- RetailerInventoryService ----------------------------------------------------//
+
+    function isUserPresent(address walletRetailer) external view returns(bool){
+        return retailerStorage.isUserPresent(walletRetailer);
+    }
+
+
 
 }

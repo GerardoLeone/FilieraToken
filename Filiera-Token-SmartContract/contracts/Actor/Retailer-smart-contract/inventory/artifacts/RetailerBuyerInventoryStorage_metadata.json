@@ -1,0 +1,51 @@
+{
+	"compiler": {
+		"version": "0.8.22+commit.4fc1097e"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"Filiera-Token-SmartContract/contracts/Actor/Retailer-smart-contract/inventory/RetailerBuyerInventoryStorage.sol": "RetailerBuyerInventoryStorage"
+		},
+		"evmVersion": "shanghai",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"Filiera-Token-SmartContract/contracts/Actor/Retailer-smart-contract/inventory/RetailerBuyerInventoryStorage.sol": {
+			"keccak256": "0xd2b0ed99b9d5ba8670862292653822c7fd97763cf754947f34437b821d65e826",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://22df21968e5274ac75be91672db8a50d0c6f04ce2f141bc5952f1c7082b9c2a6",
+				"dweb:/ipfs/QmP3s2LfJ6rcNG8AxkvGKYPcGiqtB2JXjtCzp7uaJLXoEH"
+			]
+		}
+	},
+	"version": 1
+}

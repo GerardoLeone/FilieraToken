@@ -26,7 +26,7 @@ contract Filieratoken is ERC20 {
 
   // Funzione per trasferire token da un utente all'altro
   function transfer(address to, uint256 amount) public  override returns (bool) {
-     super.transferFrom(address(this), to, amount);
+     super._transfer(address(this), to, amount);
      return true;
   }
 

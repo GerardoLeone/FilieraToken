@@ -469,7 +469,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/Actor/Filieratoken.sol": "Filieratoken"
+			"Filiera-Token-SmartContract/contracts/Actor/Filieratoken.sol": "Filieratoken"
 		},
 		"evmVersion": "shanghai",
 		"libraries": {},
@@ -523,12 +523,12 @@
 				"dweb:/ipfs/Qmax9WHBnVsZP46ZxEMNRQpLQnrdE4dK8LehML1Py8FowF"
 			]
 		},
-		"contracts/Actor/Filieratoken.sol": {
-			"keccak256": "0x821562b38c33b79f4e8bd063e71e7d35268477f5595af8344ebbd0a24a2a3c6d",
+		"Filiera-Token-SmartContract/contracts/Actor/Filieratoken.sol": {
+			"keccak256": "0x8978701e5bfd18d1cc41e0b2e381875e74928bc36f6884388e6d9feb09105127",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://4b576fa6733046e260ec98187f9d79deacffc7d238a062374aa268753d860f48",
-				"dweb:/ipfs/QmZti619VrEEBXzEZ2Hcg5nJKLFiXGWj7LQ1GxuH2JDVoa"
+				"bzz-raw://ec3150a4727bd9a8d4ff958985f73e1ce7a57912143af04f4ec2124a27739d6b",
+				"dweb:/ipfs/QmUpC9HGJD4fDYi6RJCF9T7H6gpHhYJzuVNDjgDzjZ2kVu"
 			]
 		}
 	},

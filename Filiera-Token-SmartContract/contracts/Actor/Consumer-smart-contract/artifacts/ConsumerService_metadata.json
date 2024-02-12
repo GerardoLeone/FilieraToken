@@ -237,7 +237,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/Actor/Consumer-smart-contract/ConsumerService.sol": "ConsumerService"
+			"Filiera-Token-SmartContract/contracts/Actor/Consumer-smart-contract/ConsumerService.sol": "ConsumerService"
 		},
 		"evmVersion": "shanghai",
 		"libraries": {},
@@ -291,7 +291,7 @@
 				"dweb:/ipfs/Qmax9WHBnVsZP46ZxEMNRQpLQnrdE4dK8LehML1Py8FowF"
 			]
 		},
-		"contracts/Actor/Consumer-smart-contract/ConsumerService.sol": {
+		"Filiera-Token-SmartContract/contracts/Actor/Consumer-smart-contract/ConsumerService.sol": {
 			"keccak256": "0x92b48bde8dbc16fc6354c2ab2fe685182a9f05f69208b4a9e108bc8f3f93fdb4",
 			"license": "MIT",
 			"urls": [
@@ -299,7 +299,7 @@
 				"dweb:/ipfs/QmNzjpjLLJzDNqHrMqGXda6f7DGdCW5SG2wvE22cPHdF63"
 			]
 		},
-		"contracts/Actor/Consumer-smart-contract/ConsumerStorage.sol": {
+		"Filiera-Token-SmartContract/contracts/Actor/Consumer-smart-contract/ConsumerStorage.sol": {
 			"keccak256": "0x8cb680a7cb08d5cc0c7c886e636490675f9b4231f76a5e83611d149fafaa7d6a",
 			"license": "MIT",
 			"urls": [
@@ -307,15 +307,15 @@
 				"dweb:/ipfs/QmdPeAfVUSxVq542ZUApNdBvX4eSviPy5mP6XUvQpVHWYC"
 			]
 		},
-		"contracts/Actor/Filieratoken.sol": {
-			"keccak256": "0x62b7dce6b0178ef403707b824177c327ef802fe2c58bc8f54c0137bfe7b669b9",
+		"Filiera-Token-SmartContract/contracts/Actor/Filieratoken.sol": {
+			"keccak256": "0x821562b38c33b79f4e8bd063e71e7d35268477f5595af8344ebbd0a24a2a3c6d",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://94fdb8fa2e0bc18561641cb381b005b273e1c1418f23cdad3872306e4c828835",
-				"dweb:/ipfs/QmZ98d4JSmvuVjBeqtNRHNDCCjxYFDsbiFqSC5cqrQEdZt"
+				"bzz-raw://4b576fa6733046e260ec98187f9d79deacffc7d238a062374aa268753d860f48",
+				"dweb:/ipfs/QmZti619VrEEBXzEZ2Hcg5nJKLFiXGWj7LQ1GxuH2JDVoa"
 			]
 		},
-		"contracts/Actor/IUserStorageInterface.sol": {
+		"Filiera-Token-SmartContract/contracts/Actor/IUserStorageInterface.sol": {
 			"keccak256": "0x189fa5db899f0a31af11fdee9ce97b8e30fe427e719f0714a4dc8a43ffa5535f",
 			"license": "MIT",
 			"urls": [

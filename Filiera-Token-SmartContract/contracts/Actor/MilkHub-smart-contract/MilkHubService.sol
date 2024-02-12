@@ -25,9 +25,9 @@ contract MilkHubService {
      * modifier --- OnlyOwner specifica che solo il possessore può effettuare quella chiamata
      */
     modifier onlyOwner(address walletMilkHub) {
-        require(msg.sender != address(milkhubStorage), "Address Not valid!");
-        require(msg.sender != address(filieraToken), "Address Not valid!" );
-        require(msg.sender != MilkHubOrg ," Address not Valid, it is organization address");
+        require(msg.sender == address(milkhubStorage), "Address Not valid!");
+        require(msg.sender == address(filieraToken), "Address Not valid!" );
+        require(msg.sender == MilkHubOrg ," Address not Valid, it is organization address");
         require(msg.sender == walletMilkHub, "Only the account owner can perform this action");
         _;
     }

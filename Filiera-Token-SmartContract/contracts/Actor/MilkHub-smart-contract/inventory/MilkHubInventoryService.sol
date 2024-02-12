@@ -32,9 +32,9 @@ contract MilkHubInventoryService {
     // Modifica il comportamento della funzione applicando una particolare condizione e un particolare comportamento aggiuntivo
     modifier onlyIfUserPresent() {
 
-        require(msg.sender != MilkHubOrg, "Address not valid!");
-        require(msg.sender != address(milkhubInventoryStorage), "Address not valid of Inventory Storage");
-        require(msg.sender != address(milkhubService),"Address not valid of Service");
+        require(msg.sender == MilkHubOrg, "Address not valid!");
+        require(msg.sender == address(milkhubInventoryStorage), "Address not valid of Inventory Storage");
+        require(msg.sender == address(milkhubService),"Address not valid of Service");
         require(milkhubService.isUserPresent(msg.sender), "User is not present in data");
         _;
     }
@@ -52,7 +52,7 @@ contract MilkHubInventoryService {
     function addMilkBatch(string memory _scadenza, uint256 _quantity, uint256 _price) external onlyIfUserPresent {
         address walletMilkHub = msg.sender;
         // Verifico che l'address sia diverso da quello di Deploy 
-        require(walletMilkHub != MilkHubOrg,"Address non Valido!");
+        require(walletMilkHub == MilkHubOrg,"Address non Valido!");
         //Call function of Storage 
         milkhubInventoryStorage.addMilkBatch(walletMilkHub, _scadenza, _quantity, _price);
         // Emissione dell'evento 
@@ -113,13 +113,13 @@ contract MilkHubInventoryService {
 
 
 
-    /**
+   /**
     * Vendi un MilkBatch attraverso l'id 
     */
     function sellMilkBatch(uint256 _id, address ownerMilkBatch,uint256 quantityToDecrease) external {
         
          
-    }
+    } 
 
     /**
     * Decremento della quantità del MilkBatch 

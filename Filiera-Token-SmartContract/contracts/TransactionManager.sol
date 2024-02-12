@@ -3,11 +3,10 @@ pragma solidity ^0.8.21;
 
 
 
-import "contracts/Actor/Filieratoken.sol";
+import "./Actor/Filieratoken.sol";
 
-import "contracts/Actor/MilkHub-smart-contract/inventory/MilkHubInventoryService.sol";
-import "contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerMilkBatchService.sol";
-
+import "./Actor/MilkHub-smart-contract/inventory/MilkHubInventoryService.sol";
+import "./Actor/CheeseProducer-smart-contract/inventory/CheeseProducerMilkBatchService.sol";
 
 
 contract TransactionManager {

@@ -1,0 +1,152 @@
+{
+	"compiler": {
+		"version": "0.8.22+commit.4fc1097e"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletConsumer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "id_cheesePiece_ref",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "_dop",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_quantity",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_price",
+						"type": "uint256"
+					}
+				],
+				"name": "addCheesePiece",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletConsumer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
+				"name": "deleteCheesePiece",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "value",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletConsumer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
+				"name": "getCheesePiece",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"Filiera-Token-SmartContract/contracts/Actor/Consumer-smart-contract/inventory/ConsumerInventoryStorage.sol": "ConsumerInventoryStorage"
+		},
+		"evmVersion": "shanghai",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"Filiera-Token-SmartContract/contracts/Actor/Consumer-smart-contract/inventory/ConsumerInventoryStorage.sol": {
+			"keccak256": "0x3296247f5c2717d6c2ee3aa3b2cc0846b277cb43c54aa443a3edb504849c4a2f",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://1454370fda956e77a631945cf8bbd570d0ef94b38f61e71e13b5ee4333d30d9c",
+				"dweb:/ipfs/QmNkz75JoRPsEzzaLFNcttq27hthaWrGcGD3pvR7RyBxzF"
+			]
+		}
+	},
+	"version": 1
+}

@@ -1,0 +1,179 @@
+{
+	"compiler": {
+		"version": "0.8.22+commit.4fc1097e"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_cheeseProducerInventoryStorage",
+						"type": "address"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "userAddress",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "dop",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "quantity",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "price",
+						"type": "uint256"
+					}
+				],
+				"name": "CheeseBlockAdded",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "userAddress",
+						"type": "address"
+					}
+				],
+				"name": "CheeseBlockDeleted",
+				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
+				"name": "fetchCheeseBlock",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_dop",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_quantity",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_price",
+						"type": "uint256"
+					}
+				],
+				"name": "insertCheeseBlock",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
+				"name": "removeCheeseBlock",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"Filiera-Token-SmartContract/contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerInventoryService.sol": "CheeseProducerInventoryService"
+		},
+		"evmVersion": "shanghai",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"Filiera-Token-SmartContract/contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerInventoryService.sol": {
+			"keccak256": "0xb638792290e396fb93635794c0ffe7e3915342c3aa160262b8e79f11b467f549",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://0cef3f8fe50933a21316557dd9c0ed5009c86a8e926bec029a3ea9a5da6a0291",
+				"dweb:/ipfs/QmR6tbT5xXRnbvcFrzUDbk7hrWFRSQ3T4ydeXfbFkYPUes"
+			]
+		},
+		"Filiera-Token-SmartContract/contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerInventoryStorage.sol": {
+			"keccak256": "0x470511f29bf7a3b4298bf565aa5c829617d436f302a17f7a43187cef3be9597e",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://3e98c5859b27facef067451f16f14a71598d56e1b4e238882104030aa015f92a",
+				"dweb:/ipfs/QmWwB283ZTA2prigPTdLgFByfcB74DVnA7xDADq8AFUQUX"
+			]
+		}
+	},
+	"version": 1
+}

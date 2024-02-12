@@ -210,11 +210,11 @@
 	},
 	"sources": {
 		"Filiera-Token-SmartContract/contracts/Actor/CheeseProducer-smart-contract/CheeseProducerStorage.sol": {
-			"keccak256": "0x7955633a4daa5237686198c856f9a335b776f4895e4d433be120e7a11d37dd91",
+			"keccak256": "0x761d572a59f1b814ba26e0a9ce9608a088b5ffa13b949cc81d83bc2616a6541f",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://c9e42d0dde328c58bb978ed81b204b1f8cf2187e7a79f4872d6abe517609c063",
-				"dweb:/ipfs/QmTMbHKTmvLeysRtKZXhsrojKwwmKmn76Z96P9abzdUv8X"
+				"bzz-raw://ed9477e80ba596b2489d8ad2753a23b16c817a55b11788131bbaaf52c5343cf9",
+				"dweb:/ipfs/QmQsmSvgxGKSvxTSCzUixgciwfEk4NY4v4DLvFVWqZ2Bxe"
 			]
 		},
 		"Filiera-Token-SmartContract/contracts/Actor/IUserStorageInterface.sol": {

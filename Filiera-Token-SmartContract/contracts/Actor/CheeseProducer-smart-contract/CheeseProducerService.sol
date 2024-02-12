@@ -24,9 +24,9 @@ contract CheeseProducerService {
      * modifier --- OnlyOwner specifies that only the owner can make that call
      */
     modifier onlyOwner(address walletCheeseProducer) {
-        require(msg.sender != address(cheeseProducerStorage), "Address Not valid!");
-        require(msg.sender != address(filieraToken), "Address Not valid!" );
-        require(msg.sender != CheeseProducerOrg ," Address not Valid, it is organization address");
+        require(msg.sender == address(cheeseProducerStorage), "Address Not valid!");
+        require(msg.sender == address(filieraToken), "Address Not valid!" );
+        require(msg.sender == CheeseProducerOrg ," Address not Valid, it is organization address");
         require(msg.sender == walletCheeseProducer, "Only the account owner can perform this action");
         _;
     }

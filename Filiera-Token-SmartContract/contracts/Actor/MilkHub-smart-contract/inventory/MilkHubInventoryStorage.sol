@@ -77,4 +77,43 @@ contract MilkHubInventoryStorage {
             return false;
         }
     }
+
+
+
+
+// ------------------------------------------------------------------ Transaction Manager ---------------------------------------------------------//
+
+    /** Decremento della quantità del MilkBatch 
+    */
+    function detractMilkBatchQuantity(address walletMilkHub, uint256 _id, uint256 _quantity) external returns(bool value) {
+
+        require(milkBatches[walletMilkHub][_id].id != 0, "Partita di Latte non presente!");
+
+        require(milkBatches[walletMilkHub][_id].quantity >= _quantity, "Quantita' inserita non disponibile!");
+
+        milkBatches[walletMilkHub][_id].quantity = milkBatches[walletMilkHub][_id].quantity - _quantity;
+        // Check Quantity is zero -> delete element 
+        if(milkBatches[walletMilkHub][_id].quantity == 0){
+            return this.deleteMilkBatch(walletMilkHub, _id);
+        }
+        return true;
+    }
+
+
+
+    function checkProduct(address ownerMilkBatch, uint256 _id_MilkBatch, uint256 quantityToBuy) external view  returns (bool){
+            
+            require(milkBatches[ownerMilkBatch][_id_MilkBatch].id != 0, "Product non presente!");
+
+            MilkBatch storage milkBatchObj = milkBatches[ownerMilkBatch][_id_MilkBatch];
+
+            require(milkBatchObj.id == _id_MilkBatch, "ID product not Valid!");
+            require(milkBatchObj.quantity >= quantityToBuy, "Quantity not Valid!");
+            return true;
+    }
+
+
+
+
+
 }

@@ -112,6 +112,24 @@
 						"internalType": "uint256",
 						"name": "_id",
 						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_quantity",
+						"type": "uint256"
+					}
+				],
+				"name": "decreaseMilkBatchQuantity",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
 					}
 				],
 				"name": "deleteMilkBatch",
@@ -158,6 +176,29 @@
 				],
 				"stateMutability": "view",
 				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "ownerMilkBatch",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "quantityToDecrease",
+						"type": "uint256"
+					}
+				],
+				"name": "sellMilkBatch",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
 			}
 		],
 		"devdoc": {
@@ -173,6 +214,9 @@
 				},
 				"getMilkBatch(uint256)": {
 					"notice": "Ottenere le informazioni del milkbatch attraverso :  - ID  "
+				},
+				"sellMilkBatch(uint256,address,uint256)": {
+					"notice": "Vendi un MilkBatch attraverso l'id "
 				}
 			},
 			"version": 1
@@ -267,19 +311,19 @@
 			]
 		},
 		"contracts/Actor/MilkHub-smart-contract/inventory/MilkHubInventoryService.sol": {
-			"keccak256": "0x59b5b89a7b72d83da44cf75a973ad41df069e36a13da9b004557e229ed8a9259",
+			"keccak256": "0xcbc29ced662f2287b1fc7c8ca8fd3e5df1e0ef176f65f74fea3103cf5b86e4c0",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://bcb6c44293fca377c11cc527bcfa04d7d00d8ba6db0d934e7c18bc9facc8125b",
-				"dweb:/ipfs/QmXBAKaxMueqAcmAsnKiacCZ9DwVyf1sfpgFwVSAV8VsHa"
+				"bzz-raw://1a89e295a42cbba415acc2385ea13f72451c6f826367d6d29df7193b69f60014",
+				"dweb:/ipfs/Qmb3jK49bNhk6ruHUS3kJmeqdFwKNR9t9LC8M2nmkJp3fb"
 			]
 		},
 		"contracts/Actor/MilkHub-smart-contract/inventory/MilkHubInventoryStorage.sol": {
-			"keccak256": "0xb558e659a9277934fcadaf5edf9cf4ffd4a6229a398cc4dffb04b48cf0c4e2b8",
+			"keccak256": "0xe7f82de7ad58c5de978753bd9475e8594d0678b5fbb5d6c3450def0cc03981ed",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://f9586c06194c5a3871e65876aa40fe9e51c8b7f81b96bc76161ec17d591e8723",
-				"dweb:/ipfs/QmP2BMUtynaesYHdzh8o1KMgvix7nZX7TX9qgguxyrCKpr"
+				"bzz-raw://b8d422090a9bd5a3cb6a9b0b07d048cb952c986be37dc5eaa8917f2868317611",
+				"dweb:/ipfs/QmQqvpW14k4osjbGHf6tYY92uH4zUNKRR9p7nqwxyeDXfX"
 			]
 		}
 	},

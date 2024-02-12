@@ -57,9 +57,8 @@ contract TransactionManager {
         milkhubInventoryService.decreaseMilkBatchQuantity(ownerMilkBatch, _id_MilkBatch, _quantityToBuy);
 
         // Creazione dell'elemento del MilkBatch all'interno dell'inventory 
-
+        string memory expirationDate = milkhubInventoryService.getExpirationDate(ownerMilkBatch, _id_MilkBatch);
+        cheeseProducerMilkBatchService.insertMilkBatch(ownerMilkBatch, expirationDate, _quantityToBuy);
     }
-
-
 
 }

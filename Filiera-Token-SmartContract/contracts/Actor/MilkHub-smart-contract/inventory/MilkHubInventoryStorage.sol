@@ -78,10 +78,16 @@ contract MilkHubInventoryStorage {
         }
     }
 
+    function checkProduct(address ownerMilkBatch, uint256 _id_MilkBatch, uint256 quantityToBuy) external view  returns (bool){
 
+            require(milkBatches[ownerMilkBatch][_id_MilkBatch].id != 0, "Product non presente!");
 
+            MilkBatch storage milkBatchObj = milkBatches[ownerMilkBatch][_id_MilkBatch];
 
-// ------------------------------------------------------------------ Transaction Manager ---------------------------------------------------------//
+            require(milkBatchObj.id == _id_MilkBatch, "ID product not Valid!");
+            require(milkBatchObj.quantity >= quantityToBuy, "Quantity not Valid!");
+            return true;
+    }
 
     /** Decremento della quantità del MilkBatch 
     */
@@ -99,21 +105,26 @@ contract MilkHubInventoryStorage {
         return true;
     }
 
+    function getExpirationDate(address walletMilkHub, uint256 _id) external view returns(string memory) {
+        require(milkBatches[walletMilkHub][_id].id != 0, "Partita di Latte non presente!");
 
-
-    function checkProduct(address ownerMilkBatch, uint256 _id_MilkBatch, uint256 quantityToBuy) external view  returns (bool){
-            
-            require(milkBatches[ownerMilkBatch][_id_MilkBatch].id != 0, "Product non presente!");
-
-            MilkBatch storage milkBatchObj = milkBatches[ownerMilkBatch][_id_MilkBatch];
-
-            require(milkBatchObj.id == _id_MilkBatch, "ID product not Valid!");
-            require(milkBatchObj.quantity >= quantityToBuy, "Quantity not Valid!");
-            return true;
+        MilkBatch memory milkBatch = milkBatches[walletMilkHub][_id];
+        return milkBatch.scadenza;        
     }
 
+    function getQuantity(address walletMilkHub, uint256 _id) external view returns(uint256) {
+        require(milkBatches[walletMilkHub][_id].id != 0, "Partita di Latte non presente!");
 
+        MilkBatch memory milkBatch = milkBatches[walletMilkHub][_id];
+        return milkBatch.quantity;        
+    }
 
+    function getPrice(address walletMilkHub, uint256 _id) external view returns(uint256) {
+        require(milkBatches[walletMilkHub][_id].id != 0, "Partita di Latte non presente!");
 
+        MilkBatch memory milkBatch = milkBatches[walletMilkHub][_id];
+        return milkBatch.price;        
+    }
 
+    
 }

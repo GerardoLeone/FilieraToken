@@ -45,7 +45,7 @@ contract MilkHubInventoryStorage {
     }
 
     // Get CheesePiece -> address of  
-    function getMilkBatch(address walletMilkHub, uint256 _id) external view returns (uint256, string memory, uint256, uint256, uint256) {
+    function getMilkBatch(address walletMilkHub, uint256 _id) external view returns (uint256, string memory, uint256, uint256) {
 
         require( milkBatches[walletMilkHub][_id].id != 0, "Partita di Latte non presente!");
 

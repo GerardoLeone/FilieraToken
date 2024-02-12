@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import "./MilkHubInventoryStorage.sol";
-import "./MilkHubService.sol";
+import "../MilkHubService.sol";
 
 
 contract MilkHubInventoryService {
@@ -17,7 +17,7 @@ contract MilkHubInventoryService {
     constructor(address _milkhubInventoryStorage, address _milkhubService){
         MilkHubOrg = msg.sender;
         milkhubInventoryStorage = MilkHubInventoryStorage(_milkhubInventoryStorage);
-        milkhubService = _milkhubService;
+        milkhubService = MilkHubService(_milkhubService);
     }
 
     // Eventi per notificare l'aggiunta e l'eliminazione dei dati
@@ -29,8 +29,8 @@ contract MilkHubInventoryService {
     modifier onlyIfUserPresent() {
 
         require(msg.sender != MilkHubOrg, "Address not valid!");
-        require(msg.sender != milkhubInventoryStorage, "Address not valid of Inventory Storage");
-        require(msg.sender != milkhubService,"Address not valid of Service");
+        require(msg.sender != address(milkhubInventoryStorage), "Address not valid of Inventory Storage");
+        require(msg.sender != address(milkhubService),"Address not valid of Service");
         require(milkhubService.isUserPresent(msg.sender), "User is not present in data");
         _;
     }
@@ -48,7 +48,7 @@ contract MilkHubInventoryService {
     function addMilkBatch(string memory _scadenza, uint256 _quantity, uint256 _price) external onlyIfUserPresent {
         address walletMilkHub = msg.sender;
         // Verifico che l'address sia diverso da quello di Deploy 
-        require(walletMilkHub != ConsumerOrg,"Address non Valido!");
+        require(walletMilkHub != MilkHubOrg,"Address non Valido!");
         //Call function of Storage 
         milkhubInventoryStorage.addMilkBatch(walletMilkHub, _scadenza, _quantity, _price);
         // Emissione dell'evento 
@@ -59,7 +59,7 @@ contract MilkHubInventoryService {
      * Ottenere le informazioni del milkbatch attraverso : 
      * - ID 
      * */  
-    function getMilkBatch(uint256 _id) external  view returns (uint256, string memory, uint256, uint256, uint256)  {
+    function getMilkBatch(uint256 _id) external  view returns (uint256, string memory, uint256, uint256)  {
         // Retrieve msg.sender 
         address walletMilkHub = msg.sender;
 
@@ -76,7 +76,7 @@ contract MilkHubInventoryService {
         // Retrieve msg.sender 
         address walletMilkHub = msg.sender;
 
-        if(milkhubInventoryStorage.deleteMilkBatch(walletConsumer,_id)){
+        if(milkhubInventoryStorage.deleteMilkBatch(walletMilkHub,_id)){
             emit MilkBatchDeleted(walletMilkHub,_id,"Pezzo di Formaggio e' stato eleminato");
             return true;
         }else {

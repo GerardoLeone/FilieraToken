@@ -195,7 +195,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"Filiera-Token-SmartContract/contracts/Actor/MilkHub-smart-contract/MilkHubStorage.sol": "MilkHubStorage"
+			"contracts/Actor/MilkHub-smart-contract/MilkHubStorage.sol": "MilkHubStorage"
 		},
 		"evmVersion": "shanghai",
 		"libraries": {},
@@ -209,7 +209,7 @@
 		"remappings": []
 	},
 	"sources": {
-		"Filiera-Token-SmartContract/contracts/Actor/IUserStorageInterface.sol": {
+		"contracts/Actor/IUserStorageInterface.sol": {
 			"keccak256": "0x189fa5db899f0a31af11fdee9ce97b8e30fe427e719f0714a4dc8a43ffa5535f",
 			"license": "MIT",
 			"urls": [
@@ -217,7 +217,7 @@
 				"dweb:/ipfs/QmbobmrLhM78V7udeRfaFF3DCXR7TEp9hsQBxgbMYgunHM"
 			]
 		},
-		"Filiera-Token-SmartContract/contracts/Actor/MilkHub-smart-contract/MilkHubStorage.sol": {
+		"contracts/Actor/MilkHub-smart-contract/MilkHubStorage.sol": {
 			"keccak256": "0xd5eea10bd86fff9bdee70ee4e83f028ddb4f72b66383c8bc41c051123febfb48",
 			"license": "MIT",
 			"urls": [

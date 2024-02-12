@@ -99,7 +99,17 @@ contract MilkHubInventoryService {
     }
 
 
+    function getExpirationDate(address walletMilkHub, uint256 _id) external view returns(string memory) {
+        return milkhubInventoryStorage.getExpirationDate(walletMilkHub,_id);        
+    }
 
+    function getQuantity(address walletMilkHub, uint256 _id) external view returns(uint256) {
+        return milkhubInventoryStorage.getQuantity(walletMilkHub,_id);        
+    }
+
+    function getPrice(address walletMilkHub, uint256 _id) external view returns(uint256) {
+        return milkhubInventoryStorage.getPrice(walletMilkHub,_id);        
+    }
 
 
 

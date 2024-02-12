@@ -199,6 +199,30 @@
 			{
 				"inputs": [
 					{
+						"internalType": "address",
+						"name": "walletMilkHub",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
+				"name": "getExpirationDate",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "uint256",
 						"name": "_id",
 						"type": "uint256"
@@ -221,6 +245,54 @@
 						"name": "",
 						"type": "uint256"
 					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletMilkHub",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
+				"name": "getPrice",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletMilkHub",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
+				"name": "getQuantity",
+				"outputs": [
 					{
 						"internalType": "uint256",
 						"name": "",
@@ -280,7 +352,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"Filiera-Token-SmartContract/contracts/Actor/MilkHub-smart-contract/inventory/MilkHubInventoryService.sol": "MilkHubInventoryService"
+			"contracts/Actor/MilkHub-smart-contract/inventory/MilkHubInventoryService.sol": "MilkHubInventoryService"
 		},
 		"evmVersion": "shanghai",
 		"libraries": {},
@@ -334,7 +406,7 @@
 				"dweb:/ipfs/Qmax9WHBnVsZP46ZxEMNRQpLQnrdE4dK8LehML1Py8FowF"
 			]
 		},
-		"Filiera-Token-SmartContract/contracts/Actor/Filieratoken.sol": {
+		"contracts/Actor/Filieratoken.sol": {
 			"keccak256": "0x821562b38c33b79f4e8bd063e71e7d35268477f5595af8344ebbd0a24a2a3c6d",
 			"license": "MIT",
 			"urls": [
@@ -342,7 +414,7 @@
 				"dweb:/ipfs/QmZti619VrEEBXzEZ2Hcg5nJKLFiXGWj7LQ1GxuH2JDVoa"
 			]
 		},
-		"Filiera-Token-SmartContract/contracts/Actor/IUserStorageInterface.sol": {
+		"contracts/Actor/IUserStorageInterface.sol": {
 			"keccak256": "0x189fa5db899f0a31af11fdee9ce97b8e30fe427e719f0714a4dc8a43ffa5535f",
 			"license": "MIT",
 			"urls": [
@@ -350,7 +422,7 @@
 				"dweb:/ipfs/QmbobmrLhM78V7udeRfaFF3DCXR7TEp9hsQBxgbMYgunHM"
 			]
 		},
-		"Filiera-Token-SmartContract/contracts/Actor/MilkHub-smart-contract/MilkHubService.sol": {
+		"contracts/Actor/MilkHub-smart-contract/MilkHubService.sol": {
 			"keccak256": "0xb181d265bf46f7202b0ec1665fa00a721ce4f3e6022fe95291c98f47f8cd2752",
 			"license": "MIT",
 			"urls": [
@@ -358,7 +430,7 @@
 				"dweb:/ipfs/QmZ8HtmQZTVeD1J5BazYbhBF6B9uiQcFk9ch6HQoJtunGZ"
 			]
 		},
-		"Filiera-Token-SmartContract/contracts/Actor/MilkHub-smart-contract/MilkHubStorage.sol": {
+		"contracts/Actor/MilkHub-smart-contract/MilkHubStorage.sol": {
 			"keccak256": "0xd5eea10bd86fff9bdee70ee4e83f028ddb4f72b66383c8bc41c051123febfb48",
 			"license": "MIT",
 			"urls": [
@@ -366,15 +438,15 @@
 				"dweb:/ipfs/QmTQqj1Du11yJ9ihkHuPSZFGXmyF4QDajWnWL1LVe1EhWz"
 			]
 		},
-		"Filiera-Token-SmartContract/contracts/Actor/MilkHub-smart-contract/inventory/MilkHubInventoryService.sol": {
-			"keccak256": "0xd457aa2153304d90d32fee7aa9d8d508b73ab810caf792ceceac057951cacad2",
+		"contracts/Actor/MilkHub-smart-contract/inventory/MilkHubInventoryService.sol": {
+			"keccak256": "0x934fdab3a37d8e501844cb5716d6aea93a89bec69823795efc6567cd87e15d09",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://389ae60c32da67fcfad6d2a4fb934cec14bd2328bd21366f4160a5fc715c5185",
-				"dweb:/ipfs/QmNd48Ts4f5r59minuahSG41ZxjPjD8b6EFuER2rUXdJJx"
+				"bzz-raw://79b62d6fe3d8887b4b75a0678d3f08c1eef1e70dc4bde934edc363f666bbc33d",
+				"dweb:/ipfs/Qmbss44fYUxGyCBYhRvSbaUESLfu9hsUrrbo2u7w2hHs1p"
 			]
 		},
-		"Filiera-Token-SmartContract/contracts/Actor/MilkHub-smart-contract/inventory/MilkHubInventoryStorage.sol": {
+		"contracts/Actor/MilkHub-smart-contract/inventory/MilkHubInventoryStorage.sol": {
 			"keccak256": "0xe715475ce68b11f40d8d5251387db6fb6a4d3df2c01fccd795f60b86324979f4",
 			"license": "MIT",
 			"urls": [

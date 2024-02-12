@@ -59,7 +59,7 @@ contract MilkHubInventoryService {
      * Ottenere le informazioni del milkbatch attraverso : 
      * - ID 
      * */  
-    function getMilkBatch(uint256 _id) external  onlyIfUserPresent  view returns (uint256, string memory, uint256, uint256, uint256)  {
+    function getMilkBatch(uint256 _id) external  view returns (uint256, string memory, uint256, uint256, uint256)  {
         // Retrieve msg.sender 
         address walletMilkHub = msg.sender;
 

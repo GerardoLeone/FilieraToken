@@ -2,7 +2,7 @@
 pragma solidity ^0.8.21;
 
 
-import "./IUserStorageInterface.sol";
+import "../IUserStorageInterface.sol";
 
 
 contract MilkHubStorage is IUserStorageInterface {
@@ -37,7 +37,7 @@ contract MilkHubStorage is IUserStorageInterface {
         
         // Genera l'ID manualmente utilizzando keccak256
         bytes32 idHash = keccak256(abi.encodePacked(_fullName, _password, _email, walletMilkHub));
-        uint256 id = uint256(idHash);
+        uint256 lastIdMilkHub = uint256(idHash);
 
         require(milkhubs[walletMilkHub].id == 0, "MilkHub already registered");
         require(bytes(_fullName).length > 0, "Full name cannot be empty");
@@ -45,7 +45,7 @@ contract MilkHubStorage is IUserStorageInterface {
         require(bytes(_email).length > 0, "Email cannot be empty");
         
         // Crea un nuovo consumatore con l'ID univoco
-        MilkHub memory newMilkHub = Retailer({
+        MilkHub memory newMilkHub = MilkHub({
             id: lastIdMilkHub,
             fullName: _fullName,
             password: _password,
@@ -64,7 +64,7 @@ contract MilkHubStorage is IUserStorageInterface {
      */
     function loginUser(address walletMilkHub, string memory _email, string memory _password) external view returns(bool){
 
-        require(address(walletMilkHub)!=0, "Address utilizzato non valido, pari a 0!");
+        require(address(walletMilkHub)!= address(0), "Address utilizzato non valido, pari a 0!");
         // Verifico che il walletMilkHub non sia l'address che ha deployato il contratto
         require(walletMilkHub != MilkHubOrg,"Address non Valido!");
         // Verifica che l'utente esista all'interno della Lista dei MilkHub 
@@ -124,7 +124,7 @@ contract MilkHubStorage is IUserStorageInterface {
      * getMilkHubToCheeseProducer() otteniamo le informazioni sensibili per un singolo cheeseProducer 
      * - email e fullName 
      */
-    function getMilkHubToCheeseProducer(address walletMilkHub) view returns (string memory, string memory){
+    function getMilkHubToCheeseProducer(address walletMilkHub) external view returns (string memory, string memory){
         // Check exists walletMilkHub
         require(milkhubs[walletMilkHub].id!=0, "Utente non presente!");
 
@@ -136,7 +136,7 @@ contract MilkHubStorage is IUserStorageInterface {
 // ------------------------------------------------------------------------ MilkHubInventoryService ----------------------------------------------------------//
 
     function isUserPresent(address walletMilkHub) external view returns(bool){
-        require(address(walletMilkHub)!=0, "Address MilkHub non valido!");
+        require(address(walletMilkHub)!= address(0), "Address MilkHub non valido!");
         
         return milkhubs[walletMilkHub].id!=0;
     }

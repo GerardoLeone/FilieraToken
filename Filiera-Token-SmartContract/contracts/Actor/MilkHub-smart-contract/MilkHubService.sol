@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import "./MilkHubStorage.sol";
-import "./Filieratoken.sol";
+import "../Filieratoken.sol";
 
 
 contract MilkHubService {
@@ -25,15 +25,15 @@ contract MilkHubService {
      * modifier --- OnlyOwner specifica che solo il possessore può effettuare quella chiamata
      */
     modifier onlyOwner(address walletMilkHub) {
-        require(msg.sender != milkhubStorage, "Address Not valid!");
-        require(msg.sender != filieraToken, "Address Not valid!" );
+        require(msg.sender != address(milkhubStorage), "Address Not valid!");
+        require(msg.sender != address(filieraToken), "Address Not valid!" );
         require(msg.sender != MilkHubOrg ," Address not Valid, it is organization address");
         require(msg.sender == walletMilkHub, "Only the account owner can perform this action");
         _;
     }
 
     constructor(address _milkhubStorage, address _filieraToken) {
-        milkhubStorage = ConsumerStorage(_milkhubStorage);
+        milkhubStorage = MilkHubStorage(_milkhubStorage);
         filieraToken = Filieratoken(_filieraToken);
         MilkHubOrg = msg.sender;
     }
@@ -62,7 +62,7 @@ contract MilkHubService {
      * - return True se l'utente esiste ed ha accesso con le giuste credenziali 
      * - return False altrimenti 
      */
-    function login(string email, string password) view returns(bool) {
+    function login(string memory email, string memory password) external view returns(bool) {
         address walletMilkHub = msg.sender;
         
         return milkhubStorage.loginUser(walletMilkHub, email, password);
@@ -73,7 +73,7 @@ contract MilkHubService {
      * - tramite l'address del MilkHub riusciamo a visualizzare anche i suoi dati
      * - Dati sensibili e visibili solo dal MilkHub stesso 
      */
-    function getMilkHubData(address walletMilkHub) external onlyOwner view returns (uint256, string memory, string memory, string memory, uint256) {
+    function getMilkHubData(address walletMilkHub) external onlyOwner(walletMilkHub) view returns (uint256, string memory, string memory, string memory, uint256) {
         // Call function of Storage         
         return milkhubStorage.getUser(walletMilkHub);
     }
@@ -85,7 +85,7 @@ contract MilkHubService {
      * - Solo l'owner può effettuare l'eliminazione 
      * - msg.sender dovrebbe essere solo quello dell'owner 
      */
-    function deleteMilkHub(address walletMilkHub) external onlyOwner  {
+    function deleteMilkHub(address walletMilkHub) external onlyOwner(walletMilkHub)  {
         require(milkhubStorage.deleteUser(walletMilkHub), "Errore durante la cancellazione");
         // Burn all token 
         filieraToken.burnToken(walletMilkHub, filieraToken.balanceOf(walletMilkHub));
@@ -103,8 +103,8 @@ contract MilkHubService {
         // Address dovrebbe essere il ruolo del CheeseProducer 
         address caller = msg.sender;
 
-        require(address(walletMilkHub)!=0, "Address MilkHub non valido!");
-        require(address(caller)!=0, "Address non valido!");
+        require(address(walletMilkHub)!=address(0), "Address MilkHub non valido!");
+        require(address(caller)!=address(0), "Address non valido!");
 
         return milkhubStorage.getMilkHubToCheeseProducer(walletMilkHub);
     }

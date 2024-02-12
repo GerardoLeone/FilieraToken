@@ -30,7 +30,7 @@ contract CheeseProducerStorage is IUserStorageInterface {
     function addUser(string memory _fullName, string memory _password, string memory _email, address walletCheeseProducer) external {
 
         // Verify that the walletCheeseProducer is not the address that deployed the contract
-        require(walletCheeseProducer == CheeseProducerOrg, "Invalid Address!");
+        require(walletCheeseProducer != CheeseProducerOrg, "Invalid Address!");
 
         // Manually generate the ID using keccak256
         bytes32 idHash = keccak256(abi.encodePacked(_fullName, _password, _email, walletCheeseProducer));
@@ -63,7 +63,7 @@ contract CheeseProducerStorage is IUserStorageInterface {
 
         require(address(walletCheeseProducer) != address(0), "Invalid address, equals to 0!");
         // Verify that the walletCheeseProducer is not the address that deployed the contract
-        require(walletCheeseProducer == CheeseProducerOrg, "Invalid Address!");
+        require(walletCheeseProducer != CheeseProducerOrg, "Invalid Address!");
         // Verify that the user exists in the list of Cheese Producers 
         require(cheeseProducers[walletCheeseProducer].id != 0, "User not present!");
         // Retrieve the Cheese Producer 
@@ -111,18 +111,7 @@ contract CheeseProducerStorage is IUserStorageInterface {
         }
     }
 
-    /**
-     * getCheeseProducerToCheeseProducer() obtains sensitive information for a single cheese producer
-     * - email and fullName
-     */
-    function getCheeseProducerToCheeseProducer(address walletCheeseProducer) external view returns (string memory, string memory){
-        // Check if walletCheeseProducer exists
-        require(cheeseProducers[walletCheeseProducer].id != 0, "User not present!");
-
-        CheeseProducer storage cheeseProducer = cheeseProducers[walletCheeseProducer];
-
-        return (cheeseProducer.fullName, cheeseProducer.email);
-    }
+// ------------------------------------------------------------------------------- CheeseProducerInventoryService -------------------------------------------------//
 
     // Function to check if a user is present
     function isUserPresent(address walletCheeseProducer) external view returns(bool){

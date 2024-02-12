@@ -21,7 +21,7 @@ contract MilkHubInventoryStorage {
     mapping(address => mapping(uint256 => MilkBatch)) private milkBatches;
 
     // Add function to add CheesePiece
-    function addMilkBatch(address walletMilkHub, string memory _scadenza, uint256 _quantity, uint256 _price) external {
+    function addMilkBatch(address walletMilkHub, string memory _scadenza, uint256 _quantity, uint256 _price) external returns (uint256,string memory, uint256, uint256) {
         // Generazione dell'ID 
         uint256 _id = uint256(keccak256(abi.encodePacked(
             _scadenza,
@@ -30,7 +30,8 @@ contract MilkHubInventoryStorage {
             walletMilkHub
         )));
 
-        require( milkBatches[walletMilkHub][_id].id == 0, "Pezzo di Formaggio gia' presente!");
+        MilkBatch storage milkbatchControl = milkBatches[walletMilkHub][_id];
+        require( milkbatchControl.id == 0, "Pezzo di Formaggio gia' Presente");
 
         //Crea una nuova Partita di Latte
         MilkBatch memory milkBatch = MilkBatch({
@@ -42,14 +43,15 @@ contract MilkHubInventoryStorage {
 
         //Inserisce la nuova Partita di Latte nella lista milkBatches
         milkBatches[walletMilkHub][_id] = milkBatch;
+        
+        return (milkBatches[walletMilkHub][_id].id, milkBatches[walletMilkHub][_id].scadenza, milkBatches[walletMilkHub][_id].quantity,milkBatches[walletMilkHub][_id].price);
     }
 
     // Get CheesePiece -> address of  
     function getMilkBatch(address walletMilkHub, uint256 _id) external view returns (uint256, string memory, uint256, uint256) {
-
-        require( milkBatches[walletMilkHub][_id].id != 0, "Partita di Latte non presente!");
-
         MilkBatch memory milkBatch = milkBatches[walletMilkHub][_id];
+
+        require(milkBatch.id ==_id, "Partita di Latte non Presente");
 
         return (milkBatch.id, milkBatch.scadenza, milkBatch.quantity, milkBatch.price);
     }
@@ -80,11 +82,10 @@ contract MilkHubInventoryStorage {
 
     function checkProduct(address ownerMilkBatch, uint256 _id_MilkBatch, uint256 quantityToBuy) external view  returns (bool){
 
-            require(milkBatches[ownerMilkBatch][_id_MilkBatch].id != 0, "Product non presente!");
+            require(milkBatches[ownerMilkBatch][_id_MilkBatch].id == _id_MilkBatch, "Product non presente!");
 
             MilkBatch storage milkBatchObj = milkBatches[ownerMilkBatch][_id_MilkBatch];
-
-            require(milkBatchObj.id == _id_MilkBatch, "ID product not Valid!");
+            
             require(milkBatchObj.quantity >= quantityToBuy, "Quantity not Valid!");
             return true;
     }

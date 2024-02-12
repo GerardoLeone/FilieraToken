@@ -20,15 +20,17 @@ contract CheeseProducerMilkBatchStorage {
 
     mapping(address => mapping(uint256 => MilkBatch)) private purchasedMilkBatches;
 
-    function addMilkBatch(address walletCheeseProducer, address _walletMilkHub, string memory _expirationDate, uint256 _quantity) external {
+    function addMilkBatch(address _walletCheeseProducer, address _walletMilkHub, string memory _expirationDate, uint256 _quantity) external {
 
         uint256 _id = uint256(keccak256(abi.encodePacked(
             _expirationDate,
             _quantity,
-            walletCheeseProducer
+            _walletCheeseProducer,
+            _walletMilkHub
         )));
 
-        require( purchasedMilkBatches[walletCheeseProducer][_id].id == 0, "Partita di Latte gia' presente!");
+        MilkBatch storage milkbatchControl = purchasedMilkBatches[_walletCheeseProducer][_id];
+        require( milkbatchControl.id == 0, "Partita di Latte gia' presente!");
 
         //Crea una nuova Partita di Latte
         MilkBatch memory milkBatch = MilkBatch({
@@ -39,12 +41,12 @@ contract CheeseProducerMilkBatchStorage {
         });
 
         //Inserisce la nuova Partita di Latte nella lista milkBatches
-        purchasedMilkBatches[walletCheeseProducer][_id] = milkBatch;
+        purchasedMilkBatches[_walletCheeseProducer][_id] = milkBatch;
     }
 
     function getMilkBatch(address walletCheeseProducer, uint256 _id) external view returns (uint256, address, string memory, uint256) {
 
-        require( purchasedMilkBatches[walletCheeseProducer][_id].id != 0, "Partita di Latte non presente!");
+        require( purchasedMilkBatches[walletCheeseProducer][_id].id == _id, "Partita di Latte non presente!");
 
         MilkBatch memory milkBatch = purchasedMilkBatches[walletCheeseProducer][_id];
 

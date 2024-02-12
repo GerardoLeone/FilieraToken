@@ -317,12 +317,12 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "to",
+						"name": "from",
 						"type": "address"
 					},
 					{
 						"internalType": "address",
-						"name": "from",
+						"name": "to",
 						"type": "address"
 					},
 					{
@@ -469,7 +469,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"Filiera-Token-SmartContract/contracts/Actor/Filieratoken.sol": "Filieratoken"
+			"contracts/Actor/Filieratoken.sol": "Filieratoken"
 		},
 		"evmVersion": "shanghai",
 		"libraries": {},
@@ -523,12 +523,12 @@
 				"dweb:/ipfs/Qmax9WHBnVsZP46ZxEMNRQpLQnrdE4dK8LehML1Py8FowF"
 			]
 		},
-		"Filiera-Token-SmartContract/contracts/Actor/Filieratoken.sol": {
-			"keccak256": "0x8978701e5bfd18d1cc41e0b2e381875e74928bc36f6884388e6d9feb09105127",
+		"contracts/Actor/Filieratoken.sol": {
+			"keccak256": "0xe0b07513d0fc2b452ae9f2eda6f6922072f2bf467816817b7af1fb7faf5fd930",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://ec3150a4727bd9a8d4ff958985f73e1ce7a57912143af04f4ec2124a27739d6b",
-				"dweb:/ipfs/QmUpC9HGJD4fDYi6RJCF9T7H6gpHhYJzuVNDjgDzjZ2kVu"
+				"bzz-raw://69de47d16bac614bd5a5433b82e4fafabec231e5d986a32ccdae4a0f863ec70c",
+				"dweb:/ipfs/QmQLe7fif3Z5yQqsragCfnUncxTd6LvSGHWkn7MoJ7wvfM"
 			]
 		}
 	},

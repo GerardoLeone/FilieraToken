@@ -28,6 +28,12 @@
 					{
 						"indexed": false,
 						"internalType": "string",
+						"name": "message",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
 						"name": "expirationDate",
 						"type": "string"
 					},
@@ -76,6 +82,42 @@
 			{
 				"inputs": [
 					{
+						"internalType": "address",
+						"name": "_walletMilkHub",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "_expirationDate",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_quantity",
+						"type": "uint256"
+					}
+				],
+				"name": "addMilkBatch",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_cheeseProducerMilkBatchStorage",
+						"type": "address"
+					}
+				],
+				"name": "changeCheeseProducerMilkBatchStorage",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "uint256",
 						"name": "_id",
 						"type": "uint256"
@@ -99,7 +141,7 @@
 						"type": "uint256"
 					}
 				],
-				"name": "fetchMilkBatch",
+				"name": "getMilkBatch",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -124,42 +166,6 @@
 				],
 				"stateMutability": "view",
 				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "_walletMilkHub",
-						"type": "address"
-					},
-					{
-						"internalType": "string",
-						"name": "_expirationDate",
-						"type": "string"
-					},
-					{
-						"internalType": "uint256",
-						"name": "_quantity",
-						"type": "uint256"
-					}
-				],
-				"name": "insertMilkBatch",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "_id",
-						"type": "uint256"
-					}
-				],
-				"name": "removeMilkBatch",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
 			}
 		],
 		"devdoc": {
@@ -175,7 +181,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"Filiera-Token-SmartContract/contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerMilkBatchService.sol": "CheeseProducerMilkBatchService"
+			"contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerMilkBatchService.sol": "CheeseProducerMilkBatchService"
 		},
 		"evmVersion": "shanghai",
 		"libraries": {},
@@ -189,20 +195,20 @@
 		"remappings": []
 	},
 	"sources": {
-		"Filiera-Token-SmartContract/contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerMilkBatchService.sol": {
-			"keccak256": "0xc9e4d39926554adbf7242e6ab1d2dbe23e9c4e4f7e02340ab49247b96a16136f",
+		"contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerMilkBatchService.sol": {
+			"keccak256": "0xccf19fcec563bff5c8efff519d47722907260129584843280077734c9294c763",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://6f6d56d5fbd51a385a2643ec41b1cc0eb6ddd8de799d45006c4d50d163d87764",
-				"dweb:/ipfs/QmbyThTcTXR2M8Ny1Hcgpay3JCRmHNRgxTCKQ5dt3bF1kN"
+				"bzz-raw://319fcb3e0ea5ef0247c5c4a34f4625a855fffb949cd1626e67c1fd0d8a1115f0",
+				"dweb:/ipfs/QmQe95Hvjkza7uQab2wZv88Qqv3vy8QtSYYphMZ5Kj243g"
 			]
 		},
-		"Filiera-Token-SmartContract/contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerMilkBatchStorage.sol": {
-			"keccak256": "0xa88ff1f43afddfd861e3e0ceebe4c7e64ca798ef341300e4807227545b16ba7f",
+		"contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerMilkBatchStorage.sol": {
+			"keccak256": "0xed2ed8877dc8ff5c2a92b7192d00beae83afe0f468a45740103c8ee6589b59b4",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://2eb8d5b8780bd74d6f751cbdeaa6fa840b3f008b1ed75b0fed978869c36a796c",
-				"dweb:/ipfs/QmdyRDiD5WZHGiVgP8X3ebhM4xNjJFsVXepqi5wQFdRtd3"
+				"bzz-raw://34b3da4a6f2c6af141308f9f04bf5ac7a409a0011f9fffc590ea998e89eae679",
+				"dweb:/ipfs/QmRGpWJdBumUQH1CHzgevCR3uJUtvLmL89YcZBy8LfLK52"
 			]
 		}
 	},

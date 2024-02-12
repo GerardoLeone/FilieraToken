@@ -23,11 +23,22 @@ contract CheeseProducerService {
     /**
      * modifier --- OnlyOwner specifies that only the owner can make that call
      */
-    modifier onlyOwner(address walletCheeseProducer) {
-        require(msg.sender == address(cheeseProducerStorage), "Address Not valid!");
-        require(msg.sender == address(filieraToken), "Address Not valid!" );
-        require(msg.sender == CheeseProducerOrg ," Address not Valid, it is organization address");
+    modifier onlyOwnerWallet(address walletCheeseProducer) {
+        require(msg.sender != address(cheeseProducerStorage), "Address Not valid!");
+        require(msg.sender != address(filieraToken), "Address Not valid!" );
+        require(msg.sender != CheeseProducerOrg ," Address not Valid, it is organization address");
         require(msg.sender == walletCheeseProducer, "Only the account owner can perform this action");
+        _;
+    }
+
+
+    /**
+     * modifier --- OnlyOwner specifies that only the owner can make that call
+     */
+    modifier onlyOwner() {
+        require(msg.sender != address(cheeseProducerStorage), "Address Not valid!");
+        require(msg.sender != address(filieraToken), "Address Not valid!" );
+        require(msg.sender == CheeseProducerOrg ," Address not Valid, it is organization address");
         _;
     }
 
@@ -36,6 +47,18 @@ contract CheeseProducerService {
         filieraToken = Filieratoken(_filieraToken);
         CheeseProducerOrg = msg.sender;
     }
+
+
+     function changeCheeseProducerStorage(address _cheeseProducerStorage)external onlyOwner() {
+        cheeseProducerStorage = CheeseProducerStorage(_cheeseProducerStorage);
+    }
+
+
+    function changeFilieraToken(address _filieraToken)external onlyOwner() {
+        filieraToken = Filieratoken(_filieraToken);
+    }
+
+
 
     /**
      * registerCheeseProducer() registers users on the platform as Cheese Producers 
@@ -72,7 +95,7 @@ contract CheeseProducerService {
      * - using the address of the Cheese Producer, we can also view their data
      * - Sensitive data visible only to the Cheese Producer itself 
      */
-    function getCheeseProducerData(address walletCheeseProducer) external onlyOwner(walletCheeseProducer) view returns (uint256, string memory, string memory, string memory, uint256) {
+    function getCheeseProducerData(address walletCheeseProducer) external onlyOwnerWallet(walletCheeseProducer) view returns (uint256, string memory, string memory, string memory, uint256) {
         // Call function of Storage         
         return cheeseProducerStorage.getUser(walletCheeseProducer);
     }
@@ -82,15 +105,12 @@ contract CheeseProducerService {
      * - Only the owner can perform the deletion 
      * - msg.sender should be the owner's address 
      */
-    function deleteCheeseProducer(address walletCheeseProducer) external onlyOwner(walletCheeseProducer)  {
+    function deleteCheeseProducer(address walletCheeseProducer) external onlyOwnerWallet(walletCheeseProducer)  {
         require(cheeseProducerStorage.deleteUser(walletCheeseProducer), "Error during deletion");
         // Burn all tokens 
         filieraToken.burnToken(walletCheeseProducer, filieraToken.balanceOf(walletCheeseProducer));
         // Emit Event on FireFly 
         emit ProducerDeleted(walletCheeseProducer,"User has been deleted!");
     }
-
-    // Additional functions for CheeseProducer
-    // ...
 
 }

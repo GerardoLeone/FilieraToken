@@ -21,22 +21,36 @@ contract MilkHubInventoryService {
     }
 
     // Eventi per notificare l'aggiunta e l'eliminazione dei dati
-    event MilkBatchAdded(address indexed userAddress, string message, string dop, uint256 quantity, uint256 price);
+    event MilkBatchAdded(address indexed userAddress, uint256 id, string message, string scadenza, uint256 quantity, uint256 price);
+    
     event MilkBatchDeleted(address indexed userAddress, uint256 indexed id, string message);
 
     // Eventi per notificare la modifica del MilkBatch 
     event MilkBatchEdited(address indexed userAddress, uint256 quantity);
+
+      function changeMilkHubInventoryStorage(address _milkhubInventoryStorage)external {
+        milkhubInventoryStorage = MilkHubInventoryStorage(_milkhubInventoryStorage);
+    }
+
+
+    function changeMilkHubService(address _milkhubService)external {
+        milkhubService = MilkHubService(_milkhubService);
+    }
+
+
+
 
     
     // Modifier: 
     // Modifica il comportamento della funzione applicando una particolare condizione e un particolare comportamento aggiuntivo
     modifier onlyIfUserPresent() {
 
-        require(msg.sender == MilkHubOrg, "Address not valid!");
-        require(msg.sender == address(milkhubInventoryStorage), "Address not valid of Inventory Storage");
-        require(msg.sender == address(milkhubService),"Address not valid of Service");
+        require(msg.sender != MilkHubOrg, "Address not valid!");
+        require(msg.sender != address(milkhubInventoryStorage), "Address not valid of Inventory Storage");
+        require(msg.sender != address(milkhubService),"Address not valid of Service");
         require(milkhubService.isUserPresent(msg.sender), "User is not present in data");
         _;
+        
     }
 
     /* Questa funzione permette di aggiungere : 
@@ -49,21 +63,21 @@ contract MilkHubInventoryService {
        - Evento : 
        - milkBatchAdded()
      */
-    function addMilkBatch(string memory _scadenza, uint256 _quantity, uint256 _price) external onlyIfUserPresent {
+    function addMilkBatch(string memory _scadenza, uint256 _quantity, uint256 _price) external onlyIfUserPresent() {
         address walletMilkHub = msg.sender;
         // Verifico che l'address sia diverso da quello di Deploy 
-        require(walletMilkHub == MilkHubOrg,"Address non Valido!");
+        require(walletMilkHub != MilkHubOrg,"Address non Valido!");
         //Call function of Storage 
-        milkhubInventoryStorage.addMilkBatch(walletMilkHub, _scadenza, _quantity, _price);
+        (uint256 id, string memory scadenza, uint256 quantity, uint256 price) = milkhubInventoryStorage.addMilkBatch(walletMilkHub, _scadenza, _quantity, _price);
         // Emissione dell'evento 
-        emit MilkBatchAdded(walletMilkHub, "Pezzo di formaggio inserito !", _scadenza, _quantity, _price);
+        emit MilkBatchAdded(walletMilkHub, id, "Pezzo di formaggio inserito !", scadenza, quantity, price);
     }
 
     /**
      * Ottenere le informazioni del milkbatch attraverso : 
      * - ID 
      * */  
-    function getMilkBatch(uint256 _id) external  view returns (uint256, string memory, uint256, uint256)  {
+    function getMilkBatch(uint256 _id) external view onlyIfUserPresent() returns (uint256, string memory, uint256, uint256)  {
         // Retrieve msg.sender 
         address walletMilkHub = msg.sender;
 
@@ -76,7 +90,7 @@ contract MilkHubInventoryService {
      * - ID 
      * - Verficare che l'utente che vuole eseguire la transazione sia presente.
      */
-    function deleteMilkBatch(uint256 _id) external onlyIfUserPresent returns(bool value) {
+    function deleteMilkBatch(uint256 _id) external onlyIfUserPresent() returns(bool value) {
         // Retrieve msg.sender 
         address walletMilkHub = msg.sender;
 
@@ -111,26 +125,18 @@ contract MilkHubInventoryService {
         return milkhubInventoryStorage.getPrice(walletMilkHub,_id);        
     }
 
-
-
-   /**
-    * Vendi un MilkBatch attraverso l'id 
-    */
-    function sellMilkBatch(uint256 _id, address ownerMilkBatch,uint256 quantityToDecrease) external {
-        
-         
-    } 
-
     /**
     * Decremento della quantità del MilkBatch 
     * Verifica che la quantità sia maggiore di 0 -> altrimenti elimina
     */
     function decreaseMilkBatchQuantity(address ownerMilkHub, uint256 _id, uint256 _quantity) external {
 
-        require(ownerMilkHub == MilkHubOrg, "Address non Valido!");
+        require(ownerMilkHub != MilkHubOrg, "Address non Valido!");
 
         require(milkhubInventoryStorage.detractMilkBatchQuantity(ownerMilkHub, _id, _quantity), "Errore durante la modifica della quantita' di latte nella Partita del Latte");
 
         emit MilkBatchEdited(ownerMilkHub, _quantity);
     }
+
+
 }

@@ -33,7 +33,7 @@ contract MilkHubStorage is IUserStorageInterface {
     function addUser(string memory _fullName, string memory _password,string memory _email, address walletMilkHub) external {
         
         // Verifico che il walletMilkHub non sia l'address che ha deployato il contratto
-        require(walletMilkHub == MilkHubOrg,"Address non Valido!");
+        require(walletMilkHub != MilkHubOrg,"Address non Valido!");
         
         // Genera l'ID manualmente utilizzando keccak256
         bytes32 idHash = keccak256(abi.encodePacked(_fullName, _password, _email, walletMilkHub));
@@ -66,7 +66,7 @@ contract MilkHubStorage is IUserStorageInterface {
 
         require(address(walletMilkHub)!= address(0), "Address utilizzato non valido, pari a 0!");
         // Verifico che il walletMilkHub non sia l'address che ha deployato il contratto
-        require(walletMilkHub == MilkHubOrg,"Address non Valido!");
+        require(walletMilkHub != MilkHubOrg,"Address non Valido!");
         // Verifica che l'utente esista all'interno della Lista dei MilkHub 
         require( milkhubs[walletMilkHub].id!=0  , "Utente non presente!");
         // Recupero il MilkHub 

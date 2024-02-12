@@ -11,11 +11,9 @@ contract CheeseProducerMilkBatchService {
     address private cheeseProducerOrg;
 
     // Eventi per notificare l'aggiunta di una Partita di Latte
-    event CheeseProducerMilkBatchAdded(address indexed userAddress, string expirationDate, uint256 quantity);
-
+    event CheeseProducerMilkBatchAdded(address indexed userAddress,string message, string expirationDate, uint256 quantity);
     // Eventi per notificare la rimozione di una Partita di Latte
     event CheeseProducerMilkBatchDeleted(address indexed userAddress);
-
     event CheeseProducerMilkBatchEdited(address indexed userAddress, uint256 quantity);
 
     constructor(address _cheeseProducerMilkBatchStorage) {
@@ -23,31 +21,29 @@ contract CheeseProducerMilkBatchService {
         cheeseProducerOrg = msg.sender;
     }
 
-    function insertMilkBatch(address _walletMilkHub, string memory _expirationDate, uint256 _quantity) external {
-        // Verifico che l'address sia diverso da quello di Deploy 
-        require(msg.sender == cheeseProducerOrg,"Address non Valido!");
-
-        cheeseProducerMilkBatchStorage.addMilkBatch(msg.sender, _walletMilkHub, _expirationDate, _quantity);
-
-        emit CheeseProducerMilkBatchAdded(msg.sender, _expirationDate, _quantity);
+    function changeCheeseProducerMilkBatchStorage(address _cheeseProducerMilkBatchStorage)external {
+        require(msg.sender == cheeseProducerOrg,"Address is not the organization");
+        cheeseProducerMilkBatchStorage = CheeseProducerMilkBatchStorage(_cheeseProducerMilkBatchStorage);
     }
 
-    function fetchMilkBatch(uint256 _id) external view returns (uint256, address, string memory, uint256) {
+    function addMilkBatch(address _walletMilkHub, string memory _expirationDate, uint256 _quantity) external {
+        address walletCheeseProducer = msg.sender;
+
+        // Verifico che l'address sia diverso da quello di Deploy 
+        require(walletCheeseProducer != cheeseProducerOrg,"Address non Valido!");
+
+        cheeseProducerMilkBatchStorage.addMilkBatch(walletCheeseProducer, _walletMilkHub, _expirationDate, _quantity);
+
+        emit CheeseProducerMilkBatchAdded(walletCheeseProducer,"MilkBatch Acquistato!", _expirationDate, _quantity);
+    }
+
+
+    function getMilkBatch(uint256 _id) external view returns (uint256, address, string memory, uint256) {
         address walletCheeseProducer = msg.sender;
 
         require(walletCheeseProducer == cheeseProducerOrg, "Address non Valido!");
 
         return cheeseProducerMilkBatchStorage.getMilkBatch(walletCheeseProducer, _id);
-    }
-
-    function removeMilkBatch(uint256 _id) external {
-        address walletCheeseProducer = msg.sender;
-        
-        require(walletCheeseProducer == cheeseProducerOrg, "Address non Valido!");
-
-        require(cheeseProducerMilkBatchStorage.deleteMilkBatch(walletCheeseProducer, _id), "Errore durante la cancellazione");
-
-        emit CheeseProducerMilkBatchDeleted(walletCheeseProducer);
     }
 
     function decreaseMilkBatchQuantity(uint256 _id, uint256 _quantity) external {
@@ -59,4 +55,7 @@ contract CheeseProducerMilkBatchService {
 
         emit CheeseProducerMilkBatchEdited(walletCheeseProducer, _quantity);
     }
+
+// -------------------------------------------------- TransactionManager Service ---------------------------------------------------//
+
 }

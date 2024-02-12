@@ -65,30 +65,6 @@
 						"type": "address"
 					}
 				],
-				"name": "getCheeseProducerToCheeseProducer",
-				"outputs": [
-					{
-						"internalType": "string",
-						"name": "",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "",
-						"type": "string"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "walletCheeseProducer",
-						"type": "address"
-					}
-				],
 				"name": "getUser",
 				"outputs": [
 					{
@@ -180,9 +156,6 @@
 				"addUser(string,string,string,address)": {
 					"notice": "addUser() registers the Cheese Producer user"
 				},
-				"getCheeseProducerToCheeseProducer(address)": {
-					"notice": "getCheeseProducerToCheeseProducer() obtains sensitive information for a single cheese producer - email and fullName"
-				},
 				"getUser(address)": {
 					"notice": "getUser(walletCheeseProducer):  Cheese Producer views their main information - email, password, fullName, balance"
 				},
@@ -195,7 +168,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"Filiera-Token-SmartContract/contracts/Actor/CheeseProducer-smart-contract/CheeseProducerStorage.sol": "CheeseProducerStorage"
+			"contracts/Actor/CheeseProducer-smart-contract/CheeseProducerStorage.sol": "CheeseProducerStorage"
 		},
 		"evmVersion": "shanghai",
 		"libraries": {},
@@ -209,15 +182,15 @@
 		"remappings": []
 	},
 	"sources": {
-		"Filiera-Token-SmartContract/contracts/Actor/CheeseProducer-smart-contract/CheeseProducerStorage.sol": {
-			"keccak256": "0x761d572a59f1b814ba26e0a9ce9608a088b5ffa13b949cc81d83bc2616a6541f",
+		"contracts/Actor/CheeseProducer-smart-contract/CheeseProducerStorage.sol": {
+			"keccak256": "0xd1b7a63cc704ae1c5f3c847e41f6e11c51892f29c8c0c9bb396e7c46245ca346",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://ed9477e80ba596b2489d8ad2753a23b16c817a55b11788131bbaaf52c5343cf9",
-				"dweb:/ipfs/QmQsmSvgxGKSvxTSCzUixgciwfEk4NY4v4DLvFVWqZ2Bxe"
+				"bzz-raw://6804ba95e396f22e39175990ad4b20660a83a5aaf9142c23f9e8eb56cd9f1763",
+				"dweb:/ipfs/Qme9AsMutDdjJjgjeAFUztj8ig4ushm8jaB1L2ZWtFPxws"
 			]
 		},
-		"Filiera-Token-SmartContract/contracts/Actor/IUserStorageInterface.sol": {
+		"contracts/Actor/IUserStorageInterface.sol": {
 			"keccak256": "0x189fa5db899f0a31af11fdee9ce97b8e30fe427e719f0714a4dc8a43ffa5535f",
 			"license": "MIT",
 			"urls": [

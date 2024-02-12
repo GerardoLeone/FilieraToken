@@ -35,7 +35,7 @@ contract TransactionManager {
         // Check Product in Inventory 
         // True -> possiamo vendere l'oggetto 
         // False -> non possiamo vendere l'oggetto 
-        require(milkhubInventoryService.checkProductToSell(ownerMilkBatch,_id_MilkBatch,_quantityToBuy)!=true , "Product to Sell Not valid!");
+        require(milkhubInventoryService.checkProductToSell(ownerMilkBatch,_id_MilkBatch,_quantityToBuy) , "Product to Sell Not valid!");
 
         // Verifica del balance CheeseProducer 
         // Il saldo deve essere maggiore o uguale del prezzo totale -> prezzo per unità * numero di quantità
@@ -46,7 +46,7 @@ contract TransactionManager {
 
         // Trasferimento dei soldi 
         // Trasferimento del Total Price 
-        filieraTokenService.transferFrom(callerCheeseProducer, ownerMilkBatch, totalPrice);
+        filieraTokenService.transferBuyProduct(callerCheeseProducer, ownerMilkBatch, totalPrice);
         // Verifica che il saldo è stato realmente trasferito 
         require(filieraTokenService.balanceOf(callerCheeseProducer)<balanceCallerCheeseProducer,"Sent money not works!");
         require(filieraTokenService.balanceOf(ownerMilkBatch)>balanceOwnerMilkBatch,"Sent Money not works!");
@@ -57,7 +57,7 @@ contract TransactionManager {
 
         // Creazione dell'elemento del MilkBatch all'interno dell'inventory 
         string memory expirationDate = milkhubInventoryService.getExpirationDate(ownerMilkBatch, _id_MilkBatch);
-        cheeseProducerMilkBatchService.insertMilkBatch(ownerMilkBatch, expirationDate, _quantityToBuy);
+        cheeseProducerMilkBatchService.addMilkBatch(ownerMilkBatch, expirationDate, _quantityToBuy);
     }
 
 }

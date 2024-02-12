@@ -34,7 +34,28 @@
 					}
 				],
 				"name": "addMilkBatch",
-				"outputs": [],
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
 				"stateMutability": "nonpayable",
 				"type": "function"
 			},
@@ -249,7 +270,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"Filiera-Token-SmartContract/contracts/Actor/MilkHub-smart-contract/inventory/MilkHubInventoryStorage.sol": "MilkHubInventoryStorage"
+			"contracts/Actor/MilkHub-smart-contract/inventory/MilkHubInventoryStorage.sol": "MilkHubInventoryStorage"
 		},
 		"evmVersion": "shanghai",
 		"libraries": {},
@@ -263,12 +284,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"Filiera-Token-SmartContract/contracts/Actor/MilkHub-smart-contract/inventory/MilkHubInventoryStorage.sol": {
-			"keccak256": "0xe715475ce68b11f40d8d5251387db6fb6a4d3df2c01fccd795f60b86324979f4",
+		"contracts/Actor/MilkHub-smart-contract/inventory/MilkHubInventoryStorage.sol": {
+			"keccak256": "0x91c79e17a637a230ac6f1fffbf584ef7551655fe3932aeda299ee299f197e50a",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://f1729e8aa82723a8d02a28d992a2d15d57519ecb0bea862c00f3a4bef4c4bcc1",
-				"dweb:/ipfs/QmRkANgtLWyV7BwdD7vK66gAzcrWTuqVNRsSSk4DCARmDc"
+				"bzz-raw://5b41d1b91a127bba21a62659db584bd473974954748cbd48d80de47fe8df3f87",
+				"dweb:/ipfs/QmUoynabDoxosJpJie7hZFjAn3JkbVSBgV9H19rsCsr61n"
 			]
 		}
 	},

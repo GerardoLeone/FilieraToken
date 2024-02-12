@@ -14,7 +14,7 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "walletCheeseProducer",
+						"name": "_walletCheeseProducer",
 						"type": "address"
 					},
 					{
@@ -144,7 +144,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"Filiera-Token-SmartContract/contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerMilkBatchStorage.sol": "CheeseProducerMilkBatchStorage"
+			"contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerMilkBatchStorage.sol": "CheeseProducerMilkBatchStorage"
 		},
 		"evmVersion": "shanghai",
 		"libraries": {},
@@ -158,12 +158,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"Filiera-Token-SmartContract/contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerMilkBatchStorage.sol": {
-			"keccak256": "0xa88ff1f43afddfd861e3e0ceebe4c7e64ca798ef341300e4807227545b16ba7f",
+		"contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerMilkBatchStorage.sol": {
+			"keccak256": "0xed2ed8877dc8ff5c2a92b7192d00beae83afe0f468a45740103c8ee6589b59b4",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://2eb8d5b8780bd74d6f751cbdeaa6fa840b3f008b1ed75b0fed978869c36a796c",
-				"dweb:/ipfs/QmdyRDiD5WZHGiVgP8X3ebhM4xNjJFsVXepqi5wQFdRtd3"
+				"bzz-raw://34b3da4a6f2c6af141308f9f04bf5ac7a409a0011f9fffc590ea998e89eae679",
+				"dweb:/ipfs/QmRGpWJdBumUQH1CHzgevCR3uJUtvLmL89YcZBy8LfLK52"
 			]
 		}
 	},

@@ -41,8 +41,8 @@ contract Filieratoken is ERC20 {
     return super.approve(spender, amount);
   }
 
-  function transferBuyProduct(address to, address from, uint256 amount) public returns (bool){
-    super.transferFrom(from, to, amount);
+  function transferBuyProduct(address from, address to, uint256 amount) public returns (bool){
+    super._transfer(from, to, amount);
     return true;
   }
 

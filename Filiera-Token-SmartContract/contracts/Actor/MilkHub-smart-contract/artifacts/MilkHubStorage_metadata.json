@@ -195,7 +195,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"Filiera-Token-SmartContract/contracts/Actor/MilkHub-smart-contract/MilkHubStorage.sol": "MilkHubStorage"
+			"contracts/Actor/MilkHub-smart-contract/MilkHubStorage.sol": "MilkHubStorage"
 		},
 		"evmVersion": "shanghai",
 		"libraries": {},
@@ -209,7 +209,7 @@
 		"remappings": []
 	},
 	"sources": {
-		"Filiera-Token-SmartContract/contracts/Actor/IUserStorageInterface.sol": {
+		"contracts/Actor/IUserStorageInterface.sol": {
 			"keccak256": "0x189fa5db899f0a31af11fdee9ce97b8e30fe427e719f0714a4dc8a43ffa5535f",
 			"license": "MIT",
 			"urls": [
@@ -217,12 +217,12 @@
 				"dweb:/ipfs/QmbobmrLhM78V7udeRfaFF3DCXR7TEp9hsQBxgbMYgunHM"
 			]
 		},
-		"Filiera-Token-SmartContract/contracts/Actor/MilkHub-smart-contract/MilkHubStorage.sol": {
-			"keccak256": "0x9c7917214713e35a8ff67479223cdec3bf0e910d579dcf053067768c5412b2a9",
+		"contracts/Actor/MilkHub-smart-contract/MilkHubStorage.sol": {
+			"keccak256": "0xd5eea10bd86fff9bdee70ee4e83f028ddb4f72b66383c8bc41c051123febfb48",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://d774db09b10fb3fe1e05e4318143ca9b4406056714aff54d3e757127d4eeae8d",
-				"dweb:/ipfs/Qma3R2sJpjp8NgxDPy3DNT6Gg9f1LU7i2pKBgAxqiYb3sr"
+				"bzz-raw://15a5fd0a283477e078e30fcca040a7cd58aa038b18816b23e72da91d3e0c4b10",
+				"dweb:/ipfs/QmTQqj1Du11yJ9ihkHuPSZFGXmyF4QDajWnWL1LVe1EhWz"
 			]
 		}
 	},

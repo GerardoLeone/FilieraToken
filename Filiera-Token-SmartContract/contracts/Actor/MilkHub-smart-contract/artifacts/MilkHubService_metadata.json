@@ -131,6 +131,11 @@
 			{
 				"inputs": [
 					{
+						"internalType": "address",
+						"name": "walletMilkHub",
+						"type": "address"
+					},
+					{
 						"internalType": "uint256",
 						"name": "_id",
 						"type": "uint256"
@@ -319,7 +324,7 @@
 				"getMilkHubBalance(address,uint256)": {
 					"notice": "- Funzione getBalance() attraverso l'address del MilkHub riusciamo a recuperare il suo Balance"
 				},
-				"getMilkHubData(uint256)": {
+				"getMilkHubData(address,uint256)": {
 					"notice": "getMilkHubData() otteniamo i dati del MilkHub - tramite l'address del MilkHub riusciamo a visualizzare anche i suoi dati - Dati sensibili e visibili solo dal MilkHub stesso "
 				},
 				"getMilkHubEmail(address,uint256)": {
@@ -411,19 +416,19 @@
 			]
 		},
 		"contracts/Actor/MilkHub-smart-contract/MilkHubService.sol": {
-			"keccak256": "0x20966aad5526c94605f9cd9faadb88ff2d31fc36a7c719ac19df3f26fb6df686",
+			"keccak256": "0x161c71f5a71d9307641a77c904058f34e9e228532875ece6f3f45dc29c310dd3",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://0f50204493b76bb7da7e261e4973846f7b47f22a61e57a80832e349cf1ef3635",
-				"dweb:/ipfs/QmedCdvHt2CJ1umAJ9oGYBZoXMTA8gmWBFcABxGhySRLre"
+				"bzz-raw://4089b42e0225d1fb022695c50d96186ab958717c3e387409b2bb2c3006cc8231",
+				"dweb:/ipfs/Qmdna7XEgSEiBKe3m2nhXRArsFvhUgHQ1pAkNeP1xMZ6ry"
 			]
 		},
 		"contracts/Actor/MilkHub-smart-contract/MilkHubStorage.sol": {
-			"keccak256": "0xd6fd94d83c3c4c9fff9b5c723a3251423947b5ae529a799dcf7244d4270574e7",
+			"keccak256": "0x506e643435dfb00413d088566cb4576832742d090b14cc4e7d14263192e02857",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://5d29877308109d9e76f39d9242f6902e15b6e5e7e1a225ef811d775a401d5b90",
-				"dweb:/ipfs/QmZ9PsNzEqqHYhsPwdC5WvB5wMuvU3adb67hS97bEdWJod"
+				"bzz-raw://abf54ead9c56c09fda9417cbcea5ce47a2374e9196f0517f19def72364a4a6b9",
+				"dweb:/ipfs/QmaXXMce7Y9TEc459yGL5NNpjy2KRGZ8wwvpE5WX9Z5D2V"
 			]
 		}
 	},

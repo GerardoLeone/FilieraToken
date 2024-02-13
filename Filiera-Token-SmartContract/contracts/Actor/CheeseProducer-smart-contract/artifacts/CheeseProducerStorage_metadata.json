@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.22+commit.4fc1097e"
+		"version": "0.8.21+commit.d9974bed"
 	},
 	"language": "Solidity",
 	"output": {
@@ -44,6 +44,11 @@
 						"internalType": "address",
 						"name": "walletCheeseProducer",
 						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
 					}
 				],
 				"name": "deleteUser",
@@ -55,6 +60,97 @@
 					}
 				],
 				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletCheeseProducer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
+				"name": "getBalance",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletCheeseProducer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
+				"name": "getEmail",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletCheeseProducer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
+				"name": "getFullName",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletCheeseProducer",
+						"type": "address"
+					}
+				],
+				"name": "getId",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -143,6 +239,29 @@
 				],
 				"stateMutability": "view",
 				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletCheeseProducer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "balance",
+						"type": "uint256"
+					}
+				],
+				"name": "updateBalance",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
 			}
 		],
 		"devdoc": {
@@ -156,6 +275,18 @@
 				"addUser(string,string,string,address)": {
 					"notice": "addUser() registers the Cheese Producer user"
 				},
+				"getBalance(address,uint256)": {
+					"notice": "- Funzione getBalance() attraverso l'address del MilkHub riusciamo a recuperare il suo Balance"
+				},
+				"getEmail(address,uint256)": {
+					"notice": "- Funzione getEmail() attraverso l'address del MilkHub riusciamo a recuperare la sua Email "
+				},
+				"getFullName(address,uint256)": {
+					"notice": "- Funzione getFullName() attraverso l'address del MilkHub riusciamo a recuperare il suo FullName"
+				},
+				"getId(address)": {
+					"notice": "- Funzione getId() attraverso l'address del MilkHub riusciamo a recuperare il suo ID"
+				},
 				"getUser(address)": {
 					"notice": "getUser(walletCheeseProducer):  Cheese Producer views their main information - email, password, fullName, balance"
 				},
@@ -168,7 +299,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"Filiera-Token-SmartContract/contracts/Actor/CheeseProducer-smart-contract/CheeseProducerStorage.sol": "CheeseProducerStorage"
+			"contracts/Actor/CheeseProducer-smart-contract/CheeseProducerStorage.sol": "CheeseProducerStorage"
 		},
 		"evmVersion": "shanghai",
 		"libraries": {},
@@ -182,20 +313,20 @@
 		"remappings": []
 	},
 	"sources": {
-		"Filiera-Token-SmartContract/contracts/Actor/CheeseProducer-smart-contract/CheeseProducerStorage.sol": {
-			"keccak256": "0xd1b7a63cc704ae1c5f3c847e41f6e11c51892f29c8c0c9bb396e7c46245ca346",
+		"contracts/Actor/CheeseProducer-smart-contract/CheeseProducerStorage.sol": {
+			"keccak256": "0x3e42a3d2364a7c955d6bc3a43056707f7e94b70e5dffbc0119ec3466521aff03",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://6804ba95e396f22e39175990ad4b20660a83a5aaf9142c23f9e8eb56cd9f1763",
-				"dweb:/ipfs/Qme9AsMutDdjJjgjeAFUztj8ig4ushm8jaB1L2ZWtFPxws"
+				"bzz-raw://74bfb6e90933f1cecce05df21340e83964e814cb60117fbd1c2fad7deab22a00",
+				"dweb:/ipfs/QmeLQKo92Pojp3tbPyJZYmsaQFEdbJFdJD2PUkRQxEenEX"
 			]
 		},
-		"Filiera-Token-SmartContract/contracts/Actor/IUserStorageInterface.sol": {
-			"keccak256": "0x189fa5db899f0a31af11fdee9ce97b8e30fe427e719f0714a4dc8a43ffa5535f",
+		"contracts/Actor/IUserStorageInterface.sol": {
+			"keccak256": "0x81d5ea4a00a9bb5aa89a71a9ae9a3df5d2f4f6a5047732c1868b5284d9fda59f",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://aa4f56b832aa26f31e110851d264fc17be95be67ba96c3557786fd55c61b4388",
-				"dweb:/ipfs/QmbobmrLhM78V7udeRfaFF3DCXR7TEp9hsQBxgbMYgunHM"
+				"bzz-raw://fd56c8e90d30b51b4da1cef3c0cb9ad4b5691001bda681113113d92d84f9f9f7",
+				"dweb:/ipfs/QmX6FM9tE1kpxV3kwFLAtk2z9kGtCZLuxNSmEy9eJcTDHH"
 			]
 		}
 	},

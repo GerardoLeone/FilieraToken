@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.22+commit.4fc1097e"
+		"version": "0.8.21+commit.d9974bed"
 	},
 	"language": "Solidity",
 	"output": {
@@ -97,11 +97,40 @@
 						"internalType": "address",
 						"name": "walletCheeseProducer",
 						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
 					}
 				],
 				"name": "deleteCheeseProducer",
 				"outputs": [],
 				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletCheeseProducer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
+				"name": "getCheeseProducerBalance",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -134,6 +163,73 @@
 						"name": "",
 						"type": "string"
 					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletCheeseProducer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
+				"name": "getCheeseProducerEmail",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletCheeseProducer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
+				"name": "getCheeseProducerFullName",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletCheeseProducer",
+						"type": "address"
+					}
+				],
+				"name": "getCheeseProducerId",
+				"outputs": [
 					{
 						"internalType": "uint256",
 						"name": "",
@@ -189,6 +285,29 @@
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletCheeseProducer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "balance",
+						"type": "uint256"
+					}
+				],
+				"name": "updateCheeseProducerBalance",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
 			}
 		],
 		"devdoc": {
@@ -199,11 +318,23 @@
 		"userdoc": {
 			"kind": "user",
 			"methods": {
-				"deleteCheeseProducer(address)": {
+				"deleteCheeseProducer(address,uint256)": {
 					"notice": "deleteCheeseProducer() deletes a Cheese Producer from the system  - Only the owner can perform the deletion  - msg.sender should be the owner's address "
+				},
+				"getCheeseProducerBalance(address,uint256)": {
+					"notice": "- Funzione getBalance() attraverso l'address del CheeseProducer riusciamo a recuperare il suo Balance"
 				},
 				"getCheeseProducerData(address)": {
 					"notice": "getCheeseProducerData() obtains data of the Cheese Producer - using the address of the Cheese Producer, we can also view their data - Sensitive data visible only to the Cheese Producer itself "
+				},
+				"getCheeseProducerEmail(address,uint256)": {
+					"notice": "- Funzione getEmail() attraverso l'address del CheeseProducer riusciamo a recuperare la sua Email "
+				},
+				"getCheeseProducerFullName(address,uint256)": {
+					"notice": "- Funzione getFullName() attraverso l'address del CheeseProducer riusciamo a recuperare il suo FullName"
+				},
+				"getCheeseProducerId(address)": {
+					"notice": "-  Funzione getCheeseProducerId() attraverso l'address del CheeseProducer siamo riusciti ad ottenere il suo ID"
 				},
 				"login(string,string)": {
 					"notice": "login() performs login with email and password  - Inserts email and password  - Returns True if the user exists and has access with the correct credentials  - Returns False otherwise "
@@ -217,7 +348,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"Filiera-Token-SmartContract/contracts/Actor/CheeseProducer-smart-contract/CheeseProducerService.sol": "CheeseProducerService"
+			"contracts/Actor/CheeseProducer-smart-contract/CheeseProducerService.sol": "CheeseProducerService"
 		},
 		"evmVersion": "shanghai",
 		"libraries": {},
@@ -271,23 +402,23 @@
 				"dweb:/ipfs/Qmax9WHBnVsZP46ZxEMNRQpLQnrdE4dK8LehML1Py8FowF"
 			]
 		},
-		"Filiera-Token-SmartContract/contracts/Actor/CheeseProducer-smart-contract/CheeseProducerService.sol": {
-			"keccak256": "0xc5bf270bdee0085c3127d2eee8e247a1041bf59f1a5b1a3c0f745dd1bfe0b1fd",
+		"contracts/Actor/CheeseProducer-smart-contract/CheeseProducerService.sol": {
+			"keccak256": "0x6f50642f88a95e2e26d93a0bf26cc092d46aa17e033de2337823c4b382c7d40d",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://1165e5ecfb52c202d843f470a6365e926701fbe3c9bc613caa0913d2be2b2397",
-				"dweb:/ipfs/QmSLroXwVSm9Wahj5wazGXcvHrSSnL3diKwvekTHcTZJ4M"
+				"bzz-raw://21bb80d11a61dd474b5c4bd4b3e4949db4ded748b75b83ed8d9c66273be8af26",
+				"dweb:/ipfs/QmVF6De7GmUdpghGetzFz9RoeeZmZidhDZWmm6bkevs5T3"
 			]
 		},
-		"Filiera-Token-SmartContract/contracts/Actor/CheeseProducer-smart-contract/CheeseProducerStorage.sol": {
-			"keccak256": "0xd1b7a63cc704ae1c5f3c847e41f6e11c51892f29c8c0c9bb396e7c46245ca346",
+		"contracts/Actor/CheeseProducer-smart-contract/CheeseProducerStorage.sol": {
+			"keccak256": "0x3e42a3d2364a7c955d6bc3a43056707f7e94b70e5dffbc0119ec3466521aff03",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://6804ba95e396f22e39175990ad4b20660a83a5aaf9142c23f9e8eb56cd9f1763",
-				"dweb:/ipfs/Qme9AsMutDdjJjgjeAFUztj8ig4ushm8jaB1L2ZWtFPxws"
+				"bzz-raw://74bfb6e90933f1cecce05df21340e83964e814cb60117fbd1c2fad7deab22a00",
+				"dweb:/ipfs/QmeLQKo92Pojp3tbPyJZYmsaQFEdbJFdJD2PUkRQxEenEX"
 			]
 		},
-		"Filiera-Token-SmartContract/contracts/Actor/Filieratoken.sol": {
+		"contracts/Actor/Filieratoken.sol": {
 			"keccak256": "0xe0b07513d0fc2b452ae9f2eda6f6922072f2bf467816817b7af1fb7faf5fd930",
 			"license": "MIT",
 			"urls": [
@@ -295,12 +426,12 @@
 				"dweb:/ipfs/QmQLe7fif3Z5yQqsragCfnUncxTd6LvSGHWkn7MoJ7wvfM"
 			]
 		},
-		"Filiera-Token-SmartContract/contracts/Actor/IUserStorageInterface.sol": {
-			"keccak256": "0x189fa5db899f0a31af11fdee9ce97b8e30fe427e719f0714a4dc8a43ffa5535f",
+		"contracts/Actor/IUserStorageInterface.sol": {
+			"keccak256": "0x81d5ea4a00a9bb5aa89a71a9ae9a3df5d2f4f6a5047732c1868b5284d9fda59f",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://aa4f56b832aa26f31e110851d264fc17be95be67ba96c3557786fd55c61b4388",
-				"dweb:/ipfs/QmbobmrLhM78V7udeRfaFF3DCXR7TEp9hsQBxgbMYgunHM"
+				"bzz-raw://fd56c8e90d30b51b4da1cef3c0cb9ad4b5691001bda681113113d92d84f9f9f7",
+				"dweb:/ipfs/QmX6FM9tE1kpxV3kwFLAtk2z9kGtCZLuxNSmEy9eJcTDHH"
 			]
 		}
 	},

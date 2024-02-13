@@ -1,8 +1,11 @@
-// // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.21;
 
-import "./CheeseProducerMilkBatchStorage.sol";
-import "./CheeseProducerService.sol";
+
+
+import "contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerMilkBatchInventoryStorage.sol";
+
+
 
 contract CheeseProducerMilkBatchService {
 

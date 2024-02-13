@@ -348,11 +348,6 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "_id",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
 						"name": "balance",
 						"type": "uint256"
 					}
@@ -456,11 +451,11 @@
 			]
 		},
 		"contracts/Actor/Consumer-smart-contract/ConsumerService.sol": {
-			"keccak256": "0xff07286310434d0876e3ae51b584f53fd1c1c0ef06b6359034a3becdbfef4571",
+			"keccak256": "0x5078a839b54999057defbf5a67f793f804e8f69782ccc379f14ad7a0accb9ed1",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://92d488bc16689bb0fd06d01bc25f92a93d5818d39115bb7d688db1c30fcd289b",
-				"dweb:/ipfs/QmNijLqU6iKbWoqVDJv3r8uACiz18wqhyi4k4PK1BLyX8a"
+				"bzz-raw://a9faf9f3053ad436502bdca2bd84f15cf082a8bc98f018134928d29a90113b31",
+				"dweb:/ipfs/QmfCVo3GvUFfayqsbiFX2LYmBXQkRH9n9KRiY3aQ9ynyLb"
 			]
 		},
 		"contracts/Actor/Consumer-smart-contract/ConsumerStorage.sol": {

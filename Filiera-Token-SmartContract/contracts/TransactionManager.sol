@@ -89,44 +89,34 @@ contract TransactionManager {
         cheeseProducerMilkBatchService = CheeseProducerMilkBatchService(_cheeseProducerMilkBatchServiceAddress);
     }
 
-    /**
-    - Calcolare il prezzo totale dal Front-End e lo passiamo 
-    */
-    function sellMilkBatchProduct(address ownerMilkBatch, uint256 _id_MilkBatch, uint256 _quantityToBuy, uint256 totalPrice) external {
-        // caller 
-        address callerCheeseProducer = msg.sender;
 
-        require(callerCheeseProducer!=ownerMilkBatch,"Address of owner and Address of spender are same!");
+    function BuyMilkBatchProduct(address ownerMilkBatch, uint256 _id_MilkBatch, uint256 _quantityToBuy, uint256 totalPrice) external {
+    require(msg.sender != address(0), "Invalid sender address");
+    require(ownerMilkBatch != address(0), "Invalid owner address");
+    require(msg.sender != ownerMilkBatch, "Cannot buy from yourself");
 
+    require(milkhubInventoryService.isMilkBatchPresent(ownerMilkBatch, _id_MilkBatch), "Product not found");
+    require(_quantityToBuy <= milkhubInventoryService.getMilkBatchQuantity(ownerMilkBatch, _id_MilkBatch), "Invalid quantity");
+    require(filieraTokenService.balanceOf(msg.sender) >= totalPrice, "Insufficient balance");
 
-        // Check Product in Inventory 
-        // True -> possiamo vendere l'oggetto 
-        // False -> non possiamo vendere l'oggetto 
-        require(milkhubInventoryService.checkProductToSell(ownerMilkBatch,_id_MilkBatch,_quantityToBuy) , "Product to Sell Not valid!");
+    // Trasferimento dei token
+    filieraTokenService.transferBuyProduct(msg.sender, ownerMilkBatch, totalPrice);
 
-        // Verifica del balance CheeseProducer 
-        // Il saldo deve essere maggiore o uguale del prezzo totale -> prezzo per unità * numero di quantità
-        require(filieraTokenService.balanceOf(callerCheeseProducer)>=totalPrice,"Balance not Valid!");
+    // Aggiornamento dei saldi
+    uint256 newMilkHubBalance = filieraTokenService.balanceOf(ownerMilkBatch);
+    milkhubService.updateMilkHubBalance(ownerMilkBatch, newMilkHubBalance);
 
-        uint256 balanceOwnerMilkBatch = filieraTokenService.balanceOf(ownerMilkBatch);
-        uint256 balanceCallerCheeseProducer = filieraTokenService.balanceOf(callerCheeseProducer);
+    uint256 newCheeseProducerBalance = filieraTokenService.balanceOf(msg.sender);
+    cheeseProducerService.updateCheeseProducerBalance(msg.sender, newCheeseProducerBalance);
 
-        // Trasferimento dei soldi 
-        // Trasferimento del Total Price 
-        filieraTokenService.transferBuyProduct(callerCheeseProducer, ownerMilkBatch, totalPrice);
-        // Verifica che il saldo è stato realmente trasferito 
-        require(filieraTokenService.balanceOf(callerCheeseProducer)<balanceCallerCheeseProducer,"Sent money not works!");
-        require(filieraTokenService.balanceOf(ownerMilkBatch)>balanceOwnerMilkBatch,"Sent Money not works!");
-        //Update Balance of CheeseProducer and MilkHub 
+    // Riduzione della quantità nel MilkHubInventory
+    uint256 currentQuantity = milkhubInventoryService.getMilkBatchQuantity(ownerMilkBatch, _id_MilkBatch);
+    milkhubInventoryService.updateMilkBatchQuantity(ownerMilkBatch, _id_MilkBatch, currentQuantity - _quantityToBuy);
 
+    // Aggiunta del MilkBatch nell'inventario del CheeseProducer
+    cheeseProducerMilkBatchService.addMilkBatch(ownerMilkBatch, msg.sender, milkhubInventoryService.getMilkBatchExpirationDate(ownerMilkBatch, _id_MilkBatch), _quantityToBuy);
+}
 
-        // Riduzione della quantità nel MilkHubInventory 
-        milkhubInventoryService.updateMilkBatchQuantity(ownerMilkBatch, _id_MilkBatch, _quantityToBuy);
-
-        // Creazione dell'elemento del MilkBatch all'interno dell'inventory 
-        string memory expirationDate = milkhubInventoryService.getMilkBatchExpirationDate(ownerMilkBatch, _id_MilkBatch);
-        cheeseProducerMilkBatchService.addMilkBatch(ownerMilkBatch,callerCheeseProducer, expirationDate, _quantityToBuy);
-    }
 
 
 

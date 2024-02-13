@@ -181,7 +181,7 @@ contract MilkHubService {
 
     
     // Funzione per far visualizzare i dati ai vari utenti esterni 
-    function getMilkHubInfo(address walletMilkHub) external view checkAddress(walletMilkHub) returns (string memory, string memory) {
+    function getMilkHubInfo(address walletMilkHub) external view checkAddress(walletMilkHub) returns (uint256, string memory, string memory) {
         
         // Verifico che l'utente esista
         require(this.isUserPresent(walletMilkHub), "User not found");
@@ -192,7 +192,7 @@ contract MilkHubService {
         
         string memory email = milkhubStorage.getEmail(walletMilkHub, id);
 
-        return (fullName, email);
+        return (id, fullName, email);
     }
 
 
@@ -201,13 +201,11 @@ contract MilkHubService {
 //------------------------------------------------------------ Set Function -------------------------------------------------------------------//
 
     // - Funzione updateBalance() attraverso l'address e l'id, riusciamo a settare il nuovo balance
-    function updateMilkHubBalance(address walletMilkHub, uint256 _id, uint256 balance) external checkAddress(walletMilkHub) {
+    function updateMilkHubBalance(address walletMilkHub, uint256 balance) external checkAddress(walletMilkHub) {
         // Verifico che il Balance sia >0 
         require(balance>0,"Balance Not Valid");
         // Verifico che l'utente esista 
         require(this.isUserPresent(walletMilkHub),"User Not Found!");
-        // Verifico che l'id sia lo stesso quello passato
-        require(milkhubStorage.getId(walletMilkHub)==_id,"Utente non Autorizzato");
         // Update Balance 
         milkhubStorage.updateBalance(walletMilkHub, balance);
     }

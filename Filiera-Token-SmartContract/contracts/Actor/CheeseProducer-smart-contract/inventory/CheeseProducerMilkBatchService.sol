@@ -1,15 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.21;
 
-
-
 import "./CheeseProducerMilkBatchStorage.sol";
 import "contracts/Actor/CheeseProducer-smart-contract/CheeseProducerService.sol";
 
 
 contract CheeseProducerMilkBatchService {
-
-
 
 //------------------------------------------------------------------------ Address of other Contract Service -----------------------------------------------------------//
 
@@ -20,7 +16,6 @@ contract CheeseProducerMilkBatchService {
 
     CheeseProducerService private cheeseProducerService;
 
-
 //------------------------------------------------------------------------ Event of Service  -----------------------------------------------------------//
 
     // Eventi per notificare l'aggiunta di una Partita di Latte
@@ -29,7 +24,6 @@ contract CheeseProducerMilkBatchService {
     event CheeseProducerMilkBatchDeleted(address indexed userAddress, string message);
     // Evento per notificare che un MilkBatch è stato Editato
     event CheeseProducerMilkBatchEdited(address indexed userAddress,string message, uint256 quantity);
-
 
 //------------------------------------------------------------------------ Constructor of other Contract Service -----------------------------------------------------------//
 

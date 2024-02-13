@@ -255,6 +255,11 @@
 				"name": "getCheeseProducerInfo",
 				"outputs": [
 					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
 						"internalType": "string",
 						"name": "",
 						"type": "string"
@@ -345,11 +350,6 @@
 						"internalType": "address",
 						"name": "walletCheeseProducer",
 						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "_id",
-						"type": "uint256"
 					},
 					{
 						"internalType": "uint256",
@@ -456,11 +456,11 @@
 			]
 		},
 		"contracts/Actor/CheeseProducer-smart-contract/CheeseProducerService.sol": {
-			"keccak256": "0x0f5bd2282e99194f2c16bce0b3ccbfcf86ad8bcc68688ad5dc5355dbe6b4b78e",
+			"keccak256": "0x73a283fe683489737c0cd96c762b7f7569e82b6347d7dc13117cfded3ad8ae3c",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://faee270d4464f2a4d1969c6fb0c0a58181da83bb3d74bddb0114a54f8fb8e90a",
-				"dweb:/ipfs/QmPmWzAmzzpucswnetCh2YokYM2PzRFibao5imt4yUYNpJ"
+				"bzz-raw://6bc0c5159382cada70ecbb6fa07fd6b974ee46620cce0d77d90a961a1226a591",
+				"dweb:/ipfs/QmSE5B5A4LGZXhDqawRmKvNRxBzEJNyuYqGoTmB6rMhpST"
 			]
 		},
 		"contracts/Actor/CheeseProducer-smart-contract/CheeseProducerStorage.sol": {

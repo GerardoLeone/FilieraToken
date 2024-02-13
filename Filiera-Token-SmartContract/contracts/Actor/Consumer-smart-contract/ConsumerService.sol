@@ -201,13 +201,11 @@ contract ConsumerService {
 //------------------------------------------------------------ Set Function -------------------------------------------------------------------//
 
     // - Funzione updateBalance() attraverso l'address e l'id, riusciamo a settare il nuovo balance
-    function updateConsumerBalance(address walletConsumer, uint256 _id, uint256 balance) external checkAddress(walletConsumer) {
+    function updateConsumerBalance(address walletConsumer, uint256 balance) external checkAddress(walletConsumer) {
         // Verifico che il Balance sia >0 
         require(balance>0,"Balance Not Valid");
         // Verifico che l'utente esista 
         require(this.isUserPresent(walletConsumer),"User Not Found!");
-        // Verifico che l'id sia lo stesso quello passato
-        require(consumerStorage.getId(walletConsumer)==_id,"Utente non Autorizzato");
         // Update Balance 
         consumerStorage.updateBalance(walletConsumer, balance);
     }

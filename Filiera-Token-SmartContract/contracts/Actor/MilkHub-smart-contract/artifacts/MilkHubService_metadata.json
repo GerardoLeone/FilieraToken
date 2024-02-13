@@ -255,6 +255,11 @@
 				"name": "getMilkHubInfo",
 				"outputs": [
 					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
 						"internalType": "string",
 						"name": "",
 						"type": "string"
@@ -345,11 +350,6 @@
 						"internalType": "address",
 						"name": "walletMilkHub",
 						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "_id",
-						"type": "uint256"
 					},
 					{
 						"internalType": "uint256",
@@ -472,11 +472,11 @@
 			]
 		},
 		"contracts/Actor/MilkHub-smart-contract/MilkHubService.sol": {
-			"keccak256": "0x4cff416d78319a3ce6ff3aac2f488b46f5f0e66780a3b86a96888b9bcd554542",
+			"keccak256": "0x65bba101e4b24c89297c3c5f9e65ead98964e206040cf207ea56d00a7f2ccc6b",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://80a82c2b89796c4d1280432ebdec8470b414a863e9fdac4ecfc6a542d1c7cd30",
-				"dweb:/ipfs/QmV3xxPqhPqdsp9YKzSfqcU24ss5jR8LcW5GCLW71hfmTi"
+				"bzz-raw://e34c9a002931adcc24019006503edd14dd34a98eb22db35a1c7630573a0202f9",
+				"dweb:/ipfs/QmdgK31JdDvvMZkPWuCwzHLKDM7xhjTR1NeZTCgMRqz2Cs"
 			]
 		},
 		"contracts/Actor/MilkHub-smart-contract/MilkHubStorage.sol": {

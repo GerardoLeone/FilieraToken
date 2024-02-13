@@ -181,7 +181,7 @@ contract CheeseProducerService {
 
     
     // Funzione per far visualizzare i dati ai vari utenti esterni 
-    function getCheeseProducerInfo(address walletCheeseProducer) external view checkAddress(walletCheeseProducer) returns (string memory, string memory) {
+    function getCheeseProducerInfo(address walletCheeseProducer) external view checkAddress(walletCheeseProducer) returns (uint256, string memory, string memory) {
         
         // Verifico che l'utente esista
         require(this.isUserPresent(walletCheeseProducer), "User not found");
@@ -192,7 +192,7 @@ contract CheeseProducerService {
         
         string memory email = cheeseProducerStorage.getEmail(walletCheeseProducer, id);
 
-        return (fullName, email);
+        return (id, fullName, email);
     }
 
 
@@ -201,13 +201,11 @@ contract CheeseProducerService {
 //------------------------------------------------------------ Set Function -------------------------------------------------------------------//
 
     // - Funzione updateBalance() attraverso l'address e l'id, riusciamo a settare il nuovo balance
-    function updateCheeseProducerBalance(address walletCheeseProducer, uint256 _id, uint256 balance) external checkAddress(walletCheeseProducer) {
+    function updateCheeseProducerBalance(address walletCheeseProducer, uint256 balance) external checkAddress(walletCheeseProducer) {
         // Verifico che il Balance sia >0 
         require(balance>0,"Balance Not Valid");
         // Verifico che l'utente esista 
         require(this.isUserPresent(walletCheeseProducer),"User Not Found!");
-        // Verifico che l'id sia lo stesso quello passato
-        require(cheeseProducerStorage.getId(walletCheeseProducer)==_id,"Utente non Autorizzato");
         // Update Balance 
         cheeseProducerStorage.updateBalance(walletCheeseProducer, balance);
     }

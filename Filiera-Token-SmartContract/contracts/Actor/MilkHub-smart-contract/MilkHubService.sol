@@ -125,6 +125,11 @@ contract MilkHubService {
         return milkhubStorage.isUserPresent(walletMilkHub);
     }
 
+    function getMilkHubId() external view returns (uint256){
+        address walletMilkHub = msg.sender;
+        return milkhubStorage.getId(walletMilkHub);
+    }
+
 
 
 }

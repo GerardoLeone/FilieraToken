@@ -63,19 +63,86 @@
 						"internalType": "address",
 						"name": "walletMilkHub",
 						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
 					}
 				],
-				"name": "getMilkHubToCheeseProducer",
+				"name": "getBalance",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletMilkHub",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
+				"name": "getEmail",
 				"outputs": [
 					{
 						"internalType": "string",
 						"name": "",
 						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletMilkHub",
+						"type": "address"
 					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
+				"name": "getFullName",
+				"outputs": [
 					{
 						"internalType": "string",
 						"name": "",
 						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletMilkHub",
+						"type": "address"
+					}
+				],
+				"name": "getId",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
@@ -167,6 +234,29 @@
 				],
 				"stateMutability": "view",
 				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletMilkHub",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "balance",
+						"type": "uint256"
+					}
+				],
+				"name": "updateBalance",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
 			}
 		],
 		"devdoc": {
@@ -180,8 +270,17 @@
 				"addUser(string,string,string,address)": {
 					"notice": "addUser() effettuiamo la registrazione dell'utente MilkHub "
 				},
-				"getMilkHubToCheeseProducer(address)": {
-					"notice": "getMilkHubToCheeseProducer() otteniamo le informazioni sensibili per un singolo cheeseProducer  - email e fullName "
+				"getBalance(address,uint256)": {
+					"notice": "- Funzione getBalance() attraverso l'address del MilkHub riusciamo a recuperare il suo Balance"
+				},
+				"getEmail(address,uint256)": {
+					"notice": "- Funzione getEmail() attraverso l'address del MilkHub riusciamo a recuperare la sua Email "
+				},
+				"getFullName(address,uint256)": {
+					"notice": "- Funzione getFullName() attraverso l'address del MilkHub riusciamo a recuperare il suo FullName"
+				},
+				"getId(address)": {
+					"notice": "- Funzione getId() attraverso l'address del MilkHub riusciamo a recuperare il suo ID"
 				},
 				"getUser(address)": {
 					"notice": "getUser(walletMilkHub) :  MilkHub visualizza le sue informazioni principali - email, password , fullName , balance "
@@ -218,11 +317,11 @@
 			]
 		},
 		"contracts/Actor/MilkHub-smart-contract/MilkHubStorage.sol": {
-			"keccak256": "0xd5eea10bd86fff9bdee70ee4e83f028ddb4f72b66383c8bc41c051123febfb48",
+			"keccak256": "0x7dc4921fb7a43589398457adc2d54701ce7ee545783cb82ab67a921c2668183d",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://15a5fd0a283477e078e30fcca040a7cd58aa038b18816b23e72da91d3e0c4b10",
-				"dweb:/ipfs/QmTQqj1Du11yJ9ihkHuPSZFGXmyF4QDajWnWL1LVe1EhWz"
+				"bzz-raw://8f1af0d171d98e36239ed88e76198c089be7e08ffbd7926fa385ded8df17b42f",
+				"dweb:/ipfs/QmRrmnzZYNPJxYmprLuETVvxpcxYv36HSvGGzCHJ9jWD1T"
 			]
 		}
 	},

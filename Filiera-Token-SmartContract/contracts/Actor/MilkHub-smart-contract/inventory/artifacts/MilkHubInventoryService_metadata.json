@@ -100,6 +100,12 @@
 					},
 					{
 						"indexed": false,
+						"internalType": "string",
+						"name": "message",
+						"type": "string"
+					},
+					{
+						"indexed": false,
 						"internalType": "uint256",
 						"name": "quantity",
 						"type": "uint256"
@@ -189,29 +195,6 @@
 			{
 				"inputs": [
 					{
-						"internalType": "address",
-						"name": "ownerMilkHub",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "_id",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "_quantity",
-						"type": "uint256"
-					}
-				],
-				"name": "decreaseMilkBatchQuantity",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
 						"internalType": "uint256",
 						"name": "_id",
 						"type": "uint256"
@@ -226,30 +209,6 @@
 					}
 				],
 				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "walletMilkHub",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "_id",
-						"type": "uint256"
-					}
-				],
-				"name": "getExpirationDate",
-				"outputs": [
-					{
-						"internalType": "string",
-						"name": "",
-						"type": "string"
-					}
-				],
-				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -299,7 +258,31 @@
 						"type": "uint256"
 					}
 				],
-				"name": "getPrice",
+				"name": "getMilkBatchExpirationDate",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletMilkHub",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
+				"name": "getMilkBatchPrice",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -323,7 +306,7 @@
 						"type": "uint256"
 					}
 				],
-				"name": "getQuantity",
+				"name": "getMilkBatchQuantity",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -332,6 +315,53 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletMilkHub",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
+				"name": "isMilkBatchPresent",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "ownerMilkHub",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_quantity",
+						"type": "uint256"
+					}
+				],
+				"name": "updateMilkBatchQuantity",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			}
 		],
@@ -343,14 +373,14 @@
 		"userdoc": {
 			"kind": "user",
 			"methods": {
-				"decreaseMilkBatchQuantity(address,uint256,uint256)": {
-					"notice": "Decremento della quantità del MilkBatch  Verifica che la quantità sia maggiore di 0 -> altrimenti elimina"
-				},
 				"deleteMilkBatch(uint256)": {
 					"notice": "Eliminare un MilkBatch attraverso l'id  - ID  - Verficare che l'utente che vuole eseguire la transazione sia presente."
 				},
 				"getMilkBatch(uint256)": {
 					"notice": "Ottenere le informazioni del milkbatch attraverso :  - ID  "
+				},
+				"updateMilkBatchQuantity(address,uint256,uint256)": {
+					"notice": "Decremento della quantità del MilkBatch  Verifica che la quantità sia maggiore di 0 -> altrimenti elimina"
 				}
 			},
 			"version": 1
@@ -413,51 +443,51 @@
 			]
 		},
 		"contracts/Actor/Filieratoken.sol": {
-			"keccak256": "0xc12fa059c37296fe19425699a20d12dc472c2b0931d7d221c433c41f806186df",
+			"keccak256": "0xe0b07513d0fc2b452ae9f2eda6f6922072f2bf467816817b7af1fb7faf5fd930",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://21338bccbc1f741c7fb521c8c0c5a0bcb79cdc4200e7ae77ff9276b6408b8d93",
-				"dweb:/ipfs/Qmeg1KB2BUPDQHiJNaswRvJUfC7HJyYjPpGyVfY8XKeRm4"
+				"bzz-raw://69de47d16bac614bd5a5433b82e4fafabec231e5d986a32ccdae4a0f863ec70c",
+				"dweb:/ipfs/QmQLe7fif3Z5yQqsragCfnUncxTd6LvSGHWkn7MoJ7wvfM"
 			]
 		},
 		"contracts/Actor/IUserStorageInterface.sol": {
-			"keccak256": "0x189fa5db899f0a31af11fdee9ce97b8e30fe427e719f0714a4dc8a43ffa5535f",
+			"keccak256": "0x81d5ea4a00a9bb5aa89a71a9ae9a3df5d2f4f6a5047732c1868b5284d9fda59f",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://aa4f56b832aa26f31e110851d264fc17be95be67ba96c3557786fd55c61b4388",
-				"dweb:/ipfs/QmbobmrLhM78V7udeRfaFF3DCXR7TEp9hsQBxgbMYgunHM"
+				"bzz-raw://fd56c8e90d30b51b4da1cef3c0cb9ad4b5691001bda681113113d92d84f9f9f7",
+				"dweb:/ipfs/QmX6FM9tE1kpxV3kwFLAtk2z9kGtCZLuxNSmEy9eJcTDHH"
 			]
 		},
 		"contracts/Actor/MilkHub-smart-contract/MilkHubService.sol": {
-			"keccak256": "0xf19a011b5561067c62f23ce37f1315b0c23b29173fad7a1157ae29ff5f0c1386",
+			"keccak256": "0x20966aad5526c94605f9cd9faadb88ff2d31fc36a7c719ac19df3f26fb6df686",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://85d2534784bbb2ae8ae373fe95d3554b2dfb332409cf88e62f47732f1e6eef8e",
-				"dweb:/ipfs/QmNmVpsdJWRGMsCZfsYUR2WUJiabD7VLs8iFVoieKQCe3j"
+				"bzz-raw://0f50204493b76bb7da7e261e4973846f7b47f22a61e57a80832e349cf1ef3635",
+				"dweb:/ipfs/QmedCdvHt2CJ1umAJ9oGYBZoXMTA8gmWBFcABxGhySRLre"
 			]
 		},
 		"contracts/Actor/MilkHub-smart-contract/MilkHubStorage.sol": {
-			"keccak256": "0xd5eea10bd86fff9bdee70ee4e83f028ddb4f72b66383c8bc41c051123febfb48",
+			"keccak256": "0x506e643435dfb00413d088566cb4576832742d090b14cc4e7d14263192e02857",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://15a5fd0a283477e078e30fcca040a7cd58aa038b18816b23e72da91d3e0c4b10",
-				"dweb:/ipfs/QmTQqj1Du11yJ9ihkHuPSZFGXmyF4QDajWnWL1LVe1EhWz"
+				"bzz-raw://abf54ead9c56c09fda9417cbcea5ce47a2374e9196f0517f19def72364a4a6b9",
+				"dweb:/ipfs/QmaXXMce7Y9TEc459yGL5NNpjy2KRGZ8wwvpE5WX9Z5D2V"
 			]
 		},
 		"contracts/Actor/MilkHub-smart-contract/inventory/MilkHubInventoryService.sol": {
-			"keccak256": "0x8072e0597d297836152d28cbb6284791fcd5c6c8e68024c5b634500e818c1a60",
+			"keccak256": "0xca5e65c8bdfb57d36b2936630f2a2dac11b8f3e6bc628376b6f8d71205f1871e",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://b03615019bb8c2569cf8ccbfbe571e17ba6712e96f4fedcd0db0715d7d20ff04",
-				"dweb:/ipfs/QmQyx4Kxb3naJwNxTwzvMw6X9Chq1SvMh2rqgNoSzzbQRk"
+				"bzz-raw://bff0940aac805c17915abbe1c44c786ee8ca98910eaea19f9b9a67db452fd108",
+				"dweb:/ipfs/QmY9HE3mcKBsg8NfJUwuirS8MhTUBTotA2snyuouLeo9sY"
 			]
 		},
 		"contracts/Actor/MilkHub-smart-contract/inventory/MilkHubInventoryStorage.sol": {
-			"keccak256": "0x91c79e17a637a230ac6f1fffbf584ef7551655fe3932aeda299ee299f197e50a",
+			"keccak256": "0x12c55b17ba60c6b601eff393efb77b6973f3753052b613438c4593fbd247a9a8",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://5b41d1b91a127bba21a62659db584bd473974954748cbd48d80de47fe8df3f87",
-				"dweb:/ipfs/QmUoynabDoxosJpJie7hZFjAn3JkbVSBgV9H19rsCsr61n"
+				"bzz-raw://8a1634c70a43cc834c1540f4b3695ea38f9a7c2d6c97ba4edadaaababb233533",
+				"dweb:/ipfs/QmWwax5X4J1GUd5kxZAEhftyvHzQsDTfNQJU7KRPrQikK2"
 			]
 		}
 	},

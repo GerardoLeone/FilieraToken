@@ -50,7 +50,7 @@
 		"gasEstimates": null,
 		"methodIdentifiers": {
 			"addUser(string,string,string,address)": "b48ff0f1",
-			"deleteUser(address)": "5c60f226",
+			"deleteUser(address,uint256)": "ed56bac5",
 			"getUser(address)": "6f77926b"
 		}
 	},
@@ -87,8 +87,13 @@
 			"inputs": [
 				{
 					"internalType": "address",
-					"name": "walletConsumer",
+					"name": "walletUser",
 					"type": "address"
+				},
+				{
+					"internalType": "uint256",
+					"name": "id_user",
+					"type": "uint256"
 				}
 			],
 			"name": "deleteUser",
@@ -106,7 +111,7 @@
 			"inputs": [
 				{
 					"internalType": "address",
-					"name": "walletConsumer",
+					"name": "walletUser",
 					"type": "address"
 				}
 			],

@@ -95,7 +95,7 @@ contract ConsumerStorage is IUserStorageInterface {
     
 
     // Funzione per eliminare il Consumer dato il suo indirizzo del wallet 
-    function deleteUser(address walletConsumer) external returns(bool value){
+    function deleteUser(address walletConsumer, uint256 _id) external returns(bool value){
         // Check exists Consumers
         require(consumers[walletConsumer].id!=0, "Utente non presente!");
 
@@ -105,7 +105,7 @@ contract ConsumerStorage is IUserStorageInterface {
             consumers[walletConsumer].email,
             walletConsumer
                )));
-        require (consumers[walletConsumer].id==lastIdConsumer, "Utente non Autorizzato!");
+        require (_id==lastIdConsumer, "Utente non Autorizzato!");
 
         delete consumers[walletConsumer];
 

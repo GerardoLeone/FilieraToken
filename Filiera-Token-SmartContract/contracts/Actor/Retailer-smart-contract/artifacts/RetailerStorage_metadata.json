@@ -44,6 +44,11 @@
 						"internalType": "address",
 						"name": "walletRetailer",
 						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
 					}
 				],
 				"name": "deleteUser",
@@ -195,7 +200,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"Filiera-Token-SmartContract/contracts/Actor/Retailer-smart-contract/RetailerStorage.sol": "RetailerStorage"
+			"contracts/Actor/Retailer-smart-contract/RetailerStorage.sol": "RetailerStorage"
 		},
 		"evmVersion": "shanghai",
 		"libraries": {},
@@ -209,20 +214,20 @@
 		"remappings": []
 	},
 	"sources": {
-		"Filiera-Token-SmartContract/contracts/Actor/IUserStorageInterface.sol": {
-			"keccak256": "0x189fa5db899f0a31af11fdee9ce97b8e30fe427e719f0714a4dc8a43ffa5535f",
+		"contracts/Actor/IUserStorageInterface.sol": {
+			"keccak256": "0x81d5ea4a00a9bb5aa89a71a9ae9a3df5d2f4f6a5047732c1868b5284d9fda59f",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://aa4f56b832aa26f31e110851d264fc17be95be67ba96c3557786fd55c61b4388",
-				"dweb:/ipfs/QmbobmrLhM78V7udeRfaFF3DCXR7TEp9hsQBxgbMYgunHM"
+				"bzz-raw://fd56c8e90d30b51b4da1cef3c0cb9ad4b5691001bda681113113d92d84f9f9f7",
+				"dweb:/ipfs/QmX6FM9tE1kpxV3kwFLAtk2z9kGtCZLuxNSmEy9eJcTDHH"
 			]
 		},
-		"Filiera-Token-SmartContract/contracts/Actor/Retailer-smart-contract/RetailerStorage.sol": {
-			"keccak256": "0x3670f4d909ac9190b0060fcc84c8e8c4ad484585632eea05aaa3c2e03d643dd4",
+		"contracts/Actor/Retailer-smart-contract/RetailerStorage.sol": {
+			"keccak256": "0xb3ce513d808e0163c9e03ca439ed887e036b6b6fa4528a71e2a86cab6f100794",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://51214ac178ece892f19a8992d727a6570f7bd98d96605d65e90b2321c7b83214",
-				"dweb:/ipfs/QmV4aW3B4xoGcfEVdGt1NkKBi6H3r7aX5zd8B7rxiAKswf"
+				"bzz-raw://30d9781ddc042c068a896db6df41f7a0e52d4b8c0d2761c57ad525acbe18cbbb",
+				"dweb:/ipfs/QmcdBkqpQ3Nb14dkWBYGib4Woumc6wL8AdC7GUNBhLomSE"
 			]
 		}
 	},

@@ -20,7 +20,12 @@ contract CheeseProducerMilkBatchStorage {
 
     mapping(address => mapping(uint256 => MilkBatch)) private purchasedMilkBatches;
 
-    function addMilkBatch(address _walletCheeseProducer, address _walletMilkHub, string memory _expirationDate, uint256 _quantity) external {
+    function addMilkBatch(
+        address _walletCheeseProducer,
+        address _walletMilkHub,
+        string memory _expirationDate,
+        uint256 _quantity
+        ) external {
 
         uint256 _id = uint256(keccak256(abi.encodePacked(
             _expirationDate,
@@ -44,6 +49,8 @@ contract CheeseProducerMilkBatchStorage {
         purchasedMilkBatches[_walletCheeseProducer][_id] = milkBatch;
     }
 
+
+
     function getMilkBatch(address walletCheeseProducer, uint256 _id) external view returns (uint256, address, string memory, uint256) {
 
         require( purchasedMilkBatches[walletCheeseProducer][_id].id == _id, "Partita di Latte non presente!");
@@ -53,6 +60,9 @@ contract CheeseProducerMilkBatchStorage {
         return (milkBatch.id, milkBatch.walletMilkHub, milkBatch.expirationDate, milkBatch.quantity);
     }
 
+
+
+
     function deleteMilkBatch(address walletCheeseProducer, uint256 _id) external returns(bool value) {
 
         require(purchasedMilkBatches[walletCheeseProducer][_id].id != 0, "Partita di Latte non presente!");
@@ -60,6 +70,7 @@ contract CheeseProducerMilkBatchStorage {
         uint256 lastIdMilkBatch = uint256(keccak256(abi.encodePacked(
             purchasedMilkBatches[walletCheeseProducer][_id].expirationDate,
             purchasedMilkBatches[walletCheeseProducer][_id].quantity,
+            purchasedMilkBatches[walletCheeseProducer][_id].walletMilkHub,
             walletCheeseProducer
         )));
 
@@ -67,8 +78,16 @@ contract CheeseProducerMilkBatchStorage {
 
         delete purchasedMilkBatches[walletCheeseProducer][_id];
 
-        return true;
+        // Check CheesePiece in the mapping 
+        if(purchasedMilkBatches[walletCheeseProducer][_id].id  == 0){
+            return true;
+        }else {
+            return false;
+        }
     }
+
+
+
 
     function detractMilkBatchQuantity(address walletCheeseProducer, uint256 _id, uint256 _quantity) external returns(bool value) {
 

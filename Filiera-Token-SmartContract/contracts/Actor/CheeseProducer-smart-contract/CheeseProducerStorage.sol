@@ -73,24 +73,9 @@ contract CheeseProducerStorage is IUserStorageInterface {
         return keccak256(abi.encodePacked(cheeseProducer.email, cheeseProducer.password)) == keccak256(abi.encodePacked(_email, _password));
     }
 
-    /**
-     * getUser(walletCheeseProducer): 
-     * Cheese Producer views their main information
-     * - email, password, fullName, balance
-     */
-    function getUser(address walletCheeseProducer) external view returns (uint256, string memory, string memory, string memory, uint256) {
-
-        // Verify that the user is present
-        require(cheeseProducers[walletCheeseProducer].id != 0, "User not present!");
-
-        CheeseProducer memory cheeseProducer = cheeseProducers[walletCheeseProducer];
-
-        // Return the data of the cheese producer
-        return (cheeseProducer.id, cheeseProducer.fullName, cheeseProducer.password, cheeseProducer.email, cheeseProducer.balance);
-    }
 
     // Function to delete the Cheese Producer given their wallet address
-    function deleteUser(address walletCheeseProducer) external returns(bool value){
+    function deleteUser(address walletCheeseProducer, uint256 _id) external returns(bool value){
         // Check if Cheese Producer exists
         require(cheeseProducers[walletCheeseProducer].id != 0, "User not present!");
 
@@ -100,7 +85,7 @@ contract CheeseProducerStorage is IUserStorageInterface {
             cheeseProducers[walletCheeseProducer].email,
             walletCheeseProducer
                )));
-        require (cheeseProducers[walletCheeseProducer].id == lastIdCheeseProducer, "User not authorized!");
+        require (_id == lastIdCheeseProducer, "User not authorized!");
 
         delete cheeseProducers[walletCheeseProducer];
 
@@ -119,5 +104,76 @@ contract CheeseProducerStorage is IUserStorageInterface {
         
         return cheeseProducers[walletCheeseProducer].id != 0;
     }
+
+// ------------------------------------------------------------------------ Get and Set Function --------------------------------------------------------------------//
+
+/**
+        - Funzione getId() attraverso l'address del MilkHub riusciamo a recuperare il suo ID
+    */
+    function getId(address walletCheeseProducer) external view  returns(uint256){
+        require(this.isUserPresent(walletCheeseProducer),"User Not Found!");
+
+        return cheeseProducers[walletCheeseProducer].id;
+    }
+
+    /**
+        - Funzione getFullName() attraverso l'address del MilkHub riusciamo a recuperare il suo FullName
+    */
+    function getFullName(address walletCheeseProducer, uint256 _id) external view  returns(string memory){
+        require(this.isUserPresent(walletCheeseProducer),"User Not Found!");
+        require(cheeseProducers[walletCheeseProducer].id==_id,"Struct not Valid!");
+        
+        return cheeseProducers[walletCheeseProducer].fullName;
+    }
+
+    /**
+        - Funzione getEmail() attraverso l'address del MilkHub riusciamo a recuperare la sua Email 
+    */
+    function getEmail(address walletCheeseProducer, uint256 _id) external view  returns(string memory){
+        require(this.isUserPresent(walletCheeseProducer),"User Not Found!");
+        require(cheeseProducers[walletCheeseProducer].id==_id,"Struct not Valid!");
+        
+        return cheeseProducers[walletCheeseProducer].email;
+    }
+
+    /**
+        - Funzione getBalance() attraverso l'address del MilkHub riusciamo a recuperare il suo Balance
+    */
+    function getBalance(address walletCheeseProducer, uint256 _id) external view  returns(uint256){
+        require(this.isUserPresent(walletCheeseProducer),"User Not Found!");
+        require(cheeseProducers[walletCheeseProducer].id == _id,"Struct not Valid!");
+
+        return cheeseProducers[walletCheeseProducer].balance;
+    }
+
+    /**
+     * getUser(walletCheeseProducer): 
+     * Cheese Producer views their main information
+     * - email, password, fullName, balance
+     */
+    function getUser(address walletCheeseProducer) external view returns (uint256, string memory, string memory, string memory, uint256) {
+
+        // Verify that the user is present
+        require(cheeseProducers[walletCheeseProducer].id != 0, "User not present!");
+
+        CheeseProducer memory cheeseProducer = cheeseProducers[walletCheeseProducer];
+
+        // Return the data of the cheese producer
+        return (cheeseProducer.id, cheeseProducer.fullName, cheeseProducer.password, cheeseProducer.email, cheeseProducer.balance);
+    }
+
+
+
+    // - Funzione updateBalance() attraverso l'address e l'id, riusciamo a settare il nuovo balance
+    function updateBalance(address walletCheeseProducer, uint256 _id, uint256 balance) external{
+
+        require(balance>0,"Balance Not Valid");
+        require(this.isUserPresent(walletCheeseProducer),"User Not Found!");
+        require(cheeseProducers[walletCheeseProducer].id==_id,"Struct not Valid!");
+
+        cheeseProducers[walletCheeseProducer].balance = balance;
+    }
+
+
 
 }

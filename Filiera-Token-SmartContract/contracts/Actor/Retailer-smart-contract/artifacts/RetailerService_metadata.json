@@ -71,6 +71,11 @@
 						"internalType": "address",
 						"name": "walletRetailer",
 						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
 					}
 				],
 				"name": "deleteRetailer",
@@ -173,7 +178,7 @@
 		"userdoc": {
 			"kind": "user",
 			"methods": {
-				"deleteRetailer(address)": {
+				"deleteRetailer(address,uint256)": {
 					"notice": "deleteRetailer() deletes a Retailer from the system  - Only the owner can perform the deletion  - msg.sender should be the owner's address "
 				},
 				"getRetailerData(address)": {
@@ -191,7 +196,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"Filiera-Token-SmartContract/contracts/Actor/Retailer-smart-contract/RetailerService.sol": "RetailerService"
+			"contracts/Actor/Retailer-smart-contract/RetailerService.sol": "RetailerService"
 		},
 		"evmVersion": "shanghai",
 		"libraries": {},
@@ -245,36 +250,36 @@
 				"dweb:/ipfs/Qmax9WHBnVsZP46ZxEMNRQpLQnrdE4dK8LehML1Py8FowF"
 			]
 		},
-		"Filiera-Token-SmartContract/contracts/Actor/Filieratoken.sol": {
-			"keccak256": "0x62b7dce6b0178ef403707b824177c327ef802fe2c58bc8f54c0137bfe7b669b9",
+		"contracts/Actor/Filieratoken.sol": {
+			"keccak256": "0xe0b07513d0fc2b452ae9f2eda6f6922072f2bf467816817b7af1fb7faf5fd930",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://94fdb8fa2e0bc18561641cb381b005b273e1c1418f23cdad3872306e4c828835",
-				"dweb:/ipfs/QmZ98d4JSmvuVjBeqtNRHNDCCjxYFDsbiFqSC5cqrQEdZt"
+				"bzz-raw://69de47d16bac614bd5a5433b82e4fafabec231e5d986a32ccdae4a0f863ec70c",
+				"dweb:/ipfs/QmQLe7fif3Z5yQqsragCfnUncxTd6LvSGHWkn7MoJ7wvfM"
 			]
 		},
-		"Filiera-Token-SmartContract/contracts/Actor/IUserStorageInterface.sol": {
-			"keccak256": "0x189fa5db899f0a31af11fdee9ce97b8e30fe427e719f0714a4dc8a43ffa5535f",
+		"contracts/Actor/IUserStorageInterface.sol": {
+			"keccak256": "0x81d5ea4a00a9bb5aa89a71a9ae9a3df5d2f4f6a5047732c1868b5284d9fda59f",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://aa4f56b832aa26f31e110851d264fc17be95be67ba96c3557786fd55c61b4388",
-				"dweb:/ipfs/QmbobmrLhM78V7udeRfaFF3DCXR7TEp9hsQBxgbMYgunHM"
+				"bzz-raw://fd56c8e90d30b51b4da1cef3c0cb9ad4b5691001bda681113113d92d84f9f9f7",
+				"dweb:/ipfs/QmX6FM9tE1kpxV3kwFLAtk2z9kGtCZLuxNSmEy9eJcTDHH"
 			]
 		},
-		"Filiera-Token-SmartContract/contracts/Actor/Retailer-smart-contract/RetailerService.sol": {
-			"keccak256": "0x64473b87c16bab81ec8e9c03e766893e0ee5f1593e5b0a678894d0968a706d58",
+		"contracts/Actor/Retailer-smart-contract/RetailerService.sol": {
+			"keccak256": "0x37ab58a35fb98ca18635c274d27fe02aa8bf9174e8a5609fe3d761017180dfcb",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://660c60db106729ce6e7629d05d491aacc998830420c1cc5d0e00af1ecdcc68d9",
-				"dweb:/ipfs/QmYve7zjTvX2QJ7v9AS9smuvXgcCm3YYFzGmMaHW8D9fD7"
+				"bzz-raw://0c74c019ed0c4c47d53ed93f504dd58788f2c67bbf829606193378f0b23f4560",
+				"dweb:/ipfs/QmPy18gAH4UUjiLQAosfqp6VFMkbHes6zVb6f9sa8wcrUa"
 			]
 		},
-		"Filiera-Token-SmartContract/contracts/Actor/Retailer-smart-contract/RetailerStorage.sol": {
-			"keccak256": "0x3670f4d909ac9190b0060fcc84c8e8c4ad484585632eea05aaa3c2e03d643dd4",
+		"contracts/Actor/Retailer-smart-contract/RetailerStorage.sol": {
+			"keccak256": "0xb3ce513d808e0163c9e03ca439ed887e036b6b6fa4528a71e2a86cab6f100794",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://51214ac178ece892f19a8992d727a6570f7bd98d96605d65e90b2321c7b83214",
-				"dweb:/ipfs/QmV4aW3B4xoGcfEVdGt1NkKBi6H3r7aX5zd8B7rxiAKswf"
+				"bzz-raw://30d9781ddc042c068a896db6df41f7a0e52d4b8c0d2761c57ad525acbe18cbbb",
+				"dweb:/ipfs/QmcdBkqpQ3Nb14dkWBYGib4Woumc6wL8AdC7GUNBhLomSE"
 			]
 		}
 	},

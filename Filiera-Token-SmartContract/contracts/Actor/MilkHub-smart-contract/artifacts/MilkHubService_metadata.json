@@ -94,9 +94,9 @@
 			{
 				"inputs": [
 					{
-						"internalType": "address",
-						"name": "walletMilkHub",
-						"type": "address"
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
 					}
 				],
 				"name": "deleteMilkHub",
@@ -110,6 +110,30 @@
 						"internalType": "address",
 						"name": "walletMilkHub",
 						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
+				"name": "getMilkHubBalance",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
 					}
 				],
 				"name": "getMilkHubData",
@@ -138,6 +162,54 @@
 						"internalType": "uint256",
 						"name": "",
 						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletMilkHub",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
+				"name": "getMilkHubEmail",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletMilkHub",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
+				"name": "getMilkHubFullName",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
 					}
 				],
 				"stateMutability": "view",
@@ -215,22 +287,21 @@
 						"internalType": "address",
 						"name": "walletMilkHub",
 						"type": "address"
-					}
-				],
-				"name": "viewMilkHub",
-				"outputs": [
-					{
-						"internalType": "string",
-						"name": "",
-						"type": "string"
 					},
 					{
-						"internalType": "string",
-						"name": "",
-						"type": "string"
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "balance",
+						"type": "uint256"
 					}
 				],
-				"stateMutability": "view",
+				"name": "updateMilkHubBalance",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			}
 		],
@@ -242,20 +313,26 @@
 		"userdoc": {
 			"kind": "user",
 			"methods": {
-				"deleteMilkHub(address)": {
+				"deleteMilkHub(uint256)": {
 					"notice": "deleteMilkHub() elimina un MilkHub all'interno del sistema  - Solo l'owner può effettuare l'eliminazione  - msg.sender dovrebbe essere solo quello dell'owner "
 				},
-				"getMilkHubData(address)": {
+				"getMilkHubBalance(address,uint256)": {
+					"notice": "- Funzione getBalance() attraverso l'address del MilkHub riusciamo a recuperare il suo Balance"
+				},
+				"getMilkHubData(uint256)": {
 					"notice": "getMilkHubData() otteniamo i dati del MilkHub - tramite l'address del MilkHub riusciamo a visualizzare anche i suoi dati - Dati sensibili e visibili solo dal MilkHub stesso "
+				},
+				"getMilkHubEmail(address,uint256)": {
+					"notice": "- Funzione getEmail() attraverso l'address del MilkHub riusciamo a recuperare la sua Email "
+				},
+				"getMilkHubFullName(address,uint256)": {
+					"notice": "- Funzione getFullName() attraverso l'address del MilkHub riusciamo a recuperare il suo FullName"
 				},
 				"login(string,string)": {
 					"notice": "login() effettua la Login con email e password  - Inserisce l'email e la password  - return True se l'utente esiste ed ha accesso con le giuste credenziali  - return False altrimenti "
 				},
 				"registerMilkHub(string,string,string)": {
 					"notice": "registerMilkHub() registra gli utenti della piattaforma che sono MilkHub  - Inserisce i dati all'interno della Blockchain - Trasferisce 100 token dal contratto di FilieraToken  - Emette un evento appena l'utente è stato registrato   "
-				},
-				"viewMilkHub(address)": {
-					"notice": "viewMilkHub() inseriamo l'address del MilkHub per poter visualizzare i dati meno sensibili del MilkHub - Visualizziamo il MilkHub ( email , fullname )"
 				}
 			},
 			"version": 1
@@ -318,35 +395,35 @@
 			]
 		},
 		"contracts/Actor/Filieratoken.sol": {
-			"keccak256": "0xc12fa059c37296fe19425699a20d12dc472c2b0931d7d221c433c41f806186df",
+			"keccak256": "0xe0b07513d0fc2b452ae9f2eda6f6922072f2bf467816817b7af1fb7faf5fd930",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://21338bccbc1f741c7fb521c8c0c5a0bcb79cdc4200e7ae77ff9276b6408b8d93",
-				"dweb:/ipfs/Qmeg1KB2BUPDQHiJNaswRvJUfC7HJyYjPpGyVfY8XKeRm4"
+				"bzz-raw://69de47d16bac614bd5a5433b82e4fafabec231e5d986a32ccdae4a0f863ec70c",
+				"dweb:/ipfs/QmQLe7fif3Z5yQqsragCfnUncxTd6LvSGHWkn7MoJ7wvfM"
 			]
 		},
 		"contracts/Actor/IUserStorageInterface.sol": {
-			"keccak256": "0x189fa5db899f0a31af11fdee9ce97b8e30fe427e719f0714a4dc8a43ffa5535f",
+			"keccak256": "0x81d5ea4a00a9bb5aa89a71a9ae9a3df5d2f4f6a5047732c1868b5284d9fda59f",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://aa4f56b832aa26f31e110851d264fc17be95be67ba96c3557786fd55c61b4388",
-				"dweb:/ipfs/QmbobmrLhM78V7udeRfaFF3DCXR7TEp9hsQBxgbMYgunHM"
+				"bzz-raw://fd56c8e90d30b51b4da1cef3c0cb9ad4b5691001bda681113113d92d84f9f9f7",
+				"dweb:/ipfs/QmX6FM9tE1kpxV3kwFLAtk2z9kGtCZLuxNSmEy9eJcTDHH"
 			]
 		},
 		"contracts/Actor/MilkHub-smart-contract/MilkHubService.sol": {
-			"keccak256": "0xf19a011b5561067c62f23ce37f1315b0c23b29173fad7a1157ae29ff5f0c1386",
+			"keccak256": "0x20966aad5526c94605f9cd9faadb88ff2d31fc36a7c719ac19df3f26fb6df686",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://85d2534784bbb2ae8ae373fe95d3554b2dfb332409cf88e62f47732f1e6eef8e",
-				"dweb:/ipfs/QmNmVpsdJWRGMsCZfsYUR2WUJiabD7VLs8iFVoieKQCe3j"
+				"bzz-raw://0f50204493b76bb7da7e261e4973846f7b47f22a61e57a80832e349cf1ef3635",
+				"dweb:/ipfs/QmedCdvHt2CJ1umAJ9oGYBZoXMTA8gmWBFcABxGhySRLre"
 			]
 		},
 		"contracts/Actor/MilkHub-smart-contract/MilkHubStorage.sol": {
-			"keccak256": "0xd5eea10bd86fff9bdee70ee4e83f028ddb4f72b66383c8bc41c051123febfb48",
+			"keccak256": "0xd6fd94d83c3c4c9fff9b5c723a3251423947b5ae529a799dcf7244d4270574e7",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://15a5fd0a283477e078e30fcca040a7cd58aa038b18816b23e72da91d3e0c4b10",
-				"dweb:/ipfs/QmTQqj1Du11yJ9ihkHuPSZFGXmyF4QDajWnWL1LVe1EhWz"
+				"bzz-raw://5d29877308109d9e76f39d9242f6902e15b6e5e7e1a225ef811d775a401d5b90",
+				"dweb:/ipfs/QmZ9PsNzEqqHYhsPwdC5WvB5wMuvU3adb67hS97bEdWJod"
 			]
 		}
 	},

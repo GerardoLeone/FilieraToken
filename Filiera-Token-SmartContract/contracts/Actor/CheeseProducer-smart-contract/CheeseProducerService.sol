@@ -49,12 +49,12 @@ contract CheeseProducerService {
     }
 
 
-     function changeCheeseProducerStorage(address _cheeseProducerStorage)external onlyOwner() {
+     function changeCheeseProducerStorage(address _cheeseProducerStorage)external {
         cheeseProducerStorage = CheeseProducerStorage(_cheeseProducerStorage);
     }
 
 
-    function changeFilieraToken(address _filieraToken)external onlyOwner() {
+    function changeFilieraToken(address _filieraToken)external {
         filieraToken = Filieratoken(_filieraToken);
     }
 
@@ -90,6 +90,56 @@ contract CheeseProducerService {
         return cheeseProducerStorage.loginUser(walletCheeseProducer, email, password);
     }
 
+
+    /**
+     * deleteCheeseProducer() deletes a Cheese Producer from the system 
+     * - Only the owner can perform the deletion 
+     * - msg.sender should be the owner's address 
+     */
+    function deleteCheeseProducer(address walletCheeseProducer, uint256 _id) external onlyOwnerWallet(walletCheeseProducer)  {
+        require(cheeseProducerStorage.deleteUser(walletCheeseProducer, _id), "Error during deletion");
+        // Burn all tokens 
+        filieraToken.burnToken(walletCheeseProducer, filieraToken.balanceOf(walletCheeseProducer));
+        // Emit Event on FireFly 
+        emit ProducerDeleted(walletCheeseProducer,"User has been deleted!");
+    }
+
+
+//----------------------------------------------------------------------------- Get Function ----------------------------------------------------------------------//
+
+    /**
+        -  Funzione getCheeseProducerId() attraverso l'address del CheeseProducer siamo riusciti ad ottenere il suo ID
+    */
+    function getCheeseProducerId(address walletCheeseProducer) external view returns (uint256){
+        
+        return cheeseProducerStorage.getId(walletCheeseProducer);
+    }
+
+    
+    /**
+        - Funzione getFullName() attraverso l'address del CheeseProducer riusciamo a recuperare il suo FullName
+    */
+    function getCheeseProducerFullName(address walletCheeseProducer,uint256 _id) external view  returns(string memory){
+
+        return cheeseProducerStorage.getFullName(walletCheeseProducer,_id);
+    }
+
+    /**
+        - Funzione getEmail() attraverso l'address del CheeseProducer riusciamo a recuperare la sua Email 
+    */
+    function getCheeseProducerEmail(address walletCheeseProducer, uint256 _id) external view  returns(string memory){
+        
+        return cheeseProducerStorage.getEmail(walletCheeseProducer,_id);
+    }
+
+    /**
+        - Funzione getBalance() attraverso l'address del CheeseProducer riusciamo a recuperare il suo Balance
+    */
+    function getCheeseProducerBalance(address walletCheeseProducer, uint256 _id) external view  returns(uint256){
+
+        return cheeseProducerStorage.getBalance(walletCheeseProducer,_id);
+    }
+
     /**
      * getCheeseProducerData() obtains data of the Cheese Producer
      * - using the address of the Cheese Producer, we can also view their data
@@ -100,17 +150,15 @@ contract CheeseProducerService {
         return cheeseProducerStorage.getUser(walletCheeseProducer);
     }
 
-    /**
-     * deleteCheeseProducer() deletes a Cheese Producer from the system 
-     * - Only the owner can perform the deletion 
-     * - msg.sender should be the owner's address 
-     */
-    function deleteCheeseProducer(address walletCheeseProducer) external onlyOwnerWallet(walletCheeseProducer)  {
-        require(cheeseProducerStorage.deleteUser(walletCheeseProducer), "Error during deletion");
-        // Burn all tokens 
-        filieraToken.burnToken(walletCheeseProducer, filieraToken.balanceOf(walletCheeseProducer));
-        // Emit Event on FireFly 
-        emit ProducerDeleted(walletCheeseProducer,"User has been deleted!");
+
+
+//------------------------------------------------------------ Set Function -------------------------------------------------------------------//
+
+    // - Funzione updateBalance() attraverso l'address e l'id, riusciamo a settare il nuovo balance
+    function updateCheeseProducerBalance(address walletCheeseProducer, uint256 _id, uint256 balance) external{
+        
+        cheeseProducerStorage.updateBalance(walletCheeseProducer, _id, balance);
     }
+
 
 }

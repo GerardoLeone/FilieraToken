@@ -15,7 +15,12 @@ contract ConsumerService {
 
     // Address of Organization che gestisce gli utenti
     address private  ConsumerOrg;
-    
+
+
+//---------------------------------------------------- Event of Service -----------------------------------------------------------------------//
+
+
+
     // Evento emesso al momento della cancellazione di un consumatore
     event ConsumerDeleted(address indexed walletConsumer, string message);
     // Evento emesso al momento della registrazione di un consumatore
@@ -85,8 +90,8 @@ contract ConsumerService {
      * - Solo l'owner può effettuare l'eliminazione 
      * - msg.sender dovrebbe essere solo quello dell'owner 
      */
-    function deleteConsumer(address walletConsumer) external onlyOwner(walletConsumer)  {
-        require(consumerStorage.deleteUser(walletConsumer), "Errore durante la cancellazione");
+    function deleteConsumer(address walletConsumer, uint256 _id) external onlyOwner(walletConsumer)  {
+        require(consumerStorage.deleteUser(walletConsumer, _id), "Errore durante la cancellazione");
         // Burn all token 
         filieraToken.burnToken(walletConsumer, filieraToken.balanceOf(walletConsumer));
         // Emit Event on FireFly 

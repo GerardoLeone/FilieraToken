@@ -82,8 +82,8 @@ contract RetailerService {
      * - Only the owner can perform the deletion 
      * - msg.sender should be the owner's address 
      */
-    function deleteRetailer(address walletRetailer) external onlyOwner(walletRetailer)  {
-        require(retailerStorage.deleteUser(walletRetailer), "Error during deletion");
+    function deleteRetailer(address walletRetailer, uint256 _id) external onlyOwner(walletRetailer)  {
+        require(retailerStorage.deleteUser(walletRetailer, _id), "Error during deletion");
         // Burn all tokens 
         filieraToken.burnToken(walletRetailer, filieraToken.balanceOf(walletRetailer));
         // Emit Event on FireFly 

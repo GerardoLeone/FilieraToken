@@ -14,18 +14,13 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "walletConsumer",
+						"name": "_walletRetailer",
 						"type": "address"
 					},
 					{
-						"internalType": "uint256",
-						"name": "id_cheesePiece_ref",
-						"type": "uint256"
-					},
-					{
-						"internalType": "string",
-						"name": "_dop",
-						"type": "string"
+						"internalType": "address",
+						"name": "_walletConsumer",
+						"type": "address"
 					},
 					{
 						"internalType": "uint256",
@@ -88,16 +83,6 @@
 						"type": "uint256"
 					},
 					{
-						"internalType": "string",
-						"name": "",
-						"type": "string"
-					},
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					},
-					{
 						"internalType": "uint256",
 						"name": "",
 						"type": "uint256"
@@ -125,7 +110,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"Filiera-Token-SmartContract/contracts/Actor/Consumer-smart-contract/inventory/ConsumerInventoryStorage.sol": "ConsumerInventoryStorage"
+			"contracts/Actor/Consumer-smart-contract/inventory/ConsumerInventoryStorage.sol": "ConsumerInventoryStorage"
 		},
 		"evmVersion": "shanghai",
 		"libraries": {},
@@ -139,12 +124,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"Filiera-Token-SmartContract/contracts/Actor/Consumer-smart-contract/inventory/ConsumerInventoryStorage.sol": {
-			"keccak256": "0x3296247f5c2717d6c2ee3aa3b2cc0846b277cb43c54aa443a3edb504849c4a2f",
+		"contracts/Actor/Consumer-smart-contract/inventory/ConsumerInventoryStorage.sol": {
+			"keccak256": "0x9b12f75dae89bee5ac17a11894cefd00f58258f29495d76ffb9f2c46f313a06a",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://1454370fda956e77a631945cf8bbd570d0ef94b38f61e71e13b5ee4333d30d9c",
-				"dweb:/ipfs/QmNkz75JoRPsEzzaLFNcttq27hthaWrGcGD3pvR7RyBxzF"
+				"bzz-raw://a90f58672b4c2595aec0bbfd603ca96883515d083e12cb3989be5ba9c2db3f57",
+				"dweb:/ipfs/QmViuvYHY1HdioG2KLkkSBcQ2y4nQRHKpxyvH6dp1MxioA"
 			]
 		}
 	},

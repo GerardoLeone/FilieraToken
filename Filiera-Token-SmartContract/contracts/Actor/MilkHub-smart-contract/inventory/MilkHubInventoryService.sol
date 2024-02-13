@@ -7,12 +7,17 @@ import "../MilkHubService.sol";
 
 contract MilkHubInventoryService {
 
+
+// ------------------------------------------------------------------ Contract Address Service -----------------------------------------------------------//
+
      // Address of Organization che gestisce gli utenti
     address private  MilkHubOrg;
-
+    // Address of Inventory Storage 
     MilkHubInventoryStorage private milkhubInventoryStorage;
-
+    // Address Service of MilkHub Service 
     MilkHubService private milkhubService;
+
+//----------------------------------------------------------------- Costructor Function ---------------------------------------------------------------------------//
 
     constructor(address _milkhubInventoryStorage, address _milkhubService){
         MilkHubOrg = msg.sender;
@@ -20,15 +25,22 @@ contract MilkHubInventoryService {
         milkhubService = MilkHubService(_milkhubService);
     }
 
-    // Eventi per notificare l'aggiunta e l'eliminazione dei dati
+//----------------------------------------------------------------- Event of Service ----------------------------------------------------------------------------------//
+
+
+    // Evento per notificare l'aggiunta e l'eliminazione dei dati
     event MilkBatchAdded(address indexed userAddress, uint256 id, string message, string scadenza, uint256 quantity, uint256 price);
-    
+    // Evento per notificare l'eliminazione del MilkBatch 
     event MilkBatchDeleted(address indexed userAddress, uint256 indexed id, string message);
+    // Evento per notificare la modifica del MilkBatch 
+    event MilkBatchEdited(address indexed userAddress,string message, uint256 quantity);
 
-    // Eventi per notificare la modifica del MilkBatch 
-    event MilkBatchEdited(address indexed userAddress, uint256 quantity);
+//-------------------------------------------------------------------- Change Contract Address Service ----------------------------------------------------------------------//
 
-      function changeMilkHubInventoryStorage(address _milkhubInventoryStorage)external {
+
+
+
+    function changeMilkHubInventoryStorage(address _milkhubInventoryStorage)external {
         milkhubInventoryStorage = MilkHubInventoryStorage(_milkhubInventoryStorage);
     }
 
@@ -38,20 +50,27 @@ contract MilkHubInventoryService {
     }
 
 
+//--------------------------------------------------------------------------- Modifier function of Service ----------------------------------------------------------------------------//
 
 
-    
-    // Modifier: 
-    // Modifica il comportamento della funzione applicando una particolare condizione e un particolare comportamento aggiuntivo
-    modifier onlyIfUserPresent() {
+    // Verifica chi effettua la transazione : 
+    // Verfica che l'address non sia l'organizzazione 
+    // Verfica che l'address non sia lo smart contract del MilkHubStorage e FilieraToken 
+    modifier checkAddress(address walletMilkHub){
 
-        require(msg.sender != MilkHubOrg, "Address not valid!");
-        require(msg.sender != address(milkhubInventoryStorage), "Address not valid of Inventory Storage");
-        require(msg.sender != address(milkhubService),"Address not valid of Service");
-        require(milkhubService.isUserPresent(msg.sender), "User is not present in data");
+        require(walletMilkHub!=address(0),"Address is zero");
+        require(walletMilkHub != address(milkhubInventoryStorage), "Address is MilkHubStorage Smart Contract!");
+        require(walletMilkHub != address(milkhubService), "Address is FilieraToken Smart Contract!" );
+        require(walletMilkHub != MilkHubOrg ,"Organization address not Valid to do Operation");
+
         _;
-        
     }
+
+
+
+
+//------------------------------------------------------------------------------- Business Function of Service --------------------------------------------------------------------------//
+
 
     /* Questa funzione permette di aggiungere : 
        Un prodotto MilkBatch all'inventario da poter mettere in vendita
@@ -63,10 +82,11 @@ contract MilkHubInventoryService {
        - Evento : 
        - milkBatchAdded()
      */
-    function addMilkBatch(string memory _scadenza, uint256 _quantity, uint256 _price) external onlyIfUserPresent() {
+    function addMilkBatch(string memory _scadenza, uint256 _quantity, uint256 _price) external checkAddress(msg.sender) {
+        // Check if User exists
         address walletMilkHub = msg.sender;
-        // Verifico che l'address sia diverso da quello di Deploy 
-        require(walletMilkHub != MilkHubOrg,"Address non Valido!");
+        require(milkhubService.isUserPresent(walletMilkHub), "User is not present in data");
+
         //Call function of Storage 
         (uint256 id, string memory scadenza, uint256 quantity, uint256 price) = milkhubInventoryStorage.addMilkBatch(walletMilkHub, _scadenza, _quantity, _price);
         // Emissione dell'evento 
@@ -77,22 +97,29 @@ contract MilkHubInventoryService {
      * Ottenere le informazioni del milkbatch attraverso : 
      * - ID 
      * */  
-    function getMilkBatch(uint256 _id) external view onlyIfUserPresent() returns (uint256, string memory, uint256, uint256)  {
+    function getMilkBatch(uint256 _id) external view checkAddress(msg.sender) returns (uint256, string memory, uint256, uint256)  {
+        
         // Retrieve msg.sender 
         address walletMilkHub = msg.sender;
 
+        require(this.isMilkBatchPresent(walletMilkHub, _id),"MilkBatch not Present!");
+
+
         return milkhubInventoryStorage.getMilkBatch(walletMilkHub,_id);
     }
-
 
     /**
      * Eliminare un MilkBatch attraverso l'id 
      * - ID 
      * - Verficare che l'utente che vuole eseguire la transazione sia presente.
      */
-    function deleteMilkBatch(uint256 _id) external onlyIfUserPresent() returns(bool value) {
+    function deleteMilkBatch(uint256 _id) external checkAddress(msg.sender) returns(bool value) {
         // Retrieve msg.sender 
         address walletMilkHub = msg.sender;
+        // Check if User is Present
+        require(milkhubService.isUserPresent(walletMilkHub), "User is not present!");
+        // Check if Product is present 
+        require(this.isMilkBatchPresent(walletMilkHub, _id),"MilkBatch not Present!");
 
         if(milkhubInventoryStorage.deleteMilkBatch(walletMilkHub,_id)){
             emit MilkBatchDeleted(walletMilkHub,_id,"Pezzo di Formaggio e' stato eleminato");
@@ -112,31 +139,55 @@ contract MilkHubInventoryService {
         return milkhubInventoryStorage.checkProduct(ownerMilkBatch, _id_MilkBatch, quantityToBuy);
     }
 
+//-------------------------------------------------------------------- Get Function --------------------------------------------------------------------//
 
-    function getExpirationDate(address walletMilkHub, uint256 _id) external view returns(string memory) {
+    function getMilkBatchExpirationDate(address walletMilkHub, uint256 _id) external view checkAddress(walletMilkHub) returns(string memory) {
+        
+        require(milkhubService.isUserPresent(walletMilkHub), "User is not present!");
+
+        require(this.isMilkBatchPresent(walletMilkHub, _id),"MilkBatch not Present!");
+
         return milkhubInventoryStorage.getExpirationDate(walletMilkHub,_id);        
     }
 
-    function getQuantity(address walletMilkHub, uint256 _id) external view returns(uint256) {
+    function getMilkBatchQuantity(address walletMilkHub, uint256 _id) external view checkAddress(walletMilkHub) returns(uint256) {
+        
+        require(milkhubService.isUserPresent(walletMilkHub), "User is not present!");
+
+        require(this.isMilkBatchPresent(walletMilkHub, _id),"MilkBatch not Present!");
+        
         return milkhubInventoryStorage.getQuantity(walletMilkHub,_id);        
     }
 
-    function getPrice(address walletMilkHub, uint256 _id) external view returns(uint256) {
+    function getMilkBatchPrice(address walletMilkHub, uint256 _id) external view checkAddress(walletMilkHub) returns(uint256) {
+        require(milkhubService.isUserPresent(walletMilkHub), "User is not present!");
+
+        require(this.isMilkBatchPresent(walletMilkHub, _id),"MilkBatch not Present!");
+        
         return milkhubInventoryStorage.getPrice(walletMilkHub,_id);        
     }
+
+    function isMilkBatchPresent(address walletMilkHub, uint256 _id) external view checkAddress(walletMilkHub)  returns (bool){
+        return milkhubInventoryStorage.isMilkBatchPresent(walletMilkHub, _id);
+    }
+
+
+//---------------------------------------------------------------------- Set Function --------------------------------------------------------------------------//
+
 
     /**
     * Decremento della quantità del MilkBatch 
     * Verifica che la quantità sia maggiore di 0 -> altrimenti elimina
     */
-    function decreaseMilkBatchQuantity(address ownerMilkHub, uint256 _id, uint256 _quantity) external {
+    function updateMilkBatchQuantity(address ownerMilkHub, uint256 _id, uint256 _quantity) external checkAddress(ownerMilkHub) {
 
-        require(ownerMilkHub != MilkHubOrg, "Address non Valido!");
+        require(milkhubService.isUserPresent(ownerMilkHub), "User is not present!");
 
-        require(milkhubInventoryStorage.detractMilkBatchQuantity(ownerMilkHub, _id, _quantity), "Errore durante la modifica della quantita' di latte nella Partita del Latte");
+        require(this.isMilkBatchPresent(ownerMilkHub, _id),"MilkBatch not Present!");
 
-        emit MilkBatchEdited(ownerMilkHub, _quantity);
+        milkhubInventoryStorage.updateQuantity(ownerMilkHub, _id, _quantity);
+
+        emit MilkBatchEdited(ownerMilkHub,"MilkBatch edited!", _quantity);
     }
-
 
 }

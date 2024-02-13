@@ -20,12 +20,12 @@ contract ConsumerInventoryService {
     event CheesePieceAdded(address indexed userAddress, string message, string dop, uint256 quantity, uint256 price);
     event CheesePieceDeleted(address indexed userAddress, uint256 indexed id, string message);
 
-    function addCheesePiece(uint256 _id_ref_cheese, string memory _dop, uint256 _quantity, uint256 _price) external {
+    function addCheesePiece(address walletRetailer, string memory _dop, uint256 _quantity, uint256 _price) external {
         address walletConsumer = msg.sender;
         // Verifico che l'address sia diverso da quello di Deploy 
         require(walletConsumer != ConsumerOrg,"Address non Valido!");
         //Call function of Storage 
-        consumerInventoryStorage.addCheesePiece(walletConsumer, _id_ref_cheese, _dop, _quantity, _price);
+        consumerInventoryStorage.addCheesePiece(walletConsumer, walletRetailer, _quantity, _price);
         // Emissione dell'evento 
         emit CheesePieceAdded(walletConsumer, "Pezzo di formaggio inserito !", _dop, _quantity, _price);
     }

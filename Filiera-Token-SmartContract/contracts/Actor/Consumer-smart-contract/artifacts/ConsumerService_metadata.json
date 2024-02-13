@@ -71,6 +71,11 @@
 						"internalType": "address",
 						"name": "walletConsumer",
 						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
 					}
 				],
 				"name": "deleteConsumer",
@@ -216,7 +221,7 @@
 		"userdoc": {
 			"kind": "user",
 			"methods": {
-				"deleteConsumer(address)": {
+				"deleteConsumer(address,uint256)": {
 					"notice": "deleteConsumer() elimina un Consumer all'interno del sistema  - Solo l'owner può effettuare l'eliminazione  - msg.sender dovrebbe essere solo quello dell'owner "
 				},
 				"getConsumerData(address)": {
@@ -237,7 +242,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"Filiera-Token-SmartContract/contracts/Actor/Consumer-smart-contract/ConsumerService.sol": "ConsumerService"
+			"contracts/Actor/Consumer-smart-contract/ConsumerService.sol": "ConsumerService"
 		},
 		"evmVersion": "shanghai",
 		"libraries": {},
@@ -291,36 +296,36 @@
 				"dweb:/ipfs/Qmax9WHBnVsZP46ZxEMNRQpLQnrdE4dK8LehML1Py8FowF"
 			]
 		},
-		"Filiera-Token-SmartContract/contracts/Actor/Consumer-smart-contract/ConsumerService.sol": {
-			"keccak256": "0x92b48bde8dbc16fc6354c2ab2fe685182a9f05f69208b4a9e108bc8f3f93fdb4",
+		"contracts/Actor/Consumer-smart-contract/ConsumerService.sol": {
+			"keccak256": "0xa0c58675a22eb285acd08f51c0edddcf6620111c172b476167fddd475b466420",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://7dc92a50cbf8599776bfb3e891cad2723cebdeb3f035d4e30675c94e1b518349",
-				"dweb:/ipfs/QmNzjpjLLJzDNqHrMqGXda6f7DGdCW5SG2wvE22cPHdF63"
+				"bzz-raw://f42bbc9870dc12caeb04ef23f48e08f29a661ce5f91a614662d6c966bbbd1f66",
+				"dweb:/ipfs/QmVDYcHRmc4vkbDoDPgf8Ke9trvzPujEiCGu3e6Y33oab3"
 			]
 		},
-		"Filiera-Token-SmartContract/contracts/Actor/Consumer-smart-contract/ConsumerStorage.sol": {
-			"keccak256": "0x8cb680a7cb08d5cc0c7c886e636490675f9b4231f76a5e83611d149fafaa7d6a",
+		"contracts/Actor/Consumer-smart-contract/ConsumerStorage.sol": {
+			"keccak256": "0xe8212aad77f7205fe1882820173b1d4c9e824770e70b8709709abe1f5e2ae1f8",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://9a43eadf2153831e6bc3609341cb8c64b1b783ad142ed19feffe107e77416307",
-				"dweb:/ipfs/QmdPeAfVUSxVq542ZUApNdBvX4eSviPy5mP6XUvQpVHWYC"
+				"bzz-raw://8980f685cc8f4ea51956765421da77ee9de59aa1c38700e2613c20af50db3bf7",
+				"dweb:/ipfs/QmUfkpLUnoYUHJRpJmqbrZYvyHb5VudhnGxvE7m1Efd181"
 			]
 		},
-		"Filiera-Token-SmartContract/contracts/Actor/Filieratoken.sol": {
-			"keccak256": "0x821562b38c33b79f4e8bd063e71e7d35268477f5595af8344ebbd0a24a2a3c6d",
+		"contracts/Actor/Filieratoken.sol": {
+			"keccak256": "0xe0b07513d0fc2b452ae9f2eda6f6922072f2bf467816817b7af1fb7faf5fd930",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://4b576fa6733046e260ec98187f9d79deacffc7d238a062374aa268753d860f48",
-				"dweb:/ipfs/QmZti619VrEEBXzEZ2Hcg5nJKLFiXGWj7LQ1GxuH2JDVoa"
+				"bzz-raw://69de47d16bac614bd5a5433b82e4fafabec231e5d986a32ccdae4a0f863ec70c",
+				"dweb:/ipfs/QmQLe7fif3Z5yQqsragCfnUncxTd6LvSGHWkn7MoJ7wvfM"
 			]
 		},
-		"Filiera-Token-SmartContract/contracts/Actor/IUserStorageInterface.sol": {
-			"keccak256": "0x189fa5db899f0a31af11fdee9ce97b8e30fe427e719f0714a4dc8a43ffa5535f",
+		"contracts/Actor/IUserStorageInterface.sol": {
+			"keccak256": "0x81d5ea4a00a9bb5aa89a71a9ae9a3df5d2f4f6a5047732c1868b5284d9fda59f",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://aa4f56b832aa26f31e110851d264fc17be95be67ba96c3557786fd55c61b4388",
-				"dweb:/ipfs/QmbobmrLhM78V7udeRfaFF3DCXR7TEp9hsQBxgbMYgunHM"
+				"bzz-raw://fd56c8e90d30b51b4da1cef3c0cb9ad4b5691001bda681113113d92d84f9f9f7",
+				"dweb:/ipfs/QmX6FM9tE1kpxV3kwFLAtk2z9kGtCZLuxNSmEy9eJcTDHH"
 			]
 		}
 	},

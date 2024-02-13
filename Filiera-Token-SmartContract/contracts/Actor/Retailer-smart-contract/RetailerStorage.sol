@@ -90,7 +90,7 @@ contract RetailerStorage is IUserStorageInterface {
     }
 
     // Function to delete the Retailer given their wallet address
-    function deleteUser(address walletRetailer) external returns(bool value){
+    function deleteUser(address walletRetailer, uint256 _id) external returns(bool value){
         // Check if Retailer exists
         require(retailers[walletRetailer].id!=0, "User not present!");
 
@@ -100,7 +100,7 @@ contract RetailerStorage is IUserStorageInterface {
             retailers[walletRetailer].email,
             walletRetailer
                )));
-        require (retailers[walletRetailer].id==lastIdRetailer, "User not authorized!");
+        require (_id==lastIdRetailer, "User not authorized!");
 
         delete retailers[walletRetailer];
 

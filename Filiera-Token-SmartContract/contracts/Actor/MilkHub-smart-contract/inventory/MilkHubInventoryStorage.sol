@@ -20,6 +20,10 @@ contract MilkHubInventoryStorage {
     
     mapping(address => mapping(uint256 => MilkBatch)) private milkBatches;
 
+//----------------------------------------------------------------- Business Logic ------------------------------------------------------------------------------------------------//
+
+
+
     // Add function to add CheesePiece
     function addMilkBatch(address walletMilkHub, string memory _scadenza, uint256 _quantity, uint256 _price) external returns (uint256,string memory, uint256, uint256) {
         // Generazione dell'ID 
@@ -47,20 +51,18 @@ contract MilkHubInventoryStorage {
         return (milkBatches[walletMilkHub][_id].id, milkBatches[walletMilkHub][_id].scadenza, milkBatches[walletMilkHub][_id].quantity,milkBatches[walletMilkHub][_id].price);
     }
 
-    // Get CheesePiece -> address of  
+    // Ritorna un MilkBatch 
     function getMilkBatch(address walletMilkHub, uint256 _id) external view returns (uint256, string memory, uint256, uint256) {
+
         MilkBatch memory milkBatch = milkBatches[walletMilkHub][_id];
 
-        require(milkBatch.id ==_id, "Partita di Latte non Presente");
-
         return (milkBatch.id, milkBatch.scadenza, milkBatch.quantity, milkBatch.price);
+
     }
 
     // Delete Cheese piece 
     // We can delete a cheese piece with -> address of Consumer and id of CheesePiece
     function deleteMilkBatch(address walletMilkHub, uint256 _id) external returns(bool value) {
-
-        require(milkBatches[walletMilkHub][_id].id != 0, "Partita di Latte non presente!");
 
         uint256 lastIdMilkBatch = uint256(keccak256(abi.encodePacked(
             milkBatches[walletMilkHub][_id].scadenza,
@@ -90,42 +92,48 @@ contract MilkHubInventoryStorage {
             return true;
     }
 
-    /** Decremento della quantità del MilkBatch 
+    /**
+        - Funzione isMilkBatchPresent() funzione per verificare che il MilkBatch è presente 
+        - Verifica tramite _id e address del walletMilkHub se il Prodotto è presente 
+        - ritorna TRUE se il confronto è vero 
+        - ritorna FALSE se non è presente 
     */
-    function detractMilkBatchQuantity(address walletMilkHub, uint256 _id, uint256 _quantity) external returns(bool value) {
+    function isMilkBatchPresent(address walletMilkHub, uint256 _id)external view returns(bool){
+        require( _id !=0 && _id>0,"ID MilkBatch Not Valid!");
 
-        require(milkBatches[walletMilkHub][_id].id != 0, "Partita di Latte non presente!");
-
-        require(milkBatches[walletMilkHub][_id].quantity >= _quantity, "Quantita' inserita non disponibile!");
-
-        milkBatches[walletMilkHub][_id].quantity = milkBatches[walletMilkHub][_id].quantity - _quantity;
-        // Check Quantity is zero -> delete element 
-        if(milkBatches[walletMilkHub][_id].quantity == 0){
-            return this.deleteMilkBatch(walletMilkHub, _id);
-        }
-        return true;
+        return milkBatches[walletMilkHub][_id].id == _id;
     }
 
+//---------------------------------------------------------- Get Function ----------------------------------------------------------------------//   
+
     function getExpirationDate(address walletMilkHub, uint256 _id) external view returns(string memory) {
-        require(milkBatches[walletMilkHub][_id].id != 0, "Partita di Latte non presente!");
 
         MilkBatch memory milkBatch = milkBatches[walletMilkHub][_id];
         return milkBatch.scadenza;        
     }
 
     function getQuantity(address walletMilkHub, uint256 _id) external view returns(uint256) {
-        require(milkBatches[walletMilkHub][_id].id != 0, "Partita di Latte non presente!");
 
         MilkBatch memory milkBatch = milkBatches[walletMilkHub][_id];
+
         return milkBatch.quantity;        
     }
 
     function getPrice(address walletMilkHub, uint256 _id) external view returns(uint256) {
-        require(milkBatches[walletMilkHub][_id].id != 0, "Partita di Latte non presente!");
 
         MilkBatch memory milkBatch = milkBatches[walletMilkHub][_id];
+        
         return milkBatch.price;        
     }
 
-    
+
+// ------------------------------------------------------------ Set Function ------------------------------------------------------------------//
+
+    // - Funzione updateMilkBatchQuantity() aggiorna la quantità del MilkBatch 
+    function updateQuantity(address walletMilkHub, uint256 _id, uint256 _newQuantity) external  {
+        
+        milkBatches[walletMilkHub][_id].quantity = _newQuantity;
+    }
+
+
 }

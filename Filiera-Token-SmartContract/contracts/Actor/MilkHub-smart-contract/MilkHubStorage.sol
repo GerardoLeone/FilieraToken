@@ -4,11 +4,11 @@ pragma solidity ^0.8.21;
 
 import "../IUserStorageInterface.sol";
 
-
 contract MilkHubStorage is IUserStorageInterface {
 
     // Address of Organization che gestisce gli utenti
     address private  MilkHubOrg;
+
 
     constructor(){
         MilkHubOrg = msg.sender;
@@ -31,10 +31,7 @@ contract MilkHubStorage is IUserStorageInterface {
      * addUser() effettuiamo la registrazione dell'utente MilkHub 
      */
     function addUser(string memory _fullName, string memory _password,string memory _email, address walletMilkHub) external {
-        
-        // Verifico che il walletMilkHub non sia l'address che ha deployato il contratto
-        require(walletMilkHub != MilkHubOrg,"Address non Valido!");
-        
+                
         // Genera l'ID manualmente utilizzando keccak256
         bytes32 idHash = keccak256(abi.encodePacked(_fullName, _password, _email, walletMilkHub));
         uint256 lastIdMilkHub = uint256(idHash);
@@ -64,11 +61,6 @@ contract MilkHubStorage is IUserStorageInterface {
      */
     function loginUser(address walletMilkHub, string memory _email, string memory _password) external view returns(bool){
 
-        require(address(walletMilkHub)!= address(0), "Address utilizzato non valido, pari a 0!");
-        // Verifico che il walletMilkHub non sia l'address che ha deployato il contratto
-        require(walletMilkHub != MilkHubOrg,"Address non Valido!");
-        // Verifica che l'utente esista all'interno della Lista dei MilkHub 
-        require( milkhubs[walletMilkHub].id!=0  , "Utente non presente!");
         // Recupero il MilkHub 
         MilkHub storage milkhub = milkhubs[walletMilkHub];
         
@@ -76,27 +68,8 @@ contract MilkHubStorage is IUserStorageInterface {
         return keccak256(abi.encodePacked(milkhub.email, milkhub.password)) == keccak256(abi.encodePacked(_email, _password));
     }
 
-    /**
-     * getUser(walletMilkHub) : 
-     * MilkHub visualizza le sue informazioni principali
-     * - email, password , fullName , balance 
-     */
-    function getUser(address walletMilkHub) external  view returns (uint256, string memory, string memory, string memory, uint256) {
-
-        // Verifica che l'utente sia presente
-        require( milkhubs[walletMilkHub].id!=0  , "Utente non presente!");
-
-        MilkHub memory milkhub = milkhubs[walletMilkHub];
-
-        // Restituisce i dati del consumatore
-        return (milkhub.id, milkhub.fullName, milkhub.password, milkhub.email, milkhub.balance);
-    }
-
-    
-
     // Funzione per eliminare il Consumer dato il suo indirizzo del wallet 
-    function deleteUser(address walletMilkHub) external returns(bool value){
-        require(this.isUserPresent(walletMilkHub),"User Not Found");
+    function deleteUser(address walletMilkHub, uint256 id_milkHub) external returns(bool){
 
         uint256 lastIdMilkHub = uint256(keccak256(abi.encodePacked(
             milkhubs[walletMilkHub].fullName,
@@ -104,7 +77,8 @@ contract MilkHubStorage is IUserStorageInterface {
             milkhubs[walletMilkHub].email,
             walletMilkHub
                )));
-        require (milkhubs[walletMilkHub].id==lastIdMilkHub, "Utente non Autorizzato!");
+
+        require (lastIdMilkHub == id_milkHub,"Utente non Autorizzato!");
 
         delete milkhubs[walletMilkHub];
 
@@ -159,13 +133,30 @@ contract MilkHubStorage is IUserStorageInterface {
     */
     function getBalance(address walletMilkHub, uint256 _id) external view  returns(uint256){
         require(this.isUserPresent(walletMilkHub),"User Not Found!");
-        require(milkhubs[walletMilkHub].id==_id,"Struct not Valid!");
+        require(milkhubs[walletMilkHub].id == _id,"Struct not Valid!");
 
         return milkhubs[walletMilkHub].balance;
     }
 
+    /**
+     * getUser(walletMilkHub) : 
+     * MilkHub visualizza le sue informazioni principali
+     * - email, password , fullName , balance 
+     */
+    function getUser(address walletMilkHub) external  view returns (uint256, string memory, string memory, string memory, uint256) {
+
+        require(this.isUserPresent(walletMilkHub), "Utente non presente!");
+
+        MilkHub memory milkhub = milkhubs[walletMilkHub];
+
+        // Restituisce i dati del consumatore
+        return (milkhub.id, milkhub.fullName, milkhub.password, milkhub.email, milkhub.balance);
+    }
+
+
     // - Funzione updateBalance() attraverso l'address e l'id, riusciamo a settare il nuovo balance
     function updateBalance(address walletMilkHub, uint256 _id, uint256 balance) external{
+
         require(balance>0,"Balance Not Valid");
         require(this.isUserPresent(walletMilkHub),"User Not Found!");
         require(milkhubs[walletMilkHub].id==_id,"Struct not Valid!");

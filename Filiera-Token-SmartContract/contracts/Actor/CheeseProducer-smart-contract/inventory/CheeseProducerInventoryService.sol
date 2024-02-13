@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.21;
 
-import "./contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerInventoryStorage.sol";
-import "./contracts/Actor/CheeseProducer-smart-contract/CheeseProducerService.sol";
-import "./contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerMilkBatchService.sol";
+import "contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerInventoryStorage.sol";
+import "contracts/Actor/CheeseProducer-smart-contract/CheeseProducerService.sol";
+import "contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerMilkBatchService.sol";
 
 
 contract CheeseProducerInventoryService {

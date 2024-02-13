@@ -1,10 +1,14 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.21;
 
 import "./RetailerStorage.sol";
 import "../Filieratoken.sol";
 
+
 contract RetailerService {
+
+//-------------------------------------------------------------------- Contract Address Service --------------------------------------------------------------------//
+
 
     // Address of Retailer Storage 
     RetailerStorage private retailerStorage;
@@ -12,85 +16,216 @@ contract RetailerService {
     // Address of Token FT - ERC-20
     Filieratoken private filieraToken;
 
-    // Address of Organization managing users
-    address private RetailerOrg;
-    
-    // Event emitted when a retailer is deleted
+    // Address of Organization che gestisce gli utenti
+    address private  RetailerOrg;
+
+
+
+// --------------------------------------------------------------------- Event of Service ----------------------------------------------------------------//
+
+    // Evento emesso al momento della cancellazione di un consumatore
     event RetailerDeleted(address indexed walletRetailer, string message);
-    // Event emitted when a retailer is registered
+    // Evento emesso al momento della registrazione di un consumatore
     event RetailerRegistered(address indexed walletRetailer, string fullName, string message);
 
-    /**
-     * modifier --- OnlyOwner specifies that only the owner can make that call
-     */
-    modifier onlyOwner(address walletRetailer) {
-        require(msg.sender != address(retailerStorage), "Address Not valid!");
-        require(msg.sender != address(filieraToken), "Address Not valid!" );
-        require(msg.sender != RetailerOrg ," Address not Valid, it is organization address");
-        require(msg.sender == walletRetailer, "Only the account owner can perform this action");
-        _;
-    }
 
+
+//---------------------------------------------------------------------- Constructor ----------------------------------------------------------------------------//    
     constructor(address _retailerStorage, address _filieraToken) {
         retailerStorage = RetailerStorage(_retailerStorage);
         filieraToken = Filieratoken(_filieraToken);
         RetailerOrg = msg.sender;
     }
 
-    /**
-     * registerRetailer() registers users on the platform as Retailers 
-     * - Inserts data into the blockchain
-     * - Transfers 100 tokens from Filieratoken contract 
-     * - Emits an event once the user is registered 
-     */ 
-    function registerRetailer(string memory fullName, string memory password, string memory email) external {
+// ------------------------------------------------------------ Modifier Of Service ---------------------------------------------------------------------------------//
 
-        address walletRetailer = msg.sender;        
-        // Call function of Storage 
+    modifier onlyOwnWallet(address caller,address walletRetailer){
+        require(caller == walletRetailer,"User Not Authorized!");
+        _;
+    }
+
+    modifier onlyOrg(address sender){
+        require(sender == RetailerOrg,"User Not Authorized!");
+        _;
+    }
+
+    // Verifica chi effettua la transazione : 
+    // Verfica che l'address non sia l'organizzazione 
+    // Verfica che l'address non sia lo smart contract del RetailerStorage e FilieraToken 
+    modifier checkAddress(address walletRetailer){
+
+        require(walletRetailer != address(0),"Address is zero");
+        require(walletRetailer != address(retailerStorage), "Address is RetailerStorage Smart Contract!");
+        require(walletRetailer != address(filieraToken), "Address is FilieraToken Smart Contract!" );
+        require(walletRetailer != RetailerOrg ,"Organization address");
+
+        _;
+    }
+
+
+//--------------------------------------------------------------- Business Logic -------------------------------------------------------------------------------------------//
+
+    /**
+     * registerRetailer() registra gli utenti della piattaforma che sono Retailer 
+     * - Inserisce i dati all'interno della Blockchain
+     * - Trasferisce 100 token dal contratto di FilieraToken 
+     * - Emette un evento appena l'utente è stato registrato 
+     *  */ 
+    function registerRetailer(string memory fullName, string memory password, string memory email) external checkAddress(msg.sender) {
+
+        address walletRetailer = msg.sender;
+        // Verifica che l'utente è gia' presente 
+        require(!(this.isUserPresent(walletRetailer)), "Utente gia' registrato !");
+
+        // Chiama la funzione di Storage 
         retailerStorage.addUser(fullName, password, email, walletRetailer);
 
+        // Autogenera dei token nel balance del Retailer 
         filieraToken.transfer(walletRetailer, 100);
 
-        // Emit Event on FireFly 
-        emit RetailerRegistered(walletRetailer, fullName, "User has been registered!");
+        // Emette l'evento della registrazione dell'utente
+        emit RetailerRegistered(walletRetailer, fullName, "Utente Retailer e' stato registrato!");
     }
 
     /**
-     * login() performs login with email and password 
-     * - Inserts email and password 
-     * - Returns True if the user exists and has access with the correct credentials 
-     * - Returns False otherwise 
+     * login() effettua la Login con email e password 
+     * - Inserisce l'email e la password 
+     * - return True se l'utente esiste ed ha accesso con le giuste credenziali 
+     * - return False altrimenti 
      */
-    function login(string memory email, string memory password) external view returns(bool) {
-        address walletRetailer = msg.sender;
+    function login(address walletRetailer, string memory email, string memory password) external view checkAddress(msg.sender) onlyOwnWallet(msg.sender,walletRetailer) returns(bool) {
+
+        // Verifichiamo che l'utente è presente 
+        require(this.isUserPresent(walletRetailer),"Utente non e' presente!");
         
         return retailerStorage.loginUser(walletRetailer, email, password);
     }
 
+
     /**
-     * getRetailerData() obtains data of the Retailer
-     * - using the address of the Retailer, we can also view their data
-     * - Sensitive data visible only to the Retailer itself 
+     * deleteRetailer() elimina un Retailer all'interno del sistema 
+     * - Solo l'owner può effettuare l'eliminazione 
+     * - msg.sender dovrebbe essere solo quello dell'owner 
      */
-    function getRetailerData(address walletRetailer) external onlyOwner(walletRetailer) view returns (uint256, string memory, string memory, string memory, uint256) {
+    function deleteRetailer(address walletRetailer, uint256 _id) external checkAddress(msg.sender) onlyOwnWallet(msg.sender,walletRetailer) {
+        
+        // Verifico che l'utente è presente 
+        require(this.isUserPresent(walletRetailer), "Utente non e' presente!");
+        // Restituisce l'id del Retailer tramite il suo address wallet
+        require(retailerStorage.getId(walletRetailer) == _id , "Utente non Autorizzato!");
+        // Effettuo la cancellazione dell'utente 
+        require(retailerStorage.deleteUser(walletRetailer), "Errore durante la cancellazione");
+        // Burn all token ( elimina i token che sono in circolazione, di un utente che non effettua transazioni ) 
+        filieraToken.burnToken(walletRetailer, filieraToken.balanceOf(walletRetailer));
+        // Emit Event on FireFly 
+        emit RetailerDeleted(walletRetailer,"Utente e' stato eliminato!");
+    }
+
+// --------------------------------------------------------------------------- RetailerInventoryService ----------------------------------------------------//
+
+    function isUserPresent(address walletRetailer) external view returns(bool){
+        
+        return retailerStorage.isUserPresent(walletRetailer);
+    }
+
+
+
+//----------------------------------------------------------------------------- Get Function ----------------------------------------------------------------------//
+
+    /**
+        -  Funzione getRetailerId() attraverso l'address del Retailer siamo riusciti ad ottenere il suo ID
+    */
+    function getRetailerId(address walletRetailer) external view checkAddress(walletRetailer) onlyOwnWallet(msg.sender,walletRetailer) returns (uint256){
+        
+        return retailerStorage.getId(walletRetailer);
+    }
+
+    
+    /**
+        - Funzione getFullName() attraverso l'address del Retailer riusciamo a recuperare il suo FullName
+    */
+    function getRetailerFullName(address walletRetailer,uint256 _id) external view checkAddress(walletRetailer) returns(string memory){
+
+        return retailerStorage.getFullName(walletRetailer,_id);
+    }
+
+    /**
+        - Funzione getEmail() attraverso l'address del Retailer riusciamo a recuperare la sua Email 
+    */
+    function getRetailerEmail(address walletRetailer, uint256 _id) external view checkAddress(walletRetailer) returns(string memory){
+        
+        return retailerStorage.getEmail(walletRetailer,_id);
+    }
+
+    /**
+        - Funzione getBalance() attraverso l'address del Retailer riusciamo a recuperare il suo Balance
+    */
+    function getRetailerBalance(address walletRetailer, uint256 _id) external view checkAddress(walletRetailer) onlyOwnWallet(msg.sender,walletRetailer) returns(uint256){
+
+        return retailerStorage.getBalance(walletRetailer,_id);
+    }
+
+    /**
+     * getRetailerData() otteniamo i dati del Retailer
+     * - tramite l'address del Retailer riusciamo a visualizzare anche i suoi dati
+     * - Dati sensibili e visibili solo dal Retailer stesso 
+     */
+    function getRetailerData(address walletRetailer, uint256 _id) external checkAddress(walletRetailer) onlyOwnWallet(msg.sender,walletRetailer) view returns (uint256, string memory, string memory, string memory, uint256) {
+        // Verifico che l'utente è presente 
+        require(this.isUserPresent(walletRetailer), "Utente non e' presente!");
+        // Restituisce l'id del Retailer tramite il suo address wallet
+        require(retailerStorage.getId(walletRetailer) == _id , "Utente non Autorizzato!");
         // Call function of Storage         
         return retailerStorage.getUser(walletRetailer);
     }
 
-    /**
-     * deleteRetailer() deletes a Retailer from the system 
-     * - Only the owner can perform the deletion 
-     * - msg.sender should be the owner's address 
-     */
-    function deleteRetailer(address walletRetailer, uint256 _id) external onlyOwner(walletRetailer)  {
-        require(retailerStorage.deleteUser(walletRetailer, _id), "Error during deletion");
-        // Burn all tokens 
-        filieraToken.burnToken(walletRetailer, filieraToken.balanceOf(walletRetailer));
-        // Emit Event on FireFly 
-        emit RetailerDeleted(walletRetailer,"User has been deleted!");
+    
+    // Funzione per far visualizzare i dati ai vari utenti esterni 
+    function getRetailerInfo(address walletRetailer) external view checkAddress(walletRetailer) returns (string memory, string memory) {
+        
+        // Verifico che l'utente esista
+        require(this.isUserPresent(walletRetailer), "User not found");
+
+        uint256 id = retailerStorage.getId(walletRetailer); // Non è necessario, ma viene recuperato per rispettare il controllo in RetailerStorage
+        
+        string memory fullName = retailerStorage.getFullName(walletRetailer, id);
+        
+        string memory email = retailerStorage.getEmail(walletRetailer, id);
+
+        return (fullName, email);
     }
 
-    // Additional functions for Retailer
-    // ...
+
+
+
+//------------------------------------------------------------ Set Function -------------------------------------------------------------------//
+
+    // - Funzione updateBalance() attraverso l'address e l'id, riusciamo a settare il nuovo balance
+    function updateRetailerBalance(address walletRetailer, uint256 _id, uint256 balance) external checkAddress(walletRetailer) {
+        // Verifico che il Balance sia >0 
+        require(balance>0,"Balance Not Valid");
+        // Verifico che l'utente esista 
+        require(this.isUserPresent(walletRetailer),"User Not Found!");
+        // Verifico che l'id sia lo stesso quello passato
+        require(retailerStorage.getId(walletRetailer)==_id,"Utente non Autorizzato");
+        // Update Balance 
+        retailerStorage.updateBalance(walletRetailer, balance);
+    }
+
+
+// ------------------------------------------------------------ Change Address Contract of Service -----------------------------------------------------//
+
+    // TODO : Inserire onlyOrg(msg.sender) per verificare che quest'azione possa farla solo L'organizzazione 
+
+    function changeRetailerStorage(address _retailerStorageNew)external {
+        retailerStorage = RetailerStorage(_retailerStorageNew);
+    }
+
+    // TODO : Inserire onlyOrg(msg.sender) per verificare che quest'azione possa farla solo L'organizzazione 
+
+    function changeFilieraToken(address _filieraToken)external {
+        filieraToken = Filieratoken(_filieraToken);
+    }
+
 
 }

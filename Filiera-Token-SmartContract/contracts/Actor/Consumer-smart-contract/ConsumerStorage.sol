@@ -4,11 +4,11 @@ pragma solidity ^0.8.21;
 
 import "../IUserStorageInterface.sol";
 
-
 contract ConsumerStorage is IUserStorageInterface {
 
     // Address of Organization che gestisce gli utenti
     address private  ConsumerOrg;
+
 
     constructor(){
         ConsumerOrg = msg.sender;
@@ -31,10 +31,7 @@ contract ConsumerStorage is IUserStorageInterface {
      * addUser() effettuiamo la registrazione dell'utente Consumer 
      */
     function addUser(string memory _fullName, string memory _password,string memory _email, address walletConsumer) external {
-        
-        // Verifico che il walletConsumer non sia l'address che ha deployato il contratto
-        require(walletConsumer != ConsumerOrg,"Address non Valido!");
-        
+                
         // Genera l'ID manualmente utilizzando keccak256
         bytes32 idHash = keccak256(abi.encodePacked(_fullName, _password, _email, walletConsumer));
         uint256 lastIdConsumer = uint256(idHash);
@@ -64,11 +61,6 @@ contract ConsumerStorage is IUserStorageInterface {
      */
     function loginUser(address walletConsumer, string memory _email, string memory _password) external view returns(bool){
 
-        require(address(walletConsumer)!= address(0), "Address utilizzato non valido, pari a 0!");
-        // Verifico che il walletConsumer non sia l'address che ha deployato il contratto
-        require(walletConsumer != ConsumerOrg,"Address non Valido!");
-        // Verifica che l'utente esista all'interno della Lista dei Consumer 
-        require( consumers[walletConsumer].id!=0  , "Utente non presente!");
         // Recupero il Consumer 
         Consumer storage consumer = consumers[walletConsumer];
         
@@ -76,36 +68,8 @@ contract ConsumerStorage is IUserStorageInterface {
         return keccak256(abi.encodePacked(consumer.email, consumer.password)) == keccak256(abi.encodePacked(_email, _password));
     }
 
-    /**
-     * getUser(walletConsumer) : 
-     * Consumer visualizza le sue informazioni principali
-     * - email, password , fullName , balance 
-     */
-    function getUser(address walletConsumer) external  view returns (uint256, string memory, string memory, string memory, uint256) {
-
-        // Verifica che l'utente sia presente
-        require( consumers[walletConsumer].id!=0  , "Utente non presente!");
-
-        Consumer memory consumer = consumers[walletConsumer];
-
-        // Restituisce i dati del consumatore
-        return (consumer.id, consumer.fullName, consumer.password, consumer.email, consumer.balance);
-    }
-
-    
-
     // Funzione per eliminare il Consumer dato il suo indirizzo del wallet 
-    function deleteUser(address walletConsumer, uint256 _id) external returns(bool value){
-        // Check exists Consumers
-        require(consumers[walletConsumer].id!=0, "Utente non presente!");
-
-        uint256 lastIdConsumer = uint256(keccak256(abi.encodePacked(
-            consumers[walletConsumer].fullName,
-            consumers[walletConsumer].password,
-            consumers[walletConsumer].email,
-            walletConsumer
-               )));
-        require (_id==lastIdConsumer, "Utente non Autorizzato!");
+    function deleteUser(address walletConsumer) external returns(bool){
 
         delete consumers[walletConsumer];
 
@@ -116,33 +80,70 @@ contract ConsumerStorage is IUserStorageInterface {
         }
     }
 
-// ------------------------------------------------------------ CheeseProducer ------------------------------------------------------//
-
-
-
-    /**
-     * getConsumerToCheeseProducer() otteniamo le informazioni sensibili per un singolo cheeseProducer 
-     * - email e fullName 
-     */
-    function getConsumerToCheeseProducer(address walletConsumer) external view returns (string memory, string memory){
-        // Check exists walletConsumer
-        require(consumers[walletConsumer].id!=0, "Utente non presente!");
-
-        Consumer storage consumer = consumers[walletConsumer];
-
-        return (consumer.fullName,consumer.email);
-    }
-
-// ------------------------------------------------------------------------ ConsumerInventoryService ----------------------------------------------------------//
-
+    // Check if exist the User 
     function isUserPresent(address walletConsumer) external view returns(bool){
-        require(address(walletConsumer)!= address(0), "Address Consumer non valido!");
-        
+
         return consumers[walletConsumer].id!=0;
     }
 
+//---------------------------------------------------- Consumer Get and Set Function --------------------------------------------------//
+
+    /**
+        - Funzione getId() attraverso l'address del Consumer riusciamo a recuperare il suo ID
+    */
+    function getId(address walletConsumer) external view  returns(uint256){
+        Consumer memory consumer = consumers[walletConsumer];
+        return consumer.id;
+    }
+
+    /**
+        - Funzione getFullName() attraverso l'address del Consumer riusciamo a recuperare il suo FullName
+    */
+    function getFullName(address walletConsumer, uint256 _id) external view  returns(string memory){
+        require(consumers[walletConsumer].id ==_id,"ID not Valid!");
+        
+        Consumer memory consumer = consumers[walletConsumer];
+        return consumer.fullName;
+    }
+
+    /**
+        - Funzione getEmail() attraverso l'address del Consumer riusciamo a recuperare la sua Email 
+    */
+    function getEmail(address walletConsumer, uint256 _id) external view  returns(string memory){
+        require(consumers[walletConsumer].id==_id,"ID not Valid!");
+        Consumer memory consumer = consumers[walletConsumer];
+        return consumer.email;
+    }
+
+    /**
+        - Funzione getBalance() attraverso l'address del Consumer riusciamo a recuperare il suo Balance
+    */
+    function getBalance(address walletConsumer, uint256 _id) external view  returns(uint256){
+        require(consumers[walletConsumer].id == _id,"ID not Valid!");
+        Consumer memory consumer = consumers[walletConsumer];
+        return consumer.balance;
+    }
+
+    /**
+     * getUser(walletConsumer) : 
+     * Consumer visualizza le sue informazioni principali
+     * - email, password , fullName , balance 
+     */
+    function getUser(address walletConsumer) external view returns (uint256, string memory, string memory, string memory, uint256) {
+
+        Consumer memory consumer = consumers[walletConsumer];
+
+        // Restituisce i dati del consumatore
+        return (consumer.id, consumer.fullName, consumer.password, consumer.email, consumer.balance);
+    }
 
 
+
+    // - Funzione updateBalance() attraverso l'address e l'id, riusciamo a settare il nuovo balance
+    function updateBalance(address walletConsumer, uint256 balance) external{
+        // Update Balance 
+        consumers[walletConsumer].balance = balance;
+    }
 
 }   
 

@@ -58,7 +58,7 @@ contract MilkHubInventoryService {
     // Verfica che l'address non sia lo smart contract del MilkHubStorage e FilieraToken 
     modifier checkAddress(address walletMilkHub){
 
-        require(walletMilkHub!=address(0),"Address is zero");
+        require(walletMilkHub != address(0),"Address is zero");
         require(walletMilkHub != address(milkhubInventoryStorage), "Address is MilkHubStorage Smart Contract!");
         require(walletMilkHub != address(milkhubService), "Address is FilieraToken Smart Contract!" );
         require(walletMilkHub != MilkHubOrg ,"Organization address not Valid to do Operation");
@@ -95,7 +95,8 @@ contract MilkHubInventoryService {
 
     /**
      * Ottenere le informazioni del milkbatch attraverso : 
-     * - ID 
+     * - ID milkBatch
+       - msg.sender -> mi permette di visualizzare solo se sono il proprietario di questo prodotto 
      * */  
     function getMilkBatch(uint256 _id) external view checkAddress(msg.sender) returns (uint256, string memory, uint256, uint256)  {
         
@@ -150,6 +151,7 @@ contract MilkHubInventoryService {
         return milkhubInventoryStorage.getExpirationDate(walletMilkHub,_id);        
     }
 
+
     function getMilkBatchQuantity(address walletMilkHub, uint256 _id) external view checkAddress(walletMilkHub) returns(uint256) {
         
         require(milkhubService.isUserPresent(walletMilkHub), "User is not present!");
@@ -158,6 +160,7 @@ contract MilkHubInventoryService {
         
         return milkhubInventoryStorage.getQuantity(walletMilkHub,_id);        
     }
+
 
     function getMilkBatchPrice(address walletMilkHub, uint256 _id) external view checkAddress(walletMilkHub) returns(uint256) {
         require(milkhubService.isUserPresent(walletMilkHub), "User is not present!");
@@ -189,5 +192,7 @@ contract MilkHubInventoryService {
 
         emit MilkBatchEdited(ownerMilkHub,"MilkBatch edited!", _quantity);
     }
+
+
 
 }

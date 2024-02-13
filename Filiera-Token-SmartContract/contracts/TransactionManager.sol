@@ -16,13 +16,13 @@ import "contracts/Actor/Retailer-smart-contract/RetailerService.sol";
 import "./Actor/MilkHub-smart-contract/inventory/MilkHubInventoryService.sol";
 import "./Actor/CheeseProducer-smart-contract/inventory/CheeseProducerMilkBatchService.sol";
 
-import "contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerInventoryService.sol";
-import "contracts/Actor/Retailer-smart-contract/inventory/RetailerBuyerInventoryService.sol";
+//import "contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerInventoryService.sol";
+//import "contracts/Actor/Retailer-smart-contract/inventory/RetailerBuyerInventoryService.sol";
 
 
 
-import "contracts/Actor/Retailer-smart-contract/inventory/RetailerInventoryService.sol";
-import "contracts/Actor/Consumer-smart-contract/inventory/ConsumerInventoryService.sol";
+//import "contracts/Actor/Retailer-smart-contract/inventory/RetailerInventoryService.sol";
+//import "contracts/Actor/Consumer-smart-contract/inventory/ConsumerInventoryService.sol";
 
 contract TransactionManager {
 
@@ -51,17 +51,17 @@ contract TransactionManager {
 //-------------------------------------------------------- Compra Vendita (CheeseProducer-Retailer) --------------------------------------------------------------------------//
 
     // Contains -> Cheese of CheeseProducer (Prodotto che viene venduto)
-    CheeseProducerInventoryService private cheeseProducerInventoryService; 
+    //CheeseProducerInventoryService private cheeseProducerInventoryService; 
     // Contains -> Cheese of Retailer (Prodotto comprato) 
-    RetailerBuyerInventoryService private retailerBuyerInventoryService;
+    //RetailerBuyerInventoryService private retailerBuyerInventoryService;
 
 
 //-------------------------------------------------------- Compra Vendita (Retailer-Consumer) --------------------------------------------------------------------------//
 
     // Contains -> CheesePiece of Retailer (Prodotto che viene venduto) 
-    RetailerInventoryService private retailerInventoryService;
+    //RetailerInventoryService private retailerInventoryService;
     // Contains -> CheesePiece of Consumer (Prodotto che viene comprato) 
-    ConsumerInventoryService private consumerInventoryService;
+    //ConsumerInventoryService private consumerInventoryService;
 
 
 
@@ -125,13 +125,13 @@ contract TransactionManager {
 
         // Creazione dell'elemento del MilkBatch all'interno dell'inventory 
         string memory expirationDate = milkhubInventoryService.getMilkBatchExpirationDate(ownerMilkBatch, _id_MilkBatch);
-        cheeseProducerMilkBatchService.addMilkBatch(ownerMilkBatch, expirationDate, _quantityToBuy);
+        cheeseProducerMilkBatchService.addMilkBatch(ownerMilkBatch,callerCheeseProducer, expirationDate, _quantityToBuy);
     }
 
 
 
     // Funzione per effettuare una vendita tra CheeseProducer - Retailer 
-    
+    /*
     function sellCheeseProduct(address ownerCheese, uint256 _id_Cheese, uint256 _quantityToBuy, uint256 totalPrice) external {
         // caller 
         address callerRetailer = msg.sender;
@@ -165,9 +165,9 @@ contract TransactionManager {
 
         // Creazione dell'elemento del MilkBatch all'interno dell'inventory 
         string memory expirationDate = milkhubInventoryService.getMilkBatchExpirationDate(ownerCheese, _id_Cheese);
-        cheeseProducerMilkBatchService.addMilkBatch(ownerCheese, expirationDate, _quantityToBuy); 
-    }
-
+        //cheeseProducerMilkBatchService.addMilkBatch(ownerCheese, expirationDate, _quantityToBuy); 
+    }*/
+    /*
     function sellCheesePieceProduct(address ownerCheesePiece, uint256 _id_CheesePiece, uint256 _quantityToBuy, uint256 totalPrice) external {
         // caller 
         address callerConsumer = msg.sender;
@@ -201,8 +201,8 @@ contract TransactionManager {
 
         // Creazione dell'elemento del MilkBatch all'interno dell'inventory 
         string memory expirationDate = milkhubInventoryService.getMilkBatchExpirationDate(ownerCheesePiece, _id_CheesePiece);
-        cheeseProducerMilkBatchService.addMilkBatch(ownerCheesePiece, expirationDate, _quantityToBuy); 
-    }
+        //cheeseProducerMilkBatchService.addMilkBatch(ownerCheesePiece, expirationDate, _quantityToBuy); 
+    }*/
 
 
 }

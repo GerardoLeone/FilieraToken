@@ -472,11 +472,11 @@
 			]
 		},
 		"contracts/Actor/MilkHub-smart-contract/MilkHubService.sol": {
-			"keccak256": "0x5c5f25ba1a449a639989592a84e498443ab602ae9fe2a5e35ad18bab419111ea",
+			"keccak256": "0x4cff416d78319a3ce6ff3aac2f488b46f5f0e66780a3b86a96888b9bcd554542",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://35e3630d5a2dbab9332da701a639f86aa7c3c874f38b6a0ce205f7169539c9ad",
-				"dweb:/ipfs/QmTZhLP1aqGu78wSf7LKMWpCYKX7DGxvBAf2V3dVfvJjuM"
+				"bzz-raw://80a82c2b89796c4d1280432ebdec8470b414a863e9fdac4ecfc6a542d1c7cd30",
+				"dweb:/ipfs/QmV3xxPqhPqdsp9YKzSfqcU24ss5jR8LcW5GCLW71hfmTi"
 			]
 		},
 		"contracts/Actor/MilkHub-smart-contract/MilkHubStorage.sol": {

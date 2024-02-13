@@ -109,11 +109,11 @@ contract CheeseProducerInventoryService {
         //TODO: gestire data di scadenza nel frontend
         require(cheeseProducerMilkBatchService.checkMilkBatch(walletCheeseProducer, _id, quantityToTransform), "Il check della Partita del Latte non e' andato a buon fine!");
 
-        cheeseProducerMilkBatchService.decreaseMilkBatchQuantity(_id, quantityToTransform);
+        //cheeseProducerMilkBatchService.decreaseMilkBatchQuantity(_id, quantityToTransform);
 
         uint256 weight = quantityToTransform * 5;
         //TODO: gestire il prezzo con SafeMath
-        cheeseProducerMilkBatchService.insertCheeseBlock(dop, weight, weight * pricePerKg);
+        //cheeseProducerMilkBatchService.(dop, weight, weight * pricePerKg);
     }
 
 }

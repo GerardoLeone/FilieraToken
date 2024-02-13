@@ -187,7 +187,9 @@ contract MilkHubService {
         require(this.isUserPresent(walletMilkHub), "User not found");
 
         uint256 id = milkhubStorage.getId(walletMilkHub); // Non è necessario, ma viene recuperato per rispettare il controllo in MilkHubStorage
+        
         string memory fullName = milkhubStorage.getFullName(walletMilkHub, id);
+        
         string memory email = milkhubStorage.getEmail(walletMilkHub, id);
 
         return (fullName, email);

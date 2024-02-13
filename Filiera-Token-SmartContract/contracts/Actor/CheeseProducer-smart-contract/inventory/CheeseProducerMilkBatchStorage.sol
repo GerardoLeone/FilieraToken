@@ -20,12 +20,7 @@ contract CheeseProducerMilkBatchStorage {
 
     mapping(address => mapping(uint256 => MilkBatch)) private purchasedMilkBatches;
 
-    function addMilkBatch(
-        address _walletCheeseProducer,
-        address _walletMilkHub,
-        string memory _expirationDate,
-        uint256 _quantity
-        ) external {
+    function addMilkBatch(address _walletCheeseProducer,address _walletMilkHub,string memory _expirationDate,uint256 _quantity) external {
 
         uint256 _id = uint256(keccak256(abi.encodePacked(
             _expirationDate,

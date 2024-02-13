@@ -35,7 +35,7 @@ contract ConsumerInventoryService {
         // Retrieve msg.sender 
         address walletConsumer = msg.sender;
 
-        return consumerInventoryStorage.getCheesePiece(walletConsumer,_id);
+        //return consumerInventoryStorage.getCheesePiece(walletConsumer,_id);
     }
 
 

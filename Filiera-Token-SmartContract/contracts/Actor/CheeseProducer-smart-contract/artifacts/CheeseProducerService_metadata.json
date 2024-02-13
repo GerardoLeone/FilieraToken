@@ -37,7 +37,7 @@
 						"type": "string"
 					}
 				],
-				"name": "ProducerDeleted",
+				"name": "CheeseProducerDeleted",
 				"type": "event"
 			},
 			{
@@ -62,14 +62,14 @@
 						"type": "string"
 					}
 				],
-				"name": "ProducerRegistered",
+				"name": "CheeseProducerRegistered",
 				"type": "event"
 			},
 			{
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "_cheeseProducerStorage",
+						"name": "_cheeseProducerStorageNew",
 						"type": "address"
 					}
 				],
@@ -139,6 +139,11 @@
 						"internalType": "address",
 						"name": "walletCheeseProducer",
 						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
 					}
 				],
 				"name": "getCheeseProducerData",
@@ -242,6 +247,54 @@
 			{
 				"inputs": [
 					{
+						"internalType": "address",
+						"name": "walletCheeseProducer",
+						"type": "address"
+					}
+				],
+				"name": "getCheeseProducerInfo",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletCheeseProducer",
+						"type": "address"
+					}
+				],
+				"name": "isUserPresent",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletCheeseProducer",
+						"type": "address"
+					},
+					{
 						"internalType": "string",
 						"name": "email",
 						"type": "string"
@@ -319,13 +372,13 @@
 			"kind": "user",
 			"methods": {
 				"deleteCheeseProducer(address,uint256)": {
-					"notice": "deleteCheeseProducer() deletes a Cheese Producer from the system  - Only the owner can perform the deletion  - msg.sender should be the owner's address "
+					"notice": "deleteCheeseProducer() elimina un CheeseProducer all'interno del sistema  - Solo l'owner può effettuare l'eliminazione  - msg.sender dovrebbe essere solo quello dell'owner "
 				},
 				"getCheeseProducerBalance(address,uint256)": {
 					"notice": "- Funzione getBalance() attraverso l'address del CheeseProducer riusciamo a recuperare il suo Balance"
 				},
-				"getCheeseProducerData(address)": {
-					"notice": "getCheeseProducerData() obtains data of the Cheese Producer - using the address of the Cheese Producer, we can also view their data - Sensitive data visible only to the Cheese Producer itself "
+				"getCheeseProducerData(address,uint256)": {
+					"notice": "getCheeseProducerData() otteniamo i dati del CheeseProducer - tramite l'address del CheeseProducer riusciamo a visualizzare anche i suoi dati - Dati sensibili e visibili solo dal CheeseProducer stesso "
 				},
 				"getCheeseProducerEmail(address,uint256)": {
 					"notice": "- Funzione getEmail() attraverso l'address del CheeseProducer riusciamo a recuperare la sua Email "
@@ -336,11 +389,11 @@
 				"getCheeseProducerId(address)": {
 					"notice": "-  Funzione getCheeseProducerId() attraverso l'address del CheeseProducer siamo riusciti ad ottenere il suo ID"
 				},
-				"login(string,string)": {
-					"notice": "login() performs login with email and password  - Inserts email and password  - Returns True if the user exists and has access with the correct credentials  - Returns False otherwise "
+				"login(address,string,string)": {
+					"notice": "login() effettua la Login con email e password  - Inserisce l'email e la password  - return True se l'utente esiste ed ha accesso con le giuste credenziali  - return False altrimenti "
 				},
 				"registerCheeseProducer(string,string,string)": {
-					"notice": "registerCheeseProducer() registers users on the platform as Cheese Producers  - Inserts data into the blockchain - Transfers 100 tokens from Filieratoken contract  - Emits an event once the user is registered "
+					"notice": "registerCheeseProducer() registra gli utenti della piattaforma che sono CheeseProducer  - Inserisce i dati all'interno della Blockchain - Trasferisce 100 token dal contratto di FilieraToken  - Emette un evento appena l'utente è stato registrato   "
 				}
 			},
 			"version": 1
@@ -403,19 +456,19 @@
 			]
 		},
 		"contracts/Actor/CheeseProducer-smart-contract/CheeseProducerService.sol": {
-			"keccak256": "0x6f50642f88a95e2e26d93a0bf26cc092d46aa17e033de2337823c4b382c7d40d",
+			"keccak256": "0x0f5bd2282e99194f2c16bce0b3ccbfcf86ad8bcc68688ad5dc5355dbe6b4b78e",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://21bb80d11a61dd474b5c4bd4b3e4949db4ded748b75b83ed8d9c66273be8af26",
-				"dweb:/ipfs/QmVF6De7GmUdpghGetzFz9RoeeZmZidhDZWmm6bkevs5T3"
+				"bzz-raw://faee270d4464f2a4d1969c6fb0c0a58181da83bb3d74bddb0114a54f8fb8e90a",
+				"dweb:/ipfs/QmPmWzAmzzpucswnetCh2YokYM2PzRFibao5imt4yUYNpJ"
 			]
 		},
 		"contracts/Actor/CheeseProducer-smart-contract/CheeseProducerStorage.sol": {
-			"keccak256": "0x3e42a3d2364a7c955d6bc3a43056707f7e94b70e5dffbc0119ec3466521aff03",
+			"keccak256": "0x157b77aa8e29e53604412e41be77612f4f21f2dc85d41e4dae1913ba31af3894",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://74bfb6e90933f1cecce05df21340e83964e814cb60117fbd1c2fad7deab22a00",
-				"dweb:/ipfs/QmeLQKo92Pojp3tbPyJZYmsaQFEdbJFdJD2PUkRQxEenEX"
+				"bzz-raw://7ee5a70f7e13b3ad28ce294dbecc85e10942e873eac5c2f30d64158da4fe01a7",
+				"dweb:/ipfs/QmSB28VuxPm7Vxea8KdLto6LQhDSEAdjtCTDP8WyxqiveH"
 			]
 		},
 		"contracts/Actor/Filieratoken.sol": {
@@ -427,11 +480,11 @@
 			]
 		},
 		"contracts/Actor/IUserStorageInterface.sol": {
-			"keccak256": "0x81d5ea4a00a9bb5aa89a71a9ae9a3df5d2f4f6a5047732c1868b5284d9fda59f",
+			"keccak256": "0xae0b245125f0e611e9ae29c1970d635b4a982787afafab5290759d9ef7d821c8",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://fd56c8e90d30b51b4da1cef3c0cb9ad4b5691001bda681113113d92d84f9f9f7",
-				"dweb:/ipfs/QmX6FM9tE1kpxV3kwFLAtk2z9kGtCZLuxNSmEy9eJcTDHH"
+				"bzz-raw://793118144f90c043aa0cde1c1a65a0c2e7dd8657dc71ca869ac29492605fa108",
+				"dweb:/ipfs/QmRFZhVDtbAC27oFHQVDrzgM9FLLHgcK7peiYh4U4P4bL1"
 			]
 		}
 	},

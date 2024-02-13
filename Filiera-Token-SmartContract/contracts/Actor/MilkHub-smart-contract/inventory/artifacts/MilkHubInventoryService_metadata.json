@@ -451,35 +451,35 @@
 			]
 		},
 		"contracts/Actor/IUserStorageInterface.sol": {
-			"keccak256": "0x81d5ea4a00a9bb5aa89a71a9ae9a3df5d2f4f6a5047732c1868b5284d9fda59f",
+			"keccak256": "0xae0b245125f0e611e9ae29c1970d635b4a982787afafab5290759d9ef7d821c8",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://fd56c8e90d30b51b4da1cef3c0cb9ad4b5691001bda681113113d92d84f9f9f7",
-				"dweb:/ipfs/QmX6FM9tE1kpxV3kwFLAtk2z9kGtCZLuxNSmEy9eJcTDHH"
+				"bzz-raw://793118144f90c043aa0cde1c1a65a0c2e7dd8657dc71ca869ac29492605fa108",
+				"dweb:/ipfs/QmRFZhVDtbAC27oFHQVDrzgM9FLLHgcK7peiYh4U4P4bL1"
 			]
 		},
 		"contracts/Actor/MilkHub-smart-contract/MilkHubService.sol": {
-			"keccak256": "0xf184fee0013e75e02728e0b90bce260163d1e1c7a74049fd897425fe8f36c565",
+			"keccak256": "0x4cff416d78319a3ce6ff3aac2f488b46f5f0e66780a3b86a96888b9bcd554542",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://544c8960598efd27dd71d9095a83299bdc4b5ced758016235f28a25095115a95",
-				"dweb:/ipfs/QmXsVuPu1wRYoGWAyGHBb8rcQb4HrUMEyd2gNn4YBrSnsL"
+				"bzz-raw://80a82c2b89796c4d1280432ebdec8470b414a863e9fdac4ecfc6a542d1c7cd30",
+				"dweb:/ipfs/QmV3xxPqhPqdsp9YKzSfqcU24ss5jR8LcW5GCLW71hfmTi"
 			]
 		},
 		"contracts/Actor/MilkHub-smart-contract/MilkHubStorage.sol": {
-			"keccak256": "0xeefa42c3eb81c88f762fa2d4354aa07247b84b5c8d58aa5232737396d846a2b7",
+			"keccak256": "0x63546b350a49c8962760ec83a08713bd960b5b7bfa7b0379032a7f31738afdca",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://42825526c6108458973acd0b76385d5c1947e3b680db25c83c12a6566cbb3c24",
-				"dweb:/ipfs/QmNjK8wsjB7t7xqTyZscbUSc6tcTTDk7Et4gLxkk8ceAJX"
+				"bzz-raw://8a98e926b716dedd469688c2b518343ffdbfeb0a1640bc6f05bcebc8af8c57ea",
+				"dweb:/ipfs/QmSskZ95DvkJaQgsMR7BcFNLEYEqmCc13GVUGjpaSJGdFV"
 			]
 		},
 		"contracts/Actor/MilkHub-smart-contract/inventory/MilkHubInventoryService.sol": {
-			"keccak256": "0x3d14c364f906fe3679ab009ad826299d49cd79e262a575ad3d2b4ddef397a732",
+			"keccak256": "0x3bcd8f9cb913d0141827cc33969595406e2dba0572ffbd4355575bc53adc6916",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://8aa53cd15de00fb110842b7365d8f4906ec21038714269c53c710d718e2d6f19",
-				"dweb:/ipfs/QmRheQ8h8UHjHeJ2BZnQ9q9nsqQydZ48itBop8qWY1n97Z"
+				"bzz-raw://23a43c6fc6a1e876ea22825f85ce82b9a718d690345738b44748631c77f0d6c6",
+				"dweb:/ipfs/QmPbfZnpGZbqhtM69Geb3WRFRckU4W3aETgk9esxGw9bsq"
 			]
 		},
 		"contracts/Actor/MilkHub-smart-contract/inventory/MilkHubInventoryStorage.sol": {

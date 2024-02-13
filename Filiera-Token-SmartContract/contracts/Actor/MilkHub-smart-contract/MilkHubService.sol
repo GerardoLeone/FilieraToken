@@ -39,13 +39,13 @@ contract MilkHubService {
 
 // ------------------------------------------------------------ Modifier Of Service ---------------------------------------------------------------------------------//
 
-    
-    /**
-     * modifier --- OnlyOwner specifica che solo il possessore può effettuare quella chiamata
-     */
-    modifier onlyOwner(address walletMilkHub, uint256 _id) {
-        uint256 _id_retrieve = getMilkHubId(walletMilkHub);
-        require(_id == _id_retrieve,"Utente non Autorizzato");
+    modifier onlyOwnWallet(address caller,address walletMilkHub){
+        require(caller == walletMilkHub,"User Not Authorized!");
+        _;
+    }
+
+    modifier onlyOrg(address sender){
+        require(sender == MilkHubOrg,"User Not Authorized!");
         _;
     }
 
@@ -54,24 +54,11 @@ contract MilkHubService {
     // Verfica che l'address non sia lo smart contract del MilkHubStorage e FilieraToken 
     modifier checkAddress(address walletMilkHub){
 
-        require(walletMilkHub!=address(0),"Address is zero");
+        require(walletMilkHub != address(0),"Address is zero");
         require(walletMilkHub != address(milkhubStorage), "Address is MilkHubStorage Smart Contract!");
         require(walletMilkHub != address(filieraToken), "Address is FilieraToken Smart Contract!" );
         require(walletMilkHub != MilkHubOrg ,"Organization address");
-        _;
-    }
 
-    // Verifica che l'utente non sia già registrato 
-    modifier NotRegistered(address walletMilkHub){
-        
-        require(!(this.isUserPresent(walletMilkHub)) ,"Utente gia' registrato");
-        _;
-    }
-
-    // Verifica che l'utente sia presente all'interno del sistema 
-    modifier isPresent(address walletMilkHub){
-
-        require(this.isUserPresent(walletMilkHub),"Utente non presente");
         _;
     }
 
@@ -84,9 +71,11 @@ contract MilkHubService {
      * - Trasferisce 100 token dal contratto di FilieraToken 
      * - Emette un evento appena l'utente è stato registrato 
      *  */ 
-    function registerMilkHub(string memory fullName, string memory password, string memory email) external checkAddress(msg.sender) NotRegistered(msg.sender){
+    function registerMilkHub(string memory fullName, string memory password, string memory email) external checkAddress(msg.sender) {
 
         address walletMilkHub = msg.sender;
+        // Verifica che l'utente è gia' presente 
+        require(!(this.isUserPresent(walletMilkHub)), "Utente gia' registrato !");
 
         // Chiama la funzione di Storage 
         milkhubStorage.addUser(fullName, password, email, walletMilkHub);
@@ -104,9 +93,10 @@ contract MilkHubService {
      * - return True se l'utente esiste ed ha accesso con le giuste credenziali 
      * - return False altrimenti 
      */
-    function login(string memory email, string memory password) external view checkAddress(msg.sender) isPresent(msg.sender) returns(bool) {
+    function login(address walletMilkHub, string memory email, string memory password) external view checkAddress(msg.sender) onlyOwnWallet(msg.sender,walletMilkHub) returns(bool) {
 
-        address walletMilkHub = msg.sender;
+        // Verifichiamo che l'utente è presente 
+        require(this.isUserPresent(walletMilkHub),"Utente non e' presente!");
         
         return milkhubStorage.loginUser(walletMilkHub, email, password);
     }
@@ -117,12 +107,15 @@ contract MilkHubService {
      * - Solo l'owner può effettuare l'eliminazione 
      * - msg.sender dovrebbe essere solo quello dell'owner 
      */
-    function deleteMilkHub(uint256 _id) external checkAddress(msg.sender) isPresent(msg.sender) onlyOwner(msg.sender,_id) {
+    function deleteMilkHub(address walletMilkHub, uint256 _id) external checkAddress(msg.sender) onlyOwnWallet(msg.sender,walletMilkHub) {
         
-        address walletMilkHub = msg.sender;
-
-        require(milkhubStorage.deleteUser(walletMilkHub, _id), "Errore durante la cancellazione");
-        // Burn all token 
+        // Verifico che l'utente è presente 
+        require(this.isUserPresent(walletMilkHub), "Utente non e' presente!");
+        // Restituisce l'id del MilkHub tramite il suo address wallet
+        require(milkhubStorage.getId(walletMilkHub) == _id , "Utente non Autorizzato!");
+        // Effettuo la cancellazione dell'utente 
+        require(milkhubStorage.deleteUser(walletMilkHub), "Errore durante la cancellazione");
+        // Burn all token ( elimina i token che sono in circolazione, di un utente che non effettua transazioni ) 
         filieraToken.burnToken(walletMilkHub, filieraToken.balanceOf(walletMilkHub));
         // Emit Event on FireFly 
         emit MilkHubDeleted(walletMilkHub,"Utente e' stato eliminato!");
@@ -142,7 +135,7 @@ contract MilkHubService {
     /**
         -  Funzione getMilkHubId() attraverso l'address del MilkHub siamo riusciti ad ottenere il suo ID
     */
-    function getMilkHubId(address walletMilkHub) internal view checkAddress(walletMilkHub) isPresent(walletMilkHub) returns (uint256){
+    function getMilkHubId(address walletMilkHub) external view checkAddress(walletMilkHub) onlyOwnWallet(msg.sender,walletMilkHub) returns (uint256){
         
         return milkhubStorage.getId(walletMilkHub);
     }
@@ -151,7 +144,7 @@ contract MilkHubService {
     /**
         - Funzione getFullName() attraverso l'address del MilkHub riusciamo a recuperare il suo FullName
     */
-    function getMilkHubFullName(address walletMilkHub,uint256 _id) external view checkAddress(walletMilkHub) isPresent(walletMilkHub) onlyOwner(walletMilkHub, _id) returns(string memory){
+    function getMilkHubFullName(address walletMilkHub,uint256 _id) external view checkAddress(walletMilkHub) returns(string memory){
 
         return milkhubStorage.getFullName(walletMilkHub,_id);
     }
@@ -159,7 +152,7 @@ contract MilkHubService {
     /**
         - Funzione getEmail() attraverso l'address del MilkHub riusciamo a recuperare la sua Email 
     */
-    function getMilkHubEmail(address walletMilkHub, uint256 _id) external view checkAddress(walletMilkHub) isPresent(walletMilkHub) onlyOwner(walletMilkHub, _id) returns(string memory){
+    function getMilkHubEmail(address walletMilkHub, uint256 _id) external view checkAddress(walletMilkHub) returns(string memory){
         
         return milkhubStorage.getEmail(walletMilkHub,_id);
     }
@@ -167,7 +160,7 @@ contract MilkHubService {
     /**
         - Funzione getBalance() attraverso l'address del MilkHub riusciamo a recuperare il suo Balance
     */
-    function getMilkHubBalance(address walletMilkHub, uint256 _id) external view checkAddress(walletMilkHub) isPresent(walletMilkHub) onlyOwner(walletMilkHub, _id)  returns(uint256){
+    function getMilkHubBalance(address walletMilkHub, uint256 _id) external view checkAddress(walletMilkHub) onlyOwnWallet(msg.sender,walletMilkHub) returns(uint256){
 
         return milkhubStorage.getBalance(walletMilkHub,_id);
     }
@@ -177,28 +170,56 @@ contract MilkHubService {
      * - tramite l'address del MilkHub riusciamo a visualizzare anche i suoi dati
      * - Dati sensibili e visibili solo dal MilkHub stesso 
      */
-    function getMilkHubData(address walletMilkHub,uint256 _id) external checkAddress(walletMilkHub) isPresent(walletMilkHub) onlyOwner(walletMilkHub, _id) view returns (uint256, string memory, string memory, string memory, uint256) {
+    function getMilkHubData(address walletMilkHub, uint256 _id) external checkAddress(walletMilkHub) onlyOwnWallet(msg.sender,walletMilkHub) view returns (uint256, string memory, string memory, string memory, uint256) {
+        // Verifico che l'utente è presente 
+        require(this.isUserPresent(walletMilkHub), "Utente non e' presente!");
+        // Restituisce l'id del MilkHub tramite il suo address wallet
+        require(milkhubStorage.getId(walletMilkHub) == _id , "Utente non Autorizzato!");
         // Call function of Storage         
         return milkhubStorage.getUser(walletMilkHub);
     }
+
+    
+    // Funzione per far visualizzare i dati ai vari utenti esterni 
+    function getMilkHubInfo(address walletMilkHub) external view checkAddress(walletMilkHub) returns (string memory, string memory) {
+        
+        // Verifico che l'utente esista
+        require(this.isUserPresent(walletMilkHub), "User not found");
+
+        uint256 id = milkhubStorage.getId(walletMilkHub); // Non è necessario, ma viene recuperato per rispettare il controllo in MilkHubStorage
+        string memory fullName = milkhubStorage.getFullName(walletMilkHub, id);
+        string memory email = milkhubStorage.getEmail(walletMilkHub, id);
+
+        return (fullName, email);
+    }
+
 
 
 
 //------------------------------------------------------------ Set Function -------------------------------------------------------------------//
 
     // - Funzione updateBalance() attraverso l'address e l'id, riusciamo a settare il nuovo balance
-    function updateMilkHubBalance(address walletMilkHub, uint256 _id, uint256 balance) external{
-        
-        milkhubStorage.updateBalance(walletMilkHub, _id, balance);
+    function updateMilkHubBalance(address walletMilkHub, uint256 _id, uint256 balance) external checkAddress(walletMilkHub) {
+        // Verifico che il Balance sia >0 
+        require(balance>0,"Balance Not Valid");
+        // Verifico che l'utente esista 
+        require(this.isUserPresent(walletMilkHub),"User Not Found!");
+        // Verifico che l'id sia lo stesso quello passato
+        require(milkhubStorage.getId(walletMilkHub)==_id,"Utente non Autorizzato");
+        // Update Balance 
+        milkhubStorage.updateBalance(walletMilkHub, balance);
     }
 
 
 // ------------------------------------------------------------ Change Address Contract of Service -----------------------------------------------------//
 
+    // TODO : Inserire onlyOrg(msg.sender) per verificare che quest'azione possa farla solo L'organizzazione 
+
     function changeMilkHubStorage(address _milkhubStorageNew)external {
         milkhubStorage = MilkHubStorage(_milkhubStorageNew);
     }
 
+    // TODO : Inserire onlyOrg(msg.sender) per verificare che quest'azione possa farla solo L'organizzazione 
 
     function changeFilieraToken(address _filieraToken)external {
         filieraToken = Filieratoken(_filieraToken);

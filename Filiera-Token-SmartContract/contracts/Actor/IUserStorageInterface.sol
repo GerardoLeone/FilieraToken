@@ -8,6 +8,6 @@ interface IUserStorageInterface {
     // Function to Retrieve User from Smart Contract 
     function getUser(address walletUser) external view returns (uint256, string memory, string memory, string memory, uint256);
     // Function to Delete User from Smart Contract 
-    function deleteUser(address walletUser,uint256 id_user) external returns(bool);
+    function deleteUser(address walletUser) external returns(bool);
 
 }

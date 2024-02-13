@@ -3,7 +3,7 @@ pragma solidity ^0.8.21;
 
 
 
-import "contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerMilkBatchInventoryStorage.sol";
+import "./CheeseProducerMilkBatchStorage.sol";
 
 
 

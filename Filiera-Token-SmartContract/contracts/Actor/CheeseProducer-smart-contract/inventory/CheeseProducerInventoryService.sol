@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.21;
 
-import "contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerInventoryStorage.sol";
-import "contracts/Actor/CheeseProducer-smart-contract/CheeseProducerService.sol";
-import "contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerMilkBatchService.sol";
+import "./CheeseProducerInventoryStorage.sol";
+import "../CheeseProducerService.sol";
+import "./CheeseProducerMilkBatchService.sol";
 
 
 contract CheeseProducerInventoryService {
@@ -113,7 +113,7 @@ contract CheeseProducerInventoryService {
 
         uint256 weight = quantityToTransform * 5;
         //TODO: gestire il prezzo con SafeMath
-        insertCheeseBlock(dop, weight, weight * pricePerKg);
+        cheeseProducerMilkBatchService.insertCheeseBlock(dop, weight, weight * pricePerKg);
     }
 
 }

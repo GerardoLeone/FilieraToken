@@ -100,6 +100,78 @@
 				],
 				"stateMutability": "view",
 				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletCheeseProducer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
+				"name": "getDop",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletCheeseProducer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
+				"name": "getPrice",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletCheeseProducer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
+				"name": "getQuantity",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
 			}
 		],
 		"devdoc": {
@@ -130,11 +202,11 @@
 	},
 	"sources": {
 		"Filiera-Token-SmartContract/contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerInventoryStorage.sol": {
-			"keccak256": "0x470511f29bf7a3b4298bf565aa5c829617d436f302a17f7a43187cef3be9597e",
+			"keccak256": "0x7e8f04af8be844b8743578db3f209fdf6514f8f14ce02d031765e9e2b0084add",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://3e98c5859b27facef067451f16f14a71598d56e1b4e238882104030aa015f92a",
-				"dweb:/ipfs/QmWwB283ZTA2prigPTdLgFByfcB74DVnA7xDADq8AFUQUX"
+				"bzz-raw://47e9c06ae0bf79d1f4f48982c5a06b9036aef3636a7fe4e7dd03ef9b60d61dc9",
+				"dweb:/ipfs/QmTKehaYjuNpLZuUw9Thg6YCJZa9yrgY9KuxNxemk82jSW"
 			]
 		}
 	},

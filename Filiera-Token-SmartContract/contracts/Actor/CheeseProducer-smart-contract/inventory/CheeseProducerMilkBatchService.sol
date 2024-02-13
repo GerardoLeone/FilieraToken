@@ -2,21 +2,23 @@
 pragma solidity ^0.8.0;
 
 import "./CheeseProducerMilkBatchStorage.sol";
+import "./CheeseProducerService.sol";
 
 contract CheeseProducerMilkBatchService {
-
-    CheeseProducerMilkBatchStorage private cheeseProducerMilkBatchStorage;
 
     // Address of Organization che gestisce gli utenti
     address private cheeseProducerOrg;
 
+    CheeseProducerMilkBatchStorage private cheeseProducerMilkBatchStorage;
+
     // Eventi per notificare l'aggiunta di una Partita di Latte
     event CheeseProducerMilkBatchAdded(address indexed userAddress,string message, string expirationDate, uint256 quantity);
-    // Eventi per notificare la rimozione di una Partita di Latte
+    
     event CheeseProducerMilkBatchDeleted(address indexed userAddress);
+    
     event CheeseProducerMilkBatchEdited(address indexed userAddress, uint256 quantity);
 
-    constructor(address _cheeseProducerMilkBatchStorage) {
+    constructor(address _cheeseProducerMilkBatchStorage, address _cheeseProducerService) {
         cheeseProducerMilkBatchStorage = CheeseProducerMilkBatchStorage(_cheeseProducerMilkBatchStorage);
         cheeseProducerOrg = msg.sender;
     }
@@ -54,6 +56,25 @@ contract CheeseProducerMilkBatchService {
         require(cheeseProducerMilkBatchStorage.detractMilkBatchQuantity(walletCheeseProducer, _id, _quantity), "Errore durante la modifica della quantita' di latte nella Partita del Latte");
 
         emit CheeseProducerMilkBatchEdited(walletCheeseProducer, _quantity);
+    }
+
+    function getExpirationDate(address walletCheeseProducer, uint256 _id) external view returns(string memory) {
+        return cheeseProducerMilkBatchStorage.getExpirationDate(walletCheeseProducer,_id);        
+    }
+
+    function getQuantity(address walletCheeseProducer, uint256 _id) external view returns(uint256) {
+        return cheeseProducerMilkBatchStorage.getQuantity(walletCheeseProducer,_id);        
+    }
+
+    function getPrice(address walletCheeseProducer, uint256 _id) external view returns(address) {
+        return cheeseProducerMilkBatchStorage.getWalletMilkHub(walletCheeseProducer,_id);        
+    }
+
+    function checkMilkBatch(address walletCheeseProducer, uint256 _id, uint256 _quantityToTransform) external view returns (bool){
+        require(msg.sender != address(0),"Address not Valid!");
+        require(walletCheeseProducer != address(0),"Address not Valid!");
+
+        return cheeseProducerMilkBatchStorage.checkMilkBatch(walletCheeseProducer, _id, _quantityToTransform);  
     }
 
 // -------------------------------------------------- TransactionManager Service ---------------------------------------------------//

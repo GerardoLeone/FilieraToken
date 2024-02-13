@@ -136,6 +136,30 @@
 			{
 				"inputs": [
 					{
+						"internalType": "address",
+						"name": "walletCheeseProducer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
+				"name": "getExpirationDate",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "uint256",
 						"name": "_id",
 						"type": "uint256"
@@ -166,6 +190,54 @@
 				],
 				"stateMutability": "view",
 				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletCheeseProducer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
+				"name": "getPrice",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletCheeseProducer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
+				"name": "getQuantity",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
 			}
 		],
 		"devdoc": {
@@ -181,7 +253,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerMilkBatchService.sol": "CheeseProducerMilkBatchService"
+			"Filiera-Token-SmartContract/contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerMilkBatchService.sol": "CheeseProducerMilkBatchService"
 		},
 		"evmVersion": "shanghai",
 		"libraries": {},
@@ -195,20 +267,20 @@
 		"remappings": []
 	},
 	"sources": {
-		"contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerMilkBatchService.sol": {
-			"keccak256": "0xccf19fcec563bff5c8efff519d47722907260129584843280077734c9294c763",
+		"Filiera-Token-SmartContract/contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerMilkBatchService.sol": {
+			"keccak256": "0xb01258b83c6dfb1a038d0a89f2b9c438907f8e63f2c0d416d30f97782b5aa774",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://319fcb3e0ea5ef0247c5c4a34f4625a855fffb949cd1626e67c1fd0d8a1115f0",
-				"dweb:/ipfs/QmQe95Hvjkza7uQab2wZv88Qqv3vy8QtSYYphMZ5Kj243g"
+				"bzz-raw://c5c9429a77a32f7af40acb007af71037bef744027066bb892d1d4ef8e12418c7",
+				"dweb:/ipfs/QmZsSW3sd6Sfsjqmd7KUmHoyHcjfBdwBqV927wrmqPRs8k"
 			]
 		},
-		"contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerMilkBatchStorage.sol": {
-			"keccak256": "0xed2ed8877dc8ff5c2a92b7192d00beae83afe0f468a45740103c8ee6589b59b4",
+		"Filiera-Token-SmartContract/contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerMilkBatchStorage.sol": {
+			"keccak256": "0x5788f48cea5e70943fafe42b0a7615054a00ad544ef15ee65b5396ca73515463",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://34b3da4a6f2c6af141308f9f04bf5ac7a409a0011f9fffc590ea998e89eae679",
-				"dweb:/ipfs/QmRGpWJdBumUQH1CHzgevCR3uJUtvLmL89YcZBy8LfLK52"
+				"bzz-raw://295cb31eab5bfff10a6aea521e9370b4c6b0c00fd0f78bdfa46f53ffdec93e7d",
+				"dweb:/ipfs/QmcdKdEoLEBXDdjWynKP2EUwGhSr8MxNZsuNotPoF7YXxZ"
 			]
 		}
 	},

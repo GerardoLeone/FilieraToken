@@ -8,7 +8,6 @@ import "./Actor/Filieratoken.sol";
 import "./Actor/MilkHub-smart-contract/inventory/MilkHubInventoryService.sol";
 import "./Actor/CheeseProducer-smart-contract/inventory/CheeseProducerMilkBatchService.sol";
 
-
 contract TransactionManager {
 
     // FilieraToken Service -> address FilieraToken

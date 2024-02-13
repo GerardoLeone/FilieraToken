@@ -68,4 +68,25 @@ contract CheeseProducerInventoryStorage {
 
         return true;
     }
+
+    function getDop(address walletCheeseProducer, uint256 _id) external view returns(string memory) {
+        require(cheeseBlocks[walletCheeseProducer][_id].id != 0, "Blocco di formaggio non presente!");
+
+        Cheese memory cheeseBlock = cheeseBlocks[walletCheeseProducer][_id];
+        return cheeseBlock.dop;
+    }
+
+    function getPrice(address walletCheeseProducer, uint256 _id) external view returns(uint256) {
+        require(cheeseBlocks[walletCheeseProducer][_id].id != 0, "Blocco di formaggio non presente!");
+
+        Cheese memory cheeseBlock = cheeseBlocks[walletCheeseProducer][_id];
+        return cheeseBlock.price;
+    }
+
+    function getQuantity(address walletCheeseProducer, uint256 _id) external view returns(uint256) {
+        require(cheeseBlocks[walletCheeseProducer][_id].id != 0, "Blocco di formaggio non presente!");
+
+        Cheese memory cheeseBlock = cheeseBlocks[walletCheeseProducer][_id];
+        return cheeseBlock.quantity;
+    }
 }

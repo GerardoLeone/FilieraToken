@@ -49,6 +49,35 @@
 						"internalType": "uint256",
 						"name": "_id",
 						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_quantityToTransform",
+						"type": "uint256"
+					}
+				],
+				"name": "checkMilkBatch",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletCheeseProducer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
 					}
 				],
 				"name": "deleteMilkBatch",
@@ -104,6 +133,54 @@
 						"type": "uint256"
 					}
 				],
+				"name": "getExpirationDate",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletCheeseProducer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
+				"name": "getId",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletCheeseProducer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
 				"name": "getMilkBatch",
 				"outputs": [
 					{
@@ -129,6 +206,54 @@
 				],
 				"stateMutability": "view",
 				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletCheeseProducer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
+				"name": "getQuantity",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletCheeseProducer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
+				"name": "getWalletMilkHub",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
 			}
 		],
 		"devdoc": {
@@ -144,7 +269,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerMilkBatchStorage.sol": "CheeseProducerMilkBatchStorage"
+			"Filiera-Token-SmartContract/contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerMilkBatchStorage.sol": "CheeseProducerMilkBatchStorage"
 		},
 		"evmVersion": "shanghai",
 		"libraries": {},
@@ -158,12 +283,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerMilkBatchStorage.sol": {
-			"keccak256": "0xed2ed8877dc8ff5c2a92b7192d00beae83afe0f468a45740103c8ee6589b59b4",
+		"Filiera-Token-SmartContract/contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerMilkBatchStorage.sol": {
+			"keccak256": "0xdc9665dc8ec0decaefe53b4bd115233e5f42afbfd2da2d8a1d8119ca4786c61d",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://34b3da4a6f2c6af141308f9f04bf5ac7a409a0011f9fffc590ea998e89eae679",
-				"dweb:/ipfs/QmRGpWJdBumUQH1CHzgevCR3uJUtvLmL89YcZBy8LfLK52"
+				"bzz-raw://0ad631dc334076b4bd3d8d0bb96da8a1f0b21af4bfecddc986339b5007185e3b",
+				"dweb:/ipfs/QmNYUTAwkJWjy9grrq1HsR5GAJV74Mvf5CvQw1YWhDL3zd"
 			]
 		}
 	},

@@ -80,4 +80,42 @@ contract CheeseProducerMilkBatchStorage {
 
         return true;
     }
+
+    function getExpirationDate(address walletCheeseProducer, uint256 _id) external view returns(string memory) {
+        require(purchasedMilkBatches[walletCheeseProducer][_id].id != 0, "Partita di Latte non presente!");
+
+        MilkBatch memory milkBatch = purchasedMilkBatches[walletCheeseProducer][_id];
+        return milkBatch.expirationDate;
+    }
+
+    function getQuantity(address walletCheeseProducer, uint256 _id) external view returns(uint256) {
+        require(purchasedMilkBatches[walletCheeseProducer][_id].id != 0, "Partita di Latte non presente!");
+
+        MilkBatch memory milkBatch = purchasedMilkBatches[walletCheeseProducer][_id];
+        return milkBatch.quantity;        
+    }
+
+    function getWalletMilkHub(address walletCheeseProducer, uint256 _id) external view returns(address) {
+        require(purchasedMilkBatches[walletCheeseProducer][_id].id != 0, "Partita di Latte non presente!");
+
+        MilkBatch memory milkBatch = purchasedMilkBatches[walletCheeseProducer][_id];
+        return milkBatch.walletMilkHub;
+    }
+
+    function getId(address walletCheeseProducer, uint256 _id) external view returns(uint256) {
+        require(purchasedMilkBatches[walletCheeseProducer][_id].id != 0, "Partita di Latte non presente!");
+
+        return purchasedMilkBatches[walletCheeseProducer][_id].id;
+    }
+
+    function checkMilkBatch(address walletCheeseProducer, uint256 _id, uint256 _quantityToTransform) external view returns(bool) {
+        require(purchasedMilkBatches[walletCheeseProducer][_id].id == _id, "Partita di Latte non presente!");
+
+        MilkBatch storage milkBatchObj = purchasedMilkBatches[walletCheeseProducer][_id];
+            
+        require(milkBatchObj.quantity >= _quantityToTransform, "Quantity not Valid!");
+        return true;    
+    }
+
+    
 }

@@ -217,7 +217,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/Actor/CheeseProducer-smart-contract/CheeseProducerService.sol": "CheeseProducerService"
+			"Filiera-Token-SmartContract/contracts/Actor/CheeseProducer-smart-contract/CheeseProducerService.sol": "CheeseProducerService"
 		},
 		"evmVersion": "shanghai",
 		"libraries": {},
@@ -271,7 +271,7 @@
 				"dweb:/ipfs/Qmax9WHBnVsZP46ZxEMNRQpLQnrdE4dK8LehML1Py8FowF"
 			]
 		},
-		"contracts/Actor/CheeseProducer-smart-contract/CheeseProducerService.sol": {
+		"Filiera-Token-SmartContract/contracts/Actor/CheeseProducer-smart-contract/CheeseProducerService.sol": {
 			"keccak256": "0xc5bf270bdee0085c3127d2eee8e247a1041bf59f1a5b1a3c0f745dd1bfe0b1fd",
 			"license": "MIT",
 			"urls": [
@@ -279,7 +279,7 @@
 				"dweb:/ipfs/QmSLroXwVSm9Wahj5wazGXcvHrSSnL3diKwvekTHcTZJ4M"
 			]
 		},
-		"contracts/Actor/CheeseProducer-smart-contract/CheeseProducerStorage.sol": {
+		"Filiera-Token-SmartContract/contracts/Actor/CheeseProducer-smart-contract/CheeseProducerStorage.sol": {
 			"keccak256": "0xd1b7a63cc704ae1c5f3c847e41f6e11c51892f29c8c0c9bb396e7c46245ca346",
 			"license": "MIT",
 			"urls": [
@@ -287,15 +287,15 @@
 				"dweb:/ipfs/Qme9AsMutDdjJjgjeAFUztj8ig4ushm8jaB1L2ZWtFPxws"
 			]
 		},
-		"contracts/Actor/Filieratoken.sol": {
-			"keccak256": "0xc12fa059c37296fe19425699a20d12dc472c2b0931d7d221c433c41f806186df",
+		"Filiera-Token-SmartContract/contracts/Actor/Filieratoken.sol": {
+			"keccak256": "0xe0b07513d0fc2b452ae9f2eda6f6922072f2bf467816817b7af1fb7faf5fd930",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://21338bccbc1f741c7fb521c8c0c5a0bcb79cdc4200e7ae77ff9276b6408b8d93",
-				"dweb:/ipfs/Qmeg1KB2BUPDQHiJNaswRvJUfC7HJyYjPpGyVfY8XKeRm4"
+				"bzz-raw://69de47d16bac614bd5a5433b82e4fafabec231e5d986a32ccdae4a0f863ec70c",
+				"dweb:/ipfs/QmQLe7fif3Z5yQqsragCfnUncxTd6LvSGHWkn7MoJ7wvfM"
 			]
 		},
-		"contracts/Actor/IUserStorageInterface.sol": {
+		"Filiera-Token-SmartContract/contracts/Actor/IUserStorageInterface.sol": {
 			"keccak256": "0x189fa5db899f0a31af11fdee9ce97b8e30fe427e719f0714a4dc8a43ffa5535f",
 			"license": "MIT",
 			"urls": [

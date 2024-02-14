@@ -23,6 +23,11 @@
 						"type": "address"
 					},
 					{
+						"internalType": "uint256",
+						"name": "_id_MilkBatch",
+						"type": "uint256"
+					},
+					{
 						"internalType": "string",
 						"name": "_expirationDate",
 						"type": "string"
@@ -37,17 +42,17 @@
 				"outputs": [
 					{
 						"internalType": "uint256",
-						"name": "",
+						"name": "id_MilkBatch_Acquistato",
 						"type": "uint256"
 					},
 					{
 						"internalType": "string",
-						"name": "",
+						"name": "expDate",
 						"type": "string"
 					},
 					{
 						"internalType": "uint256",
-						"name": "",
+						"name": "quantityAcquistata",
 						"type": "uint256"
 					}
 				],
@@ -94,17 +99,22 @@
 						"internalType": "uint256",
 						"name": "_id",
 						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_quantityToTransform",
+						"type": "uint256"
 					}
 				],
-				"name": "deleteMilkBatch",
+				"name": "checkQuantity",
 				"outputs": [
 					{
 						"internalType": "bool",
-						"name": "value",
+						"name": "",
 						"type": "bool"
 					}
 				],
-				"stateMutability": "nonpayable",
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -164,7 +174,7 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "_id",
+						"name": "_id_MilkBatchAcquistato",
 						"type": "uint256"
 					}
 				],
@@ -251,7 +261,7 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "_id_cheeseBlock",
+						"name": "_id_MilkBatchAcquistato",
 						"type": "uint256"
 					}
 				],
@@ -297,7 +307,14 @@
 		},
 		"userdoc": {
 			"kind": "user",
-			"methods": {},
+			"methods": {
+				"addMilkBatch(address,address,uint256,string,uint256)": {
+					"notice": "Funzione addMilkBatch() -> Utilizzata dal Transaction Manager per poter inserire il MilkBatch Acquistato  Scollego questa logica, ammettendo che il CheeseProducer può testare la logica di conversione  params :  - walletCheeseProducer -> mi serve per il mapping  - walletMilkHub -> mi serve per creare il nuovo elemento   - id_milkBatch -> mi serve per il riferimento all'elemento acquistato"
+				},
+				"isMilkBatchPresent(address,uint256)": {
+					"notice": "Funzione per la verifica dell'esistenza del prodotto MilkBatch acquistato  - ritorna TRUE se esiste  - ritorna FALSe se non esiste  - effettua il controllo sull'uguaglianza dell'id del MilkBatch Acquistato"
+				}
+			},
 			"version": 1
 		}
 	},
@@ -318,11 +335,11 @@
 	},
 	"sources": {
 		"contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerMilkBatchStorage.sol": {
-			"keccak256": "0x337e2bbfab6c18d090bd74a62bdd0efd80464cf264e9084cc679debf410f1c15",
+			"keccak256": "0x56aefb74799af364f4bf37d122756bf2820fff2d319c0017bb6a7a38f44f3ee6",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://6b1e2fbb54945f81ce21db2c0ed4729b259d778a96f0151b5d1a259f3aaddc94",
-				"dweb:/ipfs/QmTGHFuV48JjVMz7MphCaiW36hd2hDGsL93JBw7QWXunQ7"
+				"bzz-raw://7767af944b96114ea664502abf30f26646c9a1358baadb5613e8b363e8cb6579",
+				"dweb:/ipfs/Qmc5xgP3anSVjzK4PQwKcJNojMimY4FEBwR14uA8kRjnzp"
 			]
 		}
 	},

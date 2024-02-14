@@ -18,6 +18,11 @@
 						"type": "address"
 					},
 					{
+						"internalType": "uint256",
+						"name": "_id_MilkBatchAcquistato",
+						"type": "uint256"
+					},
+					{
 						"internalType": "string",
 						"name": "_dop",
 						"type": "string"
@@ -34,7 +39,28 @@
 					}
 				],
 				"name": "addCheeseBlock",
-				"outputs": [],
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
 				"stateMutability": "nonpayable",
 				"type": "function"
 			},
@@ -226,11 +252,11 @@
 	},
 	"sources": {
 		"contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerInventoryStorage.sol": {
-			"keccak256": "0x9af4fc56ca462cffeebad9373584e6062bff5c3db206d322ce3056b5a90129aa",
+			"keccak256": "0x5daf0fd4d7da428a724b43c2b9d783bf499a3f737bf112b7d914629a445b25e2",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://854bea1c4303c73e60792338c137c8aba3970eb030915e0dd9b023d36afd737e",
-				"dweb:/ipfs/QmWirwKkQWBUafHoMwNK24xwRVBzz8GMR1x5EB8cNLyNi6"
+				"bzz-raw://efa2a4b9edc0c5eb0bab2209cea31cf44367f1c43c01b248eaded557dff50091",
+				"dweb:/ipfs/QmXUppMvV7Yguon9qjuPEsZM6K6kgHPLjVJ7ULnSAfKb4r"
 			]
 		}
 	},

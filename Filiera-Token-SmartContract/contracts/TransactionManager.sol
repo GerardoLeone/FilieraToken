@@ -90,33 +90,51 @@ contract TransactionManager {
         cheeseProducerMilkBatchService = CheeseProducerMilkBatchService(_cheeseProducerMilkBatchServiceAddress);
     }
 
+    /**
+    *
+    * Funzione BuyMilkBatchProduct () -> Chiamata dal CheeseProducer 
+    *
+    */
+    function BuyMilkBatchProduct(
+        address ownerMilkBatch,
+        uint256 _id_MilkBatch,
+        uint256 _quantityToBuy,
+        uint256 totalPrice)
+         external {
 
-    function BuyMilkBatchProduct(address ownerMilkBatch, uint256 _id_MilkBatch, uint256 _quantityToBuy, uint256 totalPrice) external {
-    require(msg.sender != address(0), "Invalid sender address");
-    require(ownerMilkBatch != address(0), "Invalid owner address");
-    require(msg.sender != ownerMilkBatch, "Cannot buy from yourself");
+        // Verifica degli address con controlli generici 
+        require(msg.sender != address(0), "Invalid sender address");
+        require(ownerMilkBatch != address(0), "Invalid owner address");
+        require(msg.sender != ownerMilkBatch, "Cannot buy from yourself");
+        // Verfica della presenza del Prodotto 
+        require(milkhubInventoryService.isMilkBatchPresent(ownerMilkBatch, _id_MilkBatch), "Product not found");
+        // Verifica della quantità da acquistare rispetto alla quantità totale 
+        require(_quantityToBuy <= milkhubInventoryService.getMilkBatchQuantity(ownerMilkBatch, _id_MilkBatch), "Invalid quantity");
+        // Verifica del saldo dell'acquirente 
+        require(filieraTokenService.balanceOf(msg.sender) >= totalPrice, "Insufficient balance");
 
-    require(milkhubInventoryService.isMilkBatchPresent(ownerMilkBatch, _id_MilkBatch), "Product not found");
-    require(_quantityToBuy <= milkhubInventoryService.getMilkBatchQuantity(ownerMilkBatch, _id_MilkBatch), "Invalid quantity");
-    require(filieraTokenService.balanceOf(msg.sender) >= totalPrice, "Insufficient balance");
+        // Acquisto 
+        filieraTokenService.transferBuyProduct(msg.sender, ownerMilkBatch, totalPrice);
 
-    // Trasferimento dei token
-    filieraTokenService.transferBuyProduct(msg.sender, ownerMilkBatch, totalPrice);
+        // Aggiornamento del saldo del MilkHub 
+        uint256 newMilkHubBalance = filieraTokenService.balanceOf(ownerMilkBatch);
+        milkhubService.updateMilkHubBalance(ownerMilkBatch, newMilkHubBalance);
+        // Aggiornamento del saldo del CheeseProducer 
+        uint256 newCheeseProducerBalance = filieraTokenService.balanceOf(msg.sender);
+        cheeseProducerService.updateCheeseProducerBalance(msg.sender, newCheeseProducerBalance);
 
-    // Aggiornamento dei saldi
-    uint256 newMilkHubBalance = filieraTokenService.balanceOf(ownerMilkBatch);
-    milkhubService.updateMilkHubBalance(ownerMilkBatch, newMilkHubBalance);
+        // Riduzione della quantità nel MilkHubInventory
+        uint256 currentQuantity = milkhubInventoryService.getMilkBatchQuantity(ownerMilkBatch, _id_MilkBatch);
+        milkhubInventoryService.updateMilkBatchQuantity(ownerMilkBatch, _id_MilkBatch, currentQuantity - _quantityToBuy);
 
-    uint256 newCheeseProducerBalance = filieraTokenService.balanceOf(msg.sender);
-    cheeseProducerService.updateCheeseProducerBalance(msg.sender, newCheeseProducerBalance);
-
-    // Riduzione della quantità nel MilkHubInventory
-    uint256 currentQuantity = milkhubInventoryService.getMilkBatchQuantity(ownerMilkBatch, _id_MilkBatch);
-    milkhubInventoryService.updateMilkBatchQuantity(ownerMilkBatch, _id_MilkBatch, currentQuantity - _quantityToBuy);
-
-    // Aggiunta del MilkBatch nell'inventario del CheeseProducer
-    cheeseProducerMilkBatchService.addMilkBatch(ownerMilkBatch, msg.sender, milkhubInventoryService.getMilkBatchExpirationDate(ownerMilkBatch, _id_MilkBatch), _quantityToBuy);
-}
+        // Aggiunta del MilkBatch nell'inventario del CheeseProducer
+        cheeseProducerMilkBatchService.addMilkBatch(
+            ownerMilkBatch,
+            msg.sender, 
+            _id_MilkBatch,
+            milkhubInventoryService.getMilkBatchExpirationDate(ownerMilkBatch, _id_MilkBatch),
+            _quantityToBuy);
+    }
 
 
 

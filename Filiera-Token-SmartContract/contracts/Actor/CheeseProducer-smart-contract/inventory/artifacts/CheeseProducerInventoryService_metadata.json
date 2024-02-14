@@ -38,6 +38,18 @@
 					{
 						"indexed": false,
 						"internalType": "string",
+						"name": "message",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
 						"name": "dop",
 						"type": "string"
 					},
@@ -65,6 +77,18 @@
 						"internalType": "address",
 						"name": "userAddress",
 						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "message",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
 					}
 				],
 				"name": "CheeseBlockDeleted",
@@ -78,7 +102,26 @@
 						"type": "uint256"
 					}
 				],
-				"name": "fetchCheeseBlock",
+				"name": "deleteCheeseBlock",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_id_CheeseBlock",
+						"type": "uint256"
+					}
+				],
+				"name": "getCheeseBlock",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -179,37 +222,25 @@
 			{
 				"inputs": [
 					{
-						"internalType": "string",
-						"name": "_dop",
-						"type": "string"
+						"internalType": "address",
+						"name": "walletCheeseProducer",
+						"type": "address"
 					},
 					{
 						"internalType": "uint256",
-						"name": "_quantity",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "_price",
+						"name": "_id_cheeseBlock",
 						"type": "uint256"
 					}
 				],
-				"name": "insertCheeseBlock",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
+				"name": "isCheeseBlockPresent",
+				"outputs": [
 					{
-						"internalType": "uint256",
-						"name": "_id",
-						"type": "uint256"
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
 					}
 				],
-				"name": "removeCheeseBlock",
-				"outputs": [],
-				"stateMutability": "nonpayable",
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -221,7 +252,7 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "_id",
+						"name": "_id_MilkBatchAcquistato",
 						"type": "uint256"
 					},
 					{
@@ -242,7 +273,7 @@
 				],
 				"name": "transformMilkBatch",
 				"outputs": [],
-				"stateMutability": "view",
+				"stateMutability": "nonpayable",
 				"type": "function"
 			}
 		],
@@ -254,11 +285,11 @@
 		"userdoc": {
 			"kind": "user",
 			"methods": {
-				"fetchCheeseBlock(uint256)": {
-					"notice": "Ottenere le informazioni del cheeseblock attraverso :  - ID  "
-				},
-				"removeCheeseBlock(uint256)": {
+				"deleteCheeseBlock(uint256)": {
 					"notice": "Eliminare un Cheese Block attraverso l'id  - ID  - Verficare che l'utente che vuole eseguire la transazione sia presente."
+				},
+				"getCheeseBlock(uint256)": {
+					"notice": "Ottenere le informazioni del cheeseblock attraverso :  - ID cheeseBlock "
 				}
 			},
 			"version": 1
@@ -321,11 +352,11 @@
 			]
 		},
 		"contracts/Actor/CheeseProducer-smart-contract/CheeseProducerService.sol": {
-			"keccak256": "0x0f5bd2282e99194f2c16bce0b3ccbfcf86ad8bcc68688ad5dc5355dbe6b4b78e",
+			"keccak256": "0x73a283fe683489737c0cd96c762b7f7569e82b6347d7dc13117cfded3ad8ae3c",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://faee270d4464f2a4d1969c6fb0c0a58181da83bb3d74bddb0114a54f8fb8e90a",
-				"dweb:/ipfs/QmPmWzAmzzpucswnetCh2YokYM2PzRFibao5imt4yUYNpJ"
+				"bzz-raw://6bc0c5159382cada70ecbb6fa07fd6b974ee46620cce0d77d90a961a1226a591",
+				"dweb:/ipfs/QmSE5B5A4LGZXhDqawRmKvNRxBzEJNyuYqGoTmB6rMhpST"
 			]
 		},
 		"contracts/Actor/CheeseProducer-smart-contract/CheeseProducerStorage.sol": {
@@ -337,35 +368,35 @@
 			]
 		},
 		"contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerInventoryService.sol": {
-			"keccak256": "0x520088959ed355775871a7a1c09e8de1895171f46eef8fe32199e5a453e48695",
+			"keccak256": "0xcdcc90bec9a929258d244eba79aa6c083ac2599dcb0d32e4a16a340180bad13f",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://17f94fa42af60a1b5b8c82e3deff4d054aa38c4e47ab34705b6ac363cc962ef3",
-				"dweb:/ipfs/QmbKW4v8QchqM2UwZrCq731jfXafwBGwD7A6HqfPEdsr5b"
+				"bzz-raw://d2e8bd74a5b9421f6d8a3e012a75f328d3aaf90c2adfb2f82fa55679f5a624bc",
+				"dweb:/ipfs/Qmdmnm8B82GgE1fKAvTYYZ9tHyujHdsFaJSWCRbee2t58E"
 			]
 		},
 		"contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerInventoryStorage.sol": {
-			"keccak256": "0x7e8f04af8be844b8743578db3f209fdf6514f8f14ce02d031765e9e2b0084add",
+			"keccak256": "0x5daf0fd4d7da428a724b43c2b9d783bf499a3f737bf112b7d914629a445b25e2",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://47e9c06ae0bf79d1f4f48982c5a06b9036aef3636a7fe4e7dd03ef9b60d61dc9",
-				"dweb:/ipfs/QmTKehaYjuNpLZuUw9Thg6YCJZa9yrgY9KuxNxemk82jSW"
+				"bzz-raw://efa2a4b9edc0c5eb0bab2209cea31cf44367f1c43c01b248eaded557dff50091",
+				"dweb:/ipfs/QmXUppMvV7Yguon9qjuPEsZM6K6kgHPLjVJ7ULnSAfKb4r"
 			]
 		},
 		"contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerMilkBatchService.sol": {
-			"keccak256": "0x0a82a9b38bff0fea732d81e96b645fbb5c773415bc2ca9af0c1c180f94470d14",
+			"keccak256": "0x75791a2bd603ec1ae4f59a5612939a3dc07fa48c416e55c551b18d3fd274b468",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://114aa4f466cde1b3de7272ab2be10c7c6797e1936748ffa7428110a205da71c0",
-				"dweb:/ipfs/Qmecz5aHG576eSoi3qNHhnodeepPdyEJdEWxx5PHuoD3CL"
+				"bzz-raw://a7b044e4a9ffc0c9e2126fe9abb9dd69b19bcb1dd1844de4fa152d25c6e036d6",
+				"dweb:/ipfs/QmWgQMoPNx738RiKa3xwAWqto5PGDZXMkeY8xZzkSczyPY"
 			]
 		},
 		"contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerMilkBatchStorage.sol": {
-			"keccak256": "0x5a8f78ec6f97cee3ce30c74a288e5f52f37d55dae6709acbdf98b005cfd5ee2b",
+			"keccak256": "0x56aefb74799af364f4bf37d122756bf2820fff2d319c0017bb6a7a38f44f3ee6",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://de43396ba90700796f9e600a9a2705fc7401341c116e65857c48f9aa14fa0073",
-				"dweb:/ipfs/QmcvckSWAuwThvfQuA3qMHcMJHTsqg2NnEQaiDBFKW1B7T"
+				"bzz-raw://7767af944b96114ea664502abf30f26646c9a1358baadb5613e8b363e8cb6579",
+				"dweb:/ipfs/Qmc5xgP3anSVjzK4PQwKcJNojMimY4FEBwR14uA8kRjnzp"
 			]
 		},
 		"contracts/Actor/Filieratoken.sol": {

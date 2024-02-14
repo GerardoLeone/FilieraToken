@@ -222,6 +222,29 @@
 				],
 				"stateMutability": "view",
 				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletCheeseProducer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id_Cheese",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_newQuantity",
+						"type": "uint256"
+					}
+				],
+				"name": "updateCheeseBlockQuantity",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
 			}
 		],
 		"devdoc": {
@@ -252,11 +275,11 @@
 	},
 	"sources": {
 		"contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerInventoryStorage.sol": {
-			"keccak256": "0x5daf0fd4d7da428a724b43c2b9d783bf499a3f737bf112b7d914629a445b25e2",
+			"keccak256": "0xa1bc5973d1cd135163233950da1824d426edad739281207d73642e289e52f379",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://efa2a4b9edc0c5eb0bab2209cea31cf44367f1c43c01b248eaded557dff50091",
-				"dweb:/ipfs/QmXUppMvV7Yguon9qjuPEsZM6K6kgHPLjVJ7ULnSAfKb4r"
+				"bzz-raw://2a9aff6c3898a1ad3e00a1dec55a94d62f4f45783e097a41d676ad4b78df915e",
+				"dweb:/ipfs/QmY6ei4Ba3bzj4TaA4Ns2MradJsCBNKdmJNxmNWHVM6bmA"
 			]
 		}
 	},

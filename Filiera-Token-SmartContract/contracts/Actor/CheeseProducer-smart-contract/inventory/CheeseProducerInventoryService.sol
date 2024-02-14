@@ -28,8 +28,12 @@ contract CheeseProducerInventoryService {
     // Eventi per notificare l'aggiunta di una Partita di Latte
     event CheeseBlockAdded(address indexed userAddress,string message,uint256 id, string dop, uint256 quantity, uint256 price);
 
-    // Eventi per notificare la rimozione di una Partita di Latte
+    // Eventi per notificare la rimozione di un CheeseBlock
     event CheeseBlockDeleted(address indexed userAddress, string message, uint256 _id);
+    
+    // Eventi per notificare la modifica di un Cheese Block 
+    event CheeseBlockEdited(address indexed userAddress,string message, uint256 quantity);
+
 
 //--------------------------------------------------------------------- Constructor of Service Contract -----------------------------------------------//
 
@@ -95,6 +99,8 @@ contract CheeseProducerInventoryService {
         
         address walletCheeseProducer = msg.sender;
 
+        require(cheeseProducerService.isUserPresent(walletCheeseProducer), "User is not present in data");
+
         require(this.isCheeseBlockPresent(walletCheeseProducer, _id_CheeseBlock), "CheeseBlock is not present in data");
 
         return cheeseProducerInventoryStorage.getCheeseBlock(walletCheeseProducer, _id_CheeseBlock);
@@ -139,7 +145,7 @@ contract CheeseProducerInventoryService {
         return cheeseProducerInventoryStorage.getPrice(walletCheeseProducer,_id);        
     }
 
-    function getQuantity(address walletCheeseProducer, uint256 _id) external view returns(uint256) {
+    function getCheeseBlockQuantity(address walletCheeseProducer, uint256 _id) external view returns(uint256) {
         require(cheeseProducerService.isUserPresent(walletCheeseProducer), "User is not present!");
 
         require(this.isCheeseBlockPresent(walletCheeseProducer, _id),"MilkBatch not Present!");
@@ -171,7 +177,26 @@ contract CheeseProducerInventoryService {
 
         uint256 weight = quantityToTransform * 5;
         //TODO: gestire il prezzo con SafeMath
-        addCheeseBlock(walletCheeseProducer,_id_MilkBatchAcquistato, dop, weight, weight * pricePerKg);
+        addCheeseBlock(walletCheeseProducer,_id_MilkBatchAcquistato, dop, weight,pricePerKg);
+    }
+
+
+// --------------------------------------------------------------------- SET function --------------------------------------------------------------------------------------------//
+
+
+    /**
+    * Decremento della quantità del CheeseBlock 
+    * Verifica che la quantità sia maggiore di 0 -> altrimenti rimani 
+    */
+    function updateCheeseBlockQuantity(address ownerCheeseProducer, uint256 _id, uint256 _quantity) external checkAddress(ownerCheeseProducer) {
+
+        require(cheeseProducerService.isUserPresent(ownerCheeseProducer), "User is not present!");
+
+        require(this.isCheeseBlockPresent(ownerCheeseProducer, _id),"MilkBatch not Present!");
+
+        cheeseProducerInventoryStorage.updateCheeseBlockQuantity(ownerCheeseProducer, _id, _quantity);
+
+        emit CheeseBlockEdited(ownerCheeseProducer,"CheeseBlock edited!", _quantity);
     }
 
 }

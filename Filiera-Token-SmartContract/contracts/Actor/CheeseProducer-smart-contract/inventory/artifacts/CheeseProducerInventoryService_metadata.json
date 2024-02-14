@@ -95,6 +95,31 @@
 				"type": "event"
 			},
 			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "userAddress",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "message",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "quantity",
+						"type": "uint256"
+					}
+				],
+				"name": "CheeseBlockEdited",
+				"type": "event"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "uint256",
@@ -138,6 +163,30 @@
 						"name": "",
 						"type": "uint256"
 					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletCheeseProducer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
+				"name": "getCheeseBlockQuantity",
+				"outputs": [
 					{
 						"internalType": "uint256",
 						"name": "",
@@ -204,30 +253,6 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "_id",
-						"type": "uint256"
-					}
-				],
-				"name": "getQuantity",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "walletCheeseProducer",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
 						"name": "_id_cheeseBlock",
 						"type": "uint256"
 					}
@@ -275,6 +300,29 @@
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "ownerCheeseProducer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_quantity",
+						"type": "uint256"
+					}
+				],
+				"name": "updateCheeseBlockQuantity",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
 			}
 		],
 		"devdoc": {
@@ -290,6 +338,9 @@
 				},
 				"getCheeseBlock(uint256)": {
 					"notice": "Ottenere le informazioni del cheeseblock attraverso :  - ID cheeseBlock "
+				},
+				"updateCheeseBlockQuantity(address,uint256,uint256)": {
+					"notice": "Decremento della quantità del CheeseBlock  Verifica che la quantità sia maggiore di 0 -> altrimenti rimani "
 				}
 			},
 			"version": 1
@@ -368,19 +419,19 @@
 			]
 		},
 		"contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerInventoryService.sol": {
-			"keccak256": "0xcdcc90bec9a929258d244eba79aa6c083ac2599dcb0d32e4a16a340180bad13f",
+			"keccak256": "0x8101ed3dd8d9c4aff8857f63506ca4f99ce862a3a0b6cae0579be053b558a67f",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://d2e8bd74a5b9421f6d8a3e012a75f328d3aaf90c2adfb2f82fa55679f5a624bc",
-				"dweb:/ipfs/Qmdmnm8B82GgE1fKAvTYYZ9tHyujHdsFaJSWCRbee2t58E"
+				"bzz-raw://01cf26c31f22f4e62cb24f8b50ae47e87763ef7dc863fb09ed085c48d885f5c0",
+				"dweb:/ipfs/QmXkwABetdriebuVigMoxLZpjidDsJb4XEArHjjA5JFxje"
 			]
 		},
 		"contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerInventoryStorage.sol": {
-			"keccak256": "0x5daf0fd4d7da428a724b43c2b9d783bf499a3f737bf112b7d914629a445b25e2",
+			"keccak256": "0xa1bc5973d1cd135163233950da1824d426edad739281207d73642e289e52f379",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://efa2a4b9edc0c5eb0bab2209cea31cf44367f1c43c01b248eaded557dff50091",
-				"dweb:/ipfs/QmXUppMvV7Yguon9qjuPEsZM6K6kgHPLjVJ7ULnSAfKb4r"
+				"bzz-raw://2a9aff6c3898a1ad3e00a1dec55a94d62f4f45783e097a41d676ad4b78df915e",
+				"dweb:/ipfs/QmY6ei4Ba3bzj4TaA4Ns2MradJsCBNKdmJNxmNWHVM6bmA"
 			]
 		},
 		"contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerMilkBatchService.sol": {

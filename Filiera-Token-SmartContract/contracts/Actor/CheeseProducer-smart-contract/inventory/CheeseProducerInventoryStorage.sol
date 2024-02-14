@@ -104,4 +104,20 @@ contract CheeseProducerInventoryStorage {
         return cheeseBlock.quantity;
     }
 
+// --------------------------------------------------- Set Function --------------------------------------------------------------------------------------//
+
+
+    // - Funzione updateCheeseBlockQuantity() aggiorna la quantità del CheeseBlock 
+    function updateCheeseBlockQuantity(
+        address walletCheeseProducer,
+        uint256 _id_Cheese,
+        uint256 _newQuantity
+    ) external  {
+        
+        // Controllo sulla quantita' 
+        require(_newQuantity<=cheeseBlocks[walletCheeseProducer][_id_Cheese].quantity,"Controllo della Quantita' da utilizzare non andata a buon fine!");
+
+        cheeseBlocks[walletCheeseProducer][_id_Cheese].quantity = _newQuantity;
+    }
+
 }

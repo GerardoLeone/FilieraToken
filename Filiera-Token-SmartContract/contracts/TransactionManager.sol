@@ -21,8 +21,8 @@ import "contracts/Actor/Retailer-smart-contract/inventory/RetailerCheeseBlockSer
 
 
 
-//import "contracts/Actor/Retailer-smart-contract/inventory/RetailerInventoryService.sol";
-//import "contracts/Actor/Consumer-smart-contract/inventory/ConsumerInventoryService.sol";
+import "contracts/Actor/Retailer-smart-contract/inventory/RetailerInventoryService.sol";
+import "contracts/Actor/Consumer-smart-contract/inventory/ConsumerBuyerInventoryService.sol";
 
 contract TransactionManager {
 
@@ -51,49 +51,59 @@ contract TransactionManager {
 //-------------------------------------------------------- Compra Vendita (CheeseProducer-Retailer) --------------------------------------------------------------------------//
 
     // Contains -> Cheese of CheeseProducer (Prodotto che viene venduto)
-    CheeseProducerInventoryService private cheeseProducerInventoryService; 
+    //CheeseProducerInventoryService private cheeseProducerInventoryService; 
     // Contains -> Cheese of Retailer (Prodotto comprato) 
-    RetailerCheeseBlockService private retailerCheeseBlockService;
+    //RetailerCheeseBlockService private retailerCheeseBlockService;
 
 
 //-------------------------------------------------------- Compra Vendita (Retailer-Consumer) --------------------------------------------------------------------------//
 
     // Contains -> CheesePiece of Retailer (Prodotto che viene venduto) 
-    //RetailerInventoryService private retailerInventoryService;
+    RetailerInventoryService private retailerInventoryService;
     // Contains -> CheesePiece of Consumer (Prodotto che viene comprato) 
-    //ConsumerInventoryService private consumerInventoryService;
+    ConsumerBuyerInventoryService private consumerBuyerInventoryService;
 
 
 
 
     constructor(
-        //address _milkhubInventoryServiceAddress,
-        //address _cheeseProducerMilkBatchServiceAddress,
-        
         address _filieraToken,
 
         //address _milkhubService,
-        address _cheeseProducerService,
+        //address _cheeseProducerService,
         address _retailerService,
-        
-        //address _consumerService
-        address _cheeseProducerInventoryService,
-        address _retailerCheeseBlockService
+        address _consumerService,
+
+        //address _milkhubInventoryServiceAddress,
+        //address _cheeseProducerMilkBatchServiceAddress,
+
+        //address _cheeseProducerInventoryService,
+        //address _retailerCheeseBlockService,
+
+        address _retailerInventoryService,
+        address _consumerBuyerInvenotryService
+
         ){
         // Filiera Token Service 
         filieraTokenService = Filieratoken(_filieraToken);
 
         // Main Service 
+
         //milkhubService = MilkHubService(_milkhubService);
-        cheeseProducerService = CheeseProducerService(_cheeseProducerService);
+        //cheeseProducerService = CheeseProducerService(_cheeseProducerService);
+        
         retailerService = RetailerService(_retailerService);
-        //consumerService = ConsumerService(_consumerService);
+        consumerService = ConsumerService(_consumerService);
 
         // Inventory Service 
         //milkhubInventoryService = MilkHubInventoryService(_milkhubInventoryServiceAddress);
         //cheeseProducerMilkBatchService = CheeseProducerMilkBatchService(_cheeseProducerMilkBatchServiceAddress);
-        cheeseProducerInventoryService = CheeseProducerInventoryService(_cheeseProducerInventoryService);
-        retailerCheeseBlockService = RetailerCheeseBlockService(_retailerCheeseBlockService);
+
+        //cheeseProducerInventoryService = CheeseProducerInventoryService(_cheeseProducerInventoryService);
+        //retailerCheeseBlockService = RetailerCheeseBlockService(_retailerCheeseBlockService);
+
+        retailerInventoryService = RetailerInventoryService(_retailerInventoryService);
+        consumerBuyerInventoryService = ConsumerBuyerInventoryService(_consumerBuyerInventoryService);
     }
 
     /**
@@ -146,7 +156,7 @@ contract TransactionManager {
 
 
     // Funzione per effettuare una vendita tra CheeseProducer - Retailer 
-    
+    /**
     function BuyCheeseProduct(
             address ownerCheese,
             uint256 _id_Cheese,
@@ -185,45 +195,53 @@ contract TransactionManager {
             _id_Cheese,
             cheeseProducerInventoryService.getDop(ownerCheese, _id_Cheese),
             _quantityToBuy);
-    }
+    }*/
 
     
-    /*
-    function sellCheesePieceProduct(address ownerCheesePiece, uint256 _id_CheesePiece, uint256 _quantityToBuy, uint256 totalPrice) external {
-        // caller 
-        address callerConsumer = msg.sender;
+    
+    // Acquisto da parte del Consumer -> CheeseProducer 
+    // RetailerInventoryService
+    // ConsumerBuyerInventoryService
+    function BuyCheesePieceProduct(
+        address ownerCheesePiece,
+        uint256 _id_CheesePiece,
+        uint256 _quantityToBuy,
+        uint256 totalPrice
+    ) external {
+        
+        // Verifica degli address con controlli generici 
+        require(msg.sender != address(0), "Invalid sender address");
+        require(ownerCheesePiece != address(0), "Invalid owner address");
+        require(msg.sender != ownerCheesePiece, "Cannot buy from yourself");
+        // Verfica della presenza del Prodotto 
+        require(retailerInventoryService.isCheeseBlockPresent(ownerCheesePiece, _id_Cheese), "Product not found");
+        // Verifica della quantità da acquistare rispetto alla quantità totale 
+        require(_quantityToBuy <= retailerInventoryService.getCheeseBlockQuantity(ownerCheesePiece, _id_Cheese), "Invalid quantity");
+        // Verifica del saldo dell'acquirente 
+        require(filieraTokenService.balanceOf(msg.sender) >= totalPrice, "Insufficient balance");
 
-        require(callerConsumer!= ownerCheesePiece,"Address of owner and Address of spender are same!");
-        // Check User in CheeseProducer - Retailer 
+        // Acquisto 
+        filieraTokenService.transferBuyProduct(msg.sender, ownerCheesePiece, totalPrice);
 
-        // Check Product in Inventory 
-        // True -> possiamo vendere l'oggetto 
-        // False -> non possiamo vendere l'oggetto 
-        require(milkhubInventoryService.checkProductToSell(ownerCheesePiece,_id_CheesePiece,_quantityToBuy) , "Product to Sell Not valid!");
+        // Aggiornamento del saldo del Retailer
+        uint256 newRetailerBalance = filieraTokenService.balanceOf(ownerCheesePiece);
+        retailerService.updateCheeseProducerBalance(ownerCheesePiece, newRetailerBalance);
+        // Aggiornamento del saldo del Consumer 
+        uint256 newConsumerBalance = filieraTokenService.balanceOf(msg.sender);
+        consumerService.updateRetailerBalance(msg.sender, newConsumerBalance);
 
-        // Verifica del balance CheeseProducer 
-        // Il saldo deve essere maggiore o uguale del prezzo totale -> prezzo per unità * numero di quantità
-        require(filieraTokenService.balanceOf(callerConsumer)>=totalPrice,"Balance not Valid!");
+        // Riduzione della quantità nel MilkHubInventory
+        uint256 currentQuantity = cheeseProducerInventoryService.getCheeseBlockQuantity(ownerCheesePiece, _id_Cheese);
+        retailerInventoryService.updateCheesePieceQuantity(ownerCheesePiece, _id_Cheese, currentQuantity - _quantityToBuy);
 
-        uint256 balanceownerCheesePiece = filieraTokenService.balanceOf(ownerCheesePiece);
-        uint256 balancecallerConsumer = filieraTokenService.balanceOf(callerConsumer);
-
-        // Trasferimento dei soldi 
-        // Trasferimento del Total Price 
-        filieraTokenService.transferBuyProduct(callerConsumer, ownerCheesePiece, totalPrice);
-        // Verifica che il saldo è stato realmente trasferito 
-        require(filieraTokenService.balanceOf(callerConsumer)<balancecallerConsumer,"Sent money not works!");
-        require(filieraTokenService.balanceOf(ownerCheesePiece)>balanceownerCheesePiece,"Sent Money not works!");
-        //Update Balance of CheeseProducer and MilkHub 
-
-
-        // Riduzione della quantità nel MilkHubInventory 
-        milkhubInventoryService.updateMilkBatchQuantity(ownerCheesePiece, _id_CheesePiece, _quantityToBuy);
-
-        // Creazione dell'elemento del MilkBatch all'interno dell'inventory 
-        string memory expirationDate = milkhubInventoryService.getMilkBatchExpirationDate(ownerCheesePiece, _id_CheesePiece);
-        //cheeseProducerMilkBatchService.addMilkBatch(ownerCheesePiece, expirationDate, _quantityToBuy); 
-    }*/
+        // Aggiunta del MilkBatch nell'inventario del CheeseProducer
+        consumerBuyerInventoryService.addCheesePiece(
+            ownerCheesePiece,
+            msg.sender, 
+            _id_Cheese,
+            cheeseProducerInventoryService.getDop(ownerCheesePiece, _id_Cheese),
+            _quantityToBuy);
+    }
 
 
 }

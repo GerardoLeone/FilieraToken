@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.21;
 
-import "./ConsumerBuyerCheesePieceStorage.sol";
-import "contracts/Actor/ConsumerBuyer-smart-contract/ConsumerBuyerService.sol";
+import "./ConsumerBuyerInventoryStorage.sol";
+import "../ConsumerService.sol";
 
 contract ConsumerBuyerCheesePieceService {
 
@@ -11,14 +11,14 @@ contract ConsumerBuyerCheesePieceService {
     // Address of Organization che gestisce gli utenti
     address private consumerBuyerOrg;
     // Address of CheesePieceStorage 
-    ConsumerBuyerCheesePieceStorage private consumerBuyerCheesePieceStorage;
+    ConsumerBuyerInventoryStorage private consumerBuyerInventoryStorage;
 
-    ConsumerBuyerService private consumerBuyerService;
+    ConsumerService private consumerService;
 
     //------------------------------------------------------------------------ Event of Service  -----------------------------------------------------------//
 
     // Eventi per notificare l'aggiunta di una Partita di CheesePiece
-    event ConsumerBuyerCheesePieceAdded(address indexed userAddress, string message, uint256 id, string expirationDate, uint256 quantity);
+    event ConsumerBuyerCheesePieceAdded(address indexed userAddress, string message, uint256 id, uint256 price, uint256 quantity);
     // Evento per notificare che un CheesePiece è stato eliminato 
     event ConsumerBuyerCheesePieceDeleted(address indexed userAddress, string message);
     // Evento per notificare che un CheesePiece è stato Editato
@@ -26,9 +26,9 @@ contract ConsumerBuyerCheesePieceService {
 
     //------------------------------------------------------------------------ Constructor of other Contract Service -----------------------------------------------------------//
 
-    constructor(address _consumerBuyerCheesePieceStorage, address _consumerBuyerService) {
-        consumerBuyerCheesePieceStorage = ConsumerBuyerCheesePieceStorage(_consumerBuyerCheesePieceStorage);
-        consumerBuyerService = ConsumerBuyerService(_consumerBuyerService);
+    constructor(address _consumerBuyerInventoryStorage, address _consumerService) {
+        consumerBuyerInventoryStorage = ConsumerBuyerInventoryStorage(_consumerBuyerInventoryStorage);
+        consumerService = ConsumerService(_consumerService);
         consumerBuyerOrg = msg.sender;
     }
 
@@ -36,8 +36,8 @@ contract ConsumerBuyerCheesePieceService {
 
     modifier checkAddress(address caller) {
         require(caller != address(0), "Address value is 0!");
-        require(caller != address(consumerBuyerCheesePieceStorage), "Address is consumerBuyerCheesePieceStorage!");
-        require(caller != address(consumerBuyerService), "Address is ConsumerBuyerService!");
+        require(caller != address(consumerBuyerInventoryStorage), "Address is consumerBuyerInventoryStorage!");
+        require(caller != address(consumerService), "Address is ConsumerBuyerService!");
         require(caller != address(consumerBuyerOrg), "Address is Organization!");
         _;
     }
@@ -64,10 +64,10 @@ contract ConsumerBuyerCheesePieceService {
         require(address(_walletConsumerBuyer) != address(_walletRetailer), "Address uguali ConsumerBuyer e Retailer!");
 
         // Verifico che il ConsumerBuyer è presente 
-        require(consumerBuyerService.isUserPresent(_walletConsumerBuyer), "Utente non trovato!");
+        require(consumerService.isUserPresent(_walletConsumerBuyer), "Utente non trovato!");
 
         // Aggiungo il CheesePiece all'interno dell'Inventario del ConsumerBuyer 
-        (uint256 id_CheesePiece_Acquistato, uint256 price, uint256 weight) = consumerBuyerCheesePieceStorage.addCheesePiece(_walletConsumerBuyer, _walletRetailer, _id_CheesePiece, _price, _weight);
+        (uint256 id_CheesePiece_Acquistato, uint256 price, uint256 weight) = consumerBuyerInventoryStorage.addCheesePiece(_walletConsumerBuyer, _walletRetailer, _id_CheesePiece, _price, _weight);
 
         // Invio dell'Evento 
         emit ConsumerBuyerCheesePieceAdded(_walletConsumerBuyer, "CheesePiece Acquistato!", id_CheesePiece_Acquistato, price, weight);
@@ -78,38 +78,38 @@ contract ConsumerBuyerCheesePieceService {
 
         address _walletConsumerBuyer = msg.sender;
 
-        require(consumerBuyerService.isUserPresent(_walletConsumerBuyer), "Utente non trovato!");
+        require(consumerService.isUserPresent(_walletConsumerBuyer), "Utente non trovato!");
 
         require(this.isCheesePiecePresent(_walletConsumerBuyer, _id_CheesePieceAcquistato), "Prodotto non Presente!");
 
-        return consumerBuyerCheesePieceStorage.getCheesePiece(_walletConsumerBuyer, _id_CheesePieceAcquistato);
+        return consumerBuyerInventoryStorage.getCheesePiece(_walletConsumerBuyer, _id_CheesePieceAcquistato);
     }
 
     function getPrice(address _walletConsumerBuyer, uint256 _id_CheesePieceAcquistato) external view checkAddress(msg.sender) returns (uint256) {
 
-        require(consumerBuyerService.isUserPresent(_walletConsumerBuyer), "Utente non trovato!");
+        require(consumerService.isUserPresent(_walletConsumerBuyer), "Utente non trovato!");
 
         require(this.isCheesePiecePresent(_walletConsumerBuyer, _id_CheesePieceAcquistato), "Prodotto non Presente!");
 
-        return consumerBuyerCheesePieceStorage.getPrice(_walletConsumerBuyer, _id_CheesePieceAcquistato);
+        return consumerBuyerInventoryStorage.getPrice(_walletConsumerBuyer, _id_CheesePieceAcquistato);
     }
 
     function getWeight(address _walletConsumerBuyer, uint256 _id_CheesePieceAcquistato) external view checkAddress(msg.sender) returns (uint256) {
 
-        require(consumerBuyerService.isUserPresent(_walletConsumerBuyer), "Utente non trovato!");
+        require(consumerService.isUserPresent(_walletConsumerBuyer), "Utente non trovato!");
 
         require(this.isCheesePiecePresent(_walletConsumerBuyer, _id_CheesePieceAcquistato), "Prodotto non Presente!");
 
-        return consumerBuyerCheesePieceStorage.getWeight(_walletConsumerBuyer, _id_CheesePieceAcquistato);
+        return consumerBuyerInventoryStorage.getWeight(_walletConsumerBuyer, _id_CheesePieceAcquistato);
     }
 
     function getWalletRetailer(address _walletConsumerBuyer, uint256 _id_CheesePieceAcquistato) external view checkAddress(msg.sender) returns (address) {
 
-        require(consumerBuyerService.isUserPresent(_walletConsumerBuyer), "Utente non trovato!");
+        require(consumerService.isUserPresent(_walletConsumerBuyer), "Utente non trovato!");
 
         require(this.isCheesePiecePresent(_walletConsumerBuyer, _id_CheesePieceAcquistato), "Prodotto non Presente!");
 
-        return consumerBuyerCheesePieceStorage.getWalletRetailer(_walletConsumerBuyer, _id_CheesePieceAcquistato);
+        return consumerBuyerInventoryStorage.getWalletRetailer(_walletConsumerBuyer, _id_CheesePieceAcquistato);
     }
 
     /**
@@ -118,9 +118,9 @@ contract ConsumerBuyerCheesePieceService {
     */
     function isCheesePiecePresent(address _walletConsumerBuyer, uint256 _id_CheesePieceAcquistato) external view checkAddress(_walletConsumerBuyer) returns (bool) {
 
-        require(consumerBuyerService.isUserPresent(_walletConsumerBuyer), "Utente non presente!");
+        require(consumerService.isUserPresent(_walletConsumerBuyer), "Utente non presente!");
 
-        return consumerBuyerCheesePieceStorage.isCheesePiecePresent(_walletConsumerBuyer, _id_CheesePieceAcquistato);
+        return consumerBuyerInventoryStorage.isCheesePiecePresent(_walletConsumerBuyer, _id_CheesePieceAcquistato);
     }
 
     //-------------------------------------------------------------------- Set Function ------------------------------------------------------------------------//
@@ -129,14 +129,14 @@ contract ConsumerBuyerCheesePieceService {
     // -------------------------------------------------- Change Address Function Contract Service ---------------------------------------------------//
 
     // TODO: insert modifier onlyOrg(address sender) {}
-    function changeConsumerBuyerCheesePieceStorage(address _consumerBuyerCheesePieceStorage) external {
+    function changeConsumerBuyerCheesePieceStorage(address _consumerBuyerInventoryStorage) external {
         require(msg.sender == consumerBuyerOrg, "Address is not the organization");
-        consumerBuyerCheesePieceStorage = ConsumerBuyerCheesePieceStorage(_consumerBuyerCheesePieceStorage);
+        consumerBuyerInventoryStorage = ConsumerBuyerInventoryStorage(_consumerBuyerInventoryStorage);
     }
 
     // TODO: insert modifier onlyOrg(address sender) {}
-    function changeConsumerBuyerService(address _consumerBuyerService) external {
-        consumerBuyerService = ConsumerBuyerService(_consumerBuyerService);
+    function changeConsumerBuyerService(address _consumerService) external {
+        consumerService = ConsumerService(_consumerService);
     }
 
 }

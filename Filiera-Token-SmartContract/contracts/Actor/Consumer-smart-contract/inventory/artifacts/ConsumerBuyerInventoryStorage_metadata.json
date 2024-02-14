@@ -184,7 +184,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"Filiera-Token-SmartContract/contracts/Actor/Consumer-smart-contract/inventory/ConsumerInventoryStorage.sol": "ConsumerBuyerInventoryStorage"
+			"contracts/Actor/Consumer-smart-contract/inventory/ConsumerBuyerInventoryStorage.sol": "ConsumerBuyerInventoryStorage"
 		},
 		"evmVersion": "shanghai",
 		"libraries": {},
@@ -198,12 +198,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"Filiera-Token-SmartContract/contracts/Actor/Consumer-smart-contract/inventory/ConsumerInventoryStorage.sol": {
-			"keccak256": "0x8b0815b497a561370bd436fb961f254958e2ea4eb2083593377f49d01c878fe5",
+		"contracts/Actor/Consumer-smart-contract/inventory/ConsumerBuyerInventoryStorage.sol": {
+			"keccak256": "0x2bdbd05aed3b73089614ebc09c3a5bc05c2384a6a2f554c75e33541d57489645",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://e83133a410cf1af32d1fe6c4bfeefea2bf85affe442d7f8a7400207ed250cd9e",
-				"dweb:/ipfs/QmXcYNk7gNuimzFbzzb9bjWKD6NbPyHLeZg9eRq6YWLSb2"
+				"bzz-raw://5eff940d2df7ec201c183c5c82bce013d41724d372ed97549b3a38e14c682359",
+				"dweb:/ipfs/QmdSg658SPEhPZHStdqgqHWoHEPAvmG1i3dnr6s4XnyaEz"
 			]
 		}
 	},

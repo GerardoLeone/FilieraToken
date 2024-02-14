@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: MIT
+
 pragma solidity ^0.8.0;
 
 // Smart Contract per lo storage dei MilkHub acquistati dai ConsumerBuyer
@@ -57,14 +58,16 @@ contract ConsumerBuyerInventoryStorage {
         return purchasedCheesePieces[walletConsumerBuyer][_id_CheesePieceAcquistato].id == _id_CheesePieceAcquistato;
     }
 
-    // ...
-
     function getWeight(address walletConsumerBuyer, uint256 _id) external view returns (uint256) {
         return purchasedCheesePieces[walletConsumerBuyer][_id].weight;
     }
 
     function getPrice(address walletConsumerBuyer, uint256 _id) external view returns (uint256) {
         return purchasedCheesePieces[walletConsumerBuyer][_id].price;
+    }
+
+    function getWalletRetailer(address walletConsumerBuyer, uint256 _id) external view returns (address) {
+        return purchasedCheesePieces[walletConsumerBuyer][_id].walletRetailer;
     }
 
 }

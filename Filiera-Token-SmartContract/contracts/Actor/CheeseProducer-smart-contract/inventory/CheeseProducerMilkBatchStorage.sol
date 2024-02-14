@@ -20,13 +20,14 @@ contract CheeseProducerMilkBatchStorage {
 
     mapping(address => mapping(uint256 => MilkBatch)) private purchasedMilkBatches;
 
-    function addMilkBatch(address _walletCheeseProducer,address _walletMilkHub,string memory _expirationDate,uint256 _quantity) external {
+    function addMilkBatch(address _walletCheeseProducer,address _walletMilkHub,string memory _expirationDate,uint256 _quantity) external returns (uint256, string memory, uint256){
 
         uint256 _id = uint256(keccak256(abi.encodePacked(
             _expirationDate,
             _quantity,
             _walletCheeseProducer,
-            _walletMilkHub
+            _walletMilkHub,
+            block.timestamp
         )));
 
         MilkBatch storage milkbatchControl = purchasedMilkBatches[_walletCheeseProducer][_id];
@@ -40,8 +41,11 @@ contract CheeseProducerMilkBatchStorage {
             quantity: _quantity
         });
 
-        //Inserisce la nuova Partita di Latte nella lista milkBatches
+        //Inserisce la nuova Partita di Latte nella lista purchasedMilkBatches
         purchasedMilkBatches[_walletCheeseProducer][_id] = milkBatch;
+
+        return (purchasedMilkBatches[_walletCheeseProducer][_id].id, purchasedMilkBatches[_walletCheeseProducer][_id].expirationDate, purchasedMilkBatches[_walletCheeseProducer][_id].quantity);
+
     }
 
 
@@ -81,18 +85,16 @@ contract CheeseProducerMilkBatchStorage {
         }
     }
 
+     function isMilkBatchPresent(address walletCheeseProducer, uint256 _id_cheeseBlock)external view returns(bool){
+        require( _id_cheeseBlock !=0 && _id_cheeseBlock>0,"ID MilkBatch Not Valid!");
 
+        return purchasedMilkBatches[walletCheeseProducer][_id_cheeseBlock].id == _id_cheeseBlock;
+    }
 
-
-    function detractMilkBatchQuantity(address walletCheeseProducer, uint256 _id, uint256 _quantity) external returns(bool value) {
-
-        require(purchasedMilkBatches[walletCheeseProducer][_id].id != 0, "Partita di Latte non presente!");
-
-        require(purchasedMilkBatches[walletCheeseProducer][_id].quantity >= _quantity, "Quantita' inserita non disponibile!");
-
-        purchasedMilkBatches[walletCheeseProducer][_id].quantity = purchasedMilkBatches[walletCheeseProducer][_id].quantity - _quantity;
-
-        return true;
+    // - Funzione updateMilkBatchQuantity() aggiorna la quantità del MilkBatch 
+    function updateMilkBatchQuantity(address walletCheeseProducer, uint256 _id, uint256 _newQuantity) external  {
+        
+        purchasedMilkBatches[walletCheeseProducer][_id].quantity = _newQuantity;
     }
 
     function getExpirationDate(address walletCheeseProducer, uint256 _id) external view returns(string memory) {

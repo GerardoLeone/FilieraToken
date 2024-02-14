@@ -8,6 +8,9 @@ import "./CheeseProducerMilkBatchService.sol";
 
 contract CheeseProducerInventoryService {
 
+
+//--------------------------------------------------------------------- Address of Service Contract -----------------------------------------------//
+
     // Address of Organization che gestisce gli utenti
     address private cheeseProducerOrg;
 
@@ -18,12 +21,16 @@ contract CheeseProducerInventoryService {
 
     CheeseProducerMilkBatchService private cheeseProducerMilkBatchService;
 
+//--------------------------------------------------------------------- Event of Service Contract -----------------------------------------------//
 
     // Eventi per notificare l'aggiunta di una Partita di Latte
-    event CheeseBlockAdded(address indexed userAddress, string dop, uint256 quantity, uint256 price);
+    event CheeseBlockAdded(address indexed userAddress,string message, string dop, uint256 quantity, uint256 price);
 
     // Eventi per notificare la rimozione di una Partita di Latte
-    event CheeseBlockDeleted(address indexed userAddress);
+    event CheeseBlockDeleted(address indexed userAddress, string message, uint256 _id);
+
+//--------------------------------------------------------------------- Constructor of Service Contract -----------------------------------------------//
+
 
     constructor(address _cheeseProducerInventoryStorage, address _cheeseProducerService, address _cheeseProducerMilkBatchService) {
         cheeseProducerInventoryStorage = CheeseProducerInventoryStorage(_cheeseProducerInventoryStorage);
@@ -35,16 +42,19 @@ contract CheeseProducerInventoryService {
         cheeseProducerOrg = msg.sender;
     }
 
-    // Modifier: 
-    // Modifica il comportamento della funzione applicando una particolare condizione e un particolare comportamento aggiuntivo
-    modifier onlyIfUserPresent() {
+//--------------------------------------------------------------------- Modifier of Service Contract -----------------------------------------------//
 
-        require(msg.sender != cheeseProducerOrg, "Address not valid!");
-        require(msg.sender != address(cheeseProducerInventoryStorage), "Address not valid of Inventory Storage");
-        require(msg.sender != address(cheeseProducerService),"Address not valid of Service");
-        require(cheeseProducerService.isUserPresent(msg.sender), "User is not present in data");
+    modifier checkAddress(address caller) {
+        require(caller != address(0),"Address Value is Zero!");
+        require(caller != cheeseProducerOrg, "Address not valid!");
+        require(caller != address(cheeseProducerInventoryStorage), "Address not valid of Inventory Storage");
+        require(caller != address(cheeseProducerService),"Address not valid of Service");
         _;
     }
+
+
+//--------------------------------------------------------------------- Business Function of Service Contract -----------------------------------------------//
+
 
     /* Questa funzione permette di aggiungere : 
        Un prodotto CheeseBlock all'inventario da poter mettere in vendita
@@ -56,23 +66,24 @@ contract CheeseProducerInventoryService {
        - Evento : 
        - CheeseBlockAdded()
      */
-    function insertCheeseBlock(string memory _dop, uint256 _quantity, uint256 _price) external {
-        // Verifico che l'address sia diverso da quello di Deploy 
-        require(msg.sender == cheeseProducerOrg, "Address non Valido!");
+    function addCheeseBlock(address walletCheeseProducer, string memory _dop, uint256 _quantity, uint256 _price) external checkAddress(walletCheeseProducer) {
+        
+        require(cheeseProducerService.isUserPresent(walletCheeseProducer), "User is not present in data");
+        
+        cheeseProducerInventoryStorage.addCheeseBlock(walletCheeseProducer, _dop, _quantity, _price);
 
-        cheeseProducerInventoryStorage.addCheeseBlock(msg.sender, _dop, _quantity, _price);
-
-        emit CheeseBlockAdded(msg.sender, _dop, _quantity, _price);
+        emit CheeseBlockAdded(walletCheeseProducer,"CheeseBlock convertito con successo !", _dop, _quantity, _price);
     }
 
     /**
      * Ottenere le informazioni del cheeseblock attraverso : 
-     * - ID 
+     * - ID cheeseBlock
      * */  
-    function fetchCheeseBlock(uint256 _id) external view returns (uint256, string memory, uint256, uint256) {
+    function getCheeseBlock(uint256 _id) external view checkAddress(msg.sender) returns (uint256, string memory, uint256, uint256) {
+        
         address walletCheeseProducer = msg.sender;
 
-        require(walletCheeseProducer == cheeseProducerOrg, "Address non Valido!");
+        require(this.isCheeseBlockPresent(walletCheeseProducer, _id), "CheeseBlock is not present in data");
 
         return cheeseProducerInventoryStorage.getCheeseBlock(walletCheeseProducer, _id);
     }
@@ -82,38 +93,68 @@ contract CheeseProducerInventoryService {
      * - ID 
      * - Verficare che l'utente che vuole eseguire la transazione sia presente.
      */
-    function removeCheeseBlock(uint256 _id) external {
+    function deleteCheeseBlock(uint256 _id) external returns(bool){
+        // Retrieve msg.sender 
         address walletCheeseProducer = msg.sender;
-        
-        require(walletCheeseProducer == cheeseProducerOrg, "Address non Valido!");
+        // Check if User is Present
+        require(cheeseProducerService.isUserPresent(walletCheeseProducer), "User is not present!");
+        // Check if Product is present 
+        require(this.isCheeseBlockPresent(walletCheeseProducer, _id),"MilkBatch not Present!");
 
-        require(cheeseProducerInventoryStorage.deleteCheeseBlock(walletCheeseProducer, _id), "Errore durante la cancellazione");
+        if(cheeseProducerInventoryStorage.deleteCheeseBlock(walletCheeseProducer,_id)){
+            emit CheeseBlockDeleted(walletCheeseProducer,"Pezzo di Formaggio e' stato eleminato", _id);
+            return true;
+        }else {
+            return false;
+        }
 
-        emit CheeseBlockDeleted(walletCheeseProducer);
     }
 
+//--------------------------------------------------------------------- Get Function of Service Contract -----------------------------------------------//
+
     function getDop(address walletCheeseProducer, uint256 _id) external view returns(string memory) {
+        require(cheeseProducerService.isUserPresent(walletCheeseProducer), "User is not present!");
+
+        require(this.isCheeseBlockPresent(walletCheeseProducer, _id),"MilkBatch not Present!");
+
         return cheeseProducerInventoryStorage.getDop(walletCheeseProducer,_id);        
     }
 
     function getPrice(address walletCheeseProducer, uint256 _id) external view returns(uint256) {
+        require(cheeseProducerService.isUserPresent(walletCheeseProducer), "User is not present!");
+
+        require(this.isCheeseBlockPresent(walletCheeseProducer, _id),"MilkBatch not Present!");
+
         return cheeseProducerInventoryStorage.getPrice(walletCheeseProducer,_id);        
     }
 
     function getQuantity(address walletCheeseProducer, uint256 _id) external view returns(uint256) {
+        require(cheeseProducerService.isUserPresent(walletCheeseProducer), "User is not present!");
+
+        require(this.isCheeseBlockPresent(walletCheeseProducer, _id),"MilkBatch not Present!");
+
         return cheeseProducerInventoryStorage.getQuantity(walletCheeseProducer,_id);        
     }
 
-    function transformMilkBatch(address walletCheeseProducer, uint256 _id, uint256 quantityToTransform, uint256 pricePerKg, string memory dop) external view {
+    // Verifica se un determinato CheeseBlock è presente 
+    function isCheeseBlockPresent(address walletCheeseProducer, uint256 _id_cheeseBlock) external view  checkAddress(walletCheeseProducer) returns(bool){
+
+        return cheeseProducerInventoryStorage.isCheeseBlockPresent(walletCheeseProducer,_id_cheeseBlock);
+    }
+
+//--------------------------------------------------------------------- Update Function of Service Contract -----------------------------------------------//
+
+    // Funzione per trasformare i vari milkBatch in CheeseBlock 
+    function transformMilkBatch(address walletCheeseProducer, uint256 _id, uint256 quantityToTransform, uint256 pricePerKg, string memory dop) external  {
         //Verifico che il prodotto esiste, che la quantità richiesta da trasformare non ecceda il massimo consentito
         //TODO: gestire data di scadenza nel frontend
         require(cheeseProducerMilkBatchService.checkMilkBatch(walletCheeseProducer, _id, quantityToTransform), "Il check della Partita del Latte non e' andato a buon fine!");
 
-        //cheeseProducerMilkBatchService.decreaseMilkBatchQuantity(_id, quantityToTransform);
+        cheeseProducerMilkBatchService.updateMilkBatchQuantity(walletCheeseProducer,_id, quantityToTransform);
 
         uint256 weight = quantityToTransform * 5;
         //TODO: gestire il prezzo con SafeMath
-        //cheeseProducerMilkBatchService.(dop, weight, weight * pricePerKg);
+        this.addCheeseBlock(walletCheeseProducer, dop, weight, weight * pricePerKg);
     }
 
 }

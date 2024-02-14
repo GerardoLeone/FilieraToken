@@ -31,16 +31,6 @@
 						"internalType": "address",
 						"name": "_cheeseProducerService",
 						"type": "address"
-					},
-					{
-						"internalType": "address",
-						"name": "_retailerService",
-						"type": "address"
-					},
-					{
-						"internalType": "address",
-						"name": "_consumerService",
-						"type": "address"
 					}
 				],
 				"stateMutability": "nonpayable",
@@ -175,11 +165,11 @@
 			]
 		},
 		"contracts/Actor/Consumer-smart-contract/ConsumerService.sol": {
-			"keccak256": "0xff07286310434d0876e3ae51b584f53fd1c1c0ef06b6359034a3becdbfef4571",
+			"keccak256": "0x5078a839b54999057defbf5a67f793f804e8f69782ccc379f14ad7a0accb9ed1",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://92d488bc16689bb0fd06d01bc25f92a93d5818d39115bb7d688db1c30fcd289b",
-				"dweb:/ipfs/QmNijLqU6iKbWoqVDJv3r8uACiz18wqhyi4k4PK1BLyX8a"
+				"bzz-raw://a9faf9f3053ad436502bdca2bd84f15cf082a8bc98f018134928d29a90113b31",
+				"dweb:/ipfs/QmfCVo3GvUFfayqsbiFX2LYmBXQkRH9n9KRiY3aQ9ynyLb"
 			]
 		},
 		"contracts/Actor/Consumer-smart-contract/ConsumerStorage.sol": {
@@ -239,11 +229,11 @@
 			]
 		},
 		"contracts/Actor/Retailer-smart-contract/RetailerService.sol": {
-			"keccak256": "0xca067421960083e87cd4a5ee9197aed984bb913d94e8decb2c541c6724604e39",
+			"keccak256": "0x57071777b623f15eb24599693983fb1d35beffaa0b0ef9f653f493a1c6b40ace",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://5fce16dd36a1a86ea8c302067401a1f7488f344e6c06de5e9e3b208fe6bfa21d",
-				"dweb:/ipfs/QmQfDW4fU5UsJShVNvXwxx9T8x97o47xUJKkHmt3DabpP4"
+				"bzz-raw://97b9a73a6e8c8e891555f5942edadc72325ef6e6fe379252e2f6b41e7566fcf6",
+				"dweb:/ipfs/QmXUCR6VS8DM2q4rH9dk99n6nXpf7RDPnzZkQC7oL2N2Eu"
 			]
 		},
 		"contracts/Actor/Retailer-smart-contract/RetailerStorage.sol": {
@@ -255,11 +245,11 @@
 			]
 		},
 		"contracts/TransactionManager.sol": {
-			"keccak256": "0xbfe63fbb0f7298f8e991dd71c0d6fd5e1ad1c3f43871cbb84b6ede49a8a3b7c1",
+			"keccak256": "0xf9408f900850a167af6ff47fcb1da03fcb5e6a3bc05c83bf2ed76f760adde5c5",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://d0bef379a78ef8e021d182e940485b5c0ba9d0bca7fab5eeebb039ab7afbb106",
-				"dweb:/ipfs/Qmazb6SqcEYZh83EtLQyZTqxtjNYfgRtumRSH1yMXy8k3p"
+				"bzz-raw://8ad9f93113cdfa563c533c3b05c9d3c7b60342c36786ff9ee86e4341ae0699cc",
+				"dweb:/ipfs/QmWUKS9aweESwsJXYqd3s367wedfG8p3GQFa9eumk9Mgn2"
 			]
 		}
 	},

@@ -72,17 +72,18 @@ contract TransactionManager {
         address _filieraToken,
 
         address _milkhubService,
-        address _cheeseProducerService,
-        address _retailerService,
-        address _consumerService){
+        address _cheeseProducerService
+        //address _retailerService,
+        //address _consumerService
+        ){
         
         filieraTokenService = Filieratoken(_filieraToken);
 
         // Main Service 
         milkhubService = MilkHubService(_milkhubService);
         cheeseProducerService = CheeseProducerService(_cheeseProducerService);
-        retailerService = RetailerService(_retailerService);
-        consumerService = ConsumerService(_consumerService);
+        //retailerService = RetailerService(_retailerService);
+        //consumerService = ConsumerService(_consumerService);
 
         // Inventory Service 
         milkhubInventoryService = MilkHubInventoryService(_milkhubInventoryServiceAddress);

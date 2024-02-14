@@ -34,7 +34,23 @@
 					}
 				],
 				"name": "addMilkBatch",
-				"outputs": [],
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
 				"stateMutability": "nonpayable",
 				"type": "function"
 			},
@@ -81,35 +97,6 @@
 					}
 				],
 				"name": "deleteMilkBatch",
-				"outputs": [
-					{
-						"internalType": "bool",
-						"name": "value",
-						"type": "bool"
-					}
-				],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "walletCheeseProducer",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "_id",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "_quantity",
-						"type": "uint256"
-					}
-				],
-				"name": "detractMilkBatchQuantity",
 				"outputs": [
 					{
 						"internalType": "bool",
@@ -254,6 +241,53 @@
 				],
 				"stateMutability": "view",
 				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletCheeseProducer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id_cheeseBlock",
+						"type": "uint256"
+					}
+				],
+				"name": "isMilkBatchPresent",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletCheeseProducer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_newQuantity",
+						"type": "uint256"
+					}
+				],
+				"name": "updateMilkBatchQuantity",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
 			}
 		],
 		"devdoc": {
@@ -284,11 +318,11 @@
 	},
 	"sources": {
 		"contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerMilkBatchStorage.sol": {
-			"keccak256": "0x5a8f78ec6f97cee3ce30c74a288e5f52f37d55dae6709acbdf98b005cfd5ee2b",
+			"keccak256": "0x337e2bbfab6c18d090bd74a62bdd0efd80464cf264e9084cc679debf410f1c15",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://de43396ba90700796f9e600a9a2705fc7401341c116e65857c48f9aa14fa0073",
-				"dweb:/ipfs/QmcvckSWAuwThvfQuA3qMHcMJHTsqg2NnEQaiDBFKW1B7T"
+				"bzz-raw://6b1e2fbb54945f81ce21db2c0ed4729b259d778a96f0151b5d1a259f3aaddc94",
+				"dweb:/ipfs/QmTGHFuV48JjVMz7MphCaiW36hd2hDGsL93JBw7QWXunQ7"
 			]
 		}
 	},

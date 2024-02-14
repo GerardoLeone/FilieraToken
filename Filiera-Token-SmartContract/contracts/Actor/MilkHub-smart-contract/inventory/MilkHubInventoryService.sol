@@ -170,6 +170,10 @@ contract MilkHubInventoryService {
         return milkhubInventoryStorage.getPrice(walletMilkHub,_id);        
     }
 
+    /**
+    * Verifica che il MilkBatch è presente all'interno dell'inventario 
+    * - Verifica che l'id non sia nullo e che sia maggiore di 0 e che coincida con l'elemento 
+    */
     function isMilkBatchPresent(address walletMilkHub, uint256 _id) external view checkAddress(walletMilkHub)  returns (bool){
         return milkhubInventoryStorage.isMilkBatchPresent(walletMilkHub, _id);
     }

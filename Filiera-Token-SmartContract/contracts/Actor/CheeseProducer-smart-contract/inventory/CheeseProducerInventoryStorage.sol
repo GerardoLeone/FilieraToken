@@ -19,6 +19,8 @@ contract CheeseProducerInventoryStorage {
 
     mapping(address => mapping(uint256 => Cheese)) private cheeseBlocks;
 
+// --------------------------------------------------- Business Function --------------------------------------------------------------------------------------//
+
     function addCheeseBlock(address walletCheeseProducer, string memory _dop, uint256 _price, uint256 _quantity) external {
 
         uint256 _id = uint256(keccak256(abi.encodePacked(
@@ -44,16 +46,13 @@ contract CheeseProducerInventoryStorage {
 
     function getCheeseBlock(address walletCheeseProducer, uint256 _id) external view returns (uint256, string memory, uint256, uint256) {
 
-        require(cheeseBlocks[walletCheeseProducer][_id].id != 0, "Blocco di formaggio non presente!");
-
         Cheese memory cheeseBlock = cheeseBlocks[walletCheeseProducer][_id];
 
         return (cheeseBlock.id, cheeseBlock.dop, cheeseBlock.price, cheeseBlock.quantity);
     }
 
+    // Elimina il CheeseBlock 
     function deleteCheeseBlock(address walletCheeseProducer, uint256 _id) external returns(bool value) {
-
-        require(cheeseBlocks[walletCheeseProducer][_id].id != 0, "Blocco di formaggio non presente!");
 
         uint256 lastIdCheeseBlock = uint256(keccak256(abi.encodePacked(
             cheeseBlocks[walletCheeseProducer][_id].dop,
@@ -65,28 +64,40 @@ contract CheeseProducerInventoryStorage {
         require(cheeseBlocks[walletCheeseProducer][_id].id == lastIdCheeseBlock, "Utente non Autorizzato!");
 
         delete cheeseBlocks[walletCheeseProducer][_id];
-
-        return true;
+        // Check CheesePiece in the mapping 
+        if(cheeseBlocks[walletCheeseProducer][_id].id  == 0){
+            return true;
+        }else {
+            return false;
+        }
     }
 
+
+    // Verifica che il CheeseBlock è già presente 
+    function isCheeseBlockPresent(address walletCheeseProducer,uint256 _id_CheeseBlock) external view returns(bool){
+        
+        require( _id_CheeseBlock !=0 && _id_CheeseBlock>0,"ID MilkBatch Not Valid!");
+
+        return cheeseBlocks[walletCheeseProducer][_id_CheeseBlock].id == _id_CheeseBlock;
+    }
+
+// --------------------------------------------------- Get Function --------------------------------------------------------------------------------------//
     function getDop(address walletCheeseProducer, uint256 _id) external view returns(string memory) {
-        require(cheeseBlocks[walletCheeseProducer][_id].id != 0, "Blocco di formaggio non presente!");
 
         Cheese memory cheeseBlock = cheeseBlocks[walletCheeseProducer][_id];
         return cheeseBlock.dop;
     }
 
     function getPrice(address walletCheeseProducer, uint256 _id) external view returns(uint256) {
-        require(cheeseBlocks[walletCheeseProducer][_id].id != 0, "Blocco di formaggio non presente!");
 
         Cheese memory cheeseBlock = cheeseBlocks[walletCheeseProducer][_id];
         return cheeseBlock.price;
     }
 
     function getQuantity(address walletCheeseProducer, uint256 _id) external view returns(uint256) {
-        require(cheeseBlocks[walletCheeseProducer][_id].id != 0, "Blocco di formaggio non presente!");
 
         Cheese memory cheeseBlock = cheeseBlocks[walletCheeseProducer][_id];
         return cheeseBlock.quantity;
     }
+
 }

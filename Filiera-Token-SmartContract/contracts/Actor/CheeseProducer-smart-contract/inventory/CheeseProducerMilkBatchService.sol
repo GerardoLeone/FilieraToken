@@ -19,7 +19,7 @@ contract CheeseProducerMilkBatchService {
 //------------------------------------------------------------------------ Event of Service  -----------------------------------------------------------//
 
     // Eventi per notificare l'aggiunta di una Partita di Latte
-    event CheeseProducerMilkBatchAdded(address indexed userAddress,string message, string expirationDate, uint256 quantity);
+    event CheeseProducerMilkBatchAdded(address indexed userAddress,string message,uint256 id, string expirationDate, uint256 quantity);
     // Evento per notificare che un MilkBatch è stato eliminato 
     event CheeseProducerMilkBatchDeleted(address indexed userAddress, string message);
     // Evento per notificare che un MilkBatch è stato Editato
@@ -56,9 +56,9 @@ contract CheeseProducerMilkBatchService {
     */
     function addMilkBatch(address _walletMilkHub, address _walletCheeseProducer, string memory _expirationDate, uint256 _quantity) external checkAddress(msg.sender){
         // Aggiungo il MilkBatch all'interno dell'Inventario del CheeseProducer 
-        cheeseProducerMilkBatchStorage.addMilkBatch(_walletCheeseProducer, _walletMilkHub, _expirationDate, _quantity);
+        (uint256 id, string memory expDate,uint256 quantity) = cheeseProducerMilkBatchStorage.addMilkBatch(_walletCheeseProducer, _walletMilkHub, _expirationDate, _quantity);
 
-        emit CheeseProducerMilkBatchAdded(_walletCheeseProducer,"MilkBatch Acquistato!", _expirationDate, _quantity);
+        emit CheeseProducerMilkBatchAdded(_walletCheeseProducer,"MilkBatch Acquistato!",id,  expDate, quantity);
     }
 
 
@@ -93,22 +93,20 @@ contract CheeseProducerMilkBatchService {
 
 //-------------------------------------------------------------------- Set Function ------------------------------------------------------------------------//
 
-    /**
-    *
-    * Funzione che diminuisce la quantità del MilkBatch Acquistato 
-    * 
-    *
+     /**
+    * Decremento della quantità del MilkBatch 
+    * Verifica che la quantità sia maggiore di 0 -> altrimenti non viene utilizzata
     */
-    function decreaseMilkBatchQuantity(uint256 _id, uint256 _quantity) external {
-        address walletCheeseProducer = msg.sender;
+    function updateMilkBatchQuantity(address walletCheeseProducer, uint256 _id_MilkBatch, uint256 _quantity) external checkAddress(walletCheeseProducer) {
 
-        require(walletCheeseProducer == cheeseProducerOrg, "Address non Valido!");
+        require(cheeseProducerService.isUserPresent(walletCheeseProducer), "User is not present!");
 
-        require(cheeseProducerMilkBatchStorage.detractMilkBatchQuantity(walletCheeseProducer, _id, _quantity), "Errore durante la modifica della quantita' di latte nella Partita del Latte");
+        require(cheeseProducerMilkBatchStorage.isMilkBatchPresent(walletCheeseProducer, _id_MilkBatch),"MilkBatch not Present!");
 
-        emit CheeseProducerMilkBatchEdited(walletCheeseProducer,"MilkBatch e' stato modificato!", _quantity);
+        cheeseProducerMilkBatchStorage.updateMilkBatchQuantity(walletCheeseProducer, _id_MilkBatch, _quantity);
+
+        emit CheeseProducerMilkBatchEdited(walletCheeseProducer,"MilkBatch edited!", _quantity);
     }
-
 
 
 

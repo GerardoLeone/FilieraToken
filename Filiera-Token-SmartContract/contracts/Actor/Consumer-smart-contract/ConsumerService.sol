@@ -81,7 +81,7 @@ contract ConsumerService {
         consumerStorage.addUser(fullName, password, email, walletConsumer);
 
         // Autogenera dei token nel balance del Consumer 
-        filieraToken.transfer(walletConsumer, 100);
+        require(filieraToken.registerUserWithToken(address(filieraToken),address(walletConsumer), 100),"Transfer Token Not Valid!");
 
         // Emette l'evento della registrazione dell'utente
         emit ConsumerRegistered(walletConsumer, fullName, "Utente Consumer e' stato registrato!");

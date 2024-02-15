@@ -81,7 +81,7 @@ contract RetailerService {
         retailerStorage.addUser(fullName, password, email, walletRetailer);
 
         // Autogenera dei token nel balance del Retailer 
-        filieraToken.transfer(walletRetailer, 100);
+        require(filieraToken.registerUserWithToken(address(filieraToken),address(walletRetailer), 100),"Transfer Token Not Valid!");
 
         // Emette l'evento della registrazione dell'utente
         emit RetailerRegistered(walletRetailer, fullName, "Utente Retailer e' stato registrato!");

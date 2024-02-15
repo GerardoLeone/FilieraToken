@@ -4,7 +4,7 @@ pragma solidity ^0.8.21;
 import "./ConsumerBuyerInventoryStorage.sol";
 import "../ConsumerService.sol";
 
-contract ConsumerBuyerCheesePieceService {
+contract ConsumerBuyerInventoryService {
 
     //------------------------------------------------------------------------ Address of other Contract Service -----------------------------------------------------------//
 
@@ -123,10 +123,10 @@ contract ConsumerBuyerCheesePieceService {
         return consumerBuyerInventoryStorage.isCheesePiecePresent(_walletConsumerBuyer, _id_CheesePieceAcquistato);
     }
 
-    //-------------------------------------------------------------------- Set Function ------------------------------------------------------------------------//
+//-------------------------------------------------------------------- Set Function ------------------------------------------------------------------------//
 
 
-    // -------------------------------------------------- Change Address Function Contract Service ---------------------------------------------------//
+// -------------------------------------------------- Change Address Function Contract Service ---------------------------------------------------//
 
     // TODO: insert modifier onlyOrg(address sender) {}
     function changeConsumerBuyerCheesePieceStorage(address _consumerBuyerInventoryStorage) external {

@@ -77,7 +77,7 @@ contract RetailerInventoryStorage {
         return cheesePieces[walletRetailer][_id_CheesePiece].id == _id_CheesePiece;
     }
 
-    // --------------------------------------------------- Get Function --------------------------------------------------------------------------------------//
+// --------------------------------------------------- Get Function --------------------------------------------------------------------------------------//
 
     function getPrice(address walletRetailer, uint256 _id) external view returns (uint256) {
 
@@ -90,4 +90,21 @@ contract RetailerInventoryStorage {
         CheesePiece memory cheesePiece = cheesePieces[walletRetailer][_id];
         return cheesePiece.weight;
     }
+
+// --------------------------------------------------- Set Function --------------------------------------------------------------------------------------//
+
+
+    // - Funzione updateCheeseBlockQuantity() aggiorna la quantità del CheeseBlock 
+    function updateWeight(
+        address walletRetailer,
+        uint256 _id_Cheese,
+        uint256 _newQuantity
+    ) external  {
+        
+        // Controllo sulla quantita' 
+        require(_newQuantity<=cheesePieces[walletRetailer][_id_Cheese].weight,"Controllo della Quantita' da utilizzare non andata a buon fine!");
+
+        cheesePieces[walletRetailer][_id_Cheese].weight = _newQuantity;
+    }
+
 }

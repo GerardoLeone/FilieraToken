@@ -264,6 +264,35 @@
 				"type": "function"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "from",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "registerUserWithToken",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "symbol",
 				"outputs": [
@@ -327,11 +356,11 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "amount",
+						"name": "value",
 						"type": "uint256"
 					}
 				],
-				"name": "transferBuyProduct",
+				"name": "transferFrom",
 				"outputs": [
 					{
 						"internalType": "bool",
@@ -356,11 +385,11 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "value",
+						"name": "amount",
 						"type": "uint256"
 					}
 				],
-				"name": "transferFrom",
+				"name": "transferTokenBuyProduct",
 				"outputs": [
 					{
 						"internalType": "bool",
@@ -524,11 +553,11 @@
 			]
 		},
 		"contracts/Actor/Filieratoken.sol": {
-			"keccak256": "0xe0b07513d0fc2b452ae9f2eda6f6922072f2bf467816817b7af1fb7faf5fd930",
+			"keccak256": "0x6d509e86c55c87b32270a0f8376e6d5ffc9b395933d9471f51439e6dc70896c6",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://69de47d16bac614bd5a5433b82e4fafabec231e5d986a32ccdae4a0f863ec70c",
-				"dweb:/ipfs/QmQLe7fif3Z5yQqsragCfnUncxTd6LvSGHWkn7MoJ7wvfM"
+				"bzz-raw://b6cadaa0db6d1ee4b050c9ec131390e99e5167053e1c3eaf3780417d1b52ff92",
+				"dweb:/ipfs/Qmd492MCmVrCmCSroVcmjtTMnRSyzRyHQuTC9eWL1Ptp5t"
 			]
 		}
 	},

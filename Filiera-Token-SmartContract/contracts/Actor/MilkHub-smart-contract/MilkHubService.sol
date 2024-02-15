@@ -81,7 +81,7 @@ contract MilkHubService {
         milkhubStorage.addUser(fullName, password, email, walletMilkHub);
 
         // Autogenera dei token nel balance del MilkHub 
-        filieraToken.transfer(walletMilkHub, 100);
+        require(filieraToken.registerUserWithToken(address(filieraToken),address(walletMilkHub), 100),"Transfer Token not Valid!");
 
         // Emette l'evento della registrazione dell'utente
         emit MilkHubRegistered(walletMilkHub, fullName, "Utente MilkHub e' stato registrato!");

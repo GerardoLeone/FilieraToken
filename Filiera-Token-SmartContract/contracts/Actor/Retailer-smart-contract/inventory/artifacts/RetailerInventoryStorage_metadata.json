@@ -183,6 +183,29 @@
 				],
 				"stateMutability": "view",
 				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletRetailer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id_Cheese",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_newQuantity",
+						"type": "uint256"
+					}
+				],
+				"name": "updateWeight",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
 			}
 		],
 		"devdoc": {
@@ -198,7 +221,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"Filiera-Token-SmartContract/contracts/Actor/Retailer-smart-contract/inventory/RetailerInventoryStorage.sol": "RetailerInventoryStorage"
+			"contracts/Actor/Retailer-smart-contract/inventory/RetailerInventoryStorage.sol": "RetailerInventoryStorage"
 		},
 		"evmVersion": "shanghai",
 		"libraries": {},
@@ -212,12 +235,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"Filiera-Token-SmartContract/contracts/Actor/Retailer-smart-contract/inventory/RetailerInventoryStorage.sol": {
-			"keccak256": "0x53b72ca6345ffd9af92f979f4639955fc7c1a9ad2cb0f23964614d828f509513",
+		"contracts/Actor/Retailer-smart-contract/inventory/RetailerInventoryStorage.sol": {
+			"keccak256": "0x848cf47c9c8b36714fb686238a79c174c2a1582f68834eab7ffeed2147e4b0ca",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://60250647618cc24750a5eefe7d10a154d8ed2e11067423d8a91e3e3d73867a23",
-				"dweb:/ipfs/QmYo2giEnLLVC1ETvwX4ti1eZszsFSUUhJw8txxw3u9rXj"
+				"bzz-raw://0b9ea9f6ca3a17730c5a9d73d34b77e0bf2aab3136909630292617caa48a7d72",
+				"dweb:/ipfs/QmX1nDRfwTrHt4AmByUwniQtEoh8EgkGwcaz3JLEbdebjd"
 			]
 		}
 	},

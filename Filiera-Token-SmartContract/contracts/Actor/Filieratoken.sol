@@ -12,40 +12,101 @@ contract Filieratoken is ERC20 {
   string private constant _symbol = "FLT";
 
   // Fornitura totale di token
-  uint256 private constant _totalSupply = 1000000000; // Modifica questo valore in base alle tue esigenze
+  uint256 private constant _totalSupply = 1000000000; 
 
   constructor() ERC20(_name, _symbol) {
     // Assegna la fornitura totale al deployer
     _mint(address(this), _totalSupply);
   }
 
-  // Funzione per visualizzare il saldo di un utente
+    /**
+   * @title Restituisce il saldo di un utente
+   * @dev Restituisce il numero di token Filiera posseduti dall'utente specificato.
+   *
+   * @param account L'indirizzo dell'utente di cui si desidera conoscere il saldo.
+   *
+   * @return Il saldo dell'utente in token Filiera.
+   */
   function balanceOf(address account) public view override returns (uint256) {
-    return super.balanceOf(account);
-  }
-
-  // Funzione per trasferire token da un utente all'altro
-  function transfer(address to, uint256 amount) public  override returns (bool) {
-     super._transfer(address(this), to, amount);
-     return true;
+      return super.balanceOf(account);
   }
 
 
-  function burnToken(address user, uint256 balance) public  returns (bool) {
-    super._burn(user, balance);
+    /**
+   * @title Trasferisce token da un utente all'altro
+   * @dev Trasferisce `amount` token Filiera dall'account del mittente all'account del destinatario.
+   *
+   * @param to L'indirizzo del destinatario dei token.
+   * @param amount Il numero di token Filiera da trasferire.
+   *
+   * @return `true` se il trasferimento ha avuto successo, `false` in caso contrario.
+   */
+  function transfer(address to, uint256 amount) public override returns (bool) {
+    super._transfer(address(this), to, amount);
     return true;
   }
 
-  // Funzione per approvare un altro spender a trasferire token per tuo conto
+
+
+  /**
+   * @title Brucia una quantità di token di un utente
+   * @dev Brucia `balance` token Filiera dall'account dell'utente specificato.
+   *
+   * @param user L'indirizzo dell'utente i cui token devono essere bruciati.
+   * @param balance Il numero di token Filiera da bruciare.
+   *
+   * @return `true` se il burn ha avuto successo, `false` in caso contrario.
+   */
+  function burnToken(address user, uint256 balance) public returns (bool) {
+      super._burn(user, balance);
+      return true;
+  }
+
+
+  /**
+   * @title Approva un altro spender a trasferire token per tuo conto
+   * @dev Imposta `spender` come spender con una allowance di `amount` token Filiera.
+   *
+   * @param spender L'indirizzo dello spender che viene autorizzato.
+   * @param amount L'ammontare massimo di token Filiera che lo spender può trasferire.
+   *
+   * @return `true` se l'approvazione ha avuto successo, `false` in caso contrario.
+   */
   function approve(address spender, uint256 amount) public override returns (bool) {
-    return super.approve(spender, amount);
+      return super.approve(spender, amount);
   }
 
-  function transferBuyProduct(address from, address to, uint256 amount) public returns (bool){
-    super._transfer(from, to, amount);
-    return true;
+  /**
+   * @title Trasferisce token per l'acquisto di un prodotto
+   * @dev Trasferisce `amount` token Filiera dall'account del mittente all'account del destinatario per l'acquisto di un prodotto.
+   *
+   * @param from L'indirizzo del mittente dei token.
+   * @param to L'indirizzo del destinatario dei token.
+   * @param amount Il numero di token Filiera da trasferire.
+   *
+   * @return `true` se il trasferimento ha avuto successo, `false` in caso contrario.
+   */
+  function transferTokenBuyProduct(address from, address to, uint256 amount) public returns (bool) {
+      require(from != address(this) && to != address(this), "Transazione non valida per acquisto prodotto");
+      super._transfer(from, to, amount);
+      return true;
   }
 
+
+  /**
+   * @title Registra un utente assegnandogli token
+   * @dev Assegna `amount` token Filiera all'account dell'utente specificato come incentivo alla registrazione.
+   *
+   * @param to L'indirizzo dell'utente che viene registrato.
+   * @param amount Il numero di token Filiera da assegnare all'utente.
+   *
+   * @return `true` se la registrazione ha avuto successo, `false` in caso contrario.
+   */
+  function registerUserWithToken(address to, uint256 amount) public returns (bool) {
+      require(msg.sender == address(this), "Solo il contratto FilieraToken può registrare utenti");
+      super._transfer(address(this), to, amount);
+      return true;
+  }
 
 
 }

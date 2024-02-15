@@ -7,6 +7,9 @@ import "./RetailerCheeseBlockService.sol";
 
 contract RetailerInventoryService {
 
+
+//------------------------------------------------------------------------ Address of other Contract Service -----------------------------------------------------------//
+
     // Address of the organization managing the users
     address private retailerOrg;
 
@@ -16,12 +19,16 @@ contract RetailerInventoryService {
 
     RetailerCheeseBlockService private retailerCheeseBlockService;
 
+
+//------------------------------------------------------------------------ Event of Service  -----------------------------------------------------------//
+
     event CheesePieceAdded(address indexed userAddress, string message, uint256 id, uint256 price, uint256 weight);
 
     event CheesePieceDeleted(address indexed userAddress, string message, uint256 _id);
 
     event CheesePieceEdited(address indexed userAddress, string message, uint256 weight);
 
+//------------------------------------------------------------------------ Modifier Logic of Contract Service -----------------------------------------------------------//
     modifier checkAddress(address caller) {
         require(caller != address(0), "Address Value is Zero!");
         require(caller != retailerOrg, "Address not valid!");
@@ -29,6 +36,9 @@ contract RetailerInventoryService {
         require(caller != address(retailerService), "Address not valid of Service");
         _;
     }
+
+//------------------------------------------------------------------------ Constructor Contract Service -----------------------------------------------------------//
+
 
     constructor(
         address _retailerInventoryStorage,
@@ -41,12 +51,15 @@ contract RetailerInventoryService {
         retailerOrg = msg.sender;
     }
 
+
+//------------------------------------------------------------------------ Business Logic of other Contract Service -----------------------------------------------------------//
+
+
     function addCheesePiece(
         address _walletRetailer,
         uint256 _id_CheeseBlockAcquistato,
         uint256 _price,
-        uint256 _weight
-    ) internal checkAddress(_walletRetailer) {
+        uint256 _weight) internal checkAddress(_walletRetailer) {
         require(retailerService.isUserPresent(_walletRetailer), "User is not present in data");
 
         (uint256 id_CheesePiece, uint256 price, uint256 weight) = retailerInventoryStorage.addCheesePiece(
@@ -84,6 +97,31 @@ contract RetailerInventoryService {
         }
     }
 
+    function transformCheeseBlock(
+        address walletRetailer,
+        uint256 _id_CheeseBlockAcquistato,
+        uint256 quantityToTransform,
+        uint256 price) external {
+
+
+            require(retailerCheeseBlockService.isCheeseBlockAcquistataPresent(walletRetailer, _id_CheeseBlockAcquistato), "Prodotto non presente!");
+
+            require(quantityToTransform <= 3, "Quantita' da trasformare non valida!");
+
+            require(quantityToTransform <= retailerCheeseBlockService.getQuantity(walletRetailer, _id_CheeseBlockAcquistato), "Quantita' da trasformare non valida!");
+
+            uint256 newQuantity = retailerCheeseBlockService.getQuantity(walletRetailer, _id_CheeseBlockAcquistato) - quantityToTransform;
+
+            retailerCheeseBlockService.updateCheeseBlockQuantity(walletRetailer, _id_CheeseBlockAcquistato, newQuantity);
+
+            addCheesePiece(walletRetailer, _id_CheeseBlockAcquistato, price, quantityToTransform);
+    }
+
+
+
+//------------------------------------------------------------------------ Get Function -----------------------------------------------------------//
+
+
     function getPrice(address walletRetailer, uint256 _id) external view returns (uint256) {
         require(retailerService.isUserPresent(walletRetailer), "User is not present!");
 
@@ -104,29 +142,29 @@ contract RetailerInventoryService {
         return retailerInventoryStorage.isCheesePiecePresent(walletRetailer, _id_cheesePiece);
     }
 
-    function updateWeight(address ownerRetailer, uint256 _id, uint256 _weight) external checkAddress(ownerRetailer) {
-        require(retailerService.isUserPresent(ownerRetailer), "User is not present!");
 
-        require(this.isCheesePiecePresent(ownerRetailer, _id), "CheesePiece not Present!");
+//------------------------------------------------------------------------  Set Function -----------------------------------------------------------//
 
-        retailerInventoryStorage.updateCheesePieceWeight(ownerRetailer, _id, _weight);
 
-        emit CheesePieceEdited(ownerRetailer, "CheesePiece edited!", _weight);
+    /**
+    * Decremento della quantità del MilkBatch 
+    * Verifica che la quantità sia maggiore di 0 -> altrimenti elimina
+    */
+    function updateWeight(
+        address onwerCheesePiece,
+        uint256 _id,
+        uint256 _quantity ) external checkAddress(onwerCheesePiece) {
+
+        require(retailerService.isUserPresent(onwerCheesePiece), "User is not present!");
+
+        require(this.isCheesePiecePresent(onwerCheesePiece, _id),"MilkBatch not Present!");
+
+        retailerInventoryStorage.updateWeight(onwerCheesePiece, _id, _quantity);
+
+        emit CheesePieceEdited(onwerCheesePiece,"MilkBatch edited!", _quantity);
     }
 
-    function transformCheeseBlock(address walletRetailer, uint256 _id_CheeseBlockAcquistato, uint256 quantityToTransform, uint256 price)
-        external
-    {
-        require(retailerCheeseBlockService.isCheeseBlockAcquistataPresent(walletRetailer, _id_CheeseBlockAcquistato), "Prodotto non presente!");
 
-        require(quantityToTransform <= 3, "Quantita' da trasformare non valida!");
 
-        require(quantityToTransform <= retailerCheeseBlockService.getQuantity(walletRetailer, _id_CheeseBlockAcquistato), "Quantita' da trasformare non valida!");
-
-        uint256 newQuantity = retailerCheeseBlockService.getQuantity(walletRetailer, _id_CheeseBlockAcquistato) - quantityToTransform;
-
-        retailerCheeseBlockService.updateCheeseBlockQuantity(walletRetailer, _id_CheeseBlockAcquistato, newQuantity);
-
-        addCheesePiece(walletRetailer, _id_CheeseBlockAcquistato, price, quantityToTransform);
-    }
+    
 }

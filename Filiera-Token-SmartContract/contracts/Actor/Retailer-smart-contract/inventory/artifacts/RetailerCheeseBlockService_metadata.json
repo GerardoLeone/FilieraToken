@@ -433,11 +433,11 @@
 			]
 		},
 		"contracts/Actor/Retailer-smart-contract/inventory/RetailerCheeseBlockStorage.sol": {
-			"keccak256": "0xe19749a64c6efab35b26bae04fadd592227cfda35fbdc4435a1b78a7d0dc597b",
+			"keccak256": "0xc0ddd237b182163641f0143eb450a9e68b4f69674e79e23fe0ec5f023b4953de",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://a106cbf2f0b76727b01cab0f40e769faa9b40da7d96d6412858726d9d7b07d5a",
-				"dweb:/ipfs/QmWwGUWwXwwci7ZuChedwzvmtVerYBGv3HhsLzwXasBB8x"
+				"bzz-raw://c88e590374fbe7ebeebdd03e6397d3c57dd621e4ec2308c540400bf78ae1cb2b",
+				"dweb:/ipfs/Qmb4THwPJFjXC8Erzqeaib1mxmebT3dPctWrkKRGjpK9iz"
 			]
 		}
 	},

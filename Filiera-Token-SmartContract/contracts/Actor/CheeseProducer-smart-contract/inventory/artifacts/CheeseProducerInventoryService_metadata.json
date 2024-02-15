@@ -419,11 +419,11 @@
 			]
 		},
 		"contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerInventoryService.sol": {
-			"keccak256": "0x8101ed3dd8d9c4aff8857f63506ca4f99ce862a3a0b6cae0579be053b558a67f",
+			"keccak256": "0x6a96332ee857ac0f743e8fd6526e4d8ee3602545477d35d9336be6104de83602",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://01cf26c31f22f4e62cb24f8b50ae47e87763ef7dc863fb09ed085c48d885f5c0",
-				"dweb:/ipfs/QmXkwABetdriebuVigMoxLZpjidDsJb4XEArHjjA5JFxje"
+				"bzz-raw://a6aa05c3308aa20ba94117b04dda0453eb28c6219152b7f87fadbcb42a34c6f7",
+				"dweb:/ipfs/QmadpLikkA51LXSeh8wNJcxK5FVjAiPLcabQDR2Nudd6YF"
 			]
 		},
 		"contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerInventoryStorage.sol": {

@@ -135,6 +135,30 @@
 						"type": "uint256"
 					}
 				],
+				"name": "getWalletRetailer",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletConsumerBuyer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
 				"name": "getWeight",
 				"outputs": [
 					{
@@ -199,11 +223,11 @@
 	},
 	"sources": {
 		"contracts/Actor/Consumer-smart-contract/inventory/ConsumerBuyerInventoryStorage.sol": {
-			"keccak256": "0x2bdbd05aed3b73089614ebc09c3a5bc05c2384a6a2f554c75e33541d57489645",
+			"keccak256": "0x9f9278d6792d3a17b0a6392710f9766389fa506625466aeae737af4e7e47ee31",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://5eff940d2df7ec201c183c5c82bce013d41724d372ed97549b3a38e14c682359",
-				"dweb:/ipfs/QmdSg658SPEhPZHStdqgqHWoHEPAvmG1i3dnr6s4XnyaEz"
+				"bzz-raw://727603eb87457e24a2c012c5da0aa471397ae7b426b6f3891a0f00a0143e28a8",
+				"dweb:/ipfs/QmNxvbNjTXwGws5UGCtFpfEmSa7xjP8UBTWker2sFVDhgR"
 			]
 		}
 	},

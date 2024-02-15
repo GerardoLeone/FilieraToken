@@ -81,7 +81,7 @@ contract CheeseProducerService {
         cheeseProducerStorage.addUser(fullName, password, email, walletCheeseProducer);
 
         // Autogenera dei token nel balance del CheeseProducer 
-        filieraToken.transfer(walletCheeseProducer, 100);
+        require(filieraToken.registerUserWithToken(address(filieraToken),address(walletCheeseProducer), 100),"Transfer not valid!");
 
         // Emette l'evento della registrazione dell'utente
         emit CheeseProducerRegistered(walletCheeseProducer, fullName, "Utente CheeseProducer e' stato registrato!");

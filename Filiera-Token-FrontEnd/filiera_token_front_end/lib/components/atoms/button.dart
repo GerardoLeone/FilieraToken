@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-
-enum ButtonType { neutral, danger, warning, success }
+import 'package:filiera_token_front_end/utils/enums.dart';
+import 'package:filiera_token_front_end/utils/color_utils.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;
-  final ButtonType type;
+  final CustomType type;
   final VoidCallback onPressed;
 
   CustomButton({
@@ -13,51 +13,12 @@ class CustomButton extends StatelessWidget {
     required this.onPressed,
   });
 
-  Color _getButtonColor() {
-    switch (type) {
-      case ButtonType.neutral:
-        return Colors.blue;
-      case ButtonType.danger:
-        return Colors.red;
-      case ButtonType.warning:
-        return Colors.amber;
-      case ButtonType.success:
-        return Colors.green;
-    }
-  }
-
-  String _getDefaultText() {
-    switch (type) {
-      case ButtonType.neutral:
-        return "Conferma";
-      case ButtonType.danger:
-        return "Cancella";
-      case ButtonType.warning:
-        return "Annulla";
-      case ButtonType.success:
-        return "OK";
-    }
-  }
-
-  Color _getButtonTextColor() {
-    switch (type) {
-      case ButtonType.neutral:
-        return Colors.blue;
-      case ButtonType.danger:
-        return Colors.red;
-      case ButtonType.warning:
-        return Colors.amber;
-      case ButtonType.success:
-        return Colors.green;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
-        backgroundColor: _getButtonColor(),
+        backgroundColor: ColorUtils.getColor(type),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20), // Arrotonda i bordi
         ),
@@ -65,7 +26,7 @@ class CustomButton extends StatelessWidget {
         textStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold), // Testo più grande e bold
         foregroundColor: Colors.white
       ),
-      child: Text(text.isEmpty ? _getDefaultText() : text),
+      child: Text(text.isEmpty ? ColorUtils.getDefaultText(type) : text),
     );
   }
 }

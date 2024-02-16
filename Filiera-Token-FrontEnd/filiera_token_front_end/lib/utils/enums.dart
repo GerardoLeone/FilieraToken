@@ -1,0 +1,1 @@
+enum CustomType { neutral, danger, warning, success }

@@ -26,7 +26,7 @@ class CustomButton extends StatelessWidget {
         textStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold), // Testo più grande e bold
         foregroundColor: Colors.white
       ),
-      child: Text(text.isEmpty ? ColorUtils.getDefaultText(type) : text),
+      child: Text(text.isEmpty ? Enums.getDefaultText(type) : text),
     );
   }
 }

@@ -18,20 +18,4 @@ class ColorUtils {
           return Colors.green;
       }
     }
-
-  /*
-   *  Questa funzione restituisce un testo di default basandosi sul CustomType
-   */
-  static String getDefaultText(CustomType type) {
-    switch (type) {
-      case CustomType.neutral:
-        return "Conferma";
-      case CustomType.danger:
-        return "Cancella";
-      case CustomType.warning:
-        return "Annulla";
-      case CustomType.success:
-        return "OK";
-    }
-  }
 }

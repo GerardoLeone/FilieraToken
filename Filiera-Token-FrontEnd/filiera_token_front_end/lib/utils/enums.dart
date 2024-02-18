@@ -2,6 +2,8 @@ enum CustomType { neutral, danger, warning, success }
 
 enum Actor { MilkHub, CheeseProducer, Retailer, Consumer }
 
+enum Asset { MilkBatch, CheeseBlock, CheesePiece }
+
 class Enums {
   
   /*
@@ -36,6 +38,19 @@ class Enums {
     }
   }
 
+  /*
+   *  Questa funzione restituisce il path di un asset passato in input 
+   */
+  static String getAssetPath(Asset asset) {
+    switch(asset) {
+      case Asset.MilkBatch:
+        return "milk.png";
+      case Asset.CheeseBlock:
+        return "cheese_block.png";
+      case Asset.CheesePiece:
+        return "cheese_piece.png";
+    }
+  }
 
   /*
   *   Questa funzione restituisce un id basandosi sull'Actor dati in input

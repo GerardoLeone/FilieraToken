@@ -7,7 +7,7 @@ class CustomButton extends StatelessWidget {
   final CustomType type;
   final VoidCallback onPressed;
 
-  CustomButton({
+  const CustomButton({super.key, 
     this.text = "",
     required this.type,
     required this.onPressed,
@@ -22,8 +22,8 @@ class CustomButton extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20), // Arrotonda i bordi
         ),
-        padding: EdgeInsets.symmetric(horizontal: 25, vertical: 20), // Spazio interno
-        textStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold), // Testo più grande e bold
+        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20), // Spazio interno
+        textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold), // Testo più grande e bold
         foregroundColor: Colors.white
       ),
       child: Text(text.isEmpty ? Enums.getDefaultText(type) : text),

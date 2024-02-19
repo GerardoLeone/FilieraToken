@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 
-class InputValidator extends StatefulWidget {
+class CustomInputValidator extends StatefulWidget {
   final TextInputType inputType;
   final String labelText;
   final Function(String) onChanged;
   final InputDecoration decoration;
 
-  const InputValidator({
-    Key? key,
+  const CustomInputValidator({
+    super.key,
     required this.inputType,
     required this.labelText,
     required this.onChanged,
     this.decoration = const InputDecoration(),
-  }) : super(key: key);
+  });
 
   @override
-  State<InputValidator> createState() => _InputValidatorState();
+  State<CustomInputValidator> createState() => _CustomInputValidatorState();
 }
 
-class _InputValidatorState extends State<InputValidator> {
+class _CustomInputValidatorState extends State<CustomInputValidator> {
   final TextEditingController _controller = TextEditingController();
   bool isValid = false; 
 

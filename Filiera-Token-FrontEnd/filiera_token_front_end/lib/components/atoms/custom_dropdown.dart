@@ -7,7 +7,7 @@ class CustomDropdown<T> extends StatefulWidget {
   final T? value;
   final void Function(T?) onChanged;
 
-  CustomDropdown({
+  const CustomDropdown({super.key, 
     required this.items,
     required this.value,
     required this.onChanged,
@@ -35,12 +35,12 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
         color: Colors.grey[200], // Grigio di sfondo
         border: Border.all(color: ColorUtils.getColor(type)),
       ),
-      padding: EdgeInsets.symmetric(horizontal: 12.0),
+      padding: const EdgeInsets.symmetric(horizontal: 12.0),
       child: DropdownButton<T>(
         value: selectedValue,
         onChanged: (value) {
           setState(() {
-            selectedValue = value!;
+            selectedValue = value as T;
           });
           widget.onChanged(value);
         },

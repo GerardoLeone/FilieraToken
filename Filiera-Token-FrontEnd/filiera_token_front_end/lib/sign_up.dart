@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,13 +17,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'FilieraTokenShop'),
+      home: const MyHomePage(title: 'FilieraTokenShop'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage( {required this.title});
+  const MyHomePage( {super.key, required this.title});
 
   final String title;
 
@@ -52,40 +54,40 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Column(
                 children: <Widget>[
                   // Nome
-                  TextField(
+                  const TextField(
                     decoration: InputDecoration(labelText: 'Nome'),
                   ),
 
                   // Cognome
-                  TextField(
+                  const TextField(
                     decoration: InputDecoration(labelText: 'Cognome'),
                   ),
 
                   // Email
-                  TextField(
+                  const TextField(
                     decoration: InputDecoration(labelText: 'Email'),
                   ),
 
                   // Password
-                  TextField(
+                  const TextField(
                     decoration: InputDecoration(labelText: 'Password'),
                     obscureText: true,
                   ),
 
                   // Conferma password
-                  TextField(
+                  const TextField(
                     decoration: InputDecoration(labelText: 'Conferma password'),
                     obscureText: true,
                   ),
 
                   // Wallet
-                  TextField(
+                  const TextField(
                     decoration: InputDecoration(labelText: 'Wallet'),
                   ),
 
                   // Pulsante di iscrizione
                 ElevatedButton(
-                    child: Text('Iscriviti'),
+                    child: const Text('Iscriviti'),
                     onPressed: () {},
                   ),
                 ],
@@ -96,9 +98,9 @@ class _MyHomePageState extends State<MyHomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text('Hai già un account?'),
+                const Text('Hai già un account?'),
                 ElevatedButton(
-                  child: Text('Accedi'),
+                  child: const Text('Accedi'),
                   onPressed: () {},
                 ),
               ],

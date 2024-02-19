@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 // Page 
-import 'package:filiera_token_front_end/sign_in.dart';
-import 'package:filiera_token_front_end/sign_up.dart';
-import 'package:filiera_token_front_end/home_page.dart';
+import 'package:filiera_token_front_end/components/organisms/sign_in.dart';
+import 'package:filiera_token_front_end/components/organisms/sign_up.dart';
+import 'package:filiera_token_front_end/components/organisms/home_page.dart';
 
 
 void main() {

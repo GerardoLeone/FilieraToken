@@ -1,37 +1,17 @@
 import 'package:flutter/material.dart';
 
 
-void main() {
-  runApp(const MyApp());
-}
+class MySignUpPage extends StatefulWidget {
 
-
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'FilieraToken',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'FilieraTokenShop'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage( {super.key, required this.title});
+  const MySignUpPage( {super.key, required this.title});
 
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MySignUpPage createState() => _MySignUpPage();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MySignUpPage extends State<MySignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -10,7 +10,7 @@ class CustomCard extends StatelessWidget {
   final Asset image;
   final VoidCallback? onTap; // Parametro opzionale per la funzione onTap
 
-  CustomCard({
+  const CustomCard({super.key, 
     required this.productName,
     required this.description,
     required this.expirationDate,
@@ -31,14 +31,14 @@ class CustomCard extends StatelessWidget {
       child: InkWell(
         splashColor: Colors.blue.withAlpha(90),
         onTap: onTap, // Utilizza la funzione onTap fornita, se presente
-        child: Container(
+        child: SizedBox(
           width: 300,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisSize: MainAxisSize.min,
             children: [
               ClipRRect(
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(10.0),
                   topRight: Radius.circular(10.0),
                 ),
@@ -58,16 +58,16 @@ class CustomCard extends StatelessWidget {
                         Flexible(
                           child: Text(
                             productName,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
-                        SizedBox(width: 8),
+                        const SizedBox(width: 8),
                         Text(
                           '$price€',
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 16,
                           ),
                         ),
@@ -75,19 +75,19 @@ class CustomCard extends StatelessWidget {
                     ),
                     Text(
                       description,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 14,
                       ),
                     ),
                     Text(
                       'Scadenza: $expirationDate',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 12,
                       ),
                     ),
                     Text(
-                      '${seller}',
-                      style: TextStyle(
+                      seller,
+                      style: const TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
                         fontStyle: FontStyle.italic,

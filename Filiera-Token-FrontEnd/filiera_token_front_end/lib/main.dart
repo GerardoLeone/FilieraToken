@@ -6,6 +6,16 @@ import 'package:filiera_token_front_end/components/organisms/sign_in.dart';
 import 'package:filiera_token_front_end/components/organisms/sign_up.dart';
 import 'package:filiera_token_front_end/components/organisms/home_page.dart';
 
+// Page User 
+import 'package:filiera_token_front_end/components/organisms/home_user_page.dart';
+
+
+// Profile Page 
+import 'package:filiera_token_front_end/components/organisms/user_profile_page.dart';
+
+// Profile Sub-Page
+import 'package:filiera_token_front_end/components/organisms/profile/user_profile_history.dart';
+import 'package:filiera_token_front_end/components/organisms/profile/user_profile_inventory.dart';
 
 void main() { 
   runApp(MyApp());
@@ -31,6 +41,7 @@ class MyApp extends StatelessWidget {
 final GoRouter _router = GoRouter(
   initialLocation: '/',
   routes: [
+    
     GoRoute(
       path: '/',
       builder: (context, state) => const MyHomePage(),
@@ -43,6 +54,26 @@ final GoRouter _router = GoRouter(
       path: '/signin',
       builder: (context, state) => const MySignInPage(title: "Filiera-Token-SignIn"),
     ),
+
+    GoRoute(
+    path: '/home-page-user',
+    builder: (context, state) => const HomePageUser(),
+    routes: [
+      GoRoute(
+        path: 'profile',
+        builder: (context, state) => const UserProfilePage(),
+        routes: [
+            /// Sub Path of Profile of User
+            GoRoute(
+              path: 'history',
+              builder: (context,state)=> const UserProfileHistoryPage()), 
+            GoRoute(
+              path: 'inventory',
+              builder: (context,state) => const UserProfileInventoryProductPage())                
+        ]
+      ),
+    ],
+  ),
   ],
 );
 

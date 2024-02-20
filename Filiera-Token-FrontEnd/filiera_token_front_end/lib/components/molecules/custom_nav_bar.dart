@@ -30,6 +30,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 
+  static buildSimpleNavBar(){
+    return CustomAppBar(
+            title: 'FilieraToken-Shop',
+            leading: Image.asset('../assets/favicon.png'),
+      );
+  }
+
   @override
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
 }

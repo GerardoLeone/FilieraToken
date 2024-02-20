@@ -1,10 +1,10 @@
 
 // Package Utils
+
 import 'package:filiera_token_front_end/components/molecules/custom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:filiera_token_front_end/components/atoms/custom_button.dart';
 
 
 
@@ -28,45 +28,30 @@ class MySignUpPage extends StatefulWidget {
 class _MySignUpPage extends State<MySignUpPage> {
 
 
-
-
   /**
    * Build Back Button
    */
-   Widget buildBackButton() {
-    return ElevatedButton(
-      child: const Text('Back'),
-      onPressed: () => context.go('/'),
-    );
+   Widget buildBackButton(BuildContext context) {
+    return Row(
+              mainAxisAlignment: MainAxisAlignment.start, // Align to the left
+              children: [
+                const SizedBox(height: 150, width: 20),
+                ElevatedButton(
+                  child: const Text('Back'),
+                  onPressed: () => context.go('/'),
+                ),
+              ],
+            );
   }
 
 
-    /**
-     * Construct my App Bar -> Nav Bar
-     */
-    CustomAppBar buildCustomAppBar(){
-      return CustomAppBar(
-            title: 'FilieraToken-Shop',
-            leading: Image.asset('../assets/favicon.png'),
-      );
-    }
-
-
-
-
-
-
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: buildCustomAppBar(),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
+  /**
+   * Build Form di Registrazione 
+   */
+  Widget buildFormRegistrazione(BuildContext context){
             // Form di iscrizione
-            Padding(
-              padding: const EdgeInsets.all(16.0),
+           return  Padding(
+              padding: const EdgeInsets.all(55.5),
               child: Column(
                 children: <Widget>[
                   // Nome
@@ -101,36 +86,54 @@ class _MySignUpPage extends State<MySignUpPage> {
                     decoration: InputDecoration(labelText: 'Wallet'),
                   ),
 
-                  // Pulsante di iscrizione
+                // Padding   
+                const SizedBox(height: 20,width: 20),
+                // Pulsante di iscrizione
                 ElevatedButton(
-                    child: const Text('Iscriviti'),
+                    child: const Text('Registrati'),
                     onPressed: () {},
                   ),
                 ],
               ),
-            ),
+            );
+  }
 
-            // Collegamento a "Sign In"
-            Row(
+
+
+  /***
+   * Build Registered Action 
+   */
+  Widget buildIsRegistered(BuildContext context){
+      return Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-
                 const Text('Hai già un account?'),
-                
+                SizedBox(width: 20,height: 0),
                 ElevatedButton(
                   child: const Text('Accedi'),
                   onPressed: () {},
                 ),
               ],
-            ),
+            );
+  }
+  
 
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start, // Align to the left
-              children: [
-                buildBackButton(),
-                // ... existing widgets
-              ],
-            )
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+
+      appBar: CustomAppBar.buildSimpleNavBar(),
+      
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            /// Login Form 
+            buildFormRegistrazione(context),
+            /// Go to  "Sign In"
+            buildIsRegistered(context),
+            /// Back Button 
+            buildBackButton(context)
           ],
         ),
       ),

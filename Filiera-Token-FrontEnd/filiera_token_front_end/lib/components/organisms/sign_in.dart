@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../molecules/custom_nav_bar.dart';
 
@@ -13,50 +14,37 @@ class MySignInPage extends StatefulWidget {
 
 class _MySignInPage extends State<MySignInPage> {
 
+
+
+/**
+   * Build Back Button
+   */
+   Widget buildBackButton(BuildContext context) {
+    return Row(
+              mainAxisAlignment: MainAxisAlignment.start, // Align to the left
+              children: [
+                SizedBox(width: 30,),
+                ElevatedButton(
+                        child: const Text('Back'),
+                        onPressed: () => context.go('/'),
+                        )
+              ],
+            );
+  }
+
+
   /**
-     * Construct my App Bar -> Nav Bar
-     */
-    CustomAppBar buildCustomAppBar(){
-      return CustomAppBar(
-            title: 'FilieraToken-Shop',
-            leading: Image.asset('../assets/favicon.png'),
-      );
-    }
+   * Build Login Form 
+   */
 
+  Widget buildFormLogin(BuildContext context){
+    
+    return Padding(
 
-
-
-
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: buildCustomAppBar(),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            // Logo
-            Image.asset(
-              '../assets/favicon.png',
-              width: 100,
-              height: 100,
-            ),
-
-            // Form di iscrizione
-            Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(120.0),
               child: Column(
                 children: <Widget>[
-                  // Nome
-                  const TextField(
-                    decoration: InputDecoration(labelText: 'Nome'),
-                  ),
-
-                  // Cognome
-                  const TextField(
-                    decoration: InputDecoration(labelText: 'Cognome'),
-                  ),
-
+                  /// TODO : Insert Custom Button 
                   // Email
                   const TextField(
                     decoration: InputDecoration(labelText: 'Email'),
@@ -68,37 +56,40 @@ class _MySignInPage extends State<MySignInPage> {
                     obscureText: true,
                   ),
 
-                  // Conferma password
-                  const TextField(
-                    decoration: InputDecoration(labelText: 'Conferma password'),
-                    obscureText: true,
-                  ),
-
                   // Wallet
                   const TextField(
                     decoration: InputDecoration(labelText: 'Wallet'),
                   ),
 
-                  // Pulsante di iscrizione
+                /// Spazio tra i vari field e il Button   
+                const SizedBox(height: 20,width: 20),
+                // Pulsante di iscrizione
                 ElevatedButton(
-                    child: const Text('Iscriviti'),
+                    child: const Text('Login'),
                     onPressed: () {},
                   ),
                 ],
               ),
-            ),
+            );
+  }
 
-            // Collegamento a "Sign In"
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                const Text('Hai già un account?'),
-                ElevatedButton(
-                  child: const Text('Accedi'),
-                  onPressed: () {},
-                ),
-              ],
-            ),
+
+
+  /**
+   * Build Layout 
+   */
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      // Nav Bar 
+      appBar: CustomAppBar.buildSimpleNavBar(),
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            // Form di iscrizione
+            buildFormLogin(context),
+            /// Back Button 
+            buildBackButton(context)
           ],
         ),
       ),

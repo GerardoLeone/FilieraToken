@@ -1,3 +1,7 @@
+// Molecules File 
+import 'package:filiera_token_front_end/components/molecules/custom_nav_bar.dart';
+
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -7,6 +11,19 @@ import 'package:go_router/go_router.dart';
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
 
+
+  /**
+     * Construct my App Bar -> Nav Bar
+     */
+    CustomAppBar buildCustomAppBar(){
+      return CustomAppBar(
+            title: 'FilieraToken-Shop',
+            leading: Image.asset('../assets/favicon.png'),
+      );
+    }
+
+
+
   @override
   Widget build(BuildContext context) {
 
@@ -14,10 +31,7 @@ class MyHomePage extends StatelessWidget {
     MaterialApp homePage = MaterialApp(
       title: 'FilieraToken-Shop',
       home: Scaffold(
-        appBar: AppBar(
-          title: const Center(child: Text('FilieraToken-Shop')), // Centra la scritta
-          leading: Image.asset('../assets/favicon.png'),
-        ),
+        appBar: buildCustomAppBar(),
         body: Center(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center, // Centra la riga

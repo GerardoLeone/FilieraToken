@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../molecules/custom_nav_bar.dart';
+
 class MySignInPage extends StatefulWidget {
   const MySignInPage({super.key, required this.title});
 
@@ -10,12 +12,26 @@ class MySignInPage extends StatefulWidget {
 }
 
 class _MySignInPage extends State<MySignInPage> {
+
+  /**
+     * Construct my App Bar -> Nav Bar
+     */
+    CustomAppBar buildCustomAppBar(){
+      return CustomAppBar(
+            title: 'FilieraToken-Shop',
+            leading: Image.asset('../assets/favicon.png'),
+      );
+    }
+
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
+      appBar: buildCustomAppBar(),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[

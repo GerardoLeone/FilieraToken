@@ -7,7 +7,7 @@ import 'package:filiera_token_front_end/components/organisms/sign_up.dart';
 import 'package:filiera_token_front_end/components/organisms/home_page.dart';
 
 
-void main() {
+void main() { 
   runApp(MyApp());
 }
 
@@ -25,10 +25,9 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
-
-
-
+/**
+ * Map Router 
+ */
 final GoRouter _router = GoRouter(
   initialLocation: '/',
   routes: [

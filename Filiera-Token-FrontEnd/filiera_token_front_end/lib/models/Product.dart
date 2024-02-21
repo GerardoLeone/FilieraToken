@@ -1,32 +1,42 @@
+import 'package:filiera_token_front_end/utils/enums.dart';
+
 abstract class Product {
 
-  
   const Product({
     required this.id,
+    required this.name,
+    required this.description,
+    required this.seller
   });
 
   final int id;
+  final String name;
+  final String description;
+  final String seller;
 
   String getBarcode();
 
   double getUnitPrice();
+  
+  Asset getAsset();
 
   @override
   String toString() => 'Prodotto(id: $id)';
 }
 
-
-
-
 class MilkBatch extends Product {
+
   const MilkBatch({
     required int id,
-    required this.scadenza,
+    required String name,
+    required String description,
+    required String seller,
+    required this.expirationDate,
     required this.quantity,
     required this.pricePerLitre,
-  }) : super(id: id);
+  }) : super(id: id, name: name, description: description, seller: seller);
 
-  final String scadenza;
+  final String expirationDate;
   final int quantity;
   final double pricePerLitre;
 
@@ -37,17 +47,24 @@ class MilkBatch extends Product {
   double getUnitPrice() => pricePerLitre;
 
   @override
-  String toString() => 'MilkBatch(id: $id, scadenza: $scadenza, '
+  String toString() => 'MilkBatch(id: $id, scadenza: $expirationDate, '
       'quantità: $quantity, prezzo al litro: $pricePerLitre)';
+  
+  @override
+  Asset getAsset() => Asset.MilkBatch;
 }
 
 class CheeseBlock extends Product {
+
   const CheeseBlock({
     required int id,
+    required String name,
+    required String description,
+    required String seller,
     required this.dop,
     required this.price,
     required this.quantity,
-  }) : super(id: id);
+  }) : super(id: id, name: name, description: description, seller: seller);
 
   final String dop;
   final double price;
@@ -62,14 +79,21 @@ class CheeseBlock extends Product {
   @override
   String toString() => 'Cheese(id: $id, dop: $dop, prezzo: $price, '
       'quantità: $quantity)';
+
+  @override
+  Asset getAsset() => Asset.CheeseBlock;
 }
 
 class CheesePiece extends Product {
+
   const CheesePiece({
     required int id,
+    required String name,
+    required String description,
+    required String seller,
     required this.price,
     required this.weight,
-  }) : super(id: id);
+  }) : super(id: id, name: name, description: description, seller: seller);
 
   final double price;
   final double weight;
@@ -82,4 +106,7 @@ class CheesePiece extends Product {
 
   @override
   String toString() => 'CheesePiece(id: $id, prezzo: $price, peso: $weight)';
+
+  @override
+  Asset getAsset() => Asset.CheesePiece;
 }

@@ -4,20 +4,20 @@ import 'package:filiera_token_front_end/utils/enums.dart';
 class CustomCard extends StatelessWidget {
   final String productName;
   final String description;
-  final String expirationDate;
+  final String? expirationDate; // Rendere la data di scadenza opzionale
   final String seller;
-  final int price;
+  final double price;
   final Asset image;
-  final VoidCallback? onTap; // Parametro opzionale per la funzione onTap
+  final VoidCallback? onTap;
 
-  const CustomCard({super.key, 
+  const CustomCard({
     required this.productName,
     required this.description,
-    required this.expirationDate,
+    this.expirationDate, // Aggiornato il tipo di dato
     required this.seller,
     required this.price,
     required this.image,
-    this.onTap, // Imposta il valore predefinito su null
+    this.onTap,
   });
 
   @override
@@ -30,7 +30,7 @@ class CustomCard extends StatelessWidget {
       clipBehavior: Clip.hardEdge,
       child: InkWell(
         splashColor: Colors.blue.withAlpha(90),
-        onTap: onTap, // Utilizza la funzione onTap fornita, se presente
+        onTap: onTap,
         child: SizedBox(
           width: 300,
           child: Column(
@@ -79,12 +79,13 @@ class CustomCard extends StatelessWidget {
                         fontSize: 14,
                       ),
                     ),
-                    Text(
-                      'Scadenza: $expirationDate',
-                      style: const TextStyle(
-                        fontSize: 12,
+                    if (expirationDate != null) // Verifica se la data di scadenza è fornita
+                      Text(
+                        'Scadenza: $expirationDate',
+                        style: const TextStyle(
+                          fontSize: 12,
+                        ),
                       ),
-                    ),
                     Text(
                       seller,
                       style: const TextStyle(

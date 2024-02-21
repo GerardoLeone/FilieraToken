@@ -69,7 +69,7 @@ class _UserProfilePageAnimations extends State<UserProfilePage>
           children: [
             CircleAvatar(
               radius: 50.0, // Modifica la dimensione dell'immagine se serve
-              backgroundImage: const NetworkImage("../assets/man.png"), // Sostituisci "utente.immagineProfilo" con la tua fonte dell'immagine
+              backgroundImage: const NetworkImage("assets/man.png"),
             ),
           ],
         ),

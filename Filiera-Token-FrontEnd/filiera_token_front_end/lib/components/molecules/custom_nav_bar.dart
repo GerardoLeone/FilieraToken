@@ -15,7 +15,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.actions,
     this.backgroundColor,
     this.centerTitle = true,
-    this.elevation = 0.0,
+    this.elevation = 0.0, 
+    required bool automaticallyImplyLeading,
   }) : super(key: key);
 
   @override
@@ -34,6 +35,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return CustomAppBar(
             title: 'FilieraToken-Shop',
             leading: Image.asset('../assets/favicon.png'),
+            automaticallyImplyLeading: false,
       );
   }
 

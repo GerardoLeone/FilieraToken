@@ -1,11 +1,10 @@
 import 'package:filiera_token_front_end/models/Product.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:filiera_token_front_end/components/molecules/custom_nav_bar.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_card.dart';
-import 'package:filiera_token_front_end/utils/enums.dart';
-import 'package:filiera_token_front_end/models/Product.dart';
 
 class HomePageUser extends StatefulWidget {
   const HomePageUser({Key? key}) : super(key: key);
@@ -47,7 +46,7 @@ class _HomePageState extends State<HomePageUser> {
   int currentPage = 0;
 
   CustomAppBar buildNavBar(BuildContext context){
-    return CustomAppBar(title: 'FilieraToken-Shop',
+    return CustomAppBar(title:"FilieraToken-Shop",
             leading: Image.asset('../assets/favicon.png'),
             actions: [
               // Button -> Profile 
@@ -62,7 +61,7 @@ class _HomePageState extends State<HomePageUser> {
                         child: const Text('Logout'),
                         onPressed: () => context.go('/'),
                         )
-            ],
+            ], automaticallyImplyLeading: false,
     );
   }
 

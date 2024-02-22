@@ -11,11 +11,11 @@ import 'package:filiera_token_front_end/components/organisms/home_user_page.dart
 
 
 // Profile Page 
-import 'package:filiera_token_front_end/components/organisms/user_profile_page.dart';
+import 'package:filiera_token_front_end/components/organisms/Profile/HomePage/user_profile_page.dart';
 
 // Profile Sub-Page
-import 'package:filiera_token_front_end/components/organisms/profile/user_profile_history.dart';
-import 'package:filiera_token_front_end/components/organisms/profile/user_profile_inventory.dart';
+import 'package:filiera_token_front_end/components/organisms/Profile/user_profile_history.dart';
+import 'package:filiera_token_front_end/components/organisms/Profile/user_profile_inventory.dart';
 
 void main() { 
   runApp(MyApp());

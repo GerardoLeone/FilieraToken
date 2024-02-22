@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:filiera_token_front_end/components/molecules/custom_menu_profile.dart';
+import 'package:filiera_token_front_end/components/organisms/Profile/HomePage/components/custom_menu_profile.dart';
+import 'package:filiera_token_front_end/components/organisms/Profile/HomePage/components/custom_view_profile.dart';
+import 'package:filiera_token_front_end/components/molecules/custom_nav_bar.dart';
+
 
 class UserProfilePage extends StatefulWidget {
 
@@ -15,6 +18,8 @@ class UserProfilePage extends StatefulWidget {
 
 class _UserProfilePageAnimations extends State<UserProfilePage>
     with SingleTickerProviderStateMixin {
+
+
   late AnimationController _drawerSlideController;
 
   @override
@@ -53,88 +58,6 @@ class _UserProfilePageAnimations extends State<UserProfilePage>
     }
   }
 
-
-  /**
-   * Build Form di Registrazione 
-   */
-  Widget _buildViewProfile(){
-           return 
-           Padding(
-          padding: const EdgeInsets.all(120.0),
-            child: Column(
-                  children: [
-
-                     Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            CircleAvatar(
-              radius: 50.0, // Modifica la dimensione dell'immagine se serve
-              backgroundImage: const NetworkImage("assets/man.png"),
-            ),
-          ],
-        ),
-        // Spazio tra le righe
-        const SizedBox(height: 16.0),
-            // Riga 2: Indirizzo e saldo
-            Row(
-              children: [
-                Expanded(
-                  child: 
-                  Text(
-                    utente.address,
-                    style: const TextStyle(fontSize: 16.0),
-                  ),
-                ),
-                const SizedBox(width: 16.0),
-                Text(
-                  "Saldo: \$" + utente.balance.toStringAsFixed(2),
-                  style: const TextStyle(fontSize: 16.0),
-                ),
-                const SizedBox(width: 8.0),
-                ElevatedButton(
-                  onPressed: () {
-                    // TODO: Implementare la ricarica del conto
-                  },
-                  child: const Text("Ricarica"),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16.0),
-            // Riga 3: Email
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    utente.email,
-                    style: const TextStyle(fontSize: 16.0),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16.0),
-            // Riga 4: Nome, cognome e password
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    utente.nome + " " + utente.cognome,
-                    style: const TextStyle(fontSize: 16.0),
-                  ),
-                ),
-                const SizedBox(width: 16.0),
-                Expanded(
-                  child: TextField(
-                    obscureText: true,
-                    decoration: const InputDecoration(
-                      labelText: "Password",
-                    ),
-                    controller: TextEditingController(text: utente.password),
-                  ),
-                ),
-              ],
-            ),
-          ],),);
-  }
 
   /**
    * Costruisci un Floating Button Action per l'eliminazione dell'account 
@@ -185,7 +108,7 @@ class _UserProfilePageAnimations extends State<UserProfilePage>
       appBar: _buildAppBar(),
       body: Stack(
         children: [
-          _buildContent(),
+          CustomViewProfile(),
           _buildDeleteAccountButton(),
           _buildDrawer(),
         ],
@@ -195,15 +118,10 @@ class _UserProfilePageAnimations extends State<UserProfilePage>
 
 
   PreferredSizeWidget _buildAppBar() {
-    return AppBar(
+    return CustomAppBar(
       leading: Image.asset('../assets/favicon.png'),
       centerTitle: true,
-      title: const Text(
-        'Filiera-Token-Shop',
-        style: TextStyle(
-          color: Colors.black,
-        ),
-      ),
+      title: 'Filiera-Token-Shop',
       backgroundColor: Colors.transparent,
       elevation: 0.0,
       automaticallyImplyLeading: false,
@@ -229,16 +147,6 @@ class _UserProfilePageAnimations extends State<UserProfilePage>
     );
   }
 
-  Widget _buildContent() {
-    return Column(
-      children: [
-        // Other content widgets
-        _buildViewProfile(),
-         // Add the registration form
-      ],
-    );
-  }
-
   Widget _buildDrawer() {
     return AnimatedBuilder(
       animation: _drawerSlideController,
@@ -250,34 +158,12 @@ class _UserProfilePageAnimations extends State<UserProfilePage>
       },
     );
   }
+
+
+
 }
 
 
 
-class Utente {
-  final String address;
-  final double balance;
-  final String email;
-  final String nome;
-  final String cognome;
-  final String password;
 
-  const Utente({
-    required this.address,
-    required this.balance,
-    required this.email,
-    required this.nome,
-    required this.cognome,
-    required this.password,
-  });
-}
-
-final utente = Utente(
-  address: "asdfjhafsdfbsjdhfbh39548454875",
-  balance: 100.0,
-  email: "email@utente.it",
-  nome: "Nome",
-  cognome: "Cognome",
-  password: "********",
-);
 

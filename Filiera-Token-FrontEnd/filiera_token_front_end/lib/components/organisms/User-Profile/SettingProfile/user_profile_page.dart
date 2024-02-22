@@ -5,21 +5,15 @@ import 'package:filiera_token_front_end/components/organisms/User-Profile/Settin
 import 'package:filiera_token_front_end/components/organisms/User-Profile/SettingProfile/components/custom_view_profile.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_nav_bar.dart';
 
-
 class UserProfilePage extends StatefulWidget {
 
-  const UserProfilePage({
-    super.key,
-  });
+  const UserProfilePage({super.key});
 
   @override
-  State<UserProfilePage> createState() =>
-      _UserProfilePageAnimations();
+  State<UserProfilePage> createState() => _UserProfilePageAnimations();
 }
 
-class _UserProfilePageAnimations extends State<UserProfilePage>
-    with SingleTickerProviderStateMixin {
-
+class _UserProfilePageAnimations extends State<UserProfilePage> with SingleTickerProviderStateMixin {
 
   late AnimationController _drawerSlideController;
 
@@ -60,12 +54,6 @@ class _UserProfilePageAnimations extends State<UserProfilePage>
   }
 
 
-  /**
-   * Costruisci un Floating Button Action per l'eliminazione dell'account 
-   */
-  
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,8 +61,8 @@ class _UserProfilePageAnimations extends State<UserProfilePage>
       appBar: _buildAppBar(),
       body: Stack(
         children: [
-          CustomViewProfile(),
-          CustomDeleteUserButton(),
+          const CustomViewProfile(),
+          const CustomDeleteUserButton(),
           _buildDrawer(),
         ],
       ),

@@ -109,9 +109,12 @@ class _MySignUpPage extends State<MySignUpPage> {
               children: <Widget>[
                 const Text('Hai già un account?'),
                 SizedBox(width: 20,height: 0),
+                
                 ElevatedButton(
-                  child: const Text('Accedi'),
-                  onPressed: () {},
+                  child: const Text('Login'),
+
+                  onPressed: () => context.go('/signin'),
+                
                 ),
               ],
             );

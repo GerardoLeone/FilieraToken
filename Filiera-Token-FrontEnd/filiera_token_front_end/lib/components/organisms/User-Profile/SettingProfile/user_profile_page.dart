@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
+// Components Page 
 import 'package:filiera_token_front_end/components/organisms/User-Profile/SettingProfile/components/custom_floating_button_delete.dart';
 import 'package:filiera_token_front_end/components/organisms/User-Profile/SettingProfile/components/custom_menu_profile.dart';
 import 'package:filiera_token_front_end/components/organisms/User-Profile/SettingProfile/components/custom_view_profile.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_nav_bar.dart';
+
 
 class UserProfilePage extends StatefulWidget {
 
@@ -12,6 +14,7 @@ class UserProfilePage extends StatefulWidget {
   @override
   State<UserProfilePage> createState() => _UserProfilePageAnimations();
 }
+
 
 class _UserProfilePageAnimations extends State<UserProfilePage> with SingleTickerProviderStateMixin {
 
@@ -69,7 +72,12 @@ class _UserProfilePageAnimations extends State<UserProfilePage> with SingleTicke
     );
   }
 
-
+  /**
+   * Construisce la NavBar Custom
+   * - Inserimento del Logo 
+   * - Inserimento del Testo 
+   * - Inserimento del Menù 
+   */
   PreferredSizeWidget _buildAppBar() {
     return CustomAppBar(
       leading: Image.asset('../assets/favicon.png'),
@@ -100,6 +108,7 @@ class _UserProfilePageAnimations extends State<UserProfilePage> with SingleTicke
     );
   }
 
+  
   Widget _buildDrawer() {
     return AnimatedBuilder(
       animation: _drawerSlideController,

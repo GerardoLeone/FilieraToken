@@ -31,6 +31,8 @@ class _CustomViewProfile extends State<CustomViewProfile> {
   }
 
 
+  //TODO : Remoxe Text with InputValidator 
+
   // Riga 1: Image, Wallet , Saldo
   Widget _buildFirstRow(){
     return Row(
@@ -49,7 +51,7 @@ class _CustomViewProfile extends State<CustomViewProfile> {
                 ),
               ),
 
-              SizedBox(width: 20,height: 20),
+              SizedBox(width: 20, height: 20),
                 Expanded(
                   child: 
                   Text(
@@ -59,7 +61,7 @@ class _CustomViewProfile extends State<CustomViewProfile> {
                 ),
                 const SizedBox(width: 3.0),
                 Text(
-                  "Saldo: \$" + utente.balance.toStringAsFixed(2),
+                  "Saldo: " + utente.balance.toStringAsFixed(0) + " FTL",
                   style: const TextStyle(fontSize: 16.0),
                 ),
                 const SizedBox(width: 8.0),

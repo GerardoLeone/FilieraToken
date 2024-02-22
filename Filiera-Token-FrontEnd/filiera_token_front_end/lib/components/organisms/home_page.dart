@@ -17,7 +17,7 @@ class MyHomePage extends StatelessWidget {
 
 
   /// La prima riga serve per testare la pagina di Registrazione e Login
-  buildFirstRow(BuildContext context){
+  Widget buildFirstRow(BuildContext context){
     return Row(
             mainAxisAlignment: MainAxisAlignment.center, // Centra la riga
             children: <Widget>[
@@ -53,7 +53,7 @@ class MyHomePage extends StatelessWidget {
   Widget buildSingInButton(BuildContext context){
     return ElevatedButton(
                   onPressed: () => context.go('/signin'),
-                style: ElevatedButton.styleFrom(
+                    style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
                     backgroundColor: Colors.blue,
                     shape: RoundedRectangleBorder(
@@ -62,7 +62,7 @@ class MyHomePage extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20), // Spazio interno
                     textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold), // Testo più grande e bold
                   ),
-                child: const Text('SignIn'),
+                  child: const Text('SignIn'),
                 );
   }
 
@@ -70,7 +70,7 @@ class MyHomePage extends StatelessWidget {
 
 
   /// Questa seconda riga e le successive ci serviranno solo per testare le varie rotte che ho abilitato nel main 
-  buildSecondRow(BuildContext context){
+  Widget buildSecondRow(BuildContext context){
       return 
       Row( // Second row for new buttons
             mainAxisAlignment: MainAxisAlignment.center, // Center horizontally
@@ -103,7 +103,6 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    
     MaterialApp homePage = MaterialApp(
       title: 'FilieraToken-Shop',
       home: Scaffold(

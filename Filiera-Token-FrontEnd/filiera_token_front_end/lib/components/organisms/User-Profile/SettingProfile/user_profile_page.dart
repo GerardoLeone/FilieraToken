@@ -1,7 +1,8 @@
-import 'package:filiera_token_front_end/components/organisms/User-Site/HomePage/components/custom_menu_profile.dart';
-import 'package:filiera_token_front_end/components/organisms/User-Site/HomePage/components/custom_view_profile.dart';
 import 'package:flutter/material.dart';
 
+import 'package:filiera_token_front_end/components/organisms/User-Profile/SettingProfile/components/custom_floating_button_delete.dart';
+import 'package:filiera_token_front_end/components/organisms/User-Profile/SettingProfile/components/custom_menu_profile.dart';
+import 'package:filiera_token_front_end/components/organisms/User-Profile/SettingProfile/components/custom_view_profile.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_nav_bar.dart';
 
 
@@ -62,43 +63,7 @@ class _UserProfilePageAnimations extends State<UserProfilePage>
   /**
    * Costruisci un Floating Button Action per l'eliminazione dell'account 
    */
-  Positioned _buildDeleteAccountButton(){
-
-    return Positioned(
-        bottom: 16.0,
-        right: 16.0,
-        child: FloatingActionButton(
-      onPressed: () {
-        // Mostra un dialogo di conferma per l'eliminazione dell'account
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: const Text("Elimina account"),
-            content: const Text("Sei sicuro di voler eliminare il tuo account?"),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: const Text("Annulla"),
-              ),
-              TextButton(
-                onPressed: () {
-                  // Elimina l'account
-                  // ...
-                  Navigator.pop(context);
-                },
-                child: const Text("Elimina"),
-              ),
-            ],
-          ),
-        );
-      },
-      backgroundColor: Colors.red,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-      ),
-      child: const Icon(Icons.delete),
-    ));
-  }
+  
 
 
   @override
@@ -109,7 +74,7 @@ class _UserProfilePageAnimations extends State<UserProfilePage>
       body: Stack(
         children: [
           CustomViewProfile(),
-          _buildDeleteAccountButton(),
+          CustomDeleteUserButton(),
           _buildDrawer(),
         ],
       ),

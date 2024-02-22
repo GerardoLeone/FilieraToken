@@ -1,22 +1,17 @@
-
-// Package Utils
-
-import 'package:filiera_token_front_end/components/molecules/custom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 
 
+// Package Utils
+import 'package:filiera_token_front_end/components/molecules/custom_nav_bar.dart';
+import 'package:filiera_token_front_end/components/atoms/custom_dropdown.dart';
+
 
 
 class MySignUpPage extends StatefulWidget {
 
-  const MySignUpPage(
-     {
-      super.key,
-      required this.title
-      }
-  );
+  const MySignUpPage({super.key,required this.title});
 
   final String title;
 
@@ -26,6 +21,11 @@ class MySignUpPage extends StatefulWidget {
 }
 
 class _MySignUpPage extends State<MySignUpPage> {
+
+  static const dropdownItems = ["MilkHub", "CheeseProducer", "Retailer", "Consumer"];
+  
+  late String selectedValueUserType;
+
 
 
   /**
@@ -88,10 +88,30 @@ class _MySignUpPage extends State<MySignUpPage> {
 
                 // Padding   
                 const SizedBox(height: 20,width: 20),
+                
+                // Select value of DropDown
+                CustomDropdown<String>(
+                    // Pass the item list
+                    items: dropdownItems,
+
+                    // Optionally set an initial value or use the first item as default
+                    value: "MilkHub", // Adjust as needed
+
+                    // Handle changes in the selection
+                    onChanged: (value) {
+                      setState(() {
+                        // Update selected value here, possibly triggering additional actions
+                        selectedValueUserType = value!;
+                      });
+                    },
+                  ),
+                
                 // Pulsante di iscrizione
                 ElevatedButton(
                     child: const Text('Registrati'),
-                    onPressed: () {},
+                    onPressed: ()  => {
+                      _checkUserRegistration(selectedValueUserType),
+                    }
                   ),
                 ],
               ),
@@ -120,6 +140,31 @@ class _MySignUpPage extends State<MySignUpPage> {
             );
   }
   
+
+
+  void _checkUserRegistration(String type){
+      switch(type){
+        case "MilkHub":{
+            /// Case MilkHub 
+            /// Register MilkHub Person 
+        }
+        case "CheeseProducer":{
+          /// Case CheeseProducer 
+          /// Register CheeseProducer
+
+        }
+        case "Retailer":{
+          /// Case Retailer 
+          /// Register Retailer Person 
+
+        }
+        case "Consumer":{
+            /// Case Consumer 
+            /// Register Consumer Person 
+        }
+      }
+  }
+
 
 
   @override

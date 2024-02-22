@@ -7,15 +7,15 @@ import 'package:filiera_token_front_end/components/organisms/sign_up.dart';
 import 'package:filiera_token_front_end/components/organisms/home_page.dart';
 
 // Page User 
-import 'package:filiera_token_front_end/components/organisms/home_user_page.dart';
+import 'package:filiera_token_front_end/components/organisms/User-Site/home_user_page.dart';
 
 
 // Profile Page 
-import 'package:filiera_token_front_end/components/organisms/Profile/HomePage/user_profile_page.dart';
+import 'package:filiera_token_front_end/components/organisms/User-Site/HomePage/user_profile_page.dart';
 
 // Profile Sub-Page
-import 'package:filiera_token_front_end/components/organisms/Profile/user_profile_history.dart';
-import 'package:filiera_token_front_end/components/organisms/Profile/user_profile_inventory.dart';
+import 'package:filiera_token_front_end/components/organisms/User-Site/History_Profile/user_profile_history.dart';
+import 'package:filiera_token_front_end/components/organisms/User-Site/Inventory/user_profile_inventory.dart';
 
 void main() { 
   runApp(MyApp());

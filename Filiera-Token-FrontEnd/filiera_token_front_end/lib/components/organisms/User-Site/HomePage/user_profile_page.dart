@@ -1,7 +1,7 @@
+import 'package:filiera_token_front_end/components/organisms/User-Site/HomePage/components/custom_menu_profile.dart';
+import 'package:filiera_token_front_end/components/organisms/User-Site/HomePage/components/custom_view_profile.dart';
 import 'package:flutter/material.dart';
 
-import 'package:filiera_token_front_end/components/organisms/Profile/HomePage/components/custom_menu_profile.dart';
-import 'package:filiera_token_front_end/components/organisms/Profile/HomePage/components/custom_view_profile.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_nav_bar.dart';
 
 

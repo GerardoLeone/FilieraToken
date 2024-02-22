@@ -1,6 +1,5 @@
 import 'package:filiera_token_front_end/models/Product.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:filiera_token_front_end/components/molecules/custom_nav_bar.dart';

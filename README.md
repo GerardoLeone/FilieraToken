@@ -2,9 +2,6 @@
 Il sistema proposto si concentra sulla gestione della filiera lattiero-casearia attraverso un'applicazione distribuita (DApp) basata su tecnologia blockchain. Gli attori coinvolti nella filiera sono il Centro di Raccolta e Trasformazione del Latte, il Produttore di Formaggio, il Retailer e il Consumatore.
 
 
-
-0xb9A219631Aed55eBC3D998f17C3840B7eC39C0cc
-
 # QBFT - Net 
 
     - [QBFT-Configuration] https://besu.hyperledger.org/stable/private-networks/tutorials/qbft

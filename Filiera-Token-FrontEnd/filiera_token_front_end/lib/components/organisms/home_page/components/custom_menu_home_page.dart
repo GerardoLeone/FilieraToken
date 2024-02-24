@@ -14,6 +14,7 @@ class _MenuState extends State<CustomMenuHomePage> with SingleTickerProviderStat
   static const _menuTitles = [
     'SignUp', /// Registrazione 
     'SignIn', /// Login  
+    'User-Home-Page' /// Home Page for All Product 
   ];
 
   static const _initialDelayTime = Duration(milliseconds: 50);
@@ -132,6 +133,9 @@ class _MenuState extends State<CustomMenuHomePage> with SingleTickerProviderStat
                 }else if(_menuTitles[i].compareTo('SignIn')==0){
                   // Product Buyed Routing 
                   context.go('/signin');
+                }else if(_menuTitles[i].compareTo('User-Home-Page') == 0){
+                  context.go('/home-page-user');
+
                 }
 
               },

@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class CustomMenu extends StatefulWidget {
-  const CustomMenu({super.key});
+class CustomMenuHomeUserPageEnv extends StatefulWidget {
+  const CustomMenuHomeUserPageEnv({super.key});
 
   @override
-  State<CustomMenu> createState() => _MenuState();
+  State<CustomMenuHomeUserPageEnv> createState() => _MenuState();
 }
 
-class _MenuState extends State<CustomMenu> with SingleTickerProviderStateMixin {
+class _MenuState extends State<CustomMenuHomeUserPageEnv> with SingleTickerProviderStateMixin {
   static const _menuTitles = [
-    'Product Buyed', // Inventory
-    'Inventory',
+    'Setting', // Go to Profile routing 
+    'Inventory', // Go to Inventory
+    'Product Buyed', // Go to Product Buyed 
     'History', // Transaction or Event of this User 
     'Logout', // Logout Routing 
-    'Shop' // Go to Shop routing 
   ];
 
   static const _initialDelayTime = Duration(milliseconds: 50);
@@ -125,24 +125,26 @@ class _MenuState extends State<CustomMenu> with SingleTickerProviderStateMixin {
             padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 16),
             child: ElevatedButton(
               onPressed: () {
-                if(_menuTitles[i].compareTo('Logout')==0){
+
+                if(_menuTitles[i].compareTo('Logout') == 0){
                   // Logout Routing 
                   context.go('/');
 
-                }else if(_menuTitles[i].compareTo('Product Buyed')==0){
+                }else if(_menuTitles[i].compareTo('Inventory') == 0){
                   // Product Buyed Routing 
-                  context.go('/home-page-user/profile/product-buyed');
+                  context.go('/home-page-user/profile/inventory');
 
-                }else if(_menuTitles[i].compareTo('History')==0){
+                }else if(_menuTitles[i].compareTo('History') == 0){
                   // History
+                  /// TODO: Rendere dinamica questa Route
                   context.go('/home-page-user/profile/history');
 
-                }else if(_menuTitles[i].compareTo('Shop')==0){
-                  // Go to shop home 
-                  context.go('/home-page-user');
-                }else if(_menuTitles[i].compareTo('Inventory')==0){
-                  // Inventory Routing 
-                  context.go('/home-page-user/profile/inventory');
+                }else if(_menuTitles[i].compareTo('Setting') ==0){
+
+                  context.go('/home-page-user/profile');
+
+                }else if(_menuTitles[i].compareTo('Product Buyed')==0){
+                  context.go('/home-page-user/profile/product-buyed');
                 }
                 },
               child: 

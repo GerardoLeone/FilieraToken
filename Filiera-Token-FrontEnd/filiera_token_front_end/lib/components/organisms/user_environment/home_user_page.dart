@@ -1,9 +1,10 @@
+import 'package:filiera_token_front_end/components/molecules/custom_product_list.dart';
+import 'package:filiera_token_front_end/components/organisms/user_environment/components/custom_menu_home_user_page_environment.dart';
 import 'package:filiera_token_front_end/models/Product.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:filiera_token_front_end/components/molecules/custom_nav_bar.dart';
-import 'package:filiera_token_front_end/components/molecules/custom_card.dart';
 
 class HomePageUser extends StatefulWidget {
   const HomePageUser({Key? key}) : super(key: key);
@@ -12,7 +13,47 @@ class HomePageUser extends StatefulWidget {
   State<HomePageUser> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePageUser> {
+class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateMixin {
+
+    late AnimationController _drawerSlideController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _drawerSlideController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 150),
+    );
+  }
+
+  @override
+  void dispose() {
+    _drawerSlideController.dispose();
+    super.dispose();
+  }
+
+  bool _isDrawerOpen() {
+    return _drawerSlideController.value == 1.0;
+  }
+
+  bool _isDrawerOpening() {
+    return _drawerSlideController.status == AnimationStatus.forward;
+  }
+
+  bool _isDrawerClosed() {
+    return _drawerSlideController.value == 0.0;
+  }
+
+  void _toggleDrawer() {
+    if (_isDrawerOpen() || _isDrawerOpening()) {
+      _drawerSlideController.reverse();
+    } else {
+      _drawerSlideController.forward();
+    }
+  }
+
+
 
   // Lista di prodotti fittizia
   final List<Product> products = [
@@ -44,65 +85,87 @@ class _HomePageState extends State<HomePageUser> {
   // Indice della pagina corrente
   int currentPage = 0;
 
-  CustomAppBar buildNavBar(BuildContext context){
-    return CustomAppBar(title:"FilieraToken-Shop",
-            leading: Image.asset('../assets/favicon.png'),
-            actions: [
-              // Button -> Profile 
-                ElevatedButton(
-                        child: const Text('Profile'),
-                        /// TODO :Update Route Logic 
-                        onPressed: () => context.go('/home-page-user/profile'),
-                        ),
-              SizedBox(width: 20),
-              // Button -> Logout -> Home Page Filiera Token 
-                ElevatedButton(
-                        child: const Text('Logout'),
-                        onPressed: () => context.go('/'),
-                        )
-            ], automaticallyImplyLeading: false,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildNavBar(context),
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          final cardWidth = 300.0; // Larghezza desiderata per ogni card
-          final crossAxisCount = (constraints.maxWidth / cardWidth).floor();
-
-          return SingleChildScrollView(
-            child: GridView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: crossAxisCount,
-                childAspectRatio: cardWidth / (cardWidth * 0.85), // Rapporto larghezza/altezza desiderato
+      appBar: _buildAppBar(),
+      body: Stack(
+        children: [
+            Padding(
+              padding: EdgeInsets.all(50.5),
+              child: SingleChildScrollView(
+                child:  
+                  CustomProductList(products: products, onProductTap: handleProductTap),
+                ),
               ),
-              itemCount: products.length,
-              itemBuilder: (context, index) {
-                return _buildProdottoCard(products[index]);
-              },
-            ),
-          );
-        },
-      ),
+              _buildDrawer(),
+        ],
+        ), 
+    );
+  }
+
+  void handleProductTap(BuildContext context, Product product) {
+    // Fai qualcosa in base alla pagina in cui ti trovi
+    print("Prodotto ${product.name} cliccato!");
+    // Esegui azioni diverse in base alla pagina
+    /*DialogProductDetails.show(
+      context, 
+      product,
+      PurchaseDialog(product: product));*/
+  }
+
+
+    /**
+   * Construisce la NavBar Custom
+   * - Inserimento del Logo 
+   * - Inserimento del Testo 
+   * - Inserimento del Menù 
+   */
+  PreferredSizeWidget _buildAppBar() {
+    return CustomAppBar(
+      leading: Image.asset('../assets/favicon.png'),
+      centerTitle: true,
+      title: 'Filiera-Token-Shop',
+      backgroundColor: Colors.transparent,
+      elevation: 0.0,
+      automaticallyImplyLeading: false,
+      actions: [
+        AnimatedBuilder(
+          animation: _drawerSlideController,
+          builder: (context, child) {
+            return IconButton(
+              onPressed: _toggleDrawer,
+              icon: _isDrawerOpen() || _isDrawerOpening()
+                  ? const Icon(
+                      Icons.clear,
+                      color: Colors.black,
+                    )
+                  : const Icon(
+                      Icons.menu,
+                      color: Colors.black,
+                    ),
+            );
+          },
+        ),
+      ],
+    );
+  }
+
+  
+  Widget _buildDrawer() {
+    return AnimatedBuilder(
+      animation: _drawerSlideController,
+      builder: (context, child) {
+        return FractionalTranslation(
+          translation: Offset(1.0 - _drawerSlideController.value, 0.0),
+          child: _isDrawerClosed() ? const SizedBox() : const CustomMenuHomeUserPageEnv(),
+        );
+      },
     );
   }
 
 
 
-  Widget _buildProdottoCard(Product product) {
-    return CustomCard(
-      productName: product.name,
-      description: product.description,
-      expirationDate: (product is MilkBatch) ? product.expirationDate : null,
-      seller: product.seller,
-      price: product.getUnitPrice(),
-      image: product.getAsset(),
-      onTap: () => {},
-    );
-  }
+
+
 }

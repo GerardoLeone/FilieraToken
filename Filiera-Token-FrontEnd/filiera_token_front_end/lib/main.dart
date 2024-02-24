@@ -1,3 +1,7 @@
+import 'package:filiera_token_front_end/components/organisms/user_environment/history_profile/user_profile_history.dart';
+import 'package:filiera_token_front_end/components/organisms/user_environment/home_user_page.dart';
+import 'package:filiera_token_front_end/components/organisms/user_environment/inventory_profile/user_profile_inventory.dart';
+import 'package:filiera_token_front_end/components/organisms/user_environment/setting_profile/setting_user_profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -7,15 +11,14 @@ import 'package:filiera_token_front_end/components/organisms/sign_up_page/sign_u
 import 'package:filiera_token_front_end/components/organisms/home_page/home_page.dart';
 
 // Page User 
-import 'package:filiera_token_front_end/components/organisms/user_environment/home_user_page.dart';
 
 
 // Profile Page 
-import 'package:filiera_token_front_end/components/organisms/user_environment/setting_profile/setting_user_profile_page.dart';
+//import 'package:filiera_token_front_end/components/organisms/user_environment/setting_profile/setting_user_profile_page.dart';
 
 // Profile Sub-Page
-import 'package:filiera_token_front_end/components/organisms/user_environment/history_profile/user_profile_history.dart';
-import 'package:filiera_token_front_end/components/organisms/user_environment/inventory_profile/user_profile_inventory.dart';
+//import 'package:filiera_token_front_end/components/organisms/user_environment/history_profile/user_profile_history.dart';
+//import 'package:filiera_token_front_end/components/organisms/user_environment/inventory_profile/user_profile_inventory.dart';
 
 void main() { 
   runApp(MyApp());

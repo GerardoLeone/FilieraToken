@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class UserProfileInventoryProductPage extends StatelessWidget {
+class UserProfileHistoryPage extends StatelessWidget {
   
-  const UserProfileInventoryProductPage({
+  const UserProfileHistoryPage({
     super.key,
   });
   

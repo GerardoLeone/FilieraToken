@@ -1,5 +1,5 @@
-import 'package:filiera_token_front_end/components/organisms/User-Profile/InventoryProfile/components/dialog_conversion_center.dart';
-import 'package:filiera_token_front_end/components/organisms/User-Profile/InventoryProfile/components/dialog_conversion_right.dart';
+import 'package:filiera_token_front_end/components/organisms/user_environment/inventory_profile/components/dialog_conversion_center.dart';
+import 'package:filiera_token_front_end/components/organisms/user_environment/inventory_profile/components/dialog_conversion_right.dart';
 import 'package:filiera_token_front_end/models/Product.dart';
 import 'package:filiera_token_front_end/utils/enums.dart';
 import 'package:flutter/material.dart';

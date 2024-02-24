@@ -1,9 +1,11 @@
+import 'package:filiera_token_front_end/components/molecules/custom_product_list.dart';
+import 'package:filiera_token_front_end/components/organisms/User-Profile/ProductBuy/dialog_product_details.dart';
+import 'package:filiera_token_front_end/components/organisms/User-Profile/ProductBuy/dialog_product_purchase.dart';
 import 'package:filiera_token_front_end/models/Product.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:filiera_token_front_end/components/molecules/custom_nav_bar.dart';
-import 'package:filiera_token_front_end/components/molecules/custom_card.dart';
 
 class HomePageUser extends StatefulWidget {
   const HomePageUser({Key? key}) : super(key: key);
@@ -68,41 +70,17 @@ class _HomePageState extends State<HomePageUser> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildNavBar(context),
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          final cardWidth = 300.0; // Larghezza desiderata per ogni card
-          final crossAxisCount = (constraints.maxWidth / cardWidth).floor();
-
-          return SingleChildScrollView(
-            child: GridView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: crossAxisCount,
-                childAspectRatio: cardWidth / (cardWidth * 0.85), // Rapporto larghezza/altezza desiderato
-              ),
-              itemCount: products.length,
-              itemBuilder: (context, index) {
-                return _buildProdottoCard(products[index]);
-              },
-            ),
-          );
-        },
-      ),
+      body: CustomProductList(products: products, onProductTap: handleProductTap),
     );
   }
 
-
-
-  Widget _buildProdottoCard(Product product) {
-    return CustomCard(
-      productName: product.name,
-      description: product.description,
-      expirationDate: (product is MilkBatch) ? product.expirationDate : null,
-      seller: product.seller,
-      price: product.getUnitPrice(),
-      image: product.getAsset(),
-      onTap: () => {},
-    );
+  void handleProductTap(BuildContext context, Product product) {
+    // Fai qualcosa in base alla pagina in cui ti trovi
+    print("Prodotto ${product.name} cliccato!");
+    // Esegui azioni diverse in base alla pagina
+    /*DialogProductDetails.show(
+      context, 
+      product,
+      PurchaseDialog(product: product));*/
   }
 }

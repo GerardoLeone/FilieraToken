@@ -20,6 +20,12 @@ abstract class Product {
   
   Asset getAsset();
 
+  /*
+   *  Metodi necessari per frontend
+   */
+  String getExpirationDate();
+  int getQuantity();
+
   @override
   String toString() => 'Prodotto(id: $id)';
 }
@@ -52,6 +58,12 @@ class MilkBatch extends Product {
   
   @override
   Asset getAsset() => Asset.MilkBatch;
+
+  @override
+  String getExpirationDate() => expirationDate;
+
+  @override
+  int getQuantity() => quantity;
 }
 
 class CheeseBlock extends Product {
@@ -82,6 +94,12 @@ class CheeseBlock extends Product {
 
   @override
   Asset getAsset() => Asset.CheeseBlock;
+
+  @override
+  String getExpirationDate() => '';
+
+  @override
+  int getQuantity() => quantity;
 }
 
 class CheesePiece extends Product {
@@ -109,4 +127,10 @@ class CheesePiece extends Product {
 
   @override
   Asset getAsset() => Asset.CheesePiece;
+
+  @override
+  String getExpirationDate() => '';
+
+  @override
+  int getQuantity() => 1;
 }

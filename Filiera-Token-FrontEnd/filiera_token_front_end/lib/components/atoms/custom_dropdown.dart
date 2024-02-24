@@ -18,6 +18,7 @@ class CustomDropdown<T> extends StatefulWidget {
 }
 
 class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
+  
   late T selectedValue;
   CustomType type = CustomType.neutral;
 

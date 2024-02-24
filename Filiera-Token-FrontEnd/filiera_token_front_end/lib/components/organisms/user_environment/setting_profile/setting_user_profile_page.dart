@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 // Components Page 
-import 'package:filiera_token_front_end/components/organisms/User-Profile/SettingProfile/components/custom_floating_button_delete.dart';
-import 'package:filiera_token_front_end/components/organisms/User-Profile/SettingProfile/components/custom_menu_profile.dart';
-import 'package:filiera_token_front_end/components/organisms/User-Profile/SettingProfile/components/custom_view_profile.dart';
+import 'package:filiera_token_front_end/components/organisms/user_environment/setting_profile/components/custom_floating_button_delete.dart';
+import 'package:filiera_token_front_end/components/organisms/user_environment/setting_profile/components/custom_menu_profile.dart';
+import 'package:filiera_token_front_end/components/organisms/user_environment/setting_profile/components/custom_view_profile.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_nav_bar.dart';
 
 

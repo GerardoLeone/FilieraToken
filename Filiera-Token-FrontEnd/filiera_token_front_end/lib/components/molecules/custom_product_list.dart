@@ -6,8 +6,10 @@ class CustomProductList extends StatelessWidget {
   final List<Product> products;
   final void Function(BuildContext, Product) onProductTap; // Callback per gestire il tap del prodotto
 
-  const CustomProductList({Key? key, required this.products, required this.onProductTap})
-      : super(key: key);
+  const CustomProductList({
+    Key? key,
+    required this.products,
+    required this.onProductTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

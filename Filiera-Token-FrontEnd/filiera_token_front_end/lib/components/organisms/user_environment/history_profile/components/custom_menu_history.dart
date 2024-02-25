@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class CustomMenuUserInventory extends StatefulWidget {
-  const CustomMenuUserInventory({super.key});
+class CustomMenuHistory extends StatefulWidget {
+  const CustomMenuHistory({super.key});
 
   @override
-  State<CustomMenuUserInventory> createState() => _MenuState();
+  State<CustomMenuHistory> createState() => _MenuState();
 }
 
-class _MenuState extends State<CustomMenuUserInventory> with SingleTickerProviderStateMixin {
+class _MenuState extends State<CustomMenuHistory> with SingleTickerProviderStateMixin {
   static const _menuTitles = [
     'Setting', // Go to profile setting 
-    'Product Buyed', // Product Buyed
-    'History', // Transaction or Event of this User 
+    'Inventory', // Inventory
+    'Product Buyed', // Transaction or Event of this User 
     'Logout', // Logout Routing 
     'Shop' // Go to Shop routing 
   ];
@@ -129,13 +129,13 @@ class _MenuState extends State<CustomMenuUserInventory> with SingleTickerProvide
                   // Logout Routing 
                   context.go('/');
 
-                }else if(_menuTitles[i].compareTo('Product Buyed')==0){
-                  // Product Buyed Routing 
-                  context.go('/home-page-user/profile/product-buyed');
+                }else if(_menuTitles[i].compareTo('Inventory')==0){
+                  // Inventory Routing 
+                  context.go('/home-page-user/profile/inventory');
 
-                }else if(_menuTitles[i].compareTo('History')==0){
+                }else if(_menuTitles[i].compareTo('Product Buyed')==0){
                   // History
-                  context.go('/home-page-user/profile/history');
+                  context.go('/home-page-user/profile/product-buyed');
 
                 }else if(_menuTitles[i].compareTo('Shop')==0){
                   // Go to shop home 

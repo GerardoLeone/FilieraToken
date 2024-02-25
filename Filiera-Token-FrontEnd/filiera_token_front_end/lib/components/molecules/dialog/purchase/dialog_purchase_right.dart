@@ -4,6 +4,7 @@ class DialogPurchaseRight extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 200,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -47,13 +48,6 @@ class DialogPurchaseRight extends StatelessWidget {
                 ),
               ],
             ),
-          ),
-          Spacer(),
-          ElevatedButton(
-            onPressed: () {
-              // Azioni del pulsante
-            },
-            child: Text('Buy'),
           ),
         ],
       ),

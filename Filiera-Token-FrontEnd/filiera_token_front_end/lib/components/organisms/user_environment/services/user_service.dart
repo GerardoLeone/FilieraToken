@@ -1,4 +1,4 @@
-import 'dart:async';
+import 'dart:async' show Future;
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -65,7 +65,7 @@ class UserSerivce {
     } else {
       // Errore nella richiesta
       final error = jsonDecode(response.body)['error'];
-      print('Registrazione Non avvenuta!');
+      print('Registrazione Non avvenuta!' + error);
       return false;
     }
   }

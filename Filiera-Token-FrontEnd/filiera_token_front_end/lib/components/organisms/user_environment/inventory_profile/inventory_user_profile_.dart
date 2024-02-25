@@ -2,7 +2,7 @@ import 'package:filiera_token_front_end/components/molecules/custom_nav_bar.dart
 import 'package:filiera_token_front_end/components/molecules/custom_product_list.dart';
 import 'package:filiera_token_front_end/components/organisms/user_environment/inventory_profile/components/custom_floating_button_add.dart';
 import 'package:filiera_token_front_end/components/organisms/user_environment/inventory_profile/components/custom_menu_user_inventory.dart';
-import 'package:filiera_token_front_end/components/molecules/dialog_product_details.dart';
+import 'package:filiera_token_front_end/components/molecules/dialog/dialog_product_details.dart';
 import 'package:filiera_token_front_end/models/Product.dart';
 import 'package:filiera_token_front_end/utils/enums.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +19,7 @@ class UserProfileInventoryProductPage extends StatefulWidget {
 
 class _UserProfileInventoryProductPageState extends State<UserProfileInventoryProductPage> with SingleTickerProviderStateMixin{
 
-      late AnimationController _drawerSlideController;
+  late AnimationController _drawerSlideController;
 
   @override
   void initState() {
@@ -90,25 +90,22 @@ class _UserProfileInventoryProductPageState extends State<UserProfileInventoryPr
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Scaffold(
+    return Scaffold(
           appBar: _buildAppBar(),
-          body: Padding(
-            padding: EdgeInsets.all(50.5),
-            child: SingleChildScrollView(
-              child: CustomProductList(products: products, onProductTap: handleProductTap),
+          body: Stack(
+          children: [
+            const CustomAddMilkBatchButton(),
+            Padding(
+              padding: EdgeInsets.all(50.5),
+              child: SingleChildScrollView(
+                child:  
+                  CustomProductList(products: products, onProductTap: handleProductTap),
+                ),
+              ),
+          _buildDrawer(),
+          ],
             ),
-          ),
-          drawer: _buildDrawer(),
-        ),
-        Positioned(
-          bottom: 16.0,
-          right: 16.0,
-          child: CustomAddMilkBatchButton(),
-        ),
-      ],
-    );
+          );
   }
 
 
@@ -124,7 +121,7 @@ class _UserProfileInventoryProductPageState extends State<UserProfileInventoryPr
     return CustomAppBar(
       leading: Image.asset('../assets/favicon.png'),
       centerTitle: true,
-      title: 'Filiera-Token-Shop',
+      title: 'Filiera-Token-Inventory',
       backgroundColor: Colors.transparent,
       elevation: 0.0,
       automaticallyImplyLeading: false,

@@ -1,4 +1,4 @@
-import 'package:filiera_token_front_end/components/molecules/custom_alert_dialog.dart';
+import 'package:filiera_token_front_end/components/molecules/dialog/custom_alert_dialog.dart';
 import 'package:filiera_token_front_end/components/organisms/sign_up_page/components/custom_menu_singup.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

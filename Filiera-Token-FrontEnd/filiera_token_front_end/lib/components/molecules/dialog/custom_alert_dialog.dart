@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 
 class CustomPopUpDialog  {
 
+  /// --------------------------------------------------------------------- Registration Dialog ----------------------------------------------------------------------
+
   void showSuccessPopupRegistration(BuildContext context) {
   showDialog(
     context: context,
@@ -86,6 +88,8 @@ class CustomPopUpDialog  {
       Navigator.of(context).pop();
   });
   }
+  
+  /// --------------------------------------------------------------------- Login Dialog ----------------------------------------------------------------------
 
 
   void showSuccessPopupLogin(BuildContext context) {
@@ -172,38 +176,9 @@ class CustomPopUpDialog  {
   });
   }
 
-  static void  showConversionSuccess(BuildContext context, String msg) {
-  showDialog(
-    context: context,
-    builder: (context) {
-      return AlertDialog(
-        title: Text('Stato Conversione'),
-        content: Text(msg),
-        actions: [
-        ],
-        backgroundColor: Colors.red[50], // Colore rosso
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16.0),
-        ),
-        contentTextStyle: TextStyle(
-          color: Colors.black,
-          fontSize: 16.0,
-        ),
-        titleTextStyle: TextStyle(
-          color: Colors.black,
-          fontSize: 18.0,
-          fontWeight: FontWeight.bold,
-        ),
-        actionsPadding: EdgeInsets.symmetric(horizontal: 16.0),
-        elevation: 4.0,
-        icon: Icon(
-          Icons.check,
-          color: Colors.green,
-          size: 32.0 ),
-          );
-    },
-  );
-  }
+
+  /// --------------------------------------------------------------------- CheeseBlock Dialog ----------------------------------------------------------------------
+
 
   static void  showMilkBatchAddSuccess(BuildContext context, String msg) {
   showDialog(
@@ -237,4 +212,63 @@ class CustomPopUpDialog  {
     },
   );
   }
+
+  static void showMilkBatchAddError(BuildContext context){
+    /// TODO : Error adding MilkBatch 
+  }
+
+
+  /// --------------------------------------------------------------------- CheeseBlock Dialog ----------------------------------------------------------------------
+
+  static void showCheeseBlockAddSuccess(BuildContext context){
+    /// TODO : Success adding CheeseBlock 
+  
+  }
+
+  static void showCheeseBlockAddError(BuildContext context){
+    /// TODO : Error adding CheeseBlock 
+  }
+
+
+  /// --------------------------------------------------------------------- Conversion Action ---------------------------------------------------------------------------------
+  
+  static void  showConversionSuccess(BuildContext context, String msg) {
+      showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Stato Conversione'),
+          content: Text(msg),
+          actions: [
+          ],
+          backgroundColor: Colors.red[50], // Colore rosso
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.0),
+          ),
+          contentTextStyle: TextStyle(
+            color: Colors.black,
+            fontSize: 16.0,
+          ),
+          titleTextStyle: TextStyle(
+            color: Colors.black,
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+          ),
+          actionsPadding: EdgeInsets.symmetric(horizontal: 16.0),
+          elevation: 4.0,
+          icon: Icon(
+            Icons.check,
+            color: Colors.green,
+            size: 32.0 ),
+            );
+      },
+    );
+  }
+
+  static void showConversionError(BuildContext context){
+    /// TODO : Error Conversion 
+  }
+
+
+
 }

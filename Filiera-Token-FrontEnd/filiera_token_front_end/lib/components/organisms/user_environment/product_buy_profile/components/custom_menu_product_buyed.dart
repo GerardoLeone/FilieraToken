@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class CustomMenuUserInventory extends StatefulWidget {
-  const CustomMenuUserInventory({super.key});
+class CustomMenuUserProductBuyed extends StatefulWidget {
+  const CustomMenuUserProductBuyed({super.key});
 
   @override
-  State<CustomMenuUserInventory> createState() => _MenuState();
+  State<CustomMenuUserProductBuyed> createState() => _MenuState();
 }
 
-class _MenuState extends State<CustomMenuUserInventory> with SingleTickerProviderStateMixin {
+class _MenuState extends State<CustomMenuUserProductBuyed> with SingleTickerProviderStateMixin {
   static const _menuTitles = [
     'Setting', // Go to profile setting 
-    'Product Buyed', // Product Buyed
+    'Inventory', // Inventory
     'History', // Transaction or Event of this User 
     'Logout', // Logout Routing 
     'Shop' // Go to Shop routing 
@@ -128,10 +128,10 @@ class _MenuState extends State<CustomMenuUserInventory> with SingleTickerProvide
                 if(_menuTitles[i].compareTo('Logout')==0){
                   // Logout Routing 
                   context.go('/');
-
-                }else if(_menuTitles[i].compareTo('Product Buyed')==0){
+                  
+                }else if(_menuTitles[i].compareTo('Inventory')==0){
                   // Product Buyed Routing 
-                  context.go('/home-page-user/profile/product-buyed');
+                  context.go('/home-page-user/profile/inventory');
 
                 }else if(_menuTitles[i].compareTo('History')==0){
                   // History

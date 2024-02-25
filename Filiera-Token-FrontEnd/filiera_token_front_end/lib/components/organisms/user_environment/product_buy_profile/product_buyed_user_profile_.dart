@@ -1,11 +1,10 @@
 import 'package:filiera_token_front_end/components/molecules/custom_nav_bar.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_product_list.dart';
-import 'package:filiera_token_front_end/components/organisms/user_environment/inventory_profile/components/custom_menu_user_inventory.dart';
-import 'package:filiera_token_front_end/components/molecules/dialog_product_details.dart';
+import 'package:filiera_token_front_end/components/molecules/dialog/dialog_product_details.dart';
+import 'package:filiera_token_front_end/components/organisms/user_environment/product_buy_profile/components/custom_menu_product_buyed.dart';
 import 'package:filiera_token_front_end/models/Product.dart';
 import 'package:filiera_token_front_end/utils/enums.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 //Prodotti acquistati
 class UserProfileProductBuyed extends StatefulWidget {
@@ -18,7 +17,7 @@ class UserProfileProductBuyed extends StatefulWidget {
 
 class _UserProfileProductBuyedState extends State<UserProfileProductBuyed> with SingleTickerProviderStateMixin{
 
-      late AnimationController _drawerSlideController;
+  late AnimationController _drawerSlideController;
 
   @override
   void initState() {
@@ -117,7 +116,7 @@ class _UserProfileProductBuyedState extends State<UserProfileProductBuyed> with 
     return CustomAppBar(
       leading: Image.asset('../assets/favicon.png'),
       centerTitle: true,
-      title: 'Filiera-Token-Shop',
+      title: 'Filiera-Token-Product-Buyed',
       backgroundColor: Colors.transparent,
       elevation: 0.0,
       automaticallyImplyLeading: false,
@@ -150,7 +149,7 @@ class _UserProfileProductBuyedState extends State<UserProfileProductBuyed> with 
       builder: (context, child) {
         return FractionalTranslation(
           translation: Offset(1.0 - _drawerSlideController.value, 0.0),
-          child: _isDrawerClosed() ? const SizedBox() : const CustomMenuUserInventory(),
+          child: _isDrawerClosed() ? const SizedBox() : const CustomMenuUserProductBuyed(),
         );
       },
     );

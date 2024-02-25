@@ -1,7 +1,9 @@
-import 'package:filiera_token_front_end/components/organisms/user_environment/components/dialog_purchase_center.dart';
-import 'package:filiera_token_front_end/components/organisms/user_environment/components/dialog_purchase_right.dart';
-import 'package:filiera_token_front_end/components/organisms/user_environment/product_buy_profile/components/dialog_conversion_center.dart';
-import 'package:filiera_token_front_end/components/organisms/user_environment/product_buy_profile/components/dialog_conversion_right.dart';
+import 'package:filiera_token_front_end/components/molecules/dialog/purchase/dialog_purchase_center.dart';
+import 'package:filiera_token_front_end/components/molecules/dialog/purchase/dialog_purchase_right.dart';
+
+
+import 'package:filiera_token_front_end/components/molecules/dialog/conversion/dialog_conversion_center.dart';
+import 'package:filiera_token_front_end/components/molecules/dialog/conversion/dialog_conversion_right.dart';
 import 'package:filiera_token_front_end/models/Product.dart';
 import 'package:filiera_token_front_end/utils/enums.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +12,7 @@ class DialogProductDetails extends StatelessWidget {
   final Product product;
   final DialogType dialogType; // Nuovo parametro
 
-  DialogProductDetails({
+  const DialogProductDetails({
     required this.product,
     required this.dialogType,
   });
@@ -24,53 +26,49 @@ class DialogProductDetails extends StatelessWidget {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Dialog(
+
+    Widget _buildLeftColumn(BuildContext context) {
+    return Expanded(
       child: Container(
-        width: 624.0,
-        height: 350.0,
-        margin: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Colonna di sinistra
-            Container(
-              width: 200.0,
-              margin: EdgeInsets.fromLTRB(0.0, 0.0, 8.0, 0.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    height: 100.0,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8.0),
-                      image: DecorationImage(
-                        image: AssetImage(Enums.getAssetPath(product.getAsset())),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: Text('Back'),
-                    ),
-                  ),
-                ],
+        width: 100,
+        decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            height: 150.0,
+            width: 200.0,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8.0),
+              image: DecorationImage(
+                image: AssetImage(Enums.getAssetPath(product.getAsset())),
+                fit: BoxFit.cover,
               ),
             ),
-            // Spazio tra le colonne
-            SizedBox(width: 8.0),
-            // Colonna centrale
-            Container(
-              width: 200.0,
+          ),
+          SizedBox(height: 16.0), // Adjust spacing as needed
+          ElevatedButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text('Back'),
+            style: ElevatedButton.styleFrom(
+              minimumSize: Size(80, 40), // Adjust button size as needed
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+
+  /// Center Column 
+  Widget _buildCenterColumn(BuildContext context){
+    return Expanded(
+      child: Container(
+              width: 250,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -79,25 +77,46 @@ class DialogProductDetails extends StatelessWidget {
                     InfoTile('Scadenza', ' ${product.getExpirationDate()}'),
                   InfoTile('Quantità disponibile', ' ${product.getQuantity()}'),
                   InfoTile('Prezzo', ' \$${product.getUnitPrice()}'),
-                  Spacer(),
+                  SizedBox(height: 30),
                   if(dialogType == DialogType.DialogConversion)
+
                     DialogConversionCenter(product: product)
                   else if(dialogType == DialogType.DialogPurchase)
+                    
                     DialogPurchaseCenter(product: product)
                 ],
               ),
-            ),
-            // Spazio tra le colonne
-            SizedBox(width: 8.0),
-            // Colonna destra
-            Container(
-              width: 200.0,
-              child: (dialogType == DialogType.DialogConversion)
-                  ? DialogConversionRight()
-                  : DialogPurchaseRight(), // Puoi fornire un widget vuoto o un altro widget di fallback
             )
+    );
+  }
 
-          ],
+  /// Right Column 
+  Widget _buildRightColumn(BuildContext context){
+    return IntrinsicWidth(
+              child: (dialogType == DialogType.DialogConversion) ? DialogConversionRight() : DialogPurchaseRight(), // Puoi fornire un widget vuoto o un altro widget di fallback
+            );
+  }
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      child: IntrinsicWidth(
+        stepHeight: 5.5,
+        child: Container(
+          child: Padding(
+            padding: EdgeInsets.all(30.5),
+            child: Row(
+              children: [
+                _buildLeftColumn(context),
+                SizedBox(width: 30.0),
+                _buildCenterColumn(context),
+                SizedBox(width: 30.0),
+                _buildRightColumn(context),
+              ],
+            ),
+          ),
         ),
       ),
     );

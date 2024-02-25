@@ -10,8 +10,8 @@ class CustomMenu extends StatefulWidget {
 
 class _MenuState extends State<CustomMenu> with SingleTickerProviderStateMixin {
   static const _menuTitles = [
-    'Product Buyed', // Inventory
-    'Inventory',
+    'Product Buyed', // Product Buyed
+    'Inventory',// Inventory
     'History', // Transaction or Event of this User 
     'Logout', // Logout Routing 
     'Shop' // Go to Shop routing 

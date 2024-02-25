@@ -1,7 +1,7 @@
-import 'package:filiera_token_front_end/components/organisms/user_environment/history_profile/user_profile_history.dart';
+import 'package:filiera_token_front_end/components/organisms/user_environment/history_profile/history_user_profile_.dart';
 import 'package:filiera_token_front_end/components/organisms/user_environment/home_user_page.dart';
-import 'package:filiera_token_front_end/components/organisms/user_environment/inventory_profile/user_profile_inventory.dart';
-import 'package:filiera_token_front_end/components/organisms/user_environment/product_buy_profile/user_profile_product_buyed.dart';
+import 'package:filiera_token_front_end/components/organisms/user_environment/inventory_profile/inventory_user_profile_.dart';
+import 'package:filiera_token_front_end/components/organisms/user_environment/product_buy_profile/product_buyed_user_profile_.dart';
 import 'package:filiera_token_front_end/components/organisms/user_environment/setting_profile/setting_user_profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

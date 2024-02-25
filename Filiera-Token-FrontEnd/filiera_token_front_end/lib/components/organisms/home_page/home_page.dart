@@ -5,7 +5,6 @@ import 'package:filiera_token_front_end/components/organisms/home_page/component
 
 
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 
 
@@ -85,12 +84,10 @@ class _HomePageAnimations extends State<MyHomePage> with SingleTickerProviderSta
     return homePage;
   }
 
-   /**
-   * Construisce la NavBar Custom
-   * - Inserimento del Logo 
-   * - Inserimento del Testo 
-   * - Inserimento del Menù 
-   */
+   /// Construisce la NavBar Custom
+   /// - Inserimento del Logo 
+   /// - Inserimento del Testo 
+   /// - Inserimento del Menù 
   PreferredSizeWidget _buildAppBar() {
     return CustomAppBar(
       leading: Image.asset('../assets/favicon.png'),

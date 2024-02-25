@@ -1,10 +1,9 @@
 import 'package:filiera_token_front_end/components/molecules/custom_product_list.dart';
-import 'package:filiera_token_front_end/components/molecules/dialog_product_details.dart';
+import 'package:filiera_token_front_end/components/molecules/dialog/dialog_product_details.dart';
 import 'package:filiera_token_front_end/components/organisms/user_environment/components/custom_menu_home_user_page_environment.dart';
 import 'package:filiera_token_front_end/models/Product.dart';
 import 'package:filiera_token_front_end/utils/enums.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 import 'package:filiera_token_front_end/components/molecules/custom_nav_bar.dart';
 

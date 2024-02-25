@@ -1,24 +1,28 @@
+import 'dart:async';
+
+import 'package:filiera_token_front_end/components/molecules/custom_nav_bar.dart';
+import 'package:filiera_token_front_end/components/organisms/user_environment/history_profile/components/custom_eventi_list.dart';
+import 'package:filiera_token_front_end/components/organisms/user_environment/history_profile/components/custom_menu_history.dart';
 import 'package:flutter/material.dart';
 
-// Components Page 
-import 'package:filiera_token_front_end/components/organisms/user_environment/setting_profile/components/custom_floating_button_delete.dart';
-import 'package:filiera_token_front_end/components/organisms/user_environment/setting_profile/components/custom_menu_profile.dart';
-import 'package:filiera_token_front_end/components/organisms/user_environment/setting_profile/components/custom_view_profile.dart';
-import 'package:filiera_token_front_end/components/molecules/custom_nav_bar.dart';
-
-
-class UserProfilePage extends StatefulWidget {
-
-  const UserProfilePage({super.key});
+//Prodotti convertiti
+class UserProfileHistoryPage extends StatefulWidget {
+  const UserProfileHistoryPage({Key? key}) : super(key: key);
 
   @override
-  State<UserProfilePage> createState() => _UserProfilePageAnimations();
+  State<UserProfileHistoryPage> createState() => _UserProfileInventoryProductPageState();
+  
 }
 
-
-class _UserProfilePageAnimations extends State<UserProfilePage> with SingleTickerProviderStateMixin {
+class _UserProfileInventoryProductPageState extends State<UserProfileHistoryPage> with SingleTickerProviderStateMixin{
 
   late AnimationController _drawerSlideController;
+
+  late Timer _timer;
+
+
+final GlobalKey<EventListState> _eventListKey = GlobalKey<EventListState>();
+
 
   @override
   void initState() {
@@ -28,11 +32,17 @@ class _UserProfilePageAnimations extends State<UserProfilePage> with SingleTicke
       vsync: this,
       duration: const Duration(milliseconds: 150),
     );
+    _timer = Timer.periodic(const Duration(seconds: 10), (_) {
+      setState(() {
+        _eventListKey.currentState?.generateAndAddEvent();
+      });
+    });
   }
 
   @override
   void dispose() {
     _drawerSlideController.dispose();
+        _timer.cancel();
     super.dispose();
   }
 
@@ -55,24 +65,33 @@ class _UserProfilePageAnimations extends State<UserProfilePage> with SingleTicke
       _drawerSlideController.forward();
     }
   }
-
+  
+  // Indice della pagina corrente
+  int currentPage = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: _buildAppBar(),
-      body: Stack(
-        children: [
-          const CustomViewProfile(),
-          const CustomDeleteUserButton(),
+          appBar: _buildAppBar(),
+          body: Stack(
+          children: [
+
+            Padding(
+              padding: EdgeInsets.all(50.5),
+              child: 
+                  /// EventList    
+                  EventList(key: _eventListKey,)
+            ),
           _buildDrawer(),
-        ],
-      ),
-    );
+          ],
+            ),
+          );
   }
 
-  /**
+
+
+
+    /**
    * Construisce la NavBar Custom
    * - Inserimento del Logo 
    * - Inserimento del Testo 
@@ -82,7 +101,7 @@ class _UserProfilePageAnimations extends State<UserProfilePage> with SingleTicke
     return CustomAppBar(
       leading: Image.asset('../assets/favicon.png'),
       centerTitle: true,
-      title: 'Filiera-Token-Setting',
+      title: 'Filiera-Token-Shop-History',
       backgroundColor: Colors.transparent,
       elevation: 0.0,
       automaticallyImplyLeading: false,
@@ -115,7 +134,7 @@ class _UserProfilePageAnimations extends State<UserProfilePage> with SingleTicke
       builder: (context, child) {
         return FractionalTranslation(
           translation: Offset(1.0 - _drawerSlideController.value, 0.0),
-          child: _isDrawerClosed() ? const SizedBox() : const CustomMenu(),
+          child: _isDrawerClosed() ? const SizedBox() : const CustomMenuHistory(),
         );
       },
     );
@@ -123,9 +142,6 @@ class _UserProfilePageAnimations extends State<UserProfilePage> with SingleTicke
 
 
 
+
 }
-
-
-
-
 

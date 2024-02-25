@@ -1,5 +1,7 @@
-import 'package:filiera_token_front_end/components/organisms/user_environment/inventory_profile/components/dialog_conversion_center.dart';
-import 'package:filiera_token_front_end/components/organisms/user_environment/inventory_profile/components/dialog_conversion_right.dart';
+import 'package:filiera_token_front_end/components/organisms/user_environment/components/dialog_purchase_center.dart';
+import 'package:filiera_token_front_end/components/organisms/user_environment/components/dialog_purchase_right.dart';
+import 'package:filiera_token_front_end/components/organisms/user_environment/product_buy_profile/components/dialog_conversion_center.dart';
+import 'package:filiera_token_front_end/components/organisms/user_environment/product_buy_profile/components/dialog_conversion_right.dart';
 import 'package:filiera_token_front_end/models/Product.dart';
 import 'package:filiera_token_front_end/utils/enums.dart';
 import 'package:flutter/material.dart';
@@ -79,9 +81,9 @@ class DialogProductDetails extends StatelessWidget {
                   InfoTile('Prezzo', ' \$${product.getUnitPrice()}'),
                   Spacer(),
                   if(dialogType == DialogType.DialogConversion)
-                    DialogConversionCenter(product: product, quantityController: TextEditingController())
-                  //else if(dialogType == DialogType.DialogPurchase)
-                    //Something about Purchase
+                    DialogConversionCenter(product: product)
+                  else if(dialogType == DialogType.DialogPurchase)
+                    DialogPurchaseCenter(product: product)
                 ],
               ),
             ),
@@ -92,7 +94,7 @@ class DialogProductDetails extends StatelessWidget {
               width: 200.0,
               child: (dialogType == DialogType.DialogConversion)
                   ? DialogConversionRight()
-                  : SizedBox(), // Puoi fornire un widget vuoto o un altro widget di fallback
+                  : DialogPurchaseRight(), // Puoi fornire un widget vuoto o un altro widget di fallback
             )
 
           ],

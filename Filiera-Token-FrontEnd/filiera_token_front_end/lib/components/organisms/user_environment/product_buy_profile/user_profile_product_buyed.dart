@@ -1,6 +1,5 @@
 import 'package:filiera_token_front_end/components/molecules/custom_nav_bar.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_product_list.dart';
-import 'package:filiera_token_front_end/components/organisms/user_environment/inventory_profile/components/custom_floating_button_add.dart';
 import 'package:filiera_token_front_end/components/organisms/user_environment/inventory_profile/components/custom_menu_user_inventory.dart';
 import 'package:filiera_token_front_end/components/molecules/dialog_product_details.dart';
 import 'package:filiera_token_front_end/models/Product.dart';
@@ -8,16 +7,16 @@ import 'package:filiera_token_front_end/utils/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-//Prodotti convertiti
-class UserProfileInventoryProductPage extends StatefulWidget {
-  const UserProfileInventoryProductPage({Key? key}) : super(key: key);
+//Prodotti acquistati
+class UserProfileProductBuyed extends StatefulWidget {
+  const UserProfileProductBuyed({Key? key}) : super(key: key);
 
   @override
-  State<UserProfileInventoryProductPage> createState() => _UserProfileInventoryProductPageState();
+  State<UserProfileProductBuyed> createState() => _UserProfileProductBuyedState();
   
 }
 
-class _UserProfileInventoryProductPageState extends State<UserProfileInventoryProductPage> with SingleTickerProviderStateMixin{
+class _UserProfileProductBuyedState extends State<UserProfileProductBuyed> with SingleTickerProviderStateMixin{
 
       late AnimationController _drawerSlideController;
 
@@ -66,12 +65,12 @@ class _UserProfileInventoryProductPageState extends State<UserProfileInventoryPr
     MilkBatch(id: 2, name: "Partita di Latte 2", description: "Descrizione partita di latte 2", seller: "Milk Hub 2", expirationDate: "10-05-2025", quantity: 22, pricePerLitre: 2),
     MilkBatch(id: 1, name: "Partita di Latte 1", description: "Descrizione partita di latte 1", seller: "Milk Hub 1", expirationDate: "10-01-2025", quantity: 30, pricePerLitre: 3),
     MilkBatch(id: 2, name: "Partita di Latte 2", description: "Descrizione partita di latte 2", seller: "Milk Hub 2", expirationDate: "10-05-2025", quantity: 22, pricePerLitre: 2),
+*/
     MilkBatch(id: 1, name: "Partita di Latte 1", description: "Descrizione partita di latte 1", seller: "Milk Hub 1", expirationDate: "10-01-2025", quantity: 30, pricePerLitre: 3),
     MilkBatch(id: 2, name: "Partita di Latte 2", description: "Descrizione partita di latte 2", seller: "Milk Hub 2", expirationDate: "10-05-2025", quantity: 22, pricePerLitre: 2),
-*/
+    /*CheeseBlock(id: 3, name: "Blocco di Formaggio 1", description: "Descrizione blocco di formaggio 3", seller: "Cheese Producer 1", dop: "dop", price: 500, quantity: 1),
     CheeseBlock(id: 3, name: "Blocco di Formaggio 1", description: "Descrizione blocco di formaggio 3", seller: "Cheese Producer 1", dop: "dop", price: 500, quantity: 1),
     CheeseBlock(id: 4, name: "Blocco di Formaggio 2", description: "Descrizione blocco di formaggio 4", seller: "Cheese Producer 2", dop: "dop", price: 550, quantity: 2),
-    /*CheeseBlock(id: 3, name: "Blocco di Formaggio 1", description: "Descrizione blocco di formaggio 3", seller: "Cheese Producer 1", dop: "dop", price: 500, quantity: 1),
     CheeseBlock(id: 4, name: "Blocco di Formaggio 2", description: "Descrizione blocco di formaggio 4", seller: "Cheese Producer 2", dop: "dop", price: 550, quantity: 2),
     CheeseBlock(id: 3, name: "Blocco di Formaggio 1", description: "Descrizione blocco di formaggio 3", seller: "Cheese Producer 1", dop: "dop", price: 500, quantity: 1),
     CheeseBlock(id: 4, name: "Blocco di Formaggio 2", description: "Descrizione blocco di formaggio 4", seller: "Cheese Producer 2", dop: "dop", price: 550, quantity: 2),
@@ -90,28 +89,22 @@ class _UserProfileInventoryProductPageState extends State<UserProfileInventoryPr
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Scaffold(
-          appBar: _buildAppBar(),
-          body: Padding(
-            padding: EdgeInsets.all(50.5),
-            child: SingleChildScrollView(
-              child: CustomProductList(products: products, onProductTap: handleProductTap),
-            ),
-          ),
-          drawer: _buildDrawer(),
-        ),
-        Positioned(
-          bottom: 16.0,
-          right: 16.0,
-          child: CustomAddMilkBatchButton(),
-        ),
-      ],
+    return Scaffold(
+      appBar: _buildAppBar(),
+      body: Stack(
+        children: [
+            Padding(
+              padding: EdgeInsets.all(50.5),
+              child: SingleChildScrollView(
+                child:  
+                  CustomProductList(products: products, onProductTap: handleProductTap),
+                ),
+              ),
+              _buildDrawer(),
+        ],
+        ), 
     );
   }
-
-
 
 
     /**
@@ -163,9 +156,6 @@ class _UserProfileInventoryProductPageState extends State<UserProfileInventoryPr
     );
   }
 
-
-
-
   void handleProductTap(BuildContext context, Product product) {
     // Fai qualcosa in base alla pagina in cui ti trovi
     print("Prodotto ${product.name} cliccato!");
@@ -174,7 +164,8 @@ class _UserProfileInventoryProductPageState extends State<UserProfileInventoryPr
     DialogProductDetails.show(
       context, 
       product,
-      DialogType.DialogConversion);
+      DialogType.DialogConversion,
+      );
   }
 
 

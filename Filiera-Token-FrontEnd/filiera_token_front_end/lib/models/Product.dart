@@ -28,11 +28,13 @@ abstract class Product {
 
   @override
   String toString() => 'Prodotto(id: $id)';
+
+  void updateQuantity(int quantityChange);
 }
 
 class MilkBatch extends Product {
 
-  const MilkBatch({
+  MilkBatch({
     required int id,
     required String name,
     required String description,
@@ -43,7 +45,7 @@ class MilkBatch extends Product {
   }) : super(id: id, name: name, description: description, seller: seller);
 
   final String expirationDate;
-  final int quantity;
+  int quantity;
   final double pricePerLitre;
 
   @override
@@ -64,11 +66,18 @@ class MilkBatch extends Product {
 
   @override
   int getQuantity() => quantity;
+  
+  @override
+  void updateQuantity(int quantityChange) {
+    quantity -= quantityChange;
+  }
+
+
 }
 
 class CheeseBlock extends Product {
 
-  const CheeseBlock({
+  CheeseBlock({
     required int id,
     required String name,
     required String description,
@@ -80,7 +89,7 @@ class CheeseBlock extends Product {
 
   final String dop;
   final double price;
-  final int quantity;
+  int quantity;
 
   @override
   String getBarcode() => 'Cheese-$id';
@@ -100,6 +109,11 @@ class CheeseBlock extends Product {
 
   @override
   int getQuantity() => quantity;
+  
+  @override
+  void updateQuantity(int quantityChange) {
+    quantity -= quantityChange;
+  }
 }
 
 class CheesePiece extends Product {
@@ -133,4 +147,7 @@ class CheesePiece extends Product {
 
   @override
   int getQuantity() => 1;
+  
+  @override
+  void updateQuantity(int quantityChange) {}
 }

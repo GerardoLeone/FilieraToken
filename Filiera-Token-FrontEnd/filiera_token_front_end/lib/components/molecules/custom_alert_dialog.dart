@@ -172,5 +172,69 @@ class CustomPopUpDialog  {
   });
   }
 
+  static void  showConversionSuccess(BuildContext context, String msg) {
+  showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: Text('Stato Conversione'),
+        content: Text(msg),
+        actions: [
+        ],
+        backgroundColor: Colors.red[50], // Colore rosso
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.0),
+        ),
+        contentTextStyle: TextStyle(
+          color: Colors.black,
+          fontSize: 16.0,
+        ),
+        titleTextStyle: TextStyle(
+          color: Colors.black,
+          fontSize: 18.0,
+          fontWeight: FontWeight.bold,
+        ),
+        actionsPadding: EdgeInsets.symmetric(horizontal: 16.0),
+        elevation: 4.0,
+        icon: Icon(
+          Icons.check,
+          color: Colors.green,
+          size: 32.0 ),
+          );
+    },
+  );
+  }
 
+  static void  showMilkBatchAddSuccess(BuildContext context, String msg) {
+  showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: Text('Aggiunta Partita di Latte'),
+        content: Text(msg),
+        actions: [
+        ],
+        backgroundColor: Colors.red[50], // Colore rosso
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.0),
+        ),
+        contentTextStyle: TextStyle(
+          color: Colors.black,
+          fontSize: 16.0,
+        ),
+        titleTextStyle: TextStyle(
+          color: Colors.black,
+          fontSize: 18.0,
+          fontWeight: FontWeight.bold,
+        ),
+        actionsPadding: EdgeInsets.symmetric(horizontal: 16.0),
+        elevation: 4.0,
+        icon: Icon(
+          Icons.check,
+          color: Colors.green,
+          size: 32.0 ),
+          );
+    },
+  );
+  }
 }

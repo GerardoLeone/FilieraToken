@@ -1,0 +1,347 @@
+{
+	"compiler": {
+		"version": "0.8.22+commit.4fc1097e"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_walletRetailer",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "_walletCheeseProducer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id_CheeseBlock",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "dop",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_quantity",
+						"type": "uint256"
+					}
+				],
+				"name": "addCheeseBlock",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "id_CheeseBlock_Acquistato",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "dopCheese",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "quantityAcquistata",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletRetailer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_quantityToTransform",
+						"type": "uint256"
+					}
+				],
+				"name": "checkCheese",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletRetailer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_quantityToTransform",
+						"type": "uint256"
+					}
+				],
+				"name": "checkQuantity",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletRetailer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id_CheeseBlockAcquistato",
+						"type": "uint256"
+					}
+				],
+				"name": "getCheeseBlock",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletRetailer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id_cheeseBlockAcquistato",
+						"type": "uint256"
+					}
+				],
+				"name": "getDop",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletRetailer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
+				"name": "getId",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletRetailer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
+				"name": "getQuantity",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletRetailer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
+				"name": "getWalletCheeseProducer",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletRetailer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id_CheeseBlockAcquistato",
+						"type": "uint256"
+					}
+				],
+				"name": "isCheesePresent",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletRetailer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_newQuantity",
+						"type": "uint256"
+					}
+				],
+				"name": "updateCheeseQuantity",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {
+				"addCheeseBlock(address,address,uint256,string,uint256)": {
+					"notice": "Funzione addCheese() -> Utilizzata dal Transaction Manager per poter inserire il Cheese Acquistato  Scollego questa logica, ammettendo che il CheeseProducer può testare la logica di conversione  params :  - walletCheeseProducer -> mi serve per il mapping  - walletCheeseProducer -> mi serve per creare il nuovo elemento   - id_cheese -> mi serve per il riferimento all'elemento acquistato"
+				},
+				"isCheesePresent(address,uint256)": {
+					"notice": "Funzione per la verifica dell'esistenza del prodotto Cheese acquistato  - ritorna TRUE se esiste  - ritorna FALSe se non esiste  - effettua il controllo sull'uguaglianza dell'id del Cheese Acquistato"
+				}
+			},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/Actor/Retailer-smart-contract/inventory/RetailerCheeseBlockStorage.sol": "RetailerCheeseBlockStorage"
+		},
+		"evmVersion": "shanghai",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/Actor/Retailer-smart-contract/inventory/RetailerCheeseBlockStorage.sol": {
+			"keccak256": "0xc0ddd237b182163641f0143eb450a9e68b4f69674e79e23fe0ec5f023b4953de",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://c88e590374fbe7ebeebdd03e6397d3c57dd621e4ec2308c540400bf78ae1cb2b",
+				"dweb:/ipfs/Qmb4THwPJFjXC8Erzqeaib1mxmebT3dPctWrkKRGjpK9iz"
+			]
+		}
+	},
+	"version": 1
+}

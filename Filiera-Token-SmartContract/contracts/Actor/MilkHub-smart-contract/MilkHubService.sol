@@ -190,6 +190,10 @@ contract MilkHubService {
         return (id, fullName, email);
     }
 
+    function getListAddressMilkHub() external view returns ( address [ ] memory){
+        return milkhubStorage.getListAddress();
+    }
+
 
 
 

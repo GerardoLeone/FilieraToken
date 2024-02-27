@@ -69,32 +69,6 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "_filieraToken",
-						"type": "address"
-					}
-				],
-				"name": "changeFilieraToken",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "_milkhubStorageNew",
-						"type": "address"
-					}
-				],
-				"name": "changeMilkHubStorage",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
 						"name": "walletMilkHub",
 						"type": "address"
 					},
@@ -107,6 +81,19 @@
 				"name": "deleteMilkHub",
 				"outputs": [],
 				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getListAddressMilkHub",
+				"outputs": [
+					{
+						"internalType": "address[]",
+						"name": "",
+						"type": "address[]"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -337,6 +324,11 @@
 						"internalType": "string",
 						"name": "email",
 						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "walletMilkHub",
+						"type": "address"
 					}
 				],
 				"name": "registerMilkHub",
@@ -392,7 +384,7 @@
 				"login(address,string,string)": {
 					"notice": "login() effettua la Login con email e password  - Inserisce l'email e la password  - return True se l'utente esiste ed ha accesso con le giuste credenziali  - return False altrimenti "
 				},
-				"registerMilkHub(string,string,string)": {
+				"registerMilkHub(string,string,string,address)": {
 					"notice": "registerMilkHub() registra gli utenti della piattaforma che sono MilkHub  - Inserisce i dati all'interno della Blockchain - Trasferisce 100 token dal contratto di FilieraToken  - Emette un evento appena l'utente è stato registrato   "
 				}
 			},
@@ -456,11 +448,11 @@
 			]
 		},
 		"contracts/Actor/Filieratoken.sol": {
-			"keccak256": "0x80d0a20505b3ce52494ed26c23c1b9dd3df2cdb26bf6283e1cab1de5f7e5a98f",
+			"keccak256": "0x8f5f3ef840dab695a527a73de9ef04ee06a10416e67415c9d66793e6c595ee78",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://35a2c2dd8cd96e5a28bee42ffc6805eb938c8f49adbe607cfcb23e02788e7624",
-				"dweb:/ipfs/QmS3P2dGQnhawuPtHUppt7rrsp3TiUwdU4mngn3e26hTB2"
+				"bzz-raw://6f421f58260cefa2c389106bdbcb96d5a5ee44f8797c4f26165959bbe63dafd1",
+				"dweb:/ipfs/QmSQZWVv3sesQT1K2yYcEqjfbr6LaWLe4usJWNjUjqh7PH"
 			]
 		},
 		"contracts/Actor/IUserStorageInterface.sol": {
@@ -472,19 +464,19 @@
 			]
 		},
 		"contracts/Actor/MilkHub-smart-contract/MilkHubService.sol": {
-			"keccak256": "0xcb30ced515940429cfcfd8fa97e899a5f9dccd49c782142884a477b6a05a2367",
+			"keccak256": "0x73f17adf9a3dc4b685321b3eef7a6fa56595b984dfcb70a7412f59d2e08dd667",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://cda90cf3284b253a1f7d20530f3e9a4cd5c1a922e744555f627988931a9a3219",
-				"dweb:/ipfs/QmYjbvzXHNMS1f638ZRRkU21iB3N3FCb5nikWK4bnNXSN6"
+				"bzz-raw://71cebc168c1d1af4c5074eb097b58e23f1a35c13be967c55f0a09cbb28a4d7d8",
+				"dweb:/ipfs/QmcHMtoq2d9WLrAsHrLds8rJBsePoKgiqxR5mNpPpvgBzd"
 			]
 		},
 		"contracts/Actor/MilkHub-smart-contract/MilkHubStorage.sol": {
-			"keccak256": "0x63546b350a49c8962760ec83a08713bd960b5b7bfa7b0379032a7f31738afdca",
+			"keccak256": "0xb2329192f835f612588a643cfa9045379ed3bd3477a2b5a88a9849f06e408435",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://8a98e926b716dedd469688c2b518343ffdbfeb0a1640bc6f05bcebc8af8c57ea",
-				"dweb:/ipfs/QmSskZ95DvkJaQgsMR7BcFNLEYEqmCc13GVUGjpaSJGdFV"
+				"bzz-raw://a73903155773933cddd016a8c16c8f0909a9694519d186b1638124160f3e2e68",
+				"dweb:/ipfs/QmZeRq76Gjp96sXmndYSQ2T4fYLxKgKtg4L24zEXc1xXU4"
 			]
 		}
 	},

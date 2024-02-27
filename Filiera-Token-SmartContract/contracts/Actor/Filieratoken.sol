@@ -20,7 +20,6 @@ contract Filieratoken is ERC20 {
   }
 
     /**
-   * @title Restituisce il saldo di un utente
    * @dev Restituisce il numero di token Filiera posseduti dall'utente specificato.
    *
    * @param account L'indirizzo dell'utente di cui si desidera conoscere il saldo.
@@ -33,7 +32,6 @@ contract Filieratoken is ERC20 {
 
 
     /**
-   * @title Trasferisce token da un utente all'altro
    * @dev Trasferisce `amount` token Filiera dall'account del mittente all'account del destinatario.
    *
    * @param to L'indirizzo del destinatario dei token.
@@ -49,7 +47,6 @@ contract Filieratoken is ERC20 {
 
 
   /**
-   * @title Brucia una quantità di token di un utente
    * @dev Brucia `balance` token Filiera dall'account dell'utente specificato.
    *
    * @param user L'indirizzo dell'utente i cui token devono essere bruciati.
@@ -64,7 +61,6 @@ contract Filieratoken is ERC20 {
 
 
   /**
-   * @title Approva un altro spender a trasferire token per tuo conto
    * @dev Imposta `spender` come spender con una allowance di `amount` token Filiera.
    *
    * @param spender L'indirizzo dello spender che viene autorizzato.
@@ -77,7 +73,6 @@ contract Filieratoken is ERC20 {
   }
 
   /**
-   * @title Trasferisce token per l'acquisto di un prodotto
    * @dev Trasferisce `amount` token Filiera dall'account del mittente all'account del destinatario per l'acquisto di un prodotto.
    *
    * @param from L'indirizzo del mittente dei token.
@@ -94,7 +89,6 @@ contract Filieratoken is ERC20 {
 
 
   /**
-   * @title Registra un utente assegnandogli token
    * @dev Assegna `amount` token Filiera all'account dell'utente specificato come incentivo alla registrazione.
    *
    * @param to L'indirizzo dell'utente che viene registrato.
@@ -103,7 +97,7 @@ contract Filieratoken is ERC20 {
    * @return `true` se la registrazione ha avuto successo, `false` in caso contrario.
    */
   function registerUserWithToken(address to, uint256 amount) public returns (bool) {
-      require(msg.sender == address(this), "Solo il contratto FilieraToken può registrare utenti");
+      require(msg.sender == address(this), "Solo il contratto FilieraToken puo' registrare utenti");
       super._transfer(address(this), to, amount);
       return true;
   }

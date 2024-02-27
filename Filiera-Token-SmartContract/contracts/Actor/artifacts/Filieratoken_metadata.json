@@ -267,11 +267,6 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "from",
-						"type": "address"
-					},
-					{
-						"internalType": "address",
 						"name": "to",
 						"type": "address"
 					},
@@ -469,8 +464,34 @@
 				"allowance(address,address)": {
 					"details": "See {IERC20-allowance}."
 				},
+				"approve(address,uint256)": {
+					"details": "Imposta `spender` come spender con una allowance di `amount` token Filiera.",
+					"params": {
+						"amount": "L'ammontare massimo di token Filiera che lo spender può trasferire.",
+						"spender": "L'indirizzo dello spender che viene autorizzato."
+					},
+					"returns": {
+						"_0": "`true` se l'approvazione ha avuto successo, `false` in caso contrario."
+					}
+				},
 				"balanceOf(address)": {
-					"details": "See {IERC20-balanceOf}."
+					"details": "Restituisce il numero di token Filiera posseduti dall'utente specificato.",
+					"params": {
+						"account": "L'indirizzo dell'utente di cui si desidera conoscere il saldo."
+					},
+					"returns": {
+						"_0": "Il saldo dell'utente in token Filiera."
+					}
+				},
+				"burnToken(address,uint256)": {
+					"details": "Brucia `balance` token Filiera dall'account dell'utente specificato.",
+					"params": {
+						"balance": "Il numero di token Filiera da bruciare.",
+						"user": "L'indirizzo dell'utente i cui token devono essere bruciati."
+					},
+					"returns": {
+						"_0": "`true` se il burn ha avuto successo, `false` in caso contrario."
+					}
 				},
 				"decimals()": {
 					"details": "Returns the number of decimals used to get its user representation. For example, if `decimals` equals `2`, a balance of `505` tokens should be displayed to a user as `5.05` (`505 / 10 ** 2`). Tokens usually opt for a value of 18, imitating the relationship between Ether and Wei. This is the default value returned by this function, unless it's overridden. NOTE: This information is only used for _display_ purposes: it in no way affects any of the arithmetic of the contract, including {IERC20-balanceOf} and {IERC20-transfer}."
@@ -478,14 +499,45 @@
 				"name()": {
 					"details": "Returns the name of the token."
 				},
+				"registerUserWithToken(address,uint256)": {
+					"details": "Assegna `amount` token Filiera all'account dell'utente specificato come incentivo alla registrazione.",
+					"params": {
+						"amount": "Il numero di token Filiera da assegnare all'utente.",
+						"to": "L'indirizzo dell'utente che viene registrato."
+					},
+					"returns": {
+						"_0": "`true` se la registrazione ha avuto successo, `false` in caso contrario."
+					}
+				},
 				"symbol()": {
 					"details": "Returns the symbol of the token, usually a shorter version of the name."
 				},
 				"totalSupply()": {
 					"details": "See {IERC20-totalSupply}."
 				},
+				"transfer(address,uint256)": {
+					"details": "Trasferisce `amount` token Filiera dall'account del mittente all'account del destinatario.",
+					"params": {
+						"amount": "Il numero di token Filiera da trasferire.",
+						"to": "L'indirizzo del destinatario dei token."
+					},
+					"returns": {
+						"_0": "`true` se il trasferimento ha avuto successo, `false` in caso contrario."
+					}
+				},
 				"transferFrom(address,address,uint256)": {
 					"details": "See {IERC20-transferFrom}. Emits an {Approval} event indicating the updated allowance. This is not required by the EIP. See the note at the beginning of {ERC20}. NOTE: Does not update the allowance if the current allowance is the maximum `uint256`. Requirements: - `from` and `to` cannot be the zero address. - `from` must have a balance of at least `value`. - the caller must have allowance for ``from``'s tokens of at least `value`."
+				},
+				"transferTokenBuyProduct(address,address,uint256)": {
+					"details": "Trasferisce `amount` token Filiera dall'account del mittente all'account del destinatario per l'acquisto di un prodotto.",
+					"params": {
+						"amount": "Il numero di token Filiera da trasferire.",
+						"from": "L'indirizzo del mittente dei token.",
+						"to": "L'indirizzo del destinatario dei token."
+					},
+					"returns": {
+						"_0": "`true` se il trasferimento ha avuto successo, `false` in caso contrario."
+					}
 				}
 			},
 			"version": 1
@@ -553,11 +605,11 @@
 			]
 		},
 		"contracts/Actor/Filieratoken.sol": {
-			"keccak256": "0x6d509e86c55c87b32270a0f8376e6d5ffc9b395933d9471f51439e6dc70896c6",
+			"keccak256": "0x8f5f3ef840dab695a527a73de9ef04ee06a10416e67415c9d66793e6c595ee78",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://b6cadaa0db6d1ee4b050c9ec131390e99e5167053e1c3eaf3780417d1b52ff92",
-				"dweb:/ipfs/Qmd492MCmVrCmCSroVcmjtTMnRSyzRyHQuTC9eWL1Ptp5t"
+				"bzz-raw://6f421f58260cefa2c389106bdbcb96d5a5ee44f8797c4f26165959bbe63dafd1",
+				"dweb:/ipfs/QmSQZWVv3sesQT1K2yYcEqjfbr6LaWLe4usJWNjUjqh7PH"
 			]
 		}
 	},

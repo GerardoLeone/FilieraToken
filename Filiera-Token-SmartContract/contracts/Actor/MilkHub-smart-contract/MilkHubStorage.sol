@@ -27,6 +27,8 @@ contract MilkHubStorage is IUserStorageInterface {
     // Mapping che collega l'indirizzo del portafoglio (wallet address) ai dati del consumatore
     mapping(address => MilkHub) private  milkhubs;
 
+    address[ ] private addressList;
+
     /**
      * addUser() effettuiamo la registrazione dell'utente MilkHub 
      */
@@ -49,6 +51,8 @@ contract MilkHubStorage is IUserStorageInterface {
             email: _email,
             balance: 100
         });
+        // Inserisco l'address 
+        addressList.push(walletMilkHub);
 
         // Inserisce il nuovo consumer all'interno della Lista dei Consumer 
         milkhubs[walletMilkHub] = newMilkHub;
@@ -137,6 +141,12 @@ contract MilkHubStorage is IUserStorageInterface {
         return (milkhub.id, milkhub.fullName, milkhub.password, milkhub.email, milkhub.balance);
     }
 
+    /**
+    *Ritorna la Lista degli address
+    */
+    function getListAddress() external view returns (address [] memory){  
+        return addressList;
+    }
 
 
     // - Funzione updateBalance() attraverso l'address e l'id, riusciamo a settare il nuovo balance

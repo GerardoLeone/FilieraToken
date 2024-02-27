@@ -84,10 +84,6 @@ contract MilkHubInventoryStorage {
         }
     }
 
-
-
-
-
     function getMilkBatchListByMilkHub(address walletMilkHub) external view  returns (MilkBatch[] memory){
         MilkBatch [ ] memory  milkBatchList  = new MilkBatch[](milkBatchIdList.length);
 
@@ -123,9 +119,6 @@ contract MilkHubInventoryStorage {
         return milkBatchList;
 
     }
-
-
-
 
     
     function checkProduct(address ownerMilkBatch, uint256 _id_MilkBatch, uint256 quantityToBuy) external view  returns (bool){
@@ -178,7 +171,6 @@ contract MilkHubInventoryStorage {
 
 //---------------------------------------------------------- Delete Function ----------------------------------------------------------------------//   
 
-
     function deleteMilkBatchIdFromList(uint256 _id)internal returns (bool) {
         for(uint256 i=0; ; i++){
             if(milkBatchIdList[i] == _id){
@@ -189,7 +181,6 @@ contract MilkHubInventoryStorage {
         return false;
     }
 
-
 // ------------------------------------------------------------ Set Function ------------------------------------------------------------------//
 
     // - Funzione updateMilkBatchQuantity() aggiorna la quantità del MilkBatch 
@@ -197,12 +188,5 @@ contract MilkHubInventoryStorage {
         
         milkBatches[walletMilkHub][_id].quantity = _newQuantity;
     }
-
-
-
-        
-
-
-
 
 }

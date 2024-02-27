@@ -4,6 +4,8 @@ pragma solidity ^0.8.0;
 import "./MilkHubInventoryStorage.sol";
 import "../MilkHubService.sol";
 
+import "contracts/Service/AccessControlProduct.sol";
+
 
 contract MilkHubInventoryService {
 
@@ -16,13 +18,16 @@ contract MilkHubInventoryService {
     MilkHubInventoryStorage private milkhubInventoryStorage;
     // Address Service of MilkHub Service 
     MilkHubService private milkhubService;
+    // Address Access Control 
+    AccessControlProduct private accessControlProduct;
 
 //----------------------------------------------------------------- Costructor Function ---------------------------------------------------------------------------//
 
-    constructor(address _milkhubInventoryStorage, address _milkhubService){
+    constructor(address _milkhubInventoryStorage, address _milkhubService, address _accessControlProduct){
         MilkHubOrg = msg.sender;
         milkhubInventoryStorage = MilkHubInventoryStorage(_milkhubInventoryStorage);
         milkhubService = MilkHubService(_milkhubService);
+        accessControlProduct = AccessControlProduct(_accessControlProduct);
     }
 
 
@@ -36,6 +41,8 @@ contract MilkHubInventoryService {
     event MilkBatchDeleted(address indexed userAddress, uint256 indexed id, string message);
     // Evento per notificare la modifica del MilkBatch 
     event MilkBatchEdited(address indexed userAddress,string message, uint256 quantity);
+    // Evento per notificare che un dato utente non ha il permesso 
+    event UserDenied(string errorMessage);
 
 //-------------------------------------------------------------------- Change Contract Address Service ----------------------------------------------------------------------//
 
@@ -138,9 +145,13 @@ contract MilkHubInventoryService {
     function getAllMilkBatchList(address walletCheeseProducer) external view returns (MilkHubInventoryStorage.MilkBatch[] memory){
         // TODO : Contract Access Control ( Verifica che l'utente sia un CheeseProducer ) 
         // Check to CheeseProducer () verifica che è il cheeseProducer a fare la chiamata 
-        address[] memory addressListMilkHub = milkhubService.getListAddressMilkHub();
+        if(accessControlProduct.checkViewMilkBatchProduct(walletCheeseProducer)){
+            address[] memory addressListMilkHub = milkhubService.getListAddressMilkHub();
 
-        return milkhubInventoryStorage.getAllMilkBatchList(addressListMilkHub); 
+            return milkhubInventoryStorage.getAllMilkBatchList(addressListMilkHub); 
+        }else{
+            emit UserDenied("Utente non Autorizzato ad Accedere a questi prodotti!");
+        }
     }
 
 

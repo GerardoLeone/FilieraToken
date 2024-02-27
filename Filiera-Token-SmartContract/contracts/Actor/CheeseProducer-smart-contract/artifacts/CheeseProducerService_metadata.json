@@ -69,32 +69,6 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "_cheeseProducerStorageNew",
-						"type": "address"
-					}
-				],
-				"name": "changeCheeseProducerStorage",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "_filieraToken",
-						"type": "address"
-					}
-				],
-				"name": "changeFilieraToken",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
 						"name": "walletCheeseProducer",
 						"type": "address"
 					},
@@ -337,27 +311,14 @@
 						"internalType": "string",
 						"name": "email",
 						"type": "string"
-					}
-				],
-				"name": "registerCheeseProducer",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
+					},
 					{
 						"internalType": "address",
 						"name": "walletCheeseProducer",
 						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "balance",
-						"type": "uint256"
 					}
 				],
-				"name": "updateCheeseProducerBalance",
+				"name": "registerCheeseProducer",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -392,7 +353,7 @@
 				"login(address,string,string)": {
 					"notice": "login() effettua la Login con email e password  - Inserisce l'email e la password  - return True se l'utente esiste ed ha accesso con le giuste credenziali  - return False altrimenti "
 				},
-				"registerCheeseProducer(string,string,string)": {
+				"registerCheeseProducer(string,string,string,address)": {
 					"notice": "registerCheeseProducer() registra gli utenti della piattaforma che sono CheeseProducer  - Inserisce i dati all'interno della Blockchain - Trasferisce 100 token dal contratto di FilieraToken  - Emette un evento appena l'utente è stato registrato   "
 				}
 			},
@@ -456,11 +417,11 @@
 			]
 		},
 		"contracts/Actor/CheeseProducer-smart-contract/CheeseProducerService.sol": {
-			"keccak256": "0x6882316f028eaf501adbb439ac10527ebfccd6e9446753916a3192c22dd3da09",
+			"keccak256": "0x7eb7a32d9c4f4587de8a3275eb0eb2c3751d56bfed36446f53a6f515aa559744",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://49d6fe08e9fdd2a2d6bf3f7954eca9aad93b97efd475832d1250dba9c253ebea",
-				"dweb:/ipfs/QmfDQaLThTCv6BZPaxxKzSxkhNcr21ZsjthWDjEEJJ7XzP"
+				"bzz-raw://eaa6ac72e1502b36530dd60cf225c4350e0c1a922f4e787725f59931f511d5e0",
+				"dweb:/ipfs/QmTbwzXxogZ9J8W9TtMHUC7MMxx3dW31pnje2x3z3eubWT"
 			]
 		},
 		"contracts/Actor/CheeseProducer-smart-contract/CheeseProducerStorage.sol": {
@@ -471,20 +432,20 @@
 				"dweb:/ipfs/QmSB28VuxPm7Vxea8KdLto6LQhDSEAdjtCTDP8WyxqiveH"
 			]
 		},
-		"contracts/Actor/Filieratoken.sol": {
-			"keccak256": "0x80d0a20505b3ce52494ed26c23c1b9dd3df2cdb26bf6283e1cab1de5f7e5a98f",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://35a2c2dd8cd96e5a28bee42ffc6805eb938c8f49adbe607cfcb23e02788e7624",
-				"dweb:/ipfs/QmS3P2dGQnhawuPtHUppt7rrsp3TiUwdU4mngn3e26hTB2"
-			]
-		},
 		"contracts/Actor/IUserStorageInterface.sol": {
 			"keccak256": "0xae0b245125f0e611e9ae29c1970d635b4a982787afafab5290759d9ef7d821c8",
 			"license": "MIT",
 			"urls": [
 				"bzz-raw://793118144f90c043aa0cde1c1a65a0c2e7dd8657dc71ca869ac29492605fa108",
 				"dweb:/ipfs/QmRFZhVDtbAC27oFHQVDrzgM9FLLHgcK7peiYh4U4P4bL1"
+			]
+		},
+		"contracts/Service/Filieratoken.sol": {
+			"keccak256": "0xcb2e21f42a384efcf6bf6e72bd5b5d5cd3b919a67b9d3afe7e4be79cbdd92fae",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://ee169673c236b45853fed29f2be2e5b9e30db35dff8658900e7ec37be2a0155a",
+				"dweb:/ipfs/QmYWm26mnSaRmT2fYadXWYRtQw7rhtsw9pW9BwXr6aYFrQ"
 			]
 		}
 	},

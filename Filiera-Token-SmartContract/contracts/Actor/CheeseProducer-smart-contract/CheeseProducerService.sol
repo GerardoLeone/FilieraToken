@@ -2,8 +2,7 @@
 pragma solidity ^0.8.0;
 
 import "./CheeseProducerStorage.sol";
-import "../Filieratoken.sol";
-
+import "contracts/Service/Filieratoken.sol";
 
 contract CheeseProducerService {
 
@@ -39,12 +38,8 @@ contract CheeseProducerService {
 
 // ------------------------------------------------------------ Modifier Of Service ---------------------------------------------------------------------------------//
 
-    modifier onlyOwnWallet(address caller,address walletCheeseProducer){
-        require(caller == walletCheeseProducer,"User Not Authorized!");
-        _;
-    }
-
-    modifier onlyOrg(address sender){
+  
+    modifier _onlyOrg(address sender){
         require(sender == CheeseProducerOrg,"User Not Authorized!");
         _;
     }
@@ -71,9 +66,13 @@ contract CheeseProducerService {
      * - Trasferisce 100 token dal contratto di FilieraToken 
      * - Emette un evento appena l'utente è stato registrato 
      *  */ 
-    function registerCheeseProducer(string memory fullName, string memory password, string memory email) external checkAddress(msg.sender) {
+    function registerCheeseProducer(
+        string memory fullName,
+        string memory password,
+        string memory email,
+        address walletCheeseProducer
+        ) external checkAddress(walletCheeseProducer) {
 
-        address walletCheeseProducer = msg.sender;
         // Verifica che l'utente è gia' presente 
         require(!(this.isUserPresent(walletCheeseProducer)), "Utente gia' registrato !");
 
@@ -81,7 +80,7 @@ contract CheeseProducerService {
         cheeseProducerStorage.addUser(fullName, password, email, walletCheeseProducer);
 
         // Autogenera dei token nel balance del CheeseProducer 
-        require(filieraToken.registerUserWithToken(address(filieraToken),address(walletCheeseProducer), 100),"Transfer not valid!");
+        require(filieraToken.registerUserWithToken(address(walletCheeseProducer), 100),"Transfer not valid!");
 
         // Emette l'evento della registrazione dell'utente
         emit CheeseProducerRegistered(walletCheeseProducer, fullName, "Utente CheeseProducer e' stato registrato!");
@@ -93,7 +92,11 @@ contract CheeseProducerService {
      * - return True se l'utente esiste ed ha accesso con le giuste credenziali 
      * - return False altrimenti 
      */
-    function login(address walletCheeseProducer, string memory email, string memory password) external view checkAddress(msg.sender) onlyOwnWallet(msg.sender,walletCheeseProducer) returns(bool) {
+    function login(
+        address walletCheeseProducer,
+        string memory email,
+        string memory password
+        ) external view checkAddress(walletCheeseProducer)  returns(bool) {
 
         // Verifichiamo che l'utente è presente 
         require(this.isUserPresent(walletCheeseProducer),"Utente non e' presente!");
@@ -107,7 +110,7 @@ contract CheeseProducerService {
      * - Solo l'owner può effettuare l'eliminazione 
      * - msg.sender dovrebbe essere solo quello dell'owner 
      */
-    function deleteCheeseProducer(address walletCheeseProducer, uint256 _id) external checkAddress(msg.sender) onlyOwnWallet(msg.sender,walletCheeseProducer) {
+    function deleteCheeseProducer(address walletCheeseProducer, uint256 _id) external checkAddress(walletCheeseProducer){
         
         // Verifico che l'utente è presente 
         require(this.isUserPresent(walletCheeseProducer), "Utente non e' presente!");
@@ -123,7 +126,7 @@ contract CheeseProducerService {
 
 // --------------------------------------------------------------------------- CheeseProducerInventoryService ----------------------------------------------------//
 
-    function isUserPresent(address walletCheeseProducer) external view returns(bool){
+    function isUserPresent(address walletCheeseProducer) external view  checkAddress(walletCheeseProducer)returns(bool){
         
         return cheeseProducerStorage.isUserPresent(walletCheeseProducer);
     }
@@ -135,7 +138,7 @@ contract CheeseProducerService {
     /**
         -  Funzione getCheeseProducerId() attraverso l'address del CheeseProducer siamo riusciti ad ottenere il suo ID
     */
-    function getCheeseProducerId(address walletCheeseProducer) external view checkAddress(walletCheeseProducer) onlyOwnWallet(msg.sender,walletCheeseProducer) returns (uint256){
+    function getCheeseProducerId(address walletCheeseProducer) external view checkAddress(walletCheeseProducer)  returns (uint256){
         
         return cheeseProducerStorage.getId(walletCheeseProducer);
     }
@@ -160,7 +163,7 @@ contract CheeseProducerService {
     /**
         - Funzione getBalance() attraverso l'address del CheeseProducer riusciamo a recuperare il suo Balance
     */
-    function getCheeseProducerBalance(address walletCheeseProducer, uint256 _id) external view checkAddress(walletCheeseProducer) onlyOwnWallet(msg.sender,walletCheeseProducer) returns(uint256){
+    function getCheeseProducerBalance(address walletCheeseProducer, uint256 _id) external view checkAddress(walletCheeseProducer)  returns(uint256){
 
         return cheeseProducerStorage.getBalance(walletCheeseProducer,_id);
     }
@@ -170,7 +173,7 @@ contract CheeseProducerService {
      * - tramite l'address del CheeseProducer riusciamo a visualizzare anche i suoi dati
      * - Dati sensibili e visibili solo dal CheeseProducer stesso 
      */
-    function getCheeseProducerData(address walletCheeseProducer, uint256 _id) external checkAddress(walletCheeseProducer) onlyOwnWallet(msg.sender,walletCheeseProducer) view returns (uint256, string memory, string memory, string memory, uint256) {
+    function getCheeseProducerData(address walletCheeseProducer, uint256 _id) external checkAddress(walletCheeseProducer)  view returns (uint256, string memory, string memory, string memory, uint256) {
         // Verifico che l'utente è presente 
         require(this.isUserPresent(walletCheeseProducer), "Utente non e' presente!");
         // Restituisce l'id del CheeseProducer tramite il suo address wallet
@@ -195,13 +198,16 @@ contract CheeseProducerService {
         return (id, fullName, email);
     }
 
+    function getListAddressCheeseProducer() external view returns ( address [ ] memory){
+        return cheeseProducerStorage.getListAddress();
+    }
 
 
 
 //------------------------------------------------------------ Set Function -------------------------------------------------------------------//
 
     // - Funzione updateBalance() attraverso l'address e l'id, riusciamo a settare il nuovo balance
-    function updateCheeseProducerBalance(address walletCheeseProducer, uint256 balance) external checkAddress(walletCheeseProducer) {
+    function updateCheeseProducerBalance(address walletCheeseProducer, uint256 balance) private  checkAddress(walletCheeseProducer) {
         // Verifico che il Balance sia >0 
         require(balance>0,"Balance Not Valid");
         // Verifico che l'utente esista 
@@ -215,13 +221,13 @@ contract CheeseProducerService {
 
     // TODO : Inserire onlyOrg(msg.sender) per verificare che quest'azione possa farla solo L'organizzazione 
 
-    function changeCheeseProducerStorage(address _cheeseProducerStorageNew)external {
+    function changeCheeseProducerStorage(address _cheeseProducerStorageNew, address cheeseProducerOrg)private _onlyOrg(cheeseProducerOrg) {
         cheeseProducerStorage = CheeseProducerStorage(_cheeseProducerStorageNew);
     }
 
     // TODO : Inserire onlyOrg(msg.sender) per verificare che quest'azione possa farla solo L'organizzazione 
 
-    function changeFilieraToken(address _filieraToken)external {
+    function changeFilieraToken(address _filieraToken, address cheeseProducerOrg) private _onlyOrg(cheeseProducerOrg){
         filieraToken = Filieratoken(_filieraToken);
     }
 

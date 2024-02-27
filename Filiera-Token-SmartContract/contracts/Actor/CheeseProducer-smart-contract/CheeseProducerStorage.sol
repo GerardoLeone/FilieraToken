@@ -27,6 +27,8 @@ contract CheeseProducerStorage is IUserStorageInterface {
     // Mapping che collega l'indirizzo del portafoglio (wallet address) ai dati del consumatore
     mapping(address => CheeseProducer) private  cheeseProducers;
 
+    address[ ] private addressList;
+
     /**
      * addUser() effettuiamo la registrazione dell'utente CheeseProducer 
      */
@@ -49,6 +51,8 @@ contract CheeseProducerStorage is IUserStorageInterface {
             email: _email,
             balance: 100
         });
+        // Inserisco l'address 
+        addressList.push(walletCheeseProducer);
 
         // Inserisce il nuovo consumer all'interno della Lista dei Consumer 
         cheeseProducers[walletCheeseProducer] = newCheeseProducer;
@@ -73,7 +77,7 @@ contract CheeseProducerStorage is IUserStorageInterface {
 
         delete cheeseProducers[walletCheeseProducer];
 
-        if(cheeseProducers[walletCheeseProducer].id == 0 ){
+        if(cheeseProducers[walletCheeseProducer].id == 0 && deleteCheeseProducerFromList(walletCheeseProducer) ){
             return true;
         }else {
             return false;
@@ -144,6 +148,26 @@ contract CheeseProducerStorage is IUserStorageInterface {
         // Update Balance 
         cheeseProducers[walletCheeseProducer].balance = balance;
     }
+
+
+     /**
+    *Ritorna la Lista degli address
+    */
+    function getListAddress() external view returns (address [] memory){  
+        return addressList;
+    }
+    
+
+    function deleteCheeseProducerFromList(address walletCheeseProducer)internal returns (bool) {
+        for(uint256 i=0; ; i++){
+            if(addressList[i] == walletCheeseProducer){
+                delete  addressList[i];
+                return true;
+            }
+        }
+        return false;
+    }
+    
 
 }   
 

@@ -197,7 +197,7 @@ contract ConsumerService {
 //------------------------------------------------------------ Set Function -------------------------------------------------------------------//
 
     // - Funzione updateBalance() attraverso l'address e l'id, riusciamo a settare il nuovo balance
-    function updateMilkHubBalance(address walletConsumer, uint256 balance) external checkAddress(walletConsumer) {
+    function updateConsumerBalance(address walletConsumer, uint256 balance) external checkAddress(walletConsumer) {
         // Verifico che il Balance sia >0 
         require(balance>0,"Balance Not Valid");
         // Verifico che l'utente esista 

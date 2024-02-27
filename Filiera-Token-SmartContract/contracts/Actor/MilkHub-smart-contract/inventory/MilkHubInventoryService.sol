@@ -142,16 +142,13 @@ contract MilkHubInventoryService {
     }
 
 
-    function getAllMilkBatchList(address walletCheeseProducer) external view returns (MilkHubInventoryStorage.MilkBatch[] memory){
+    function getAllMilkBatchList(address walletCheeseProducer) view  external  returns (MilkHubInventoryStorage.MilkBatch[] memory){
         // TODO : Contract Access Control ( Verifica che l'utente sia un CheeseProducer ) 
         // Check to CheeseProducer () verifica che è il cheeseProducer a fare la chiamata 
-        if(accessControlProduct.checkViewMilkBatchProduct(walletCheeseProducer)){
+        require(accessControlProduct.checkViewMilkBatchProduct(walletCheeseProducer),"User Not Authorized!");
             address[] memory addressListMilkHub = milkhubService.getListAddressMilkHub();
 
             return milkhubInventoryStorage.getAllMilkBatchList(addressListMilkHub); 
-        }else{
-            emit UserDenied("Utente non Autorizzato ad Accedere a questi prodotti!");
-        }
     }
 
 

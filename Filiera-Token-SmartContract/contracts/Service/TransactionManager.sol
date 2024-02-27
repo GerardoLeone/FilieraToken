@@ -2,8 +2,7 @@
 
 pragma solidity ^0.8.21;
 
-import "./Actor/Filieratoken.sol";
-
+import "contracts/Service/Filieratoken.sol";
 
 // Service 
 import "contracts/Actor/CheeseProducer-smart-contract/CheeseProducerService.sol";
@@ -34,10 +33,10 @@ contract TransactionManager {
     Filieratoken private filieraTokenService;
 
     // Addresses of the service contracts for each actor in the supply chain.
-    address private milkhubService;    // Address of the MilkHubService contract.
-    address private cheeseProducerService; // Address of the CheeseProducerService contract.
-    address private retailerService;   // Address of the RetailerService contract.
-    address private consumerService;   // Address of the ConsumerService contract.
+    MilkHubService private milkhubService;    // Address of the MilkHubService contract.
+    CheeseProducerService private cheeseProducerService; // Address of the CheeseProducerService contract.
+    RetailerService private retailerService;   // Address of the RetailerService contract.
+    ConsumerService private consumerService;   // Address of the ConsumerService contract.
 
     // **Inventory Services**
 
@@ -63,7 +62,6 @@ contract TransactionManager {
 
 
         /**
-     * @title TransactionManager Constructor
      * @dev Costruttore del contratto TransactionManager.
      * 
      * @param _filieraToken Indirizzo del contratto FilieraToken.
@@ -124,7 +122,6 @@ contract TransactionManager {
     }
 
     /**
-     * @title BuyMilkBatchProduct
      * @dev Funzione per acquistare un MilkBatch da un MilkHub. Questa funzione può essere chiamata solo da un CheeseProducer.
      *
      * @param ownerMilkBatch Indirizzo del MilkHub che vende il MilkBatch.
@@ -177,7 +174,6 @@ contract TransactionManager {
 
 
     /**
-    * @title BuyCheeseProduct
     * @dev Funzione per acquistare un CheeseBlock da un CheeseProducer. Questa funzione può essere chiamata solo da un Retailer.
     *
     * @param ownerCheese Indirizzo del CheeseProducer che vende il CheeseBlock.
@@ -228,7 +224,6 @@ contract TransactionManager {
 
 
     /**
-     * @title BuyCheesePieceProduct
      * @dev Funzione per acquistare un CheesePiece da un Retailer. Questa funzione può essere chiamata solo da un Consumer.
      *
      * @param ownerCheesePiece Indirizzo del Retailer che vende il CheesePiece.

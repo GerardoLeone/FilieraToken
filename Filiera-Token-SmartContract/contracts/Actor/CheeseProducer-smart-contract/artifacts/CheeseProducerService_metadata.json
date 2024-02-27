@@ -248,6 +248,19 @@
 				"type": "function"
 			},
 			{
+				"inputs": [],
+				"name": "getListAddressCheeseProducer",
+				"outputs": [
+					{
+						"internalType": "address[]",
+						"name": "",
+						"type": "address[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "address",
@@ -319,6 +332,24 @@
 					}
 				],
 				"name": "registerCheeseProducer",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletCheeseProducer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "balance",
+						"type": "uint256"
+					}
+				],
+				"name": "updateCheeseProducerBalance",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -417,19 +448,19 @@
 			]
 		},
 		"contracts/Actor/CheeseProducer-smart-contract/CheeseProducerService.sol": {
-			"keccak256": "0x7eb7a32d9c4f4587de8a3275eb0eb2c3751d56bfed36446f53a6f515aa559744",
+			"keccak256": "0xe9480eb9ab684a26cc9a63296c1e68b637b50513ba6992acffaec739601164bc",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://eaa6ac72e1502b36530dd60cf225c4350e0c1a922f4e787725f59931f511d5e0",
-				"dweb:/ipfs/QmTbwzXxogZ9J8W9TtMHUC7MMxx3dW31pnje2x3z3eubWT"
+				"bzz-raw://c61752844778ad829de51c14e30c858bc3167d3f2abc7e9b478d9a4cc4987975",
+				"dweb:/ipfs/QmRHzQJfiiRTgdtnvonegbbtHVRiVDPGH2xucHoK6PmqZQ"
 			]
 		},
 		"contracts/Actor/CheeseProducer-smart-contract/CheeseProducerStorage.sol": {
-			"keccak256": "0x157b77aa8e29e53604412e41be77612f4f21f2dc85d41e4dae1913ba31af3894",
+			"keccak256": "0xd217417aef0ac3b8e41b9f08d1fc4d19ce3deb0406cc76102df6011249fdd57a",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://7ee5a70f7e13b3ad28ce294dbecc85e10942e873eac5c2f30d64158da4fe01a7",
-				"dweb:/ipfs/QmSB28VuxPm7Vxea8KdLto6LQhDSEAdjtCTDP8WyxqiveH"
+				"bzz-raw://52ea62a3d1116fc8f64e6e066db83e58f123d690304e512c8eb0097e3f5d961e",
+				"dweb:/ipfs/QmSYAWzGmqciUh5bVuE3qshvGqTDPc8faEj2QCXZxfQ2va"
 			]
 		},
 		"contracts/Actor/IUserStorageInterface.sol": {

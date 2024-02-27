@@ -8,7 +8,7 @@ import "contracts/Actor/Retailer-smart-contract/RetailerService.sol";
 
 contract AccessControlProduct{
 
-    CheeseProucerService private cheeseProducerService;
+    CheeseProducerService private cheeseProducerService;
 
     RetailerService private retailerService;
 
@@ -19,23 +19,23 @@ contract AccessControlProduct{
         address _retailerService,
         address _consumerService
     ){
-        cheeseProucerService = CheeseProducerService(_cheeseProducerService);
+        cheeseProducerService = CheeseProducerService(_cheeseProducerService);
         retailerService = RetailerService(_retailerService);
         consumerService = ConsumerService(_consumerService);
     }
 
 
-    function checkViewMilkBatchProduct(address walletCheeseProducer)view returns (bool){
+    function checkViewMilkBatchProduct(address walletCheeseProducer) external view returns (bool){
         require(cheeseProducerService.isUserPresent(walletCheeseProducer),"Utente non autorizzato!");
         return true;
     }
     
-    function checkViewCheeseBlockProduct(address walletRetailer)view returns (bool){
+    function checkViewCheeseBlockProduct(address walletRetailer)external view returns (bool){
         require(retailerService.isUserPresent(walletRetailer),"Utente non autorizzato!");
         return true;
     }
 
-    function checkViewCheesePieceProduct(address walletConsumer)view returns (bool){
+    function checkViewCheesePieceProduct(address walletConsumer)external view returns (bool){
         require(consumerService.isUserPresent(walletConsumer),"Utente non autorizzato!");
         return true;
     }

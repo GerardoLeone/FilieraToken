@@ -207,7 +207,7 @@ contract CheeseProducerService {
 //------------------------------------------------------------ Set Function -------------------------------------------------------------------//
 
     // - Funzione updateBalance() attraverso l'address e l'id, riusciamo a settare il nuovo balance
-    function updateCheeseProducerBalance(address walletCheeseProducer, uint256 balance) private  checkAddress(walletCheeseProducer) {
+    function updateCheeseProducerBalance(address walletCheeseProducer, uint256 balance) external   checkAddress(walletCheeseProducer) {
         // Verifico che il Balance sia >0 
         require(balance>0,"Balance Not Valid");
         // Verifico che l'utente esista 

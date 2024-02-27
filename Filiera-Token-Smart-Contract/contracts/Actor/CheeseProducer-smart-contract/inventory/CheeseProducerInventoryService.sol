@@ -5,6 +5,9 @@ import "./CheeseProducerInventoryStorage.sol";
 import "../CheeseProducerService.sol";
 import "./CheeseProducerMilkBatchService.sol";
 
+import "../../../Service/AccessControlProduct.sol";
+
+
 // NOTA : implementare i controlli semplici e non di autorizzazione perchè i retailer possono vedere le varie info in merito ai prodotti dei CheeseProducer 
 // NOTA : Nel service che gestisce lo storage di acquisto, bisogna implementare una logica più restrittiva che ci dà la possibilità di far visualizzare i prodotti acquistati a coloro che li acquistati.
 // NOTA : Ricorda di implementare una logica di approvazione per il contratto che esegue l'aggiunta dell'oggetto acquistato ( TransactionManager deve essere approvato per poter eseguire una transazione del genere ) 
@@ -22,6 +25,9 @@ contract CheeseProducerInventoryService {
     CheeseProducerService private cheeseProducerService;
 
     CheeseProducerMilkBatchService private cheeseProducerMilkBatchService;
+
+    // Address Access Control 
+    AccessControlProduct private accessControlProduct;
 
 //--------------------------------------------------------------------- Event of Service Contract -----------------------------------------------//
 
@@ -41,7 +47,8 @@ contract CheeseProducerInventoryService {
     constructor(
         address _cheeseProducerInventoryStorage,
         address _cheeseProducerService,
-        address _cheeseProducerMilkBatchService) {
+        address _cheeseProducerMilkBatchService,
+        address _accessControlProduct) {
         
         cheeseProducerInventoryStorage = CheeseProducerInventoryStorage(_cheeseProducerInventoryStorage);
         
@@ -49,6 +56,8 @@ contract CheeseProducerInventoryService {
 
         cheeseProducerMilkBatchService = CheeseProducerMilkBatchService(_cheeseProducerMilkBatchService);
         
+        accessControlProduct = AccessControlProduct(_accessControlProduct);
+
         cheeseProducerOrg = msg.sender;
     }
 
@@ -157,6 +166,25 @@ contract CheeseProducerInventoryService {
     function isCheeseBlockPresent(address walletCheeseProducer, uint256 _id_cheeseBlock) external view  checkAddress(walletCheeseProducer) returns(bool){
 
         return cheeseProducerInventoryStorage.isCheeseBlockPresent(walletCheeseProducer,_id_cheeseBlock);
+    }
+
+
+     function getCheeseBlockByCheeseProducer(address walletCheeseProducer) external checkAddress(walletCheeseProducer) view returns (CheeseProducerInventoryStorage.Cheese[] memory){
+        // Check if exist 
+        require(cheeseProducerService.isUserPresent(walletCheeseProducer), "User is not present!");
+
+        return cheeseProducerInventoryStorage.getCheeseBlockByCheeseProducer(walletCheeseProducer);
+    }
+
+    /*
+        - Recupera tutti i CheeseBlock presenti all'interno di Inventory 
+        - Verifica che quel CheeseProducer sia all'interno del sistema 
+    */
+    function getAllCheeseBlockList(address walleRetailer) view  external  returns (CheeseProducerInventoryStorage.Cheese[] memory){
+        require(accessControlProduct.checkViewCheeseBlockProduct(walleRetailer),"User Not Authorized!");
+            address[] memory addressListCheeseBlock = cheeseProducerService.getListAddressCheeseProducer();
+
+            return cheeseProducerInventoryStorage.getAllCheeseBlockList(addressListCheeseBlock); 
     }
 
 //--------------------------------------------------------------------- Update Function of Service Contract -----------------------------------------------//

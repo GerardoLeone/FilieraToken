@@ -19,6 +19,8 @@ contract CheeseProducerInventoryStorage {
 
     mapping(address => mapping(uint256 => Cheese)) private cheeseBlocks;
 
+    uint256 [] private cheeseBlockListId;
+
 // --------------------------------------------------- Business Function --------------------------------------------------------------------------------------//
 
 
@@ -36,11 +38,10 @@ contract CheeseProducerInventoryStorage {
             _dop,
             _price,
             _quantity,
-            walletCheeseProducer
+            walletCheeseProducer,
+            block.timestamp
         )));
 
-        // Verifico che non sia stata già registrata questo blocco di formaggio 
-        require(cheeseBlocks[walletCheeseProducer][_id].id == 0, "Blocco di formaggio gia' presente!");
 
         // Crea un nuovo Blocco di formaggio
         Cheese memory cheeseBlock = Cheese({
@@ -49,6 +50,9 @@ contract CheeseProducerInventoryStorage {
             price: _price,
             quantity: _quantity
         });
+
+        // Inserisci l'id all'interno della Lista 
+        cheeseBlockListId.push(_id);
 
         // Inserisce il nuovo Blocco di formaggio nella lista cheeseBlocks
         cheeseBlocks[walletCheeseProducer][_id] = cheeseBlock;
@@ -68,7 +72,7 @@ contract CheeseProducerInventoryStorage {
 
         delete cheeseBlocks[walletCheeseProducer][_id];
         // Check CheesePiece in the mapping 
-        if(cheeseBlocks[walletCheeseProducer][_id].id  == 0){
+        if(cheeseBlocks[walletCheeseProducer][_id].id  == 0 && deleteCheeseBlockIdFromList(_id)){
             return true;
         }else {
             return false;
@@ -83,6 +87,43 @@ contract CheeseProducerInventoryStorage {
 
         return cheeseBlocks[walletCheeseProducer][_id_CheeseBlock].id == _id_CheeseBlock;
     }
+
+
+    function getCheeseBlockByCheeseProducer(address walletCheeseProducer)external view returns (Cheese[]memory){
+        Cheese [ ] memory  cheeseBlockList  = new Cheese[](cheeseBlockListId.length);
+        for (uint256 i=0; i<cheeseBlockListId.length; i++){
+
+                uint256 _id = cheeseBlockListId[i];
+                if(cheeseBlocks[walletCheeseProducer][_id].id != 0){
+                    // Esiste e questo è il MilkBatch dell'Utente 
+                    Cheese storage new_cheese = cheeseBlocks[walletCheeseProducer][_id];
+                    cheeseBlockList[i] = new_cheese;
+                } 
+        }
+        return cheeseBlockList;
+    }
+
+    function getAllCheeseBlockList(address[] memory cheeseProducerListAddress)external view returns (Cheese[]memory){
+        
+        Cheese [ ] memory  cheeseBlockList  = new Cheese[](cheeseBlockListId.length);
+        
+        uint256 t = 0; 
+
+        for(uint256 i = 0; i<cheeseProducerListAddress.length; i++){
+            
+            Cheese [ ] memory cheeseBlockListFromUser = this.getCheeseBlockByCheeseProducer(cheeseProducerListAddress[i]);
+            
+            for(uint256 j=0; j< cheeseBlockListFromUser.length; j++){
+                Cheese memory new_cheese = cheeseBlockListFromUser[j];
+                cheeseBlockList[t] = new_cheese;
+                t = t+1;
+            }
+        }
+        return cheeseBlockList;
+
+    }
+
+    
 
 // --------------------------------------------------- Get Function --------------------------------------------------------------------------------------//
     
@@ -118,6 +159,16 @@ contract CheeseProducerInventoryStorage {
         require(_newQuantity<=cheeseBlocks[walletCheeseProducer][_id_Cheese].quantity,"Controllo della Quantita' da utilizzare non andata a buon fine!");
 
         cheeseBlocks[walletCheeseProducer][_id_Cheese].quantity = _newQuantity;
+    }
+
+    function deleteCheeseBlockIdFromList(uint256 _id)internal returns (bool) {
+        for(uint256 i=0; ; i++){
+            if(cheeseBlockListId[i] == _id){
+                delete  cheeseBlockListId[i];
+                return true;
+            }
+        }
+        return false;
     }
 
 }

@@ -203,7 +203,6 @@ contract CheeseProducerService {
     }
 
 
-
 //------------------------------------------------------------ Set Function -------------------------------------------------------------------//
 
     // - Funzione updateBalance() attraverso l'address e l'id, riusciamo a settare il nuovo balance

@@ -136,6 +136,17 @@ contract CheeseProducerMilkBatchService {
         return cheeseProducerMilkBatchStorage.isMilkBatchPresent(_walletCheeseProducer, _id_MilkBatchAcquistato);
     }
 
+    /*
+        - Recupera la Lista di Prodotti Acquistati di un  CheeseProducer 
+        - Verifica che questo esista 
+    */
+    function getMilkBatchListPurchasedByCheeseProducer(address walletCheeseProducer)external view checkAddress(walletCheeseProducer) returns (CheeseProducerMilkBatchStorage.MilkBatch[]memory ){
+        // Verifica che l'utente sia presente all'interno del sistema e sia solo il CheeseProducer
+        require(cheeseProducerService.isUserPresent(walletCheeseProducer),"User not Authorized!");
+
+        return cheeseProducerMilkBatchStorage.getMilkBatchListPurchasedByCheeseProducer(walletCheeseProducer);
+    }
+
 
 
 //-------------------------------------------------------------------- Set Function ------------------------------------------------------------------------//

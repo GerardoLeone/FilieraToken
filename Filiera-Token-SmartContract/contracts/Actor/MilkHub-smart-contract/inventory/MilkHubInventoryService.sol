@@ -141,10 +141,11 @@ contract MilkHubInventoryService {
         return milkhubInventoryStorage.getMilkBatchListByMilkHub(walletMilkHub);
     }
 
-
+    /*
+        - Recupera tutti i MilkBatch presenti all'interno di Inventory 
+        - Verifica che quel CheeseProducer sia all'interno del sistema 
+    */
     function getAllMilkBatchList(address walletCheeseProducer) view  external  returns (MilkHubInventoryStorage.MilkBatch[] memory){
-        // TODO : Contract Access Control ( Verifica che l'utente sia un CheeseProducer ) 
-        // Check to CheeseProducer () verifica che è il cheeseProducer a fare la chiamata 
         require(accessControlProduct.checkViewMilkBatchProduct(walletCheeseProducer),"User Not Authorized!");
             address[] memory addressListMilkHub = milkhubService.getListAddressMilkHub();
 

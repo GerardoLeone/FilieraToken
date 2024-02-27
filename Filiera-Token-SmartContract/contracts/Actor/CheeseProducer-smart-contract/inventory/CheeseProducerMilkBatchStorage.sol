@@ -21,6 +21,8 @@ contract CheeseProducerMilkBatchStorage {
 
     mapping(address => mapping(uint256 => MilkBatch)) private purchasedMilkBatches;
 
+    uint256 [] private milkBatchIdPurchasedList;
+
 
 //--------------------------------------------------------------- Business Logic Service -----------------------------------------------------------------------------------------//
 
@@ -55,9 +57,6 @@ contract CheeseProducerMilkBatchStorage {
         )));
 
 
-        MilkBatch storage milkbatchControl = purchasedMilkBatches[_walletCheeseProducer][_id];
-        require( milkbatchControl.id == 0, "Partita di Latte gia' presente!");
-
         //Crea una nuova Partita di Latte
         MilkBatch memory milkBatch = MilkBatch({
             id: _id,
@@ -69,6 +68,8 @@ contract CheeseProducerMilkBatchStorage {
 
         //Inserisce la nuova Partita di Latte nella lista purchasedMilkBatches
         purchasedMilkBatches[_walletCheeseProducer][_id] = milkBatch;
+        // Inserisce il riferimento all'interno della lista
+        milkBatchIdPurchasedList.push(_id);
 
         return (purchasedMilkBatches[_walletCheeseProducer][_id].id, purchasedMilkBatches[_walletCheeseProducer][_id].expirationDate, purchasedMilkBatches[_walletCheeseProducer][_id].quantity);
 
@@ -134,6 +135,26 @@ contract CheeseProducerMilkBatchStorage {
 
         return purchasedMilkBatches[walletCheeseProducer][_id].id;
     }
+
+    /*
+        - Funzione per recuperare tutti i MilKBatchPurchased di un determinato walletCheeseProducer
+    */
+    function getMilkBatchListPurchasedByCheeseProducer(address walletCheeseProducer) external view returns (MilkBatch[] memory) {
+        MilkBatch [ ] memory  milkBatchPurchasedList  = new MilkBatch[](milkBatchIdPurchasedList.length);
+        
+        for (uint256 i=0; i<milkBatchIdPurchasedList.length; i++){
+
+                uint256 _id = milkBatchIdPurchasedList[i];
+                if(purchasedMilkBatches[walletCheeseProducer][_id].id != 0){
+                    // Esiste e questo è il MilkBatch dell'Utente 
+                    MilkBatch storage new_milkbatchPurchased = purchasedMilkBatches[walletCheeseProducer][_id];
+                    milkBatchPurchasedList[i] = new_milkbatchPurchased;
+                } 
+        }
+
+        return milkBatchPurchasedList;
+    }
+
 
 
 // -------------------------------------------------------------- Check Function ------------------------------------------------------------------------------------------//

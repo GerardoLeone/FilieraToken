@@ -208,7 +208,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/Service/TransactionManager.sol": "TransactionManager"
+			"Filiera-Token-Smart-Contract/contracts/Service/TransactionManager.sol": "TransactionManager"
 		},
 		"evmVersion": "shanghai",
 		"libraries": {},
@@ -262,15 +262,15 @@
 				"dweb:/ipfs/Qmax9WHBnVsZP46ZxEMNRQpLQnrdE4dK8LehML1Py8FowF"
 			]
 		},
-		"contracts/Actor/CheeseProducer-smart-contract/CheeseProducerService.sol": {
-			"keccak256": "0x103077e041a2bc467480917c230dee9da94263d8553f95eb5ad7df1742b68142",
+		"Filiera-Token-Smart-Contract/contracts/Actor/CheeseProducer-smart-contract/CheeseProducerService.sol": {
+			"keccak256": "0xc5c062e69c61135e452a108ef71cabd799a0bc6464fbae0c5212ded429abccd1",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://0b2991b4bc0f12f5ae2e2bf1ef1812a3a8ea37d823a7dda37a018840c9cae303",
-				"dweb:/ipfs/Qma3Rreif754v3vAJPJ2FoYqBQ3WC1Z93yeTpwnhTdXJC7"
+				"bzz-raw://fb5092f31d85a37a2bac052b4da49ceb0e74fcb64aa9f436ade677425f8b903f",
+				"dweb:/ipfs/QmW2MFT31i82jNzfArz6SobgrfjNRK853dj6oRS849pXz6"
 			]
 		},
-		"contracts/Actor/CheeseProducer-smart-contract/CheeseProducerStorage.sol": {
+		"Filiera-Token-Smart-Contract/contracts/Actor/CheeseProducer-smart-contract/CheeseProducerStorage.sol": {
 			"keccak256": "0xd217417aef0ac3b8e41b9f08d1fc4d19ce3deb0406cc76102df6011249fdd57a",
 			"license": "MIT",
 			"urls": [
@@ -278,31 +278,15 @@
 				"dweb:/ipfs/QmSYAWzGmqciUh5bVuE3qshvGqTDPc8faEj2QCXZxfQ2va"
 			]
 		},
-		"contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerInventoryService.sol": {
-			"keccak256": "0x6a96332ee857ac0f743e8fd6526e4d8ee3602545477d35d9336be6104de83602",
+		"Filiera-Token-Smart-Contract/contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerBuyerService.sol": {
+			"keccak256": "0x1f6861793173ec3808243c7903fb9adee09a8dd0d683202eaff2875b10865d1c",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://a6aa05c3308aa20ba94117b04dda0453eb28c6219152b7f87fadbcb42a34c6f7",
-				"dweb:/ipfs/QmadpLikkA51LXSeh8wNJcxK5FVjAiPLcabQDR2Nudd6YF"
+				"bzz-raw://ec5b9a225dc5e7ace78eba1cab2ead6fd12a79d2a1a641b0678516e68f5c2aff",
+				"dweb:/ipfs/QmWBjg6dvrU7TyUFkxYS3jN1es17ie2xaUivkiQib9mLiW"
 			]
 		},
-		"contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerInventoryStorage.sol": {
-			"keccak256": "0xa1bc5973d1cd135163233950da1824d426edad739281207d73642e289e52f379",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://2a9aff6c3898a1ad3e00a1dec55a94d62f4f45783e097a41d676ad4b78df915e",
-				"dweb:/ipfs/QmY6ei4Ba3bzj4TaA4Ns2MradJsCBNKdmJNxmNWHVM6bmA"
-			]
-		},
-		"contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerMilkBatchService.sol": {
-			"keccak256": "0x2c26bc218f307f63c7a7f7776ec5de2ec74f6efed91b6ace3d6eda69a91ca81b",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://4bfb66477aed2d39603ab66d3e446c8ef8c1e367471b29bea6613cf5cf9e7a0a",
-				"dweb:/ipfs/QmRUz5KJZmna7qAz1btX4T3pWWj9QNWWEsMUayCXNWKG5p"
-			]
-		},
-		"contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerMilkBatchStorage.sol": {
+		"Filiera-Token-Smart-Contract/contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerBuyerStorage.sol": {
 			"keccak256": "0xc73c4878cb32327b647236b44e39f3d8b64137ab62cf9611afd812373e4bcc9c",
 			"license": "MIT",
 			"urls": [
@@ -310,7 +294,23 @@
 				"dweb:/ipfs/QmQCKf1c1bCDf1HS4sYuUe34u9UhJxz221ZZy1qGVsuBRV"
 			]
 		},
-		"contracts/Actor/Consumer-smart-contract/ConsumerService.sol": {
+		"Filiera-Token-Smart-Contract/contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerInventoryService.sol": {
+			"keccak256": "0x5eb8b564662009ae2b71da6e205bb8afd449637b9c34e53d4797fe705e48e8b4",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://e50b8853dd833f9ccb6fb42ed9c9083b7b448a1089ee2c90890f9e32581fac99",
+				"dweb:/ipfs/QmTKGpnfj2evCjzMnGUZkmFLuXRnfzqRpnhCX1LCyJyPCL"
+			]
+		},
+		"Filiera-Token-Smart-Contract/contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerInventoryStorage.sol": {
+			"keccak256": "0x2094863fa7f702c980bbee5594d87294d8efedf9096efc2257ab6b1055b5864c",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://48b6f8051107f1c8db31a4692f6d2159181317610f75c028c3d19671fe749c94",
+				"dweb:/ipfs/QmfLkTEKZ8hpHpdnsstTutxfqGp6FgTrxFGWV5EaQutir8"
+			]
+		},
+		"Filiera-Token-Smart-Contract/contracts/Actor/Consumer-smart-contract/ConsumerService.sol": {
 			"keccak256": "0xf713c62db55cac7091662e81e396d6c0304d173df7f75b6e558205c82e38bdb6",
 			"license": "MIT",
 			"urls": [
@@ -318,7 +318,7 @@
 				"dweb:/ipfs/QmcLLdL2hhELZTDHwULkwViP2xCLDsGV2rd2iy2oj8Pov7"
 			]
 		},
-		"contracts/Actor/Consumer-smart-contract/ConsumerStorage.sol": {
+		"Filiera-Token-Smart-Contract/contracts/Actor/Consumer-smart-contract/ConsumerStorage.sol": {
 			"keccak256": "0x8b258f679be5434378860727baf71944df67df886640fb056db55755f5096fbf",
 			"license": "MIT",
 			"urls": [
@@ -326,23 +326,23 @@
 				"dweb:/ipfs/QmYc6JrYwxs7uk5t46K3rd5inG9onUTqaW4RkPwZvNDGpD"
 			]
 		},
-		"contracts/Actor/Consumer-smart-contract/inventory/ConsumerBuyerInventoryService.sol": {
-			"keccak256": "0x0439c3e3b81ac09a67bef086b3e5101c7838c371b61a987eebbde213d72555ec",
+		"Filiera-Token-Smart-Contract/contracts/Actor/Consumer-smart-contract/inventory/ConsumerBuyerInventoryService.sol": {
+			"keccak256": "0xf199055eb13fd0f23bf2c8ba1957f1794d5028bb659aa8214abd13146556a038",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://230d5da43cc80837e9c06d78c7c867077d544122015ea4d62f7a1be8e32a7e50",
-				"dweb:/ipfs/QmY3kw3wF4Di3qLxRE5cN5SnesPv24ZAsWRmq9MgMQCkBf"
+				"bzz-raw://d00c809baf8a36088f94102e4b634c5728a56c00fb52bc6f7f4a3bc246e8a3de",
+				"dweb:/ipfs/QmatYwUH97v8xtTRoh2AfPjhtxF2pkWYVGEFNTjQopvQ8c"
 			]
 		},
-		"contracts/Actor/Consumer-smart-contract/inventory/ConsumerBuyerInventoryStorage.sol": {
-			"keccak256": "0x9f9278d6792d3a17b0a6392710f9766389fa506625466aeae737af4e7e47ee31",
+		"Filiera-Token-Smart-Contract/contracts/Actor/Consumer-smart-contract/inventory/ConsumerBuyerInventoryStorage.sol": {
+			"keccak256": "0x5d780e0bb647aaa17095a541aacf286c4f589400ccf93d3e2596cb3dfc658731",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://727603eb87457e24a2c012c5da0aa471397ae7b426b6f3891a0f00a0143e28a8",
-				"dweb:/ipfs/QmNxvbNjTXwGws5UGCtFpfEmSa7xjP8UBTWker2sFVDhgR"
+				"bzz-raw://0bf0789dec84f750b8ed6353407bad6b4804676ca1c1a5de744a2175e5f1c6fe",
+				"dweb:/ipfs/QmeZggvBf1m3cHbwgSGYZaqouDUN5AMNre5Q7ikfSgxTW3"
 			]
 		},
-		"contracts/Actor/IUserStorageInterface.sol": {
+		"Filiera-Token-Smart-Contract/contracts/Actor/IUserStorageInterface.sol": {
 			"keccak256": "0xae0b245125f0e611e9ae29c1970d635b4a982787afafab5290759d9ef7d821c8",
 			"license": "MIT",
 			"urls": [
@@ -350,7 +350,7 @@
 				"dweb:/ipfs/QmRFZhVDtbAC27oFHQVDrzgM9FLLHgcK7peiYh4U4P4bL1"
 			]
 		},
-		"contracts/Actor/MilkHub-smart-contract/MilkHubService.sol": {
+		"Filiera-Token-Smart-Contract/contracts/Actor/MilkHub-smart-contract/MilkHubService.sol": {
 			"keccak256": "0xd43e5d6251965c172043598562270eacaf43db0dfef3793017439a116b3e4db6",
 			"license": "MIT",
 			"urls": [
@@ -358,7 +358,7 @@
 				"dweb:/ipfs/QmU7JbUCZgHYUxQv1aJZnYB6RETCp8fJ7XVvM21vs9kDde"
 			]
 		},
-		"contracts/Actor/MilkHub-smart-contract/MilkHubStorage.sol": {
+		"Filiera-Token-Smart-Contract/contracts/Actor/MilkHub-smart-contract/MilkHubStorage.sol": {
 			"keccak256": "0x78a0eca7f6fef8c684591b457daf3b53dd4d398dc2f9508b7445934ab98b870f",
 			"license": "MIT",
 			"urls": [
@@ -366,7 +366,7 @@
 				"dweb:/ipfs/QmcWwqsQKedrGokuHKPGF43kxzsDE6EY31P9qhLsRtjYrR"
 			]
 		},
-		"contracts/Actor/MilkHub-smart-contract/inventory/MilkHubInventoryService.sol": {
+		"Filiera-Token-Smart-Contract/contracts/Actor/MilkHub-smart-contract/inventory/MilkHubInventoryService.sol": {
 			"keccak256": "0xc1532d024b5e47f7d3b0a6e42738bcdf8ef70647a983f557a79e8cc3720bedd9",
 			"license": "MIT",
 			"urls": [
@@ -374,7 +374,7 @@
 				"dweb:/ipfs/QmZKygFVxFedBsv2WTbFukQXtqUFVrr4a9jpA98R5Whvpd"
 			]
 		},
-		"contracts/Actor/MilkHub-smart-contract/inventory/MilkHubInventoryStorage.sol": {
+		"Filiera-Token-Smart-Contract/contracts/Actor/MilkHub-smart-contract/inventory/MilkHubInventoryStorage.sol": {
 			"keccak256": "0x8935207c0b7b152bcc8e3bc7a7655e5009350fb1d19c225dcc01ce80e7c61a0f",
 			"license": "MIT",
 			"urls": [
@@ -382,7 +382,7 @@
 				"dweb:/ipfs/Qmb2d8YN72Jd8wp5kYp7szTqrdJA3DUC1LmmHJrFAG7Nm1"
 			]
 		},
-		"contracts/Actor/Retailer-smart-contract/RetailerService.sol": {
+		"Filiera-Token-Smart-Contract/contracts/Actor/Retailer-smart-contract/RetailerService.sol": {
 			"keccak256": "0xc3c2fdfc9e54e0329c83721382d2a6dc28e6e22eadb169b8a1a707f6ee689f29",
 			"license": "MIT",
 			"urls": [
@@ -390,7 +390,7 @@
 				"dweb:/ipfs/Qmc8zY725jWMND8BvRCxcbtUkktXZnnYQv5WCbcqRma2wA"
 			]
 		},
-		"contracts/Actor/Retailer-smart-contract/RetailerStorage.sol": {
+		"Filiera-Token-Smart-Contract/contracts/Actor/Retailer-smart-contract/RetailerStorage.sol": {
 			"keccak256": "0xb8e2adb51d59610326415d98216c9ba6bcbd78c0af882accf7e77155f206bf4f",
 			"license": "MIT",
 			"urls": [
@@ -398,39 +398,39 @@
 				"dweb:/ipfs/Qmah9hU1rnJUaWafMmqNqiie79EyyMwSknanWLjWiNYqSj"
 			]
 		},
-		"contracts/Actor/Retailer-smart-contract/inventory/RetailerCheeseBlockService.sol": {
-			"keccak256": "0x2ac40d225f8fe73d6fb7525d274ed3645ff2d1e4c26a3d6fb50fcdc0d9e44230",
+		"Filiera-Token-Smart-Contract/contracts/Actor/Retailer-smart-contract/inventory/RetailerBuyerService.sol": {
+			"keccak256": "0xa0cf8ed812643cf8af8b31cc469204c54f91071c258f598acf060cb230bf4f3a",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://e0eb94ab1aca1af36bf95111bbc14ea353b9b4783189ea81f9e857de7781cdf1",
-				"dweb:/ipfs/QmZDuUPzcMmPtqC6c2km5cA5ap1P3pvs97Fr1dsap6Dmx2"
+				"bzz-raw://861d19641f486b1dbf3c0b5db56c87032e479da11b61d64af77cd40cbdac3e93",
+				"dweb:/ipfs/Qmdx8RwDZZeWcLdMxLGq3AdTLoBMhRA1Dy3sMouG9zyGTE"
 			]
 		},
-		"contracts/Actor/Retailer-smart-contract/inventory/RetailerCheeseBlockStorage.sol": {
-			"keccak256": "0xc0ddd237b182163641f0143eb450a9e68b4f69674e79e23fe0ec5f023b4953de",
+		"Filiera-Token-Smart-Contract/contracts/Actor/Retailer-smart-contract/inventory/RetailerBuyerStorage.sol": {
+			"keccak256": "0x9213f886987340311f392689fbe64587d29c8777b2f866fb2644cc8c5ba3113b",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://c88e590374fbe7ebeebdd03e6397d3c57dd621e4ec2308c540400bf78ae1cb2b",
-				"dweb:/ipfs/Qmb4THwPJFjXC8Erzqeaib1mxmebT3dPctWrkKRGjpK9iz"
+				"bzz-raw://fe7101fed5cd745356cacc90db1eaab8feca57d9c465de236035812941618d70",
+				"dweb:/ipfs/QmUetLznD6xpuN6ywx1TsMatTY9Rp7DNZ62rDAzS1n8W1n"
 			]
 		},
-		"contracts/Actor/Retailer-smart-contract/inventory/RetailerInventoryService.sol": {
-			"keccak256": "0xe03a9ec8c40d96473b5c3666ebb3b0985d51fed70139f7c0b42881e8f7aad891",
+		"Filiera-Token-Smart-Contract/contracts/Actor/Retailer-smart-contract/inventory/RetailerInventoryService.sol": {
+			"keccak256": "0xef0350b2840e4fe4b638c289f06a72181b9a8a806679c98a3e983d254e066c79",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://4de856e4b6fec41a47120c5762393633ac21d9d5c19f10b74f09ee409dd77e58",
-				"dweb:/ipfs/QmW8LCsAvZVV2DrjXGiNCsGzzxJv8fi5BDaHFDJnfXj1Qg"
+				"bzz-raw://817ba2e40e0f3645655bb99435197b5a7efec756175d0da8d4a452e5397891d1",
+				"dweb:/ipfs/QmZPdBMWrproGecqPBgmu9LeN17ECQKSpGTdkNXTSpjbYe"
 			]
 		},
-		"contracts/Actor/Retailer-smart-contract/inventory/RetailerInventoryStorage.sol": {
-			"keccak256": "0x848cf47c9c8b36714fb686238a79c174c2a1582f68834eab7ffeed2147e4b0ca",
+		"Filiera-Token-Smart-Contract/contracts/Actor/Retailer-smart-contract/inventory/RetailerInventoryStorage.sol": {
+			"keccak256": "0x958a08db914210b8c2034a08863b1a425f8aa01116532e38c25f8f49e114329c",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://0b9ea9f6ca3a17730c5a9d73d34b77e0bf2aab3136909630292617caa48a7d72",
-				"dweb:/ipfs/QmX1nDRfwTrHt4AmByUwniQtEoh8EgkGwcaz3JLEbdebjd"
+				"bzz-raw://bc0b9341bf4117baaf09283c9725c9d4eac87b65470b05336592a9a91d5b9811",
+				"dweb:/ipfs/QmccAjUFk6p2tmb6LekGKcfT6tpDNZ25JM1FimeqYVKbLH"
 			]
 		},
-		"contracts/Service/AccessControlProduct.sol": {
+		"Filiera-Token-Smart-Contract/contracts/Service/AccessControlProduct.sol": {
 			"keccak256": "0xf8b93a19dddabcd0159f3e92b00bf5d2643e03760fa2e1e658aac4ba4adddf63",
 			"license": "MIT",
 			"urls": [
@@ -438,7 +438,7 @@
 				"dweb:/ipfs/QmPFVbYyizxheeYYC7aTUKF6vGNsaMVvZXoP4PkSMaA5EP"
 			]
 		},
-		"contracts/Service/Filieratoken.sol": {
+		"Filiera-Token-Smart-Contract/contracts/Service/Filieratoken.sol": {
 			"keccak256": "0xcb2e21f42a384efcf6bf6e72bd5b5d5cd3b919a67b9d3afe7e4be79cbdd92fae",
 			"license": "MIT",
 			"urls": [
@@ -446,12 +446,12 @@
 				"dweb:/ipfs/QmYWm26mnSaRmT2fYadXWYRtQw7rhtsw9pW9BwXr6aYFrQ"
 			]
 		},
-		"contracts/Service/TransactionManager.sol": {
-			"keccak256": "0x1fd671fc97744ff281eb29538b06d1d6d758f03c7927b25764795b0cbc11b363",
+		"Filiera-Token-Smart-Contract/contracts/Service/TransactionManager.sol": {
+			"keccak256": "0x4c88144980523c61c8727efad18987a400b1acef415df5c5c3d1cf7b37bfacb5",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://2da29e87a87c5ecd7924264dc096c1b4c5d0c2bccdab71236f9a424adcad0685",
-				"dweb:/ipfs/QmNv89hZ5u6zMH1Y8EUaffwtZ8z9sPmSL5rGkvFo1WUpMU"
+				"bzz-raw://0e0bfcb50e2b7f7adb4442d1c1429f7dd9ddf3d4ab3b2caf3340649697ef4af2",
+				"dweb:/ipfs/QmPBzMHmKTet1ywhhD4Zve21Bvuh7eymb1pEjXF7ftVo86"
 			]
 		}
 	},

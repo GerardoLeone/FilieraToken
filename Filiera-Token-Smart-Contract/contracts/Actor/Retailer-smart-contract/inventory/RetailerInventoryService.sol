@@ -3,7 +3,9 @@ pragma solidity ^0.8.21;
 
 import "./RetailerInventoryStorage.sol";
 import "../RetailerService.sol";
-import "./RetailerCheeseBlockService.sol";
+import "./RetailerBuyerService.sol";
+
+import "../../../Service/AccessControlProduct.sol";
 
 contract RetailerInventoryService {
 
@@ -18,6 +20,8 @@ contract RetailerInventoryService {
     RetailerService private retailerService;
 
     RetailerCheeseBlockService private retailerCheeseBlockService;
+
+    AccessControlProduct private accessControlProduct;
 
 
 //------------------------------------------------------------------------ Event of Service  -----------------------------------------------------------//
@@ -43,11 +47,13 @@ contract RetailerInventoryService {
     constructor(
         address _retailerInventoryStorage,
         address _retailerService,
-        address _retailerCheeseBlockService
+        address _retailerCheeseBlockService,
+        address _accessControlProduct
     ) {
         retailerInventoryStorage = RetailerInventoryStorage(_retailerInventoryStorage);
         retailerService = RetailerService(_retailerService);
         retailerCheeseBlockService = RetailerCheeseBlockService(_retailerCheeseBlockService);
+        accessControlProduct = AccessControlProduct(_accessControlProduct);
         retailerOrg = msg.sender;
     }
 
@@ -141,6 +147,25 @@ contract RetailerInventoryService {
     function isCheesePiecePresent(address walletRetailer, uint256 _id_cheesePiece) external view checkAddress(walletRetailer) returns (bool) {
         return retailerInventoryStorage.isCheesePiecePresent(walletRetailer, _id_cheesePiece);
     }
+
+    function getCheesePieceByRetailer(address walletRetailer) external checkAddress(walletRetailer) view returns (RetailerInventoryStorage.CheesePiece[] memory) {
+    // Check if exist 
+        require(retailerService.isUserPresent(walletRetailer), "User is not present!");
+
+        return retailerInventoryStorage.getCheesePieceListPurchasedByRetailer(walletRetailer);
+    }
+
+    /*
+        - Recupera tutti i CheesePiece presenti all'interno dell'inventario del Retailer
+        - Verifica che quel Consumer sia autorizzato
+    */
+    function getAllCheesePieceList(address walletConsumer) view external returns (RetailerInventoryStorage.CheesePiece[] memory) {
+        require(accessControlProduct.checkViewCheesePieceProduct(walletConsumer), "User Not Authorized!");
+        address[] memory addressListRetailer = retailerService.getListAddressRetailer();
+
+        return retailerInventoryStorage.getAllCheesePieceList(addressListRetailer); 
+    }
+
 
 
 //------------------------------------------------------------------------  Set Function -----------------------------------------------------------//

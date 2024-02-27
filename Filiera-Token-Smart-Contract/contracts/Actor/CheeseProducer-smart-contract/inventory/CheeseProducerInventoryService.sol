@@ -3,7 +3,7 @@ pragma solidity ^0.8.21;
 
 import "./CheeseProducerInventoryStorage.sol";
 import "../CheeseProducerService.sol";
-import "./CheeseProducerMilkBatchService.sol";
+import "./CheeseProducerBuyerService.sol";
 
 import "../../../Service/AccessControlProduct.sol";
 

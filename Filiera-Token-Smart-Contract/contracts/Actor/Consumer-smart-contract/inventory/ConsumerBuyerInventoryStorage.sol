@@ -21,6 +21,9 @@ contract ConsumerBuyerInventoryStorage {
 
     mapping(address => mapping(uint256 => CheesePiece)) private purchasedCheesePieces;
 
+    uint256 [] private purchasedCheesePieceListId;
+
+
     //--------------------------------------------------------------- Business Logic Service -----------------------------------------------------------------------------------------//
 
     function addCheesePiece(
@@ -45,6 +48,9 @@ contract ConsumerBuyerInventoryStorage {
         // Inserisce il nuovo CheesePiece nella lista purchasedCheesePieces
         purchasedCheesePieces[_walletConsumerBuyer][_id] = cheesePiece;
 
+        //Inserisci l'id all'interno della Lista
+        purchasedCheesePieceListId.push(_id);
+
         return (purchasedCheesePieces[_walletConsumerBuyer][_id].id, purchasedCheesePieces[_walletConsumerBuyer][_id].price, purchasedCheesePieces[_walletConsumerBuyer][_id].weight);
     }
 
@@ -68,6 +74,20 @@ contract ConsumerBuyerInventoryStorage {
 
     function getWalletRetailer(address walletConsumerBuyer, uint256 _id) external view returns (address) {
         return purchasedCheesePieces[walletConsumerBuyer][_id].walletRetailer;
+    }
+
+    function getPurchasedCheesePieceByConsumer(address walletConsumer)external view returns (CheesePiece[]memory){
+        CheesePiece [ ] memory  purchasedCheesePieceList  = new CheesePiece[](purchasedCheesePieceListId.length);
+        for (uint256 i=0; i<purchasedCheesePieceListId.length; i++){
+
+                uint256 _id = purchasedCheesePieceListId[i];
+                if(purchasedCheesePieces[walletConsumer][_id].id != 0){
+                    // Esiste e questo è il MilkBatch dell'Utente 
+                    CheesePiece storage new_cheese = purchasedCheesePieces[walletConsumer][_id];
+                    purchasedCheesePieceList[i] = new_cheese;
+                } 
+        }
+        return purchasedCheesePieceList;
     }
 
 }

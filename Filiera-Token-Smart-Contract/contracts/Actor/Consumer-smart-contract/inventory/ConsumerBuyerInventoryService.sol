@@ -26,7 +26,9 @@ contract ConsumerBuyerInventoryService {
 
     //------------------------------------------------------------------------ Constructor of other Contract Service -----------------------------------------------------------//
 
-    constructor(address _consumerBuyerInventoryStorage, address _consumerService) {
+    constructor(
+        address _consumerBuyerInventoryStorage, 
+        address _consumerService) {
         consumerBuyerInventoryStorage = ConsumerBuyerInventoryStorage(_consumerBuyerInventoryStorage);
         consumerService = ConsumerService(_consumerService);
         consumerBuyerOrg = msg.sender;
@@ -121,6 +123,13 @@ contract ConsumerBuyerInventoryService {
         require(consumerService.isUserPresent(_walletConsumerBuyer), "Utente non presente!");
 
         return consumerBuyerInventoryStorage.isCheesePiecePresent(_walletConsumerBuyer, _id_CheesePieceAcquistato);
+    }
+
+    function getPurchasedCheesePieceByConsumer(address walletConsumer) external checkAddress(walletConsumer) view returns (ConsumerBuyerInventoryStorage.CheesePiece[] memory){
+        // Check if exist 
+        require(consumerService.isUserPresent(walletConsumer), "User is not present!");
+
+        return consumerBuyerInventoryStorage.getPurchasedCheesePieceByConsumer(walletConsumer);
     }
 
 //-------------------------------------------------------------------- Set Function ------------------------------------------------------------------------//

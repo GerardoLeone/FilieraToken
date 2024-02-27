@@ -550,7 +550,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/Service/Filieratoken.sol": "Filieratoken"
+			"Filiera-Token-Smart-Contract/contracts/Service/Filieratoken.sol": "Filieratoken"
 		},
 		"evmVersion": "shanghai",
 		"libraries": {},
@@ -604,7 +604,7 @@
 				"dweb:/ipfs/Qmax9WHBnVsZP46ZxEMNRQpLQnrdE4dK8LehML1Py8FowF"
 			]
 		},
-		"contracts/Service/Filieratoken.sol": {
+		"Filiera-Token-Smart-Contract/contracts/Service/Filieratoken.sol": {
 			"keccak256": "0xcb2e21f42a384efcf6bf6e72bd5b5d5cd3b919a67b9d3afe7e4be79cbdd92fae",
 			"license": "MIT",
 			"urls": [

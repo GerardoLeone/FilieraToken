@@ -342,7 +342,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerInventoryStorage.sol": "CheeseProducerInventoryStorage"
+			"Filiera-Token-Smart-Contract/contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerInventoryStorage.sol": "CheeseProducerInventoryStorage"
 		},
 		"evmVersion": "shanghai",
 		"libraries": {},
@@ -356,7 +356,7 @@
 		"remappings": []
 	},
 	"sources": {
-		"contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerInventoryStorage.sol": {
+		"Filiera-Token-Smart-Contract/contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerInventoryStorage.sol": {
 			"keccak256": "0x2094863fa7f702c980bbee5594d87294d8efedf9096efc2257ab6b1055b5864c",
 			"license": "MIT",
 			"urls": [

@@ -13,7 +13,7 @@ import "../Actor/Retailer-smart-contract/RetailerService.sol";
 
 // Inventory Service 
 import "../Actor/MilkHub-smart-contract/inventory/MilkHubInventoryService.sol";
-import "../Actor/CheeseProducer-smart-contract/inventory/CheeseProducerMilkBatchService.sol";
+import "../Actor/CheeseProducer-smart-contract/inventory/CheeseProducerBuyerService.sol";
 
 import "../Actor/CheeseProducer-smart-contract/inventory/CheeseProducerInventoryService.sol";
 import "../Actor/Retailer-smart-contract/inventory/RetailerInventoryService.sol";
@@ -21,7 +21,7 @@ import "../Actor/Retailer-smart-contract/inventory/RetailerInventoryService.sol"
 
 
 import "../Actor/Consumer-smart-contract/inventory/ConsumerBuyerInventoryService.sol";
-import "../Actor/Retailer-smart-contract/inventory/RetailerCheeseBlockService.sol";
+import "../Actor/Retailer-smart-contract/inventory/RetailerBuyerService.sol";
 
 
 

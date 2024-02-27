@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.21;
+pragma solidity ^0.8.0;
 
 import "./RetailerStorage.sol";
-import "../Filieratoken.sol";
+import "../../Service/Filieratoken.sol";
 
 
 contract RetailerService {
@@ -10,14 +10,14 @@ contract RetailerService {
 //-------------------------------------------------------------------- Contract Address Service --------------------------------------------------------------------//
 
 
-    // Address of Retailer Storage 
+    // Address of Consumer Storage 
     RetailerStorage private retailerStorage;
     
     // Address of Token FT - ERC-20
     Filieratoken private filieraToken;
 
     // Address of Organization che gestisce gli utenti
-    address private  RetailerOrg;
+    address private  ConsumerOrg;
 
 
 
@@ -31,21 +31,17 @@ contract RetailerService {
 
 
 //---------------------------------------------------------------------- Constructor ----------------------------------------------------------------------------//    
-    constructor(address _retailerStorage, address _filieraToken) {
-        retailerStorage = RetailerStorage(_retailerStorage);
+    constructor(address _milkhubStorage, address _filieraToken) {
+        retailerStorage = RetailerStorage(_milkhubStorage);
         filieraToken = Filieratoken(_filieraToken);
-        RetailerOrg = msg.sender;
+        ConsumerOrg = msg.sender;
     }
 
 // ------------------------------------------------------------ Modifier Of Service ---------------------------------------------------------------------------------//
 
-    modifier onlyOwnWallet(address caller,address walletRetailer){
-        require(caller == walletRetailer,"User Not Authorized!");
-        _;
-    }
 
     modifier onlyOrg(address sender){
-        require(sender == RetailerOrg,"User Not Authorized!");
+        require(sender == ConsumerOrg,"User Not Authorized!");
         _;
     }
 
@@ -57,7 +53,7 @@ contract RetailerService {
         require(walletRetailer != address(0),"Address is zero");
         require(walletRetailer != address(retailerStorage), "Address is RetailerStorage Smart Contract!");
         require(walletRetailer != address(filieraToken), "Address is FilieraToken Smart Contract!" );
-        require(walletRetailer != RetailerOrg ,"Organization address");
+        require(walletRetailer != ConsumerOrg ,"Organization address");
 
         _;
     }
@@ -66,25 +62,24 @@ contract RetailerService {
 //--------------------------------------------------------------- Business Logic -------------------------------------------------------------------------------------------//
 
     /**
-     * registerRetailer() registra gli utenti della piattaforma che sono Retailer 
+     * registerRetailer() registra gli utenti della piattaforma che sono Consumer 
      * - Inserisce i dati all'interno della Blockchain
      * - Trasferisce 100 token dal contratto di FilieraToken 
      * - Emette un evento appena l'utente è stato registrato 
      *  */ 
-    function registerRetailer(string memory fullName, string memory password, string memory email) external checkAddress(msg.sender) {
+    function registerRetailer(string memory fullName, string memory password, string memory email, address walletRetailer) external checkAddress(walletRetailer) {
 
-        address walletRetailer = msg.sender;
         // Verifica che l'utente è gia' presente 
         require(!(this.isUserPresent(walletRetailer)), "Utente gia' registrato !");
 
         // Chiama la funzione di Storage 
         retailerStorage.addUser(fullName, password, email, walletRetailer);
 
-        // Autogenera dei token nel balance del Retailer 
-        require(filieraToken.registerUserWithToken(address(filieraToken),address(walletRetailer), 100),"Transfer Token Not Valid!");
+        // Autogenera dei token nel balance del Consumer 
+        require(filieraToken.registerUserWithToken(address(walletRetailer), 100),"Transfer Token not Valid!");
 
         // Emette l'evento della registrazione dell'utente
-        emit RetailerRegistered(walletRetailer, fullName, "Utente Retailer e' stato registrato!");
+        emit RetailerRegistered(walletRetailer, fullName, "Utente Consumer e' stato registrato!");
     }
 
     /**
@@ -93,7 +88,7 @@ contract RetailerService {
      * - return True se l'utente esiste ed ha accesso con le giuste credenziali 
      * - return False altrimenti 
      */
-    function login(address walletRetailer, string memory email, string memory password) external view checkAddress(msg.sender) onlyOwnWallet(msg.sender,walletRetailer) returns(bool) {
+    function login(address walletRetailer, string memory email, string memory password) external view checkAddress(walletRetailer)  returns(bool) {
 
         // Verifichiamo che l'utente è presente 
         require(this.isUserPresent(walletRetailer),"Utente non e' presente!");
@@ -103,15 +98,15 @@ contract RetailerService {
 
 
     /**
-     * deleteRetailer() elimina un Retailer all'interno del sistema 
+     * deleteMilkHub() elimina un Consumer all'interno del sistema 
      * - Solo l'owner può effettuare l'eliminazione 
      * - msg.sender dovrebbe essere solo quello dell'owner 
      */
-    function deleteRetailer(address walletRetailer, uint256 _id) external checkAddress(msg.sender) onlyOwnWallet(msg.sender,walletRetailer) {
+    function deleteRetailer(address walletRetailer, uint256 _id) external checkAddress(walletRetailer)  {
         
         // Verifico che l'utente è presente 
         require(this.isUserPresent(walletRetailer), "Utente non e' presente!");
-        // Restituisce l'id del Retailer tramite il suo address wallet
+        // Restituisce l'id del Consumer tramite il suo address wallet
         require(retailerStorage.getId(walletRetailer) == _id , "Utente non Autorizzato!");
         // Effettuo la cancellazione dell'utente 
         require(retailerStorage.deleteUser(walletRetailer), "Errore durante la cancellazione");
@@ -121,7 +116,7 @@ contract RetailerService {
         emit RetailerDeleted(walletRetailer,"Utente e' stato eliminato!");
     }
 
-// --------------------------------------------------------------------------- RetailerInventoryService ----------------------------------------------------//
+// --------------------------------------------------------------------------- MilkHubInventoryService ----------------------------------------------------//
 
     function isUserPresent(address walletRetailer) external view returns(bool){
         
@@ -133,16 +128,16 @@ contract RetailerService {
 //----------------------------------------------------------------------------- Get Function ----------------------------------------------------------------------//
 
     /**
-        -  Funzione getRetailerId() attraverso l'address del Retailer siamo riusciti ad ottenere il suo ID
+        -  Funzione getRetailerId() attraverso l'address del Consumer siamo riusciti ad ottenere il suo ID
     */
-    function getRetailerId(address walletRetailer) external view checkAddress(walletRetailer) onlyOwnWallet(msg.sender,walletRetailer) returns (uint256){
+    function getRetailerId(address walletRetailer) external view checkAddress(walletRetailer)  returns (uint256){
         
         return retailerStorage.getId(walletRetailer);
     }
 
     
     /**
-        - Funzione getFullName() attraverso l'address del Retailer riusciamo a recuperare il suo FullName
+        - Funzione getFullName() attraverso l'address del Consumer riusciamo a recuperare il suo FullName
     */
     function getRetailerFullName(address walletRetailer,uint256 _id) external view checkAddress(walletRetailer) returns(string memory){
 
@@ -150,7 +145,7 @@ contract RetailerService {
     }
 
     /**
-        - Funzione getEmail() attraverso l'address del Retailer riusciamo a recuperare la sua Email 
+        - Funzione getEmail() attraverso l'address del Consumer riusciamo a recuperare la sua Email 
     */
     function getRetailerEmail(address walletRetailer, uint256 _id) external view checkAddress(walletRetailer) returns(string memory){
         
@@ -158,22 +153,22 @@ contract RetailerService {
     }
 
     /**
-        - Funzione getBalance() attraverso l'address del Retailer riusciamo a recuperare il suo Balance
+        - Funzione getBalance() attraverso l'address del Consumer riusciamo a recuperare il suo Balance
     */
-    function getRetailerBalance(address walletRetailer, uint256 _id) external view checkAddress(walletRetailer) onlyOwnWallet(msg.sender,walletRetailer) returns(uint256){
+    function getRetailerBalance(address walletRetailer, uint256 _id) external view checkAddress(walletRetailer)  returns(uint256){
 
         return retailerStorage.getBalance(walletRetailer,_id);
     }
 
     /**
-     * getRetailerData() otteniamo i dati del Retailer
-     * - tramite l'address del Retailer riusciamo a visualizzare anche i suoi dati
-     * - Dati sensibili e visibili solo dal Retailer stesso 
+     * getMilkHubData() otteniamo i dati del Consumer
+     * - tramite l'address del Consumer riusciamo a visualizzare anche i suoi dati
+     * - Dati sensibili e visibili solo dal Consumer stesso 
      */
-    function getRetailerData(address walletRetailer, uint256 _id) external checkAddress(walletRetailer) onlyOwnWallet(msg.sender,walletRetailer) view returns (uint256, string memory, string memory, string memory, uint256) {
+    function getRetailerData(address walletRetailer, uint256 _id) external checkAddress(walletRetailer) view returns (uint256, string memory, string memory, string memory, uint256) {
         // Verifico che l'utente è presente 
         require(this.isUserPresent(walletRetailer), "Utente non e' presente!");
-        // Restituisce l'id del Retailer tramite il suo address wallet
+        // Restituisce l'id del Consumer tramite il suo address wallet
         require(retailerStorage.getId(walletRetailer) == _id , "Utente non Autorizzato!");
         // Call function of Storage         
         return retailerStorage.getUser(walletRetailer);
@@ -181,7 +176,7 @@ contract RetailerService {
 
     
     // Funzione per far visualizzare i dati ai vari utenti esterni 
-    function getRetailerInfo(address walletRetailer) external view checkAddress(walletRetailer) returns (string memory, string memory) {
+    function getRetailerInfo(address walletRetailer) external view checkAddress(walletRetailer) returns (uint256, string memory, string memory) {
         
         // Verifico che l'utente esista
         require(this.isUserPresent(walletRetailer), "User not found");
@@ -192,11 +187,12 @@ contract RetailerService {
         
         string memory email = retailerStorage.getEmail(walletRetailer, id);
 
-        return (fullName, email);
+        return (id, fullName, email);
     }
 
-
-
+    function getListAddressRetailer() external view returns ( address [ ] memory){
+        return retailerStorage.getListAddress();
+    }
 
 //------------------------------------------------------------ Set Function -------------------------------------------------------------------//
 
@@ -213,15 +209,13 @@ contract RetailerService {
 
 // ------------------------------------------------------------ Change Address Contract of Service -----------------------------------------------------//
 
-    // TODO : Inserire onlyOrg(msg.sender) per verificare che quest'azione possa farla solo L'organizzazione 
 
-    function changeRetailerStorage(address _retailerStorageNew)external {
-        retailerStorage = RetailerStorage(_retailerStorageNew);
+    function changeRetailerStorage(address _milkhubStorageNew)private {
+        retailerStorage = RetailerStorage(_milkhubStorageNew);
     }
 
-    // TODO : Inserire onlyOrg(msg.sender) per verificare che quest'azione possa farla solo L'organizzazione 
 
-    function changeFilieraToken(address _filieraToken)external {
+    function changeFilieraToken(address _filieraToken)private {
         filieraToken = Filieratoken(_filieraToken);
     }
 

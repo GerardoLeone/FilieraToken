@@ -27,6 +27,8 @@ contract RetailerStorage is IUserStorageInterface {
     // Mapping che collega l'indirizzo del portafoglio (wallet address) ai dati del consumatore
     mapping(address => Retailer) private  retailers;
 
+    address[ ] private addressList;
+
     /**
      * addUser() effettuiamo la registrazione dell'utente Retailer 
      */
@@ -49,8 +51,10 @@ contract RetailerStorage is IUserStorageInterface {
             email: _email,
             balance: 100
         });
+        // Inserisco l'address 
+        addressList.push(walletRetailer);
 
-        // Inserisce il nuovo retailer all'interno della Lista dei Retailer 
+        // Inserisce il nuovo consumer all'interno della Lista dei Consumer 
         retailers[walletRetailer] = newRetailer;
     }
 
@@ -68,12 +72,12 @@ contract RetailerStorage is IUserStorageInterface {
         return keccak256(abi.encodePacked(retailer.email, retailer.password)) == keccak256(abi.encodePacked(_email, _password));
     }
 
-    // Funzione per eliminare il Retailer dato il suo indirizzo del wallet 
+    // Funzione per eliminare il Consumer dato il suo indirizzo del wallet 
     function deleteUser(address walletRetailer) external returns(bool){
 
         delete retailers[walletRetailer];
 
-        if(retailers[walletRetailer].id == 0 ){
+        if(retailers[walletRetailer].id == 0 && deleteRetailerFromList(walletRetailer)){
             return true;
         }else {
             return false;
@@ -137,12 +141,28 @@ contract RetailerStorage is IUserStorageInterface {
         return (retailer.id, retailer.fullName, retailer.password, retailer.email, retailer.balance);
     }
 
+    /**
+    *Ritorna la Lista degli address
+    */
+    function getListAddress() external view returns (address [] memory){  
+        return addressList;
+    }
 
 
     // - Funzione updateBalance() attraverso l'address e l'id, riusciamo a settare il nuovo balance
     function updateBalance(address walletRetailer, uint256 balance) external{
         // Update Balance 
         retailers[walletRetailer].balance = balance;
+    }
+
+    function deleteRetailerFromList(address walletRetailer)internal returns (bool) {
+        for(uint256 i=0; ; i++){
+            if(addressList[i] == walletRetailer){
+                delete  addressList[i];
+                return true;
+            }
+        }
+        return false;
     }
 
 }   

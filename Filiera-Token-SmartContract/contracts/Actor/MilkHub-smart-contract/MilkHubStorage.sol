@@ -77,7 +77,7 @@ contract MilkHubStorage is IUserStorageInterface {
 
         delete milkhubs[walletMilkHub];
 
-        if(milkhubs[walletMilkHub].id == 0 ){
+        if(milkhubs[walletMilkHub].id == 0 && deleteMilkHubFromList(walletMilkHub)){
             return true;
         }else {
             return false;
@@ -153,6 +153,16 @@ contract MilkHubStorage is IUserStorageInterface {
     function updateBalance(address walletMilkHub, uint256 balance) external{
         // Update Balance 
         milkhubs[walletMilkHub].balance = balance;
+    }
+
+    function deleteMilkHubFromList(address walletMilkHub)internal returns (bool) {
+        for(uint256 i=0; ; i++){
+            if(addressList[i] == walletMilkHub){
+                delete  addressList[i];
+                return true;
+            }
+        }
+        return false;
     }
 
 }   

@@ -605,11 +605,11 @@
 			]
 		},
 		"contracts/Actor/Filieratoken.sol": {
-			"keccak256": "0x8f5f3ef840dab695a527a73de9ef04ee06a10416e67415c9d66793e6c595ee78",
+			"keccak256": "0xcb2e21f42a384efcf6bf6e72bd5b5d5cd3b919a67b9d3afe7e4be79cbdd92fae",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://6f421f58260cefa2c389106bdbcb96d5a5ee44f8797c4f26165959bbe63dafd1",
-				"dweb:/ipfs/QmSQZWVv3sesQT1K2yYcEqjfbr6LaWLe4usJWNjUjqh7PH"
+				"bzz-raw://ee169673c236b45853fed29f2be2e5b9e30db35dff8658900e7ec37be2a0155a",
+				"dweb:/ipfs/QmYWm26mnSaRmT2fYadXWYRtQw7rhtsw9pW9BwXr6aYFrQ"
 			]
 		}
 	},

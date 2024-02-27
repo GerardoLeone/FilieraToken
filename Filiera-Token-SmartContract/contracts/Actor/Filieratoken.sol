@@ -97,7 +97,7 @@ contract Filieratoken is ERC20 {
    * @return `true` se la registrazione ha avuto successo, `false` in caso contrario.
    */
   function registerUserWithToken(address to, uint256 amount) public returns (bool) {
-      require(msg.sender == address(this), "Solo il contratto FilieraToken puo' registrare utenti");
+      require(msg.sender != address(this), "Solo il contratto FilieraToken puo' registrare utenti");
       super._transfer(address(this), to, amount);
       return true;
   }

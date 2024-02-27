@@ -8,7 +8,7 @@ class UserSerivce {
 
   static const String _apiUrl = 'http://127.0.0.1:5000/api/v1';
 
-  static const String _APINameMilkHub = "MilkHubService-API";
+  static const String _APINameMilkHub = "MilkHubService";
 
   static const String _APINameCheeseProducer = "CheeseProducer-API";
 

@@ -10,11 +10,11 @@ class UserSerivce {
 
   static const String _APINameMilkHub = "MilkHubService";
 
-  static const String _APINameCheeseProducer = "CheeseProducer-API";
+  static const String _APINameCheeseProducer = "CheeseProducer";
 
-  static const String _APINameRetailer = "Retailer-API";
+  static const String _APINameRetailer = "Retailer";
 
-  static const String _APINameConsumer = "Consumer-API";
+  static const String _APINameConsumer = "Consumer";
 
   static const String queryLogin = 'login';
 

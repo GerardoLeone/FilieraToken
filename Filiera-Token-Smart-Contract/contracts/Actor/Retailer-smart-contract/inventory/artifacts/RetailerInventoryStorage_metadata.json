@@ -293,7 +293,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"Filiera-Token-Smart-Contract/contracts/Actor/Retailer-smart-contract/inventory/RetailerInventoryStorage.sol": "RetailerInventoryStorage"
+			"contracts/Actor/Retailer-smart-contract/inventory/RetailerInventoryStorage.sol": "RetailerInventoryStorage"
 		},
 		"evmVersion": "shanghai",
 		"libraries": {},
@@ -307,12 +307,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"Filiera-Token-Smart-Contract/contracts/Actor/Retailer-smart-contract/inventory/RetailerInventoryStorage.sol": {
-			"keccak256": "0x958a08db914210b8c2034a08863b1a425f8aa01116532e38c25f8f49e114329c",
+		"contracts/Actor/Retailer-smart-contract/inventory/RetailerInventoryStorage.sol": {
+			"keccak256": "0x2758f8b25c0185eaa112b507a45b523d1863af7ce983f31143ef961bb18b2332",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://bc0b9341bf4117baaf09283c9725c9d4eac87b65470b05336592a9a91d5b9811",
-				"dweb:/ipfs/QmccAjUFk6p2tmb6LekGKcfT6tpDNZ25JM1FimeqYVKbLH"
+				"bzz-raw://eb05e570d018be1800cfd189364dfc5a5a6a21f5e782c7052be466b48594c311",
+				"dweb:/ipfs/QmS6pQafasZi17j4iPuL6DvFj5VkHhtkZKdWYQen1kYUn1"
 			]
 		}
 	},

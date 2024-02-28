@@ -5,14 +5,14 @@ import "./RetailerBuyerStorage.sol";
 import "../RetailerService.sol";
 
 
-contract RetailerCheeseBlockService {
+contract RetailerBuyerService {
 
 //------------------------------------------------------------------------ Address of other Contract Service -----------------------------------------------------------//
 
     // Address of Organization che gestisce gli utenti
     address private retailerOrg;
     // Address of CheeseBlockStorage 
-    RetailerCheeseBlockStorage private retailerCheeseBlockStorage;
+    RetailerBuyerStorage private retailerBuyerStorage;
 
     RetailerService private retailerService;
 
@@ -28,9 +28,9 @@ contract RetailerCheeseBlockService {
 //------------------------------------------------------------------------ Constructor of other Contract Service -----------------------------------------------------------//
 
     constructor(
-        address _retailerCheeseBlockStorage, 
+        address _retailerBuyerStorage, 
         address _retailerService) {
-        retailerCheeseBlockStorage = RetailerCheeseBlockStorage(_retailerCheeseBlockStorage);
+        retailerBuyerStorage = RetailerBuyerStorage(_retailerBuyerStorage);
         retailerService = RetailerService(_retailerService);
         retailerOrg = msg.sender;
     }
@@ -40,7 +40,7 @@ contract RetailerCheeseBlockService {
     modifier checkAddress(address caller){
         
         require(caller!=address(0),"Address value is 0!");
-        require(caller!=address(retailerCheeseBlockStorage),"Address is retailerCheeseBlockStorage!");
+        require(caller!=address(retailerBuyerStorage),"Address is retailerBuyerStorage!");
         require(caller!=address(retailerService),"Address is RetailerService!");
         require(caller!=address(retailerOrg),"Address is Organization!");
         _;
@@ -77,7 +77,7 @@ contract RetailerCheeseBlockService {
         require(retailerService.isUserPresent(_walletRetailer), "Utente non trovato!");
 
         // Aggiungo il CheeseBlock all'interno dell'Inventario del Retailer 
-        (uint256 id_CheeseBlock_Acquistato, string memory _dopCheese,uint256 quantity) = retailerCheeseBlockStorage.addCheeseBlock(_walletRetailer, _walletCheeseProducer, _id_CheeseBlock, _dop, _quantity);
+        (uint256 id_CheeseBlock_Acquistato, string memory _dopCheese,uint256 quantity) = retailerBuyerStorage.addCheeseBlock(_walletRetailer, _walletCheeseProducer, _id_CheeseBlock, _dop, _quantity);
 
         // Invio dell'Evento 
         emit RetailerCheeseBlockAdded(_walletRetailer,"CheeseBlock Acquistato!", id_CheeseBlock_Acquistato ,  _dopCheese, quantity);
@@ -93,7 +93,7 @@ contract RetailerCheeseBlockService {
 
         require(this.isCheeseBlockAcquistataPresent(_walletRetailer,_id_CheeseBlockAcquistato),"Prodotto non Presente!");
 
-        return retailerCheeseBlockStorage.getCheeseBlock(_walletRetailer, _id_CheeseBlockAcquistato);
+        return retailerBuyerStorage.getCheeseBlock(_walletRetailer, _id_CheeseBlockAcquistato);
     }
 
 
@@ -104,7 +104,7 @@ contract RetailerCheeseBlockService {
 
         require(this.isCheeseBlockAcquistataPresent(_walletRetailer,_id_CheeseBlockAcquistato),"Prodotto non Presente!");
         
-        return retailerCheeseBlockStorage.getDop(_walletRetailer,_id_CheeseBlockAcquistato);        
+        return retailerBuyerStorage.getDop(_walletRetailer,_id_CheeseBlockAcquistato);        
     }
 
     
@@ -114,7 +114,7 @@ contract RetailerCheeseBlockService {
 
         require(this.isCheeseBlockAcquistataPresent(_walletRetailer,_id_CheeseBlockAcquistato),"Prodotto non Presente!");
         
-        return retailerCheeseBlockStorage.getQuantity(_walletRetailer,_id_CheeseBlockAcquistato);        
+        return retailerBuyerStorage.getQuantity(_walletRetailer,_id_CheeseBlockAcquistato);        
     }
 
     
@@ -124,7 +124,7 @@ contract RetailerCheeseBlockService {
 
         require(this.isCheeseBlockAcquistataPresent(_walletRetailer,_id_CheeseBlockAcquistato),"Prodotto non Presente!");
         
-        return retailerCheeseBlockStorage.getWalletCheeseProducer(_walletRetailer,_id_CheeseBlockAcquistato);        
+        return retailerBuyerStorage.getWalletCheeseProducer(_walletRetailer,_id_CheeseBlockAcquistato);        
     }
 
     /**
@@ -135,16 +135,16 @@ contract RetailerCheeseBlockService {
         
         require(retailerService.isUserPresent(_walletRetailer),"Utente non presente!");
 
-        return retailerCheeseBlockStorage.isCheesePresent(_walletRetailer, _id_CheeseBlockAcquistato);
+        return retailerBuyerStorage.isCheesePresent(_walletRetailer, _id_CheeseBlockAcquistato);
     }
 
     
     
-    function getPurchasedCheeseBlockByRetailer(address walletRetailer) external checkAddress(walletRetailer) view returns (RetailerCheeseBlockStorage.Cheese[] memory){
+    function getPurchasedCheeseBlockByRetailer(address walletRetailer) external checkAddress(walletRetailer) view returns (RetailerBuyerStorage.Cheese[] memory){
         // Check if exist 
         require(retailerService.isUserPresent(walletRetailer), "User is not present!");
 
-        return retailerCheeseBlockStorage.getPurchasedCheeseBlockByRetailer(walletRetailer);
+        return retailerBuyerStorage.getPurchasedCheeseBlockByRetailer(walletRetailer);
     }
 
 
@@ -158,9 +158,9 @@ contract RetailerCheeseBlockService {
 
         require(retailerService.isUserPresent(walletRetailer), "User is not present!");
 
-        require(retailerCheeseBlockStorage.isCheesePresent(walletRetailer, _id_CheeseBlock),"CheeseBlock not Present!");
+        require(retailerBuyerStorage.isCheesePresent(walletRetailer, _id_CheeseBlock),"CheeseBlock not Present!");
 
-        retailerCheeseBlockStorage.updateCheeseQuantity(walletRetailer, _id_CheeseBlock, _quantity);
+        retailerBuyerStorage.updateCheeseQuantity(walletRetailer, _id_CheeseBlock, _quantity);
 
         emit RetailerCheeseBlockEdited(walletRetailer,"CheeseBlock edited!", _quantity);
     }
@@ -172,9 +172,9 @@ contract RetailerCheeseBlockService {
 
 
     // TODO: insert modifier onlyOrg(address sender) {}
-    function changeRetailerCheeseBlockStorage(address _retailerCheeseBlockStorage)external {
+    function changeRetailerBuyerStorage(address _retailerBuyerStorage)external {
         require(msg.sender == retailerOrg,"Address is not the organization");
-        retailerCheeseBlockStorage = RetailerCheeseBlockStorage(_retailerCheeseBlockStorage);
+        retailerBuyerStorage = RetailerBuyerStorage(_retailerBuyerStorage);
     }
 
     // TODO: insert modifier onlyOrg(address sender) {}

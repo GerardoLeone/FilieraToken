@@ -71,8 +71,28 @@ class MilkBatch extends Product {
   void updateQuantity(int quantityChange) {
     quantity -= quantityChange;
   }
+  
+  static Product fromJson(Map<String, dynamic> json) {
+    final milkBatchData = json['input'] as Map<String, dynamic>; // Access nested data
+    
+    int id = 1; //TODO:
+    String name = "Partita di Latte";
+    String description = "Silos contenente latte, disponibile all'acquisto immediato.";
+    String seller = "N.A."; //TODO: funzione che restituisce il nome del MilkHub dal MilkHubService
+    String expirationDate = milkBatchData['expirationDate'] as String;
+    int quantity = milkBatchData['quantity'] as int;
+    double pricePerLitre = milkBatchData['price'] as double; //TODO: gestire il double
 
-
+    return MilkBatch(
+            id: id, 
+            name: name, 
+            description: description, 
+            seller: seller, 
+            expirationDate: 
+            expirationDate, 
+            quantity: quantity, 
+            pricePerLitre: pricePerLitre);
+  }
 }
 
 class CheeseBlock extends Product {
@@ -114,6 +134,12 @@ class CheeseBlock extends Product {
   void updateQuantity(int quantityChange) {
     quantity -= quantityChange;
   }
+  
+  @override
+  Product fromJson(Map<String, dynamic> json) {
+    // TODO: implement fromJson
+    throw UnimplementedError();
+  }
 }
 
 class CheesePiece extends Product {
@@ -150,4 +176,10 @@ class CheesePiece extends Product {
   
   @override
   void updateQuantity(int quantityChange) {}
+  
+  @override
+  Product fromJson(Map<String, dynamic> json) {
+    // TODO: implement fromJson
+    throw UnimplementedError();
+  }
 }

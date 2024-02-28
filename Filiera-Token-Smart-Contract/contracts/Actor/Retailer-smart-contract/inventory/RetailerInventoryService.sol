@@ -19,7 +19,7 @@ contract RetailerInventoryService {
 
     RetailerService private retailerService;
 
-    RetailerCheeseBlockService private retailerCheeseBlockService;
+    RetailerBuyerService private retailerBuyerService;
 
     AccessControlProduct private accessControlProduct;
 
@@ -47,12 +47,12 @@ contract RetailerInventoryService {
     constructor(
         address _retailerInventoryStorage,
         address _retailerService,
-        address _retailerCheeseBlockService,
+        address _retailerBuyerService,
         address _accessControlProduct
     ) {
         retailerInventoryStorage = RetailerInventoryStorage(_retailerInventoryStorage);
         retailerService = RetailerService(_retailerService);
-        retailerCheeseBlockService = RetailerCheeseBlockService(_retailerCheeseBlockService);
+        retailerBuyerService = RetailerBuyerService(_retailerBuyerService);
         accessControlProduct = AccessControlProduct(_accessControlProduct);
         retailerOrg = msg.sender;
     }
@@ -110,15 +110,15 @@ contract RetailerInventoryService {
         uint256 price) external {
 
 
-            require(retailerCheeseBlockService.isCheeseBlockAcquistataPresent(walletRetailer, _id_CheeseBlockAcquistato), "Prodotto non presente!");
+            require(retailerBuyerService.isCheeseBlockAcquistataPresent(walletRetailer, _id_CheeseBlockAcquistato), "Prodotto non presente!");
 
             require(quantityToTransform <= 3, "Quantita' da trasformare non valida!");
 
-            require(quantityToTransform <= retailerCheeseBlockService.getQuantity(walletRetailer, _id_CheeseBlockAcquistato), "Quantita' da trasformare non valida!");
+            require(quantityToTransform <= retailerBuyerService.getQuantity(walletRetailer, _id_CheeseBlockAcquistato), "Quantita' da trasformare non valida!");
 
-            uint256 newQuantity = retailerCheeseBlockService.getQuantity(walletRetailer, _id_CheeseBlockAcquistato) - quantityToTransform;
+            uint256 newQuantity = retailerBuyerService.getQuantity(walletRetailer, _id_CheeseBlockAcquistato) - quantityToTransform;
 
-            retailerCheeseBlockService.updateCheeseBlockQuantity(walletRetailer, _id_CheeseBlockAcquistato, newQuantity);
+            retailerBuyerService.updateCheeseBlockQuantity(walletRetailer, _id_CheeseBlockAcquistato, newQuantity);
 
             addCheesePiece(walletRetailer, _id_CheeseBlockAcquistato, price, quantityToTransform);
     }

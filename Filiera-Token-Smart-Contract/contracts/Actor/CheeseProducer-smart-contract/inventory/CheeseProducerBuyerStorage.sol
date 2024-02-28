@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 //Smart Contract per lo storage dei MilkHub acquistati dal CheeseProducer
-contract CheeseProducerMilkBatchStorage {
+contract CheeseProducerBuyerStorage {
 
     // Address of Organization che gestisce gli utenti
     address private cheeseProducerOrg;

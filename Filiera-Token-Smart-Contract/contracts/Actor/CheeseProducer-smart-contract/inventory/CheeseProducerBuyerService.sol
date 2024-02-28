@@ -5,14 +5,14 @@ import "./CheeseProducerBuyerStorage.sol";
 import "../CheeseProducerService.sol";
 
 
-contract CheeseProducerMilkBatchService {
+contract CheeseProducerBuyerService {
 
 //------------------------------------------------------------------------ Address of other Contract Service -----------------------------------------------------------//
 
     // Address of Organization che gestisce gli utenti
     address private cheeseProducerOrg;
     // Address of MilkBatchStorage 
-    CheeseProducerMilkBatchStorage private cheeseProducerMilkBatchStorage;
+    CheeseProducerBuyerStorage private cheeseProducerBuyerStorage;
 
     CheeseProducerService private cheeseProducerService;
 
@@ -27,8 +27,8 @@ contract CheeseProducerMilkBatchService {
 
 //------------------------------------------------------------------------ Constructor of other Contract Service -----------------------------------------------------------//
 
-    constructor(address _cheeseProducerMilkBatchStorage, address _cheeseProducerService) {
-        cheeseProducerMilkBatchStorage = CheeseProducerMilkBatchStorage(_cheeseProducerMilkBatchStorage);
+    constructor(address _cheeseProducerBuyerStorage, address _cheeseProducerService) {
+        cheeseProducerBuyerStorage = CheeseProducerBuyerStorage(_cheeseProducerBuyerStorage);
         cheeseProducerService = CheeseProducerService(_cheeseProducerService);
         cheeseProducerOrg = msg.sender;
     }
@@ -38,7 +38,7 @@ contract CheeseProducerMilkBatchService {
     modifier checkAddress(address caller){
         
         require(caller!=address(0),"Address value is 0!");
-        require(caller!=address(cheeseProducerMilkBatchStorage),"Address is cheeseProducerMilkBatchStorage!");
+        require(caller!=address(cheeseProducerBuyerStorage),"Address is cheeseProducerBuyerStorage!");
         require(caller!=address(cheeseProducerService),"Address is CheeseProducerService!");
         require(caller!=address(cheeseProducerOrg),"Address is Organization!");
         _;
@@ -75,7 +75,7 @@ contract CheeseProducerMilkBatchService {
         require(cheeseProducerService.isUserPresent(_walletCheeseProducer), "Utente non trovato!");
 
         // Aggiungo il MilkBatch all'interno dell'Inventario del CheeseProducer 
-        (uint256 id_MilkBatch_Acquistato, string memory expDate,uint256 quantity) = cheeseProducerMilkBatchStorage.addMilkBatch(_walletCheeseProducer, _walletMilkHub,_id_MilkBatch, _expirationDate, _quantity);
+        (uint256 id_MilkBatch_Acquistato, string memory expDate,uint256 quantity) = cheeseProducerBuyerStorage.addMilkBatch(_walletCheeseProducer, _walletMilkHub,_id_MilkBatch, _expirationDate, _quantity);
 
         // Invio dell'Evento 
         emit CheeseProducerMilkBatchAdded(_walletCheeseProducer,"MilkBatch Acquistato!", id_MilkBatch_Acquistato ,  expDate, quantity);
@@ -91,7 +91,7 @@ contract CheeseProducerMilkBatchService {
 
         require(this.isMilkBatchAcquistataPresent(_walletCheeseProducer,_id_MilkBatchAcquistato),"Prodotto non Presente!");
 
-        return cheeseProducerMilkBatchStorage.getMilkBatch(_walletCheeseProducer, _id_MilkBatchAcquistato);
+        return cheeseProducerBuyerStorage.getMilkBatch(_walletCheeseProducer, _id_MilkBatchAcquistato);
     }
 
 
@@ -102,7 +102,7 @@ contract CheeseProducerMilkBatchService {
 
         require(this.isMilkBatchAcquistataPresent(_walletCheeseProducer,_id_MilkBatchAcquistato),"Prodotto non Presente!");
         
-        return cheeseProducerMilkBatchStorage.getExpirationDate(_walletCheeseProducer,_id_MilkBatchAcquistato);        
+        return cheeseProducerBuyerStorage.getExpirationDate(_walletCheeseProducer,_id_MilkBatchAcquistato);        
     }
 
     
@@ -112,7 +112,7 @@ contract CheeseProducerMilkBatchService {
 
         require(this.isMilkBatchAcquistataPresent(_walletCheeseProducer,_id_MilkBatchAcquistato),"Prodotto non Presente!");
         
-        return cheeseProducerMilkBatchStorage.getQuantity(_walletCheeseProducer,_id_MilkBatchAcquistato);        
+        return cheeseProducerBuyerStorage.getQuantity(_walletCheeseProducer,_id_MilkBatchAcquistato);        
     }
 
     
@@ -122,7 +122,7 @@ contract CheeseProducerMilkBatchService {
 
         require(this.isMilkBatchAcquistataPresent(_walletCheeseProducer,_id_MilkBatchAcquistato),"Prodotto non Presente!");
         
-        return cheeseProducerMilkBatchStorage.getWalletMilkHub(_walletCheeseProducer,_id_MilkBatchAcquistato);        
+        return cheeseProducerBuyerStorage.getWalletMilkHub(_walletCheeseProducer,_id_MilkBatchAcquistato);        
     }
 
     /**
@@ -133,18 +133,18 @@ contract CheeseProducerMilkBatchService {
         
         require(cheeseProducerService.isUserPresent(_walletCheeseProducer),"Utente non presente!");
 
-        return cheeseProducerMilkBatchStorage.isMilkBatchPresent(_walletCheeseProducer, _id_MilkBatchAcquistato);
+        return cheeseProducerBuyerStorage.isMilkBatchPresent(_walletCheeseProducer, _id_MilkBatchAcquistato);
     }
 
     /*
         - Recupera la Lista di Prodotti Acquistati di un  CheeseProducer 
         - Verifica che questo esista 
     */
-    function getMilkBatchListPurchasedByCheeseProducer(address walletCheeseProducer)external view checkAddress(walletCheeseProducer) returns (CheeseProducerMilkBatchStorage.MilkBatch[]memory ){
+    function getMilkBatchListPurchasedByCheeseProducer(address walletCheeseProducer)external view checkAddress(walletCheeseProducer) returns (CheeseProducerBuyerStorage.MilkBatch[]memory ){
         // Verifica che l'utente sia presente all'interno del sistema e sia solo il CheeseProducer
         require(cheeseProducerService.isUserPresent(walletCheeseProducer),"User not Authorized!");
 
-        return cheeseProducerMilkBatchStorage.getMilkBatchListPurchasedByCheeseProducer(walletCheeseProducer);
+        return cheeseProducerBuyerStorage.getMilkBatchListPurchasedByCheeseProducer(walletCheeseProducer);
     }
 
 
@@ -159,9 +159,9 @@ contract CheeseProducerMilkBatchService {
 
         require(cheeseProducerService.isUserPresent(walletCheeseProducer), "User is not present!");
 
-        require(cheeseProducerMilkBatchStorage.isMilkBatchPresent(walletCheeseProducer, _id_MilkBatch),"MilkBatch not Present!");
+        require(cheeseProducerBuyerStorage.isMilkBatchPresent(walletCheeseProducer, _id_MilkBatch),"MilkBatch not Present!");
 
-        cheeseProducerMilkBatchStorage.updateMilkBatchQuantity(walletCheeseProducer, _id_MilkBatch, _quantity);
+        cheeseProducerBuyerStorage.updateMilkBatchQuantity(walletCheeseProducer, _id_MilkBatch, _quantity);
 
         emit CheeseProducerMilkBatchEdited(walletCheeseProducer,"MilkBatch edited!", _quantity);
     }
@@ -173,9 +173,9 @@ contract CheeseProducerMilkBatchService {
 
 
     // TODO: insert modifier onlyOrg(address sender) {}
-    function changeCheeseProducerMilkBatchStorage(address _cheeseProducerMilkBatchStorage)external {
+    function changeCheeseProducerBuyerStorage(address _cheeseProducerBuyerStorage)external {
         require(msg.sender == cheeseProducerOrg,"Address is not the organization");
-        cheeseProducerMilkBatchStorage = CheeseProducerMilkBatchStorage(_cheeseProducerMilkBatchStorage);
+        cheeseProducerBuyerStorage = CheeseProducerBuyerStorage(_cheeseProducerBuyerStorage);
     }
 
     // TODO: insert modifier onlyOrg(address sender) {}

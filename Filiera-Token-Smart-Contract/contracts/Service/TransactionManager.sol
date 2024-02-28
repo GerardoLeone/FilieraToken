@@ -46,13 +46,13 @@ contract TransactionManager {
     MilkHubInventoryService private milkhubInventoryService;
 
     // CheeseProducer - Contains MilkBatch (product bought by CheeseProducer).
-    CheeseProducerMilkBatchService private cheeseProducerMilkBatchService;
+    CheeseProducerBuyerService private cheeseProducerMilkBatchService;
 
     // CheeseProducer - Contains Cheese (product sold by CheeseProducer).
     CheeseProducerInventoryService private cheeseProducerInventoryService;
 
     // Retailer - Contains CheeseBlock (product bought by Retailer).
-    RetailerCheeseBlockService private retailerCheeseBlockService;
+    RetailerBuyerService private retailerCheeseBlockService;
 
     // Retailer - Contains CheesePiece (product sold by Retailer).
     RetailerInventoryService private retailerInventoryService;
@@ -71,10 +71,10 @@ contract TransactionManager {
      * @param _consumerService Indirizzo del contratto ConsumerService.
      * 
      * @param _milkhubInventoryServiceAddress Indirizzo del contratto MilkHubInventoryService.
-     * @param _cheeseProducerMilkBatchServiceAddress Indirizzo del contratto CheeseProducerMilkBatchService.
+     * @param _cheeseProducerMilkBatchServiceAddress Indirizzo del contratto CheeseProducerBuyerService.
      * 
      * @param _cheeseProducerInventoryService Indirizzo del contratto CheeseProducerInventoryService.
-     * @param _retailerCheeseBlockService Indirizzo del contratto RetailerCheeseBlockService.
+     * @param _retailerCheeseBlockService Indirizzo del contratto RetailerBuyerService.
      * 
      * @param _retailerInventoryService Indirizzo del contratto RetailerInventoryService.
      * @param _consumerBuyerInventoryService Indirizzo del contratto ConsumerBuyerInventoryService.
@@ -112,10 +112,10 @@ contract TransactionManager {
 
         // Inventory Service 
         milkhubInventoryService = MilkHubInventoryService(_milkhubInventoryServiceAddress);
-        cheeseProducerMilkBatchService = CheeseProducerMilkBatchService(_cheeseProducerMilkBatchServiceAddress);
+        cheeseProducerMilkBatchService = CheeseProducerBuyerService(_cheeseProducerMilkBatchServiceAddress);
 
         cheeseProducerInventoryService = CheeseProducerInventoryService(_cheeseProducerInventoryService);
-        retailerCheeseBlockService = RetailerCheeseBlockService(_retailerCheeseBlockService);
+        retailerCheeseBlockService = RetailerBuyerService(_retailerCheeseBlockService);
 
         retailerInventoryService = RetailerInventoryService(_retailerInventoryService);
         consumerBuyerInventoryService = ConsumerBuyerInventoryService(_consumerBuyerInventoryService);

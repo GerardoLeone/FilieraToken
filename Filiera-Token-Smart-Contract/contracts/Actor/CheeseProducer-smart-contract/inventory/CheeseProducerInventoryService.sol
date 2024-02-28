@@ -24,7 +24,7 @@ contract CheeseProducerInventoryService {
 
     CheeseProducerService private cheeseProducerService;
 
-    CheeseProducerMilkBatchService private cheeseProducerMilkBatchService;
+    CheeseProducerBuyerService private cheeseProducerBuyerService;
 
     // Address Access Control 
     AccessControlProduct private accessControlProduct;
@@ -47,14 +47,14 @@ contract CheeseProducerInventoryService {
     constructor(
         address _cheeseProducerInventoryStorage,
         address _cheeseProducerService,
-        address _cheeseProducerMilkBatchService,
+        address _cheeseProducerBuyerService,
         address _accessControlProduct) {
         
         cheeseProducerInventoryStorage = CheeseProducerInventoryStorage(_cheeseProducerInventoryStorage);
         
         cheeseProducerService = CheeseProducerService(_cheeseProducerService);
 
-        cheeseProducerMilkBatchService = CheeseProducerMilkBatchService(_cheeseProducerMilkBatchService);
+        cheeseProducerBuyerService = CheeseProducerBuyerService(_cheeseProducerBuyerService);
         
         accessControlProduct = AccessControlProduct(_accessControlProduct);
 
@@ -193,15 +193,15 @@ contract CheeseProducerInventoryService {
     function transformMilkBatch(address walletCheeseProducer, uint256 _id_MilkBatchAcquistato, uint256 quantityToTransform, uint256 pricePerKg, string memory dop) external  {
         
         //Verifico che il prodotto esiste, che la quantità richiesta da trasformare non ecceda il massimo consentito
-        require(cheeseProducerMilkBatchService.isMilkBatchAcquistataPresent(walletCheeseProducer,_id_MilkBatchAcquistato),"Prodotto non presente!");
+        require(cheeseProducerBuyerService.isMilkBatchAcquistataPresent(walletCheeseProducer,_id_MilkBatchAcquistato),"Prodotto non presente!");
         // Verifico la quantità 
         // Verifico che quella che devo trasformare sia inferiore o uguale a quella che ho acquistato 
-        require(quantityToTransform<=cheeseProducerMilkBatchService.getQuantity(walletCheeseProducer,_id_MilkBatchAcquistato),"Quantita' da trasformare non valida!");
+        require(quantityToTransform<=cheeseProducerBuyerService.getQuantity(walletCheeseProducer,_id_MilkBatchAcquistato),"Quantita' da trasformare non valida!");
 
-        uint256 _newQuantity = cheeseProducerMilkBatchService.getQuantity(walletCheeseProducer,_id_MilkBatchAcquistato) - quantityToTransform;
+        uint256 _newQuantity = cheeseProducerBuyerService.getQuantity(walletCheeseProducer,_id_MilkBatchAcquistato) - quantityToTransform;
 
         //TODO: gestire data di scadenza nel frontend ( Verificare la data di Scadenza con quella Odierna ) 
-        cheeseProducerMilkBatchService.updateMilkBatchQuantity(walletCheeseProducer,_id_MilkBatchAcquistato, _newQuantity);
+        cheeseProducerBuyerService.updateMilkBatchQuantity(walletCheeseProducer,_id_MilkBatchAcquistato, _newQuantity);
 
         uint256 weight = quantityToTransform * 5;
         //TODO: gestire il prezzo con SafeMath

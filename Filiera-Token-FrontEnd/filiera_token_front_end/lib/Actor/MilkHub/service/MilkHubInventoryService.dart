@@ -19,13 +19,32 @@ class MilkHubInventoryService {
 //getMilkHubId per calcolare wallet
 //gestire double
 //Name fissa e togliere la description
-  /*Future<List<Product>> getMilkBatchList(String wallet) async {
-    const url = '$_apiUrl/query/getMilkBatch';
+  Future<List<Product>> getMilkBatchListByMilkHub(String wallet) async {
+    const url = '$_apiUrl/query/getMilkBatchListByMilkHub';
     final headers = _getHeaders();
-    
+
+    try {
+      final response = await http.get(Uri.parse(url), headers: headers);
+
+      if (response.statusCode == 200) {
+        final jsonList = jsonDecode(response.body) as List;
+
+        // Parse JSON list into Product objects
+        final productList = jsonList.map((json) => MilkBatch.fromJson(json)).toList();
+
+        return productList;
+      } else {
+        throw Exception('Failed to fetch products: ${response.statusCode}');
+      }
+    } catch (error) {
+      print('Error fetching products: $error');
+      rethrow; // Re-throw to allow external handling of errors
+    }
   }
-*/
+
+
 //aggiungere name e description
+//TODO: da cambiare
   Future<bool> addMilkBatch(double price, int quantity, String expirationDate) async {
 
     const url = '$_apiUrl/invoke/addMilkBatch';

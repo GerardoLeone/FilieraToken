@@ -9,7 +9,7 @@ import 'package:filiera_token_front_end/components/molecules/custom_nav_bar.dart
 
 class UserProfilePage extends StatefulWidget {
 
-  const UserProfilePage({super.key});
+  const UserProfilePage({super.key, required String userType, required String idUser});
 
   @override
   State<UserProfilePage> createState() => _UserProfilePageAnimations();

@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 
 //Prodotti acquistati
 class UserProfileProductBuyed extends StatefulWidget {
-  const UserProfileProductBuyed({Key? key}) : super(key: key);
+  const UserProfileProductBuyed({Key? key, required String userType, required String idUser}) : super(key: key);
 
   @override
   State<UserProfileProductBuyed> createState() => _UserProfileProductBuyedState();

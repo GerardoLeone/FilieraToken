@@ -10,7 +10,7 @@ import 'package:go_router/go_router.dart';
 
 //Prodotti convertiti
 class UserProfileInventoryProductPage extends StatefulWidget {
-  const UserProfileInventoryProductPage({Key? key}) : super(key: key);
+  const UserProfileInventoryProductPage({Key? key, required String userType, required String idUser}) : super(key: key);
 
   @override
   State<UserProfileInventoryProductPage> createState() => _UserProfileInventoryProductPageState();

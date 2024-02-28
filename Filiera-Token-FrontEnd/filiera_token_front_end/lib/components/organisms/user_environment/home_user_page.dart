@@ -8,7 +8,11 @@ import 'package:flutter/material.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_nav_bar.dart';
 
 class HomePageUser extends StatefulWidget {
-  const HomePageUser({Key? key}) : super(key: key);
+  const HomePageUser({
+    Key? key,
+    required String userType,
+    required String idUser
+    }) : super(key: key);
 
   @override
   State<HomePageUser> createState() => _HomePageState();
@@ -16,7 +20,7 @@ class HomePageUser extends StatefulWidget {
 
 class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateMixin {
 
-    late AnimationController _drawerSlideController;
+  late AnimationController _drawerSlideController;
 
   @override
   void initState() {

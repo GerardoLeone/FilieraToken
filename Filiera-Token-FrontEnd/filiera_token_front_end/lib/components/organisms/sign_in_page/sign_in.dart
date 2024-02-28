@@ -1,3 +1,4 @@
+import 'package:filiera_token_front_end/Actor/Consumer/service/ConsumerService.dart';
 import 'package:filiera_token_front_end/components/atoms/custom_dropdown.dart';
 import 'package:filiera_token_front_end/components/organisms/sign_in_page/components/custom_menu_singin.dart';
 import 'package:flutter/material.dart';
@@ -21,9 +22,9 @@ class _MySignInPageAnimations extends State<MySignInPage> with SingleTickerProvi
 
   var dropdownItems = ["MilkHub","CheeseProducer", "Retailer", "Consumer"];
   
-    late AnimationController _drawerSlideController;
+  late AnimationController _drawerSlideController;
 
-
+  final ConsumerService _consumerService = ConsumerService();
 
   /// Select value to Menu 
   late String selectedValueUserType;
@@ -192,6 +193,7 @@ class _MySignInPageAnimations extends State<MySignInPage> with SingleTickerProvi
                         /// Move to home-page-user and select our product 
                         /// Retrieve all data of User 
                         /// Retrieve all data of other Product 
+                        /// 
                       
                       }else{
                           /// Login Errata 

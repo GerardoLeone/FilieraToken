@@ -2,19 +2,22 @@ import 'dart:async' show Future;
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:filiera_token_front_end/Actor/Consumer/service/ConsumerService.dart';
+
 
 class UserSerivce {
 
+  final ConsumerService _consumerService = ConsumerService();
 
   static const String _apiUrl = 'http://127.0.0.1:5000/api/v1';
 
   static const String _APINameMilkHub = "MilkHubService";
 
-  static const String _APINameCheeseProducer = "CheeseProducer";
+  static const String _APINameCheeseProducer = "CheeseProducerService";
 
-  static const String _APINameRetailer = "Retailer";
+  static const String _APINameRetailer = "RetailerService";
 
-  static const String _APINameConsumer = "Consumer";
+  
 
   static const String queryLogin = 'login';
 
@@ -34,7 +37,7 @@ class UserSerivce {
         return registerRetailer(email, fullName, password, walletMilkHub);
       }
       case "Consumer":{
-        return registerConsumer(email, fullName, password, walletMilkHub);
+        return _consumerService.registerConsumer(email, fullName, password, walletMilkHub);
       }
       default:{
         return false;
@@ -123,43 +126,18 @@ class UserSerivce {
   }
 
 
-  Future<bool> registerConsumer(String email, String fullName, String password, String walletMilkHub) async {
-    
-    const url = '$_apiUrl/namespaces/default/apis/$_APINameConsumer/invoke/registerMilkHub';
-    final headers = _getHeaders();
-    final body = _getRegisterUserBody(email, fullName, password, walletMilkHub);
-
-    final response = await http.post(
-      Uri.parse(url),
-      headers: headers,
-      body: jsonEncode(body),
-    );
-
-    // Controllo del codice di stato
-    if (response.statusCode == 200 || response.statusCode == 202) {
-      // Richiesta avvenuta con successo
-      print('Registrazione avvenuta con successo');
-      return true;
-    } else {
-      // Errore nella richiesta
-      print('Registrazione Non avvenuta!');
-      return false;
-    }
-  }
-
-
 
 
   Map<String, dynamic> _getRegisterUserBody(String email, String fullName, String password, String walletMilkHub) {
-  return {
-    'input': {
-      'email': email,
-      'fullName': fullName,
-      'password': password,
-      'walletMilkHub': walletMilkHub,
-    },
-  };
-}
+    return {
+      'input': {
+        'email': email,
+        'fullName': fullName,
+        'password': password,
+        'walletMilkHub': walletMilkHub,
+      },
+    };
+  }
 
 
 
@@ -189,7 +167,7 @@ class UserSerivce {
         return loginRetailer(email, password, walletMilkHub);
       }
       case "Consumer":{
-        return loginConsumer(email, password, walletMilkHub);
+        return _consumerService.loginConsumer(email, password, walletMilkHub);
       }
       default:{
         return false;
@@ -197,17 +175,18 @@ class UserSerivce {
     }
   }
 
-
-
   Map<String, dynamic> _getLoginPayload(String email, String password, String wallet) {
-    return {
-      "input": {
-        "email": email,
-        "password": password,
-        "walletMilkHub": wallet,
-      }
-    };
-  }
+      return {
+        "input": {
+          "email": email,
+          "password": password,
+          "walletMilkHub": wallet,
+        }
+      };
+    }
+
+
+
 
 
   Future<bool> loginMilkHub(String email, String password, String wallet) async {
@@ -282,28 +261,7 @@ class UserSerivce {
   }
 
 
-  Future<bool> loginConsumer(String email, String password, String wallet) async {
-    const url = '$_apiUrl/namespaces/default/apis/$_APINameConsumer/invoke/$queryLogin';
-    final headers = _getHeaders();
-    final body = _getLoginPayload(email, password, wallet);
-    final response = await http.post(
-      Uri.parse(url),
-      headers: headers,
-      body: jsonEncode(body),
-    );
-
-    // Controllo del codice di stato
-    if (response.statusCode == 200 || response.statusCode == 202) {
-      // Richiesta avvenuta con successo
-      print('Login avvenuto con successo');
-      return true;
-    } else {
-      // Errore nella richiesta
-      final error = jsonDecode(response.body)['error'];
-      print('Login Non avvenuta!');
-      return false;
-    }
-  }
+  
 
 
 

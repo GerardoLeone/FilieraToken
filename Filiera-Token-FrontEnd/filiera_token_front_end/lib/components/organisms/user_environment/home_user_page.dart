@@ -1,3 +1,4 @@
+import 'package:filiera_token_front_end/components/molecules/custom_loading_bar.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_product_list.dart';
 import 'package:filiera_token_front_end/components/molecules/dialog/dialog_product_details.dart';
 import 'package:filiera_token_front_end/components/organisms/user_environment/components/custom_menu_home_user_page_environment.dart';
@@ -27,7 +28,7 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
 
   late SecureStorageService secureStorageService;
 
-  late User? user;
+  User? user;
 
 
   @override
@@ -37,7 +38,7 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
       vsync: this,
       duration: const Duration(milliseconds: 150),
     );
-   final storage = GetIt.I.get<SecureStorageService>();
+    final storage = GetIt.I.get<SecureStorageService>();
     if(storage!=null){
       print("storage non è nullo!");
       secureStorageService = storage;
@@ -46,12 +47,16 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
     }
   }
 
-  Future<User?> _fetch_Data() async {
-    user = await secureStorageService.get();
-    print("Type of User : "+user!.type.name);
-    if(user!=null)
+  Future<void> _fetch_Data() async {
+  final retrievedUser = await secureStorageService.get();
+  if (retrievedUser != null) {
+    setState(() {
+      user = retrievedUser;
+    });
+    print("Type of User : ${user!.type.name}");
     print("User is Alive!");
   }
+}
 
   @override
   void dispose() {
@@ -115,6 +120,12 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
   @override
   Widget build(BuildContext context) {
     // Ottieni l'istanza di UserProvider
+    if (user == null) {
+    // Se user non è ancora stato inizializzato, visualizza un indicatore di caricamento o un altro widget di fallback
+      return CustomLoadingIndicator(progress: 4.5);
+      } else {
+        
+
     return Scaffold(
       appBar: _buildAppBar(),
       body: Stack(
@@ -130,6 +141,7 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
         ],
         ), 
     );
+  }
   }
 
   void handleProductTap(BuildContext context, Product product) {

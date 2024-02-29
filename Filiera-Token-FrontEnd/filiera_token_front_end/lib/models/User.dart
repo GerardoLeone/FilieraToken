@@ -8,9 +8,11 @@ class User {
   final String password; // Si presume che sia già crittografata dal front-end
   final String email;
   final String balance;
+  final String wallet;
   final Actor type;
 
-  const User({
+  const User( {
+    required this.wallet,
     required this.id,
     required this.fullName,
     required this.password,
@@ -30,6 +32,8 @@ class User {
   String get getEmail => email;
   
   String get getBalance => balance;
+
+  String get getWallet => wallet;
 
   Actor get getType => type;
 

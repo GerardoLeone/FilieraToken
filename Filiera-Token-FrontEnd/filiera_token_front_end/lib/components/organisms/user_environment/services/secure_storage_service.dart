@@ -30,8 +30,6 @@ class SecureStorageService{
 
     print("Sono nel metodo di Save del SignIn -------------------------");
 
-    
-
       await storage.write(key: 'wallet', value: wallet);
       await storage.write(key: 'user_id', value: id);
       await storage.write(key: 'full_name', value: fullName);
@@ -55,10 +53,12 @@ class SecureStorageService{
       final email = await storage.read(key: 'email');
       final balance = await storage.read(key: 'balance');
       final password = await storage.read(key: 'password');
+      final walletStored = await storage.read(key: 'wallet');
       final typeString = await storage.read(key: 'type');
       final type = Enums.getActor(typeString!);
       print("Sono all'interno della Get()");
-      if (userId != null && fullName != null && email != null && balance != null && password!=null && type!=null) {
+
+      if (userId != null && fullName != null && email != null && balance != null && password!=null && type!=null && walletStored!=null) {
         
       print("Ho effettuato il getting dei miei dati !");
         return User(
@@ -67,6 +67,7 @@ class SecureStorageService{
           email: email,
           balance: balance,
           type: type, 
+          wallet: walletStored,
           password: password,
         );
       }
@@ -77,7 +78,6 @@ class SecureStorageService{
     }
     return null;
   }
-
 
   // **Get User data:**
   Future<String?> getWallet() async {
@@ -103,6 +103,7 @@ class SecureStorageService{
       await storage.delete(key: 'email');
       await storage.delete(key: 'password');
       await storage.delete(key: 'balance');
+      await storage.delete(key: 'wallet');
       await storage.delete(key: 'type');
     } catch (e) {
       // Handle errors appropriately (e.g., logging, user feedback)

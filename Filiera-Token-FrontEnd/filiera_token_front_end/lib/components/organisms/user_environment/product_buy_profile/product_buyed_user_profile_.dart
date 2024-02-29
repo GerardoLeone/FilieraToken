@@ -120,8 +120,7 @@ class _UserProfileProductBuyedState extends State<UserProfileProductBuyed> with 
     if (user == null) {
     // Se user non è ancora stato inizializzato, visualizza un indicatore di caricamento o un altro widget di fallback
       return CustomLoadingIndicator(progress: 4.5);
-      } else {
-
+  } else {
     return Scaffold(
       appBar: _buildAppBar(),
       body: Stack(
@@ -134,10 +133,10 @@ class _UserProfileProductBuyedState extends State<UserProfileProductBuyed> with 
                 ),
               ),
               _buildDrawer(),
-        ],
+          ],
         ), 
-    );
-  }
+      );
+    }
   }
 
 

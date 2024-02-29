@@ -1,8 +1,5 @@
-import 'package:filiera_token_front_end/components/organisms/user_environment/services/secure_storage_service.dart';
 import 'package:filiera_token_front_end/models/User.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
-
 import 'package:image_picker/image_picker.dart';
 
 
@@ -48,8 +45,7 @@ class _CustomViewProfile extends State<CustomViewProfile> {
   Widget _buildFirstRow(User userDataStore){
 
 
-    String id = userDataStore.id;
-    String fullName = userDataStore.fullName;
+    String wallet = userDataStore.wallet;
     String balance = userDataStore.balance;
     return Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -71,7 +67,7 @@ class _CustomViewProfile extends State<CustomViewProfile> {
                 Expanded(
                   child: 
                   Text(
-                    "Wallet : "+id,
+                    "Wallet : "+wallet,
                     style: const TextStyle(fontSize: 16.0),
                   ),
                 ),
@@ -93,7 +89,6 @@ class _CustomViewProfile extends State<CustomViewProfile> {
 
   // Riga 2: Email
   Widget _buildSecondRow(User userDataStored){
-    String password = userDataStored.password;
     String email = userDataStored.email;
     // Riga 2: Email
     return Row(
@@ -110,12 +105,13 @@ class _CustomViewProfile extends State<CustomViewProfile> {
 
   Widget _buildThirdRow(User userDataStored){
     String password = userDataStored.password;
+    String fullName = userDataStored.fullName;
     return // Riga 3: Nome, cognome e password
             Row(
               children: [
                 Expanded(
                   child: Text(
-                    widget.toString(),
+                    fullName,
                     style: const TextStyle(fontSize: 16.0),
                   ),
                 ),
@@ -150,7 +146,7 @@ class _CustomViewProfile extends State<CustomViewProfile> {
             _buildSecondRow(userDataStored),
             const SizedBox(height: 16.0),
             _buildThirdRow(userDataStored)
-          ],
+            ],
         ),
       );
   }

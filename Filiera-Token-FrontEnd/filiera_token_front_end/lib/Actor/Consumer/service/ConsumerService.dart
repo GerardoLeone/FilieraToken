@@ -130,20 +130,21 @@ class ConsumerService {
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
 
-      return _getUserData(data, Actor.Consumer);
+      return _getUserData(data, Actor.Consumer,walletConsumer);
     
     } else {
       throw Exception('Errore durante la chiamata API: ${response.statusCode}');
     }
   }
 
-   User _getUserData(Map<String, dynamic> response, Actor selected){
+   User _getUserData(Map<String, dynamic> response, Actor selected, String walletConsumer){
     return User(
         id: response['output'],
         fullName: response['output1'],
         password: response['output2'],
         email: response['output3'],
         balance: response['output4'], 
+        wallet: walletConsumer,
         type: selected,
       );
   }

@@ -22,7 +22,6 @@ contract MilkHubStorage is IUserStorageInterface {
         string password; // Si presume che sia già crittografata dal Front-End
         string email;
         uint256 balance;
-        address wallet;
     }
 
     // Mapping che collega l'indirizzo del portafoglio (wallet address) ai dati del consumatore
@@ -43,7 +42,6 @@ contract MilkHubStorage is IUserStorageInterface {
         require(bytes(_fullName).length > 0, "Full name cannot be empty");
         require(bytes(_password).length > 0, "Password cannot be empty");
         require(bytes(_email).length > 0, "Email cannot be empty");
-        require(address(walletMilkHub)!=address(0),"Address cannot be empty");
         
         // Crea un nuovo consumatore con l'ID univoco
         MilkHub memory newMilkHub = MilkHub({
@@ -51,8 +49,7 @@ contract MilkHubStorage is IUserStorageInterface {
             fullName: _fullName,
             password: _password,
             email: _email,
-            balance: 100,
-            wallet: walletMilkHub
+            balance: 100
         });
         // Inserisco l'address 
         addressList.push(walletMilkHub);
@@ -140,16 +137,6 @@ contract MilkHubStorage is IUserStorageInterface {
 
         MilkHub memory milkhub = milkhubs[walletMilkHub];
         return milkhub.balance;
-    }
-
-    /**
-        - Funzione getWallet() attraverso l'address del MilkHub riusciamo a recuperare il suo Balance
-    */
-    function getWallet(address walletMilkHub, uint256 _id) external view  returns(address){
-        require(milkhubs[walletMilkHub].id == _id,"ID not Valid!");
-        
-        MilkHub memory milkhub = milkhubs[walletMilkHub];
-        return milkhub.wallet;
     }
 
     /**

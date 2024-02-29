@@ -206,30 +206,6 @@
 						"internalType": "address",
 						"name": "walletConsumer",
 						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "_id",
-						"type": "uint256"
-					}
-				],
-				"name": "getWallet",
-				"outputs": [
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "walletConsumer",
-						"type": "address"
 					}
 				],
 				"name": "isUserPresent",
@@ -320,9 +296,6 @@
 				"getUser(address)": {
 					"notice": "getUser(walletConsumer) :  Consumer visualizza le sue informazioni principali - email, password , fullName , balance "
 				},
-				"getWallet(address,uint256)": {
-					"notice": "- Funzione getWallet() attraverso l'address del Consumer riusciamo a recuperare il suo Balance"
-				},
 				"loginUser(address,string,string)": {
 					"notice": "LoginUser() effettua il login dell'utente  La comparazione Hash tra (email e password) di input e quelli salvati return true se la comparazione è vera, La comparazione è falsa se l'hashing non risulta valido"
 				}
@@ -347,11 +320,11 @@
 	},
 	"sources": {
 		"contracts/Actor/Consumer-smart-contract/ConsumerStorage.sol": {
-			"keccak256": "0xa6361b4a79d50f6ca07c844bc702713ec61335294c8d9a4e6a1d397d6629604e",
+			"keccak256": "0x09c824e95a01e2857ee5127886ba58126e4320869706cbff1ec271d3afc1e553",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://69e9d163266391de9f253d1328adb54207f4a00b3c148309becd559114cef414",
-				"dweb:/ipfs/QmddBEPdqJG6mAWgfxHrePbWHoVuHr3nym6dc42cbgme27"
+				"bzz-raw://a80678e32099003663680bb83eb56fef5f925d39fde9e0a630baff2ea37f5439",
+				"dweb:/ipfs/QmPXbSUbXcmfUsEGP5oMVCrfTtUwXnPXytqjhAZNSXJ7Mz"
 			]
 		},
 		"contracts/Actor/IUserStorageInterface.sol": {

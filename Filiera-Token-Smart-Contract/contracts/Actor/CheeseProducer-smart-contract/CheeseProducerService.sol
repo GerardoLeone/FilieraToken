@@ -152,10 +152,6 @@ contract CheeseProducerService {
         return cheeseProducerStorage.getEmail(walletCheeseProducer,_id);
     }
 
-    function getCheeseProducerWallet(address walletCheeseProducer,uint256 _id) external  view checkAddress(walletCheeseProducer) returns (address){
-        
-        return cheeseProducerStorage.getWallet(walletCheeseProducer, _id);
-    }
 
     /**
         - Funzione getBalance() attraverso l'address del CheeseProducer riusciamo a recuperare il suo Balance

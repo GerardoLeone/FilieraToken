@@ -206,30 +206,6 @@
 						"internalType": "address",
 						"name": "walletCheeseProducer",
 						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "_id",
-						"type": "uint256"
-					}
-				],
-				"name": "getWallet",
-				"outputs": [
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "walletCheeseProducer",
-						"type": "address"
 					}
 				],
 				"name": "isUserPresent",
@@ -320,9 +296,6 @@
 				"getUser(address)": {
 					"notice": "getUser(walletCheeseProducer) :  CheeseProducer visualizza le sue informazioni principali - email, password , fullName , balance "
 				},
-				"getWallet(address,uint256)": {
-					"notice": "- Funzione getWallet() attraverso l'address del CheeseProducer riusciamo a recuperare il suo Balance"
-				},
 				"loginUser(address,string,string)": {
 					"notice": "LoginUser() effettua il login dell'utente  La comparazione Hash tra (email e password) di input e quelli salvati return true se la comparazione è vera, La comparazione è falsa se l'hashing non risulta valido"
 				}
@@ -347,11 +320,11 @@
 	},
 	"sources": {
 		"contracts/Actor/CheeseProducer-smart-contract/CheeseProducerStorage.sol": {
-			"keccak256": "0x9d959250d8fb4aa826b92772681c72b3cfb3f39ae2b8b9005a2a86931b680116",
+			"keccak256": "0xcfc34dca9e78e9c4e2e439345fad9488713617054faf24d16a2e3f57b120b15d",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://5b9c0682e6ccc8fbec1b6c34ace6bf87d5b1a18b51cd638dd6986860b5d1aad0",
-				"dweb:/ipfs/QmPMcCjrjdAWREoD55zvEaXR9hJxMosw7KDs3PkaTNU8KB"
+				"bzz-raw://4424de6eba8c1fe8c991050809ce4e5626900651a65896552c378b054f6293ac",
+				"dweb:/ipfs/QmNhTfTZkRMVrqs8yrtfPzRWuqwVqdkHBBGrWFCepUCy9f"
 			]
 		},
 		"contracts/Actor/IUserStorageInterface.sol": {

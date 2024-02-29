@@ -22,7 +22,6 @@ contract ConsumerStorage is IUserStorageInterface {
         string password; // Si presume che sia già crittografata dal Front-End
         string email;
         uint256 balance;
-        address wallet;
     }
 
     // Mapping che collega l'indirizzo del portafoglio (wallet address) ai dati del consumatore
@@ -51,9 +50,7 @@ contract ConsumerStorage is IUserStorageInterface {
             fullName: _fullName,
             password: _password,
             email: _email,
-            balance: 100,
-            wallet: walletConsumer
-        });
+            balance: 100        });
         // Inserisco l'address 
         addressList.push(walletConsumer);
 
@@ -140,16 +137,6 @@ contract ConsumerStorage is IUserStorageInterface {
 
         Consumer memory consumer = consumers[walletConsumer];
         return consumer.balance;
-    }
-
-    /**
-        - Funzione getWallet() attraverso l'address del Consumer riusciamo a recuperare il suo Balance
-    */
-    function getWallet(address walletConsumer, uint256 _id) external view  returns(address){
-        require(consumers[walletConsumer].id == _id,"ID not Valid!");
-        
-        Consumer memory consumer = consumers[walletConsumer];
-        return consumer.wallet;
     }
 
     /**

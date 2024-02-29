@@ -22,7 +22,6 @@ contract CheeseProducerStorage is IUserStorageInterface {
         string password; // Si presume che sia già crittografata dal Front-End
         string email;
         uint256 balance;
-        address wallet;
     }
 
     // Mapping che collega l'indirizzo del portafoglio (wallet address) ai dati del consumatore
@@ -51,8 +50,7 @@ contract CheeseProducerStorage is IUserStorageInterface {
             fullName: _fullName,
             password: _password,
             email: _email,
-            balance: 100,
-            wallet: walletCheeseProducer
+            balance: 100
         });
         // Inserisco l'address 
         addressList.push(walletCheeseProducer);
@@ -140,16 +138,6 @@ contract CheeseProducerStorage is IUserStorageInterface {
 
         CheeseProducer memory cheeseProducer = cheeseProducers[walletCheeseProducer];
         return cheeseProducer.balance;
-    }
-
-    /**
-        - Funzione getWallet() attraverso l'address del CheeseProducer riusciamo a recuperare il suo Balance
-    */
-    function getWallet(address walletCheeseProducer, uint256 _id) external view  returns(address){
-        require(cheeseProducers[walletCheeseProducer].id == _id,"ID not Valid!");
-        
-        CheeseProducer memory cheeseProducer = cheeseProducers[walletCheeseProducer];
-        return cheeseProducer.wallet;
     }
 
     /**

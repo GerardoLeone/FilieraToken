@@ -1,4 +1,6 @@
 import 'dart:async' show Future;
+import 'package:filiera_token_front_end/models/User.dart';
+import 'package:filiera_token_front_end/utils/enums.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -45,6 +47,34 @@ class UserSerivce {
     }
   }
 
+
+  Future<User?> getData(String typeUser, String wallet) async{
+
+
+    switch(typeUser){
+      
+      case "MilkHub":{
+        //return registerMilkHub(email, fullName, password, walletMilkHub);
+        break;
+      }
+      case "CheeseProducer":{
+        break;
+        //registerCheeseProducer(email, fullName, password, walletMilkHub);
+      }
+      case "Retailer":{
+        break; // registerRetailer(email, fullName, password, walletMilkHub);
+      }
+      case "Consumer":{
+        /// Recover ID
+        String id = await _consumerService.getConsumerId(wallet);
+        return await _consumerService.getConsumerData(id,wallet);
+      }
+      
+      default:{
+        break;
+      }
+    }
+  }
 
 
 
@@ -261,6 +291,9 @@ class UserSerivce {
   }
 
 
+
+
+  
   
 
 

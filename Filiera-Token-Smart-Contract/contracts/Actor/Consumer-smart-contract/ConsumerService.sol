@@ -62,12 +62,12 @@ contract ConsumerService {
 //--------------------------------------------------------------- Business Logic -------------------------------------------------------------------------------------------//
 
     /**
-     * registerMilkHub() registra gli utenti della piattaforma che sono Consumer 
+     * registerConsumer() registra gli utenti della piattaforma che sono Consumer 
      * - Inserisce i dati all'interno della Blockchain
      * - Trasferisce 100 token dal contratto di FilieraToken 
      * - Emette un evento appena l'utente è stato registrato 
      *  */ 
-    function registerMilkHub(string memory fullName, string memory password, string memory email, address walletConsumer) external checkAddress(walletConsumer) {
+    function registerConsumer(string memory fullName, string memory password, string memory email, address walletConsumer) external checkAddress(walletConsumer) {
 
         // Verifica che l'utente è gia' presente 
         require(!(this.isUserPresent(walletConsumer)), "Utente gia' registrato !");
@@ -98,11 +98,11 @@ contract ConsumerService {
 
 
     /**
-     * deleteMilkHub() elimina un Consumer all'interno del sistema 
+     * deleteConsumer() elimina un Consumer all'interno del sistema 
      * - Solo l'owner può effettuare l'eliminazione 
      * - msg.sender dovrebbe essere solo quello dell'owner 
      */
-    function deleteMilkHub(address walletConsumer, uint256 _id) external checkAddress(walletConsumer)  {
+    function deleteConsumer(address walletConsumer, uint256 _id) external checkAddress(walletConsumer)  {
         
         // Verifico che l'utente è presente 
         require(this.isUserPresent(walletConsumer), "Utente non e' presente!");
@@ -116,7 +116,7 @@ contract ConsumerService {
         emit ConsumerDeleted(walletConsumer,"Utente e' stato eliminato!");
     }
 
-// --------------------------------------------------------------------------- MilkHubInventoryService ----------------------------------------------------//
+// --------------------------------------------------------------------------- ConsumerInventoryService ----------------------------------------------------//
 
     function isUserPresent(address walletConsumer) external view returns(bool){
         
@@ -128,9 +128,9 @@ contract ConsumerService {
 //----------------------------------------------------------------------------- Get Function ----------------------------------------------------------------------//
 
     /**
-        -  Funzione getMilkHubId() attraverso l'address del Consumer siamo riusciti ad ottenere il suo ID
+        -  Funzione getConsumerId() attraverso l'address del Consumer siamo riusciti ad ottenere il suo ID
     */
-    function getMilkHubId(address walletConsumer) external view checkAddress(walletConsumer)  returns (uint256){
+    function getConsumerId(address walletConsumer) external view checkAddress(walletConsumer)  returns (uint256){
         
         return consumerStorage.getId(walletConsumer);
     }
@@ -139,7 +139,7 @@ contract ConsumerService {
     /**
         - Funzione getFullName() attraverso l'address del Consumer riusciamo a recuperare il suo FullName
     */
-    function getMilkHubFullName(address walletConsumer,uint256 _id) external view checkAddress(walletConsumer) returns(string memory){
+    function getConsumerFullName(address walletConsumer,uint256 _id) external view checkAddress(walletConsumer) returns(string memory){
 
         return consumerStorage.getFullName(walletConsumer,_id);
     }
@@ -147,7 +147,7 @@ contract ConsumerService {
     /**
         - Funzione getEmail() attraverso l'address del Consumer riusciamo a recuperare la sua Email 
     */
-    function getMilkHubEmail(address walletConsumer, uint256 _id) external view checkAddress(walletConsumer) returns(string memory){
+    function getConsumerEmail(address walletConsumer, uint256 _id) external view checkAddress(walletConsumer) returns(string memory){
         
         return consumerStorage.getEmail(walletConsumer,_id);
     }
@@ -155,17 +155,17 @@ contract ConsumerService {
     /**
         - Funzione getBalance() attraverso l'address del Consumer riusciamo a recuperare il suo Balance
     */
-    function getMilkHubBalance(address walletConsumer, uint256 _id) external view checkAddress(walletConsumer)  returns(uint256){
+    function getConsumerBalance(address walletConsumer, uint256 _id) external view checkAddress(walletConsumer)  returns(uint256){
 
         return consumerStorage.getBalance(walletConsumer,_id);
     }
 
     /**
-     * getMilkHubData() otteniamo i dati del Consumer
+     * getConsumerData() otteniamo i dati del Consumer
      * - tramite l'address del Consumer riusciamo a visualizzare anche i suoi dati
      * - Dati sensibili e visibili solo dal Consumer stesso 
      */
-    function getMilkHubData(address walletConsumer, uint256 _id) external checkAddress(walletConsumer) view returns (uint256, string memory, string memory, string memory, uint256) {
+    function getConsumerData(address walletConsumer, uint256 _id) external checkAddress(walletConsumer) view returns (uint256, string memory, string memory, string memory, uint256) {
         // Verifico che l'utente è presente 
         require(this.isUserPresent(walletConsumer), "Utente non e' presente!");
         // Restituisce l'id del Consumer tramite il suo address wallet
@@ -176,7 +176,7 @@ contract ConsumerService {
 
     
     // Funzione per far visualizzare i dati ai vari utenti esterni 
-    function getMilkHubInfo(address walletConsumer) external view checkAddress(walletConsumer) returns (uint256, string memory, string memory) {
+    function getConsumerInfo(address walletConsumer) external view checkAddress(walletConsumer) returns (uint256, string memory, string memory) {
         
         // Verifico che l'utente esista
         require(this.isUserPresent(walletConsumer), "User not found");
@@ -190,7 +190,7 @@ contract ConsumerService {
         return (id, fullName, email);
     }
 
-    function getListAddressMilkHub() external view returns ( address [ ] memory){
+    function getListAddressConsumer() external view returns ( address [ ] memory){
         return consumerStorage.getListAddress();
     }
 
@@ -210,7 +210,7 @@ contract ConsumerService {
 // ------------------------------------------------------------ Change Address Contract of Service -----------------------------------------------------//
 
 
-    function changeMilkHubStorage(address _milkhubStorageNew)private  {
+    function changeConsumerStorage(address _milkhubStorageNew)private  {
         consumerStorage = ConsumerStorage(_milkhubStorageNew);
     }
 

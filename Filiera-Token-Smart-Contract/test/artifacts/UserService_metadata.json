@@ -1,0 +1,106 @@
+{
+	"compiler": {
+		"version": "0.8.22+commit.4fc1097e"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "addr",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "age",
+						"type": "uint256"
+					}
+				],
+				"name": "addUserStruct",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getMyStructs",
+				"outputs": [
+					{
+						"components": [
+							{
+								"components": [
+									{
+										"internalType": "address",
+										"name": "addr",
+										"type": "address"
+									},
+									{
+										"internalType": "string",
+										"name": "name",
+										"type": "string"
+									},
+									{
+										"internalType": "uint256",
+										"name": "age",
+										"type": "uint256"
+									}
+								],
+								"internalType": "struct UserService.User[]",
+								"name": "users",
+								"type": "tuple[]"
+							}
+						],
+						"internalType": "struct UserService.ListUser",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"test/UserService.sol": "UserService"
+		},
+		"evmVersion": "shanghai",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"test/UserService.sol": {
+			"keccak256": "0xefc36574de743cf7019e0c105b2bc7b487271a2c4559ce7d3a74f061e5ceb7e1",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://618558b9ffe07c8150f575ea2aef2f2306a39210af8cfe9dba74c24dd5d6ebad",
+				"dweb:/ipfs/QmQD1g8MgSMDNSfC4j86S9mzGn4ZxrrVb1tqDsFgTod1oL"
+			]
+		}
+	},
+	"version": 1
+}

@@ -9,6 +9,8 @@ class CustomMenuHomeUserPageEnv extends StatefulWidget {
 }
 
 class _MenuState extends State<CustomMenuHomeUserPageEnv> with SingleTickerProviderStateMixin {
+
+
   static const _menuTitles = [
     'Setting', // Go to Profile routing 
     'Inventory', // Go to Inventory
@@ -126,25 +128,26 @@ class _MenuState extends State<CustomMenuHomeUserPageEnv> with SingleTickerProvi
             child: ElevatedButton(
               onPressed: () {
 
+
                 if(_menuTitles[i].compareTo('Logout') == 0){
                   // Logout Routing 
                   context.go('/');
 
                 }else if(_menuTitles[i].compareTo('Inventory') == 0){
                   // Product Buyed Routing 
-                  context.go('/home-page-user/profile/inventory');
+                  //context.go('/home-page-user/'+type+'/'+userId+'/profile/inventory');
 
                 }else if(_menuTitles[i].compareTo('History') == 0){
                   // History
                   /// TODO: Rendere dinamica questa Route
-                  context.go('/home-page-user/profile/history');
+                  //context.go('/home-page-user/'+type+'/'+userId+'/profile/history');
 
                 }else if(_menuTitles[i].compareTo('Setting') ==0){
 
-                  context.go('/home-page-user/profile');
+                  //context.go('/home-page-user/'+type+'/'+userId+'/profile');
 
                 }else if(_menuTitles[i].compareTo('Product Buyed')==0){
-                  context.go('/home-page-user/profile/product-buyed');
+                  //context.go('/home-page-user/'+type+'/'+userId+'/profile/product-buyed');
                 }
                 },
               child: 
@@ -163,4 +166,7 @@ class _MenuState extends State<CustomMenuHomeUserPageEnv> with SingleTickerProvi
       }
     return listItems;
   }
+
+
+
 }

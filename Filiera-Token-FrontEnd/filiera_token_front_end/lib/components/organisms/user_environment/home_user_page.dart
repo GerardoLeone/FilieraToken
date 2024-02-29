@@ -11,7 +11,7 @@ class HomePageUser extends StatefulWidget {
   const HomePageUser({
     Key? key,
     required String userType,
-    required String idUser
+    required String idUser, 
     }) : super(key: key);
 
   @override
@@ -25,7 +25,6 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
   @override
   void initState() {
     super.initState();
-
     _drawerSlideController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 150),
@@ -93,6 +92,7 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
+    // Ottieni l'istanza di UserProvider
     return Scaffold(
       appBar: _buildAppBar(),
       body: Stack(

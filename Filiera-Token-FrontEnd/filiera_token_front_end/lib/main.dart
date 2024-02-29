@@ -2,8 +2,9 @@ import 'package:filiera_token_front_end/components/organisms/user_environment/hi
 import 'package:filiera_token_front_end/components/organisms/user_environment/home_user_page.dart';
 import 'package:filiera_token_front_end/components/organisms/user_environment/inventory_profile/inventory_user_profile_.dart';
 import 'package:filiera_token_front_end/components/organisms/user_environment/product_buy_profile/product_buyed_user_profile_.dart';
+import 'package:filiera_token_front_end/components/organisms/user_environment/services/secure_storage_service.dart';
 import 'package:filiera_token_front_end/components/organisms/user_environment/setting_profile/setting_user_profile_page.dart';
-import 'package:filiera_token_front_end/models/User.dart';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -11,22 +12,19 @@ import 'package:go_router/go_router.dart';
 import 'package:filiera_token_front_end/components/organisms/sign_in_page/sign_in.dart';
 import 'package:filiera_token_front_end/components/organisms/sign_up_page/sign_up.dart';
 import 'package:filiera_token_front_end/components/organisms/home_page/home_page.dart';
-import 'package:provider/provider.dart';
 
 // Page User 
 
 
-// Profile Page 
-//import 'package:filiera_token_front_end/components/organisms/user_environment/setting_profile/setting_user_profile_page.dart';
+import 'package:get_it/get_it.dart';
 
-// Profile Sub-Page
-//import 'package:filiera_token_front_end/components/organisms/user_environment/history_profile/user_profile_history.dart';
-//import 'package:filiera_token_front_end/components/organisms/user_environment/inventory_profile/user_profile_inventory.dart';
+final getIt = GetIt.instance;
 
-void main() { 
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  getIt.registerSingleton<SecureStorageService>(SecureStorageService());
   runApp(MyApp());
 }
-
 
 
 class MyApp extends StatelessWidget {
@@ -35,11 +33,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<UserProvider>(
-      create: (_) => UserProvider(),
-      child: MaterialApp.router(
+
+    return  MaterialApp.router(
       routerConfig: _routerConsumer,
-    ));
+    );
   }
 }
 
@@ -123,15 +120,9 @@ final GoRouter _routerConsumer = GoRouter(
       builder: (context, state) {
         final userType = state.pathParameters['userType']!;
         final idUser = state.pathParameters['id_user']!;
-
-        // Access and utilize user data here (e.g., fetch data, personalize UI)
-        // ...
-
         return HomePageUser(
           userType: userType,
           idUser: idUser,
-          // Pass additional user data if needed
-          // userExtraData: context.findAncestorStateOfType<HomePageUserState>()!.userExtraData,
         );
       },
       routes: [

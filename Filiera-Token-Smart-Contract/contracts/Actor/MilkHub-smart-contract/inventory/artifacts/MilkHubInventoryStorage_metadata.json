@@ -115,47 +115,6 @@
 			{
 				"inputs": [
 					{
-						"internalType": "address[]",
-						"name": "milkHubListaddress",
-						"type": "address[]"
-					}
-				],
-				"name": "getAllMilkBatchList",
-				"outputs": [
-					{
-						"components": [
-							{
-								"internalType": "uint256",
-								"name": "id",
-								"type": "uint256"
-							},
-							{
-								"internalType": "string",
-								"name": "scadenza",
-								"type": "string"
-							},
-							{
-								"internalType": "uint256",
-								"name": "quantity",
-								"type": "uint256"
-							},
-							{
-								"internalType": "uint256",
-								"name": "price",
-								"type": "uint256"
-							}
-						],
-						"internalType": "struct MilkHubInventoryStorage.MilkBatch[]",
-						"name": "",
-						"type": "tuple[]"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
 						"internalType": "address",
 						"name": "walletMilkHub",
 						"type": "address"
@@ -172,6 +131,38 @@
 						"internalType": "string",
 						"name": "",
 						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getListMilkBatchAll",
+				"outputs": [
+					{
+						"internalType": "uint256[]",
+						"name": "",
+						"type": "uint256[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletMilkHub",
+						"type": "address"
+					}
+				],
+				"name": "getListMilkBatchId",
+				"outputs": [
+					{
+						"internalType": "uint256[]",
+						"name": "",
+						"type": "uint256[]"
 					}
 				],
 				"stateMutability": "view",
@@ -211,47 +202,6 @@
 						"internalType": "uint256",
 						"name": "",
 						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "walletMilkHub",
-						"type": "address"
-					}
-				],
-				"name": "getMilkBatchListByMilkHub",
-				"outputs": [
-					{
-						"components": [
-							{
-								"internalType": "uint256",
-								"name": "id",
-								"type": "uint256"
-							},
-							{
-								"internalType": "string",
-								"name": "scadenza",
-								"type": "string"
-							},
-							{
-								"internalType": "uint256",
-								"name": "quantity",
-								"type": "uint256"
-							},
-							{
-								"internalType": "uint256",
-								"name": "price",
-								"type": "uint256"
-							}
-						],
-						"internalType": "struct MilkHubInventoryStorage.MilkBatch[]",
-						"name": "",
-						"type": "tuple[]"
 					}
 				],
 				"stateMutability": "view",
@@ -385,11 +335,11 @@
 	},
 	"sources": {
 		"contracts/Actor/MilkHub-smart-contract/inventory/MilkHubInventoryStorage.sol": {
-			"keccak256": "0x8935207c0b7b152bcc8e3bc7a7655e5009350fb1d19c225dcc01ce80e7c61a0f",
+			"keccak256": "0x9bdf3493c885fdb2804df11997795d441f20b46e3e349f2c837e1dbeb351898a",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://7c5d7cab01a032b3bf984586a836e1dc020f4edae95755959bea7bb90da3bd19",
-				"dweb:/ipfs/Qmb2d8YN72Jd8wp5kYp7szTqrdJA3DUC1LmmHJrFAG7Nm1"
+				"bzz-raw://a17afe43f350bfb32496a35fb889bd107a5130d9fb95d999c4447889dc5e2955",
+				"dweb:/ipfs/QmPW3KszuBZfFpK6ZStaNa5gq4cSQZFi8n2ni6AaFi1rSJ"
 			]
 		}
 	},

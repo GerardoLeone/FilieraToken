@@ -17,8 +17,10 @@ contract MilkHubInventoryStorage {
         uint256 price; // Prezzo di vendita per un Litro di  ( Partita di Latte )
     }
 
-            /// MilkHub -> Lista Prodotti 
-    mapping(address => mapping(uint256 => MilkBatch)) private milkBatches;
+    /// MilkHub -> Lista Prodotti 
+    mapping(address => mapping( uint256 => MilkBatch )) private milkBatches;
+    
+    mapping(address => uint256[] ) private milkBatchIdListForSingleMilkHub; 
 
     uint256[] milkBatchIdList;
 
@@ -45,8 +47,10 @@ contract MilkHubInventoryStorage {
             price: _price
         });
 
-        // Inserisco L'id nell'Array 
+        // Inserisco L'id nell'Array relativo a tutti gli elementi 
         milkBatchIdList.push(_id);
+        // Inserisco l'id all'interno del mapping specifico per singolo autore
+        milkBatchIdListForSingleMilkHub[walletMilkHub].push(_id);
 
         //Inserisce la nuova Partita di Latte nella lista milkBatches
         milkBatches[walletMilkHub][_id] = milkBatch;
@@ -68,6 +72,17 @@ contract MilkHubInventoryStorage {
 
     }
 
+    /*
+    * Restituisce la Lista di tutti gli ID dei prodotti di un determinato utente
+    */
+    function getListMilkBatchId(address walletMilkHub)external view returns (uint256[] memory){
+        return milkBatchIdListForSingleMilkHub[walletMilkHub];
+    }
+
+    function getListMilkBatchAll()external view returns(uint256[]memory){
+        return milkBatchIdList;
+    }
+
     // Delete Cheese piece 
     // We can delete a cheese piece with -> address of Consumer and id of CheesePiece
     function deleteMilkBatch(address walletMilkHub, uint256 _id) external returns(bool value) {
@@ -77,14 +92,14 @@ contract MilkHubInventoryStorage {
 
         
         // Check CheesePiece in the mapping 
-        if(milkBatches[walletMilkHub][_id].id  == 0 && deleteMilkBatchIdFromList(_id)){
+        if(milkBatches[walletMilkHub][_id].id  == 0 && deleteMilkBatchIdFromList(_id,walletMilkHub) ){
             return true;
         }else {
             return false;
         }
     }
 
-    function getMilkBatchListByMilkHub(address walletMilkHub) external view  returns (MilkBatch[] memory){
+    /*function getMilkBatchListByMilkHub(address walletMilkHub) external view  returns (MilkBatch[] memory){
         MilkBatch [ ] memory  milkBatchList  = new MilkBatch[](milkBatchIdList.length);
 
         for (uint256 i=0; i<milkBatchIdList.length; i++){
@@ -97,10 +112,10 @@ contract MilkHubInventoryStorage {
                 } 
         }
         return milkBatchList;
-    }
+    }*/
 
 
-    function getAllMilkBatchList(address[] memory milkHubListaddress)external view returns (MilkBatch[]memory){
+    /*function getAllMilkBatchList(address[] memory milkHubListaddress)external view returns (MilkBatch[]memory){
         
         MilkBatch [ ] memory  milkBatchList  = new MilkBatch[](milkBatchIdList.length);
         
@@ -118,7 +133,7 @@ contract MilkHubInventoryStorage {
         }
         return milkBatchList;
 
-    }
+    }*/
 
     
     function checkProduct(address ownerMilkBatch, uint256 _id_MilkBatch, uint256 quantityToBuy) external view  returns (bool){
@@ -165,16 +180,15 @@ contract MilkHubInventoryStorage {
         return milkBatch.price;        
     }
 
-    function getLenghtList() internal view returns(uint256){
-       return milkBatchIdList.length;
-    }
+    
 
 //---------------------------------------------------------- Delete Function ----------------------------------------------------------------------//   
 
-    function deleteMilkBatchIdFromList(uint256 _id)internal returns (bool) {
+    function deleteMilkBatchIdFromList(uint256 _id,address walletMilkHub )internal returns (bool) {
         for(uint256 i=0; ; i++){
-            if(milkBatchIdList[i] == _id){
+            if(milkBatchIdList[i] == _id && milkBatchIdListForSingleMilkHub[walletMilkHub][i] == _id){
                 delete  milkBatchIdList[i];
+                delete milkBatchIdListForSingleMilkHub[walletMilkHub][i];
                 return true;
             }
         }

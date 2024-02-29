@@ -31,8 +31,8 @@ contract RetailerService {
 
 
 //---------------------------------------------------------------------- Constructor ----------------------------------------------------------------------------//    
-    constructor(address _milkhubStorage, address _filieraToken) {
-        retailerStorage = RetailerStorage(_milkhubStorage);
+    constructor(address _retailerStorage, address _filieraToken) {
+        retailerStorage = RetailerStorage(_retailerStorage);
         filieraToken = Filieratoken(_filieraToken);
         ConsumerOrg = msg.sender;
     }

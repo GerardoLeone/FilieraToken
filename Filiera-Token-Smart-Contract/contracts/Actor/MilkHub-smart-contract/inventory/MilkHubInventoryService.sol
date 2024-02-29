@@ -23,11 +23,12 @@ contract MilkHubInventoryService {
 
 //----------------------------------------------------------------- Costructor Function ---------------------------------------------------------------------------//
 
-    constructor(address _milkhubInventoryStorage, address _milkhubService, address _accessControlProduct){
+    constructor(address _milkhubInventoryStorage, address _milkhubService//, address _accessControlProduct
+    ){
         MilkHubOrg = msg.sender;
         milkhubInventoryStorage = MilkHubInventoryStorage(_milkhubInventoryStorage);
         milkhubService = MilkHubService(_milkhubService);
-        accessControlProduct = AccessControlProduct(_accessControlProduct);
+        //accessControlProduct = AccessControlProduct(_accessControlProduct);
     }
 
 
@@ -134,23 +135,22 @@ contract MilkHubInventoryService {
     }
 
 
-    function getMilkBatchListByMilkHub(address walletMilkHub) external checkAddress(walletMilkHub) view returns (MilkHubInventoryStorage.MilkBatch[] memory){
+    /*function getMilkBatchListByMilkHub(address walletMilkHub) external checkAddress(walletMilkHub) view returns (MilkHubInventoryStorage.MilkBatch[] memory){
         // Check if exist 
         require(milkhubService.isUserPresent(walletMilkHub), "User is not present!");
 
         return milkhubInventoryStorage.getMilkBatchListByMilkHub(walletMilkHub);
-    }
+    }*/
 
     /*
         - Recupera tutti i MilkBatch presenti all'interno di Inventory 
         - Verifica che quel CheeseProducer sia all'interno del sistema 
-    */
     function getAllMilkBatchList(address walletCheeseProducer) view  external  returns (MilkHubInventoryStorage.MilkBatch[] memory){
         require(accessControlProduct.checkViewMilkBatchProduct(walletCheeseProducer),"User Not Authorized!");
             address[] memory addressListMilkHub = milkhubService.getListAddressMilkHub();
 
             return milkhubInventoryStorage.getAllMilkBatchList(addressListMilkHub); 
-    }
+    }*/
 
 
 

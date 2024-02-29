@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:filiera_token_front_end/utils/enums.dart';
 
 abstract class Product {
@@ -93,6 +95,47 @@ class MilkBatch extends Product {
             quantity: quantity, 
             pricePerLitre: pricePerLitre);
   }
+
+  static List<Product> fromJsonToList(String responseBody) {
+    final jsonData = jsonDecode(responseBody); // Parse the response body
+
+    // Handle potential parsing errors:
+    if (jsonData is! Map<String, dynamic>) {
+      // Handle non-JSON data structure or parsing errors (e.g., throwing an error)
+      print("Error: Could not parse response as JSON.");
+      throw Exception("Failed to parse response: Unexpected data format.");
+    }
+
+    // Access the "input" and "milkBatches" arrays based on API structure:
+    final milkBatchList = jsonData['input']['milkBatches'] as List<dynamic>;
+
+
+    // Convert each element in the list into a MilkBatch object:
+    final products = milkBatchList.map((milkBatchData) {
+      String expirationDate = milkBatchData['scadenza'] as String;
+      int quantity = milkBatchData['quantity'] as int;
+      double pricePerLitre = double.tryParse(milkBatchData['price'] as String) ?? 0.0;
+
+      // Temporary solution for missing values:
+      int id = 1;
+      String name = "Partita di Latte";
+      String description = "Silos contenente latte, disponibile all'acquisto immediato.";
+      String seller = "N.A.";
+
+      return MilkBatch(
+          id: id,
+          name: name,
+          description: description,
+          seller: seller,
+          expirationDate: expirationDate,
+          quantity: quantity,
+          pricePerLitre: pricePerLitre);
+    }).toList();
+
+    return products;
+}
+
+
 }
 
 class CheeseBlock extends Product {

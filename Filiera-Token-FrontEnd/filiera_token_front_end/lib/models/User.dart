@@ -1,12 +1,13 @@
 import 'package:filiera_token_front_end/utils/enums.dart';
 
 
+
 class User {
-  final int id;
+  final String id;
   final String fullName;
   final String password; // Si presume che sia già crittografata dal front-end
   final String email;
-  final int balance;
+  final String balance;
   final Actor type;
 
   const User({
@@ -20,7 +21,7 @@ class User {
 
   // Getters Function 
   
-  int get getId => id;
+  String get getId => id;
 
   String get getFullName => fullName;
   
@@ -28,8 +29,11 @@ class User {
   
   String get getEmail => email;
   
-  int get getBalance => balance;
+  String get getBalance => balance;
 
   Actor get getType => type;
 
 }
+
+
+

@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 //Prodotti convertiti
 class UserProfileHistoryPage extends StatefulWidget {
-  const UserProfileHistoryPage({Key? key}) : super(key: key);
+  const UserProfileHistoryPage({Key? key, required String idUser, required String userType}) : super(key: key);
 
   @override
   State<UserProfileHistoryPage> createState() => _UserProfileInventoryProductPageState();

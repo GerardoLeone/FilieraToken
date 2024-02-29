@@ -16,11 +16,6 @@
 						"internalType": "address",
 						"name": "_milkhubService",
 						"type": "address"
-					},
-					{
-						"internalType": "address",
-						"name": "_accessControlProduct",
-						"type": "address"
 					}
 				],
 				"stateMutability": "nonpayable",
@@ -242,47 +237,6 @@
 			{
 				"inputs": [
 					{
-						"internalType": "address",
-						"name": "walletCheeseProducer",
-						"type": "address"
-					}
-				],
-				"name": "getAllMilkBatchList",
-				"outputs": [
-					{
-						"components": [
-							{
-								"internalType": "uint256",
-								"name": "id",
-								"type": "uint256"
-							},
-							{
-								"internalType": "string",
-								"name": "scadenza",
-								"type": "string"
-							},
-							{
-								"internalType": "uint256",
-								"name": "quantity",
-								"type": "uint256"
-							},
-							{
-								"internalType": "uint256",
-								"name": "price",
-								"type": "uint256"
-							}
-						],
-						"internalType": "struct MilkHubInventoryStorage.MilkBatch[]",
-						"name": "",
-						"type": "tuple[]"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
 						"internalType": "uint256",
 						"name": "_id",
 						"type": "uint256"
@@ -338,47 +292,6 @@
 						"internalType": "string",
 						"name": "",
 						"type": "string"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "walletMilkHub",
-						"type": "address"
-					}
-				],
-				"name": "getMilkBatchListByMilkHub",
-				"outputs": [
-					{
-						"components": [
-							{
-								"internalType": "uint256",
-								"name": "id",
-								"type": "uint256"
-							},
-							{
-								"internalType": "string",
-								"name": "scadenza",
-								"type": "string"
-							},
-							{
-								"internalType": "uint256",
-								"name": "quantity",
-								"type": "uint256"
-							},
-							{
-								"internalType": "uint256",
-								"name": "price",
-								"type": "uint256"
-							}
-						],
-						"internalType": "struct MilkHubInventoryStorage.MilkBatch[]",
-						"name": "",
-						"type": "tuple[]"
 					}
 				],
 				"stateMutability": "view",
@@ -561,11 +474,11 @@
 			]
 		},
 		"contracts/Actor/CheeseProducer-smart-contract/CheeseProducerService.sol": {
-			"keccak256": "0xe9480eb9ab684a26cc9a63296c1e68b637b50513ba6992acffaec739601164bc",
+			"keccak256": "0xc5c062e69c61135e452a108ef71cabd799a0bc6464fbae0c5212ded429abccd1",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://c61752844778ad829de51c14e30c858bc3167d3f2abc7e9b478d9a4cc4987975",
-				"dweb:/ipfs/QmRHzQJfiiRTgdtnvonegbbtHVRiVDPGH2xucHoK6PmqZQ"
+				"bzz-raw://fb5092f31d85a37a2bac052b4da49ceb0e74fcb64aa9f436ade677425f8b903f",
+				"dweb:/ipfs/QmW2MFT31i82jNzfArz6SobgrfjNRK853dj6oRS849pXz6"
 			]
 		},
 		"contracts/Actor/CheeseProducer-smart-contract/CheeseProducerStorage.sol": {
@@ -577,11 +490,11 @@
 			]
 		},
 		"contracts/Actor/Consumer-smart-contract/ConsumerService.sol": {
-			"keccak256": "0xf713c62db55cac7091662e81e396d6c0304d173df7f75b6e558205c82e38bdb6",
+			"keccak256": "0xd399a2f07a82324ab980d71324b672403b734ee765652f675f4620a99533d8f4",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://85ae9194706d82baa1a97885eb796eb73633649a21ee05aff99f8a523aa37405",
-				"dweb:/ipfs/QmcLLdL2hhELZTDHwULkwViP2xCLDsGV2rd2iy2oj8Pov7"
+				"bzz-raw://95a68ddae047d351af431907bf10686f9263536ca3bae746704b9b375d45f45c",
+				"dweb:/ipfs/QmbZjdyqFiNTGZ7N4GWJwT3sLVAsoeAw6zbVJVzQ5WZQiP"
 			]
 		},
 		"contracts/Actor/Consumer-smart-contract/ConsumerStorage.sol": {
@@ -617,19 +530,19 @@
 			]
 		},
 		"contracts/Actor/MilkHub-smart-contract/inventory/MilkHubInventoryService.sol": {
-			"keccak256": "0x9fe500500a5dbe7cc08ef078eea5a4d89348b2d0de60801bb9756c4c39f92dcd",
+			"keccak256": "0xafe409156737f3e9cf9ff344ef984e11ceb5d1b03416597d2e805f2bbae886af",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://a283697e44e28a6579845c1af9b05f49f3a04e86d8202e06ea565c18ae8d983e",
-				"dweb:/ipfs/QmWoDaLEYPDQio8bUskzQHZSseaWycAEmJ39gZsdHwC9zR"
+				"bzz-raw://66024ddac4ffed1d51615267746a3729fdb97456eed7649cd49f9d0e99022d57",
+				"dweb:/ipfs/QmNzoJ64AkjWtabiBh6xUyosVc7VST1XDFBb2Z2GZAgDMp"
 			]
 		},
 		"contracts/Actor/MilkHub-smart-contract/inventory/MilkHubInventoryStorage.sol": {
-			"keccak256": "0x8935207c0b7b152bcc8e3bc7a7655e5009350fb1d19c225dcc01ce80e7c61a0f",
+			"keccak256": "0x9bdf3493c885fdb2804df11997795d441f20b46e3e349f2c837e1dbeb351898a",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://7c5d7cab01a032b3bf984586a836e1dc020f4edae95755959bea7bb90da3bd19",
-				"dweb:/ipfs/Qmb2d8YN72Jd8wp5kYp7szTqrdJA3DUC1LmmHJrFAG7Nm1"
+				"bzz-raw://a17afe43f350bfb32496a35fb889bd107a5130d9fb95d999c4447889dc5e2955",
+				"dweb:/ipfs/QmPW3KszuBZfFpK6ZStaNa5gq4cSQZFi8n2ni6AaFi1rSJ"
 			]
 		},
 		"contracts/Actor/Retailer-smart-contract/RetailerService.sol": {
@@ -649,11 +562,11 @@
 			]
 		},
 		"contracts/Service/AccessControlProduct.sol": {
-			"keccak256": "0xc34bb4cad221eac05ee6d2fa660fce763bfc84d3d7df7b1e73feb31cda38b9fb",
+			"keccak256": "0xf8b93a19dddabcd0159f3e92b00bf5d2643e03760fa2e1e658aac4ba4adddf63",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://2b829cae156c472b8035de0b2638d53be236f3343f7d098d9342f428e7b32a08",
-				"dweb:/ipfs/Qmb6kYk5jzh3ThPSSq934eNBugBnvmPiqqTddErL3kuab3"
+				"bzz-raw://0acf712abce50223a99364ef3c8c3610b6f7b347f7ed9325f5f9f3c29d7fbdf3",
+				"dweb:/ipfs/QmPFVbYyizxheeYYC7aTUKF6vGNsaMVvZXoP4PkSMaA5EP"
 			]
 		},
 		"contracts/Service/Filieratoken.sol": {

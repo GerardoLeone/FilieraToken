@@ -1,11 +1,14 @@
 import 'package:filiera_token_front_end/components/atoms/custom_dropdown.dart';
 import 'package:filiera_token_front_end/components/organisms/sign_in_page/components/custom_menu_singin.dart';
+import 'package:filiera_token_front_end/components/organisms/sign_in_page/service/sign_in_service.dart';
+import 'package:filiera_token_front_end/components/organisms/user_environment/services/secure_storage_service.dart';
+import 'package:filiera_token_front_end/models/User.dart';
+import 'package:filiera_token_front_end/utils/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../molecules/custom_nav_bar.dart';
 
-import 'package:filiera_token_front_end/components/organisms/user_environment/services/user_service.dart';
 
 
 class MySignInPage extends StatefulWidget {
@@ -21,9 +24,7 @@ class _MySignInPageAnimations extends State<MySignInPage> with SingleTickerProvi
 
   var dropdownItems = ["MilkHub","CheeseProducer", "Retailer", "Consumer"];
   
-    late AnimationController _drawerSlideController;
-
-
+  late AnimationController _drawerSlideController;
 
   /// Select value to Menu 
   late String selectedValueUserType;
@@ -38,8 +39,12 @@ class _MySignInPageAnimations extends State<MySignInPage> with SingleTickerProvi
   late String passwordInput;
   late String walletInput;
 
-/// Injection of Service 
-  final userService = UserSerivce();
+  
+
+  final signinService = SigninService();
+
+
+
 
    @override
   void initState() {
@@ -49,6 +54,8 @@ class _MySignInPageAnimations extends State<MySignInPage> with SingleTickerProvi
     selectedValueUserType = "MilkHub";
     
     super.initState();
+
+    
     _drawerSlideController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 150),
@@ -67,7 +74,7 @@ class _MySignInPageAnimations extends State<MySignInPage> with SingleTickerProvi
   }
 
 
-    bool _isDrawerOpen() {
+  bool _isDrawerOpen() {
     return _drawerSlideController.value == 1.0;
   }
 
@@ -88,22 +95,6 @@ class _MySignInPageAnimations extends State<MySignInPage> with SingleTickerProvi
   }
 
 
-
-/**
-   * Build Back Button
-   */
-   Widget _buildBackButton(BuildContext context) {
-    return Row(
-              mainAxisAlignment: MainAxisAlignment.start, // Align to the left
-              children: [
-                SizedBox(width: 30,),
-                ElevatedButton(
-                        child: const Text('Back'),
-                        onPressed: () => context.go('/'),
-                        )
-              ],
-            );
-  }
 
 
   /**
@@ -186,13 +177,13 @@ class _MySignInPageAnimations extends State<MySignInPage> with SingleTickerProvi
                       emailInput = _emailController!.text;
                       passwordInput = _passwordController!.text;
                       walletInput = _walletController!.text;
-                      if(await userService.login(emailInput, passwordInput, walletInput, selectedValueUserType) ){
-                        /// Go to Home User page 
-                        /// Create a JWT (Optional)  
-                        /// Move to home-page-user and select our product 
-                        /// Retrieve all data of User 
-                        /// Retrieve all data of other Product 
-                      
+
+                      if(await signinService.checkLogin(emailInput, passwordInput, walletInput, selectedValueUserType) ){
+                        // Inserisce i dati se questo ha avuto successo nel login 
+                        User? userLogged = await signinService.onLoginSuccess(selectedValueUserType, walletInput);
+                        // Naviga alla rotta home-page-user con parametri
+                        context.go('/home-page-user/$selectedValueUserType/'+userLogged!.getId);
+
                       }else{
                           /// Login Errata 
                       } 
@@ -206,6 +197,9 @@ class _MySignInPageAnimations extends State<MySignInPage> with SingleTickerProvi
               ),
             );
   }
+
+
+  
 
 
 

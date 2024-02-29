@@ -1,3 +1,5 @@
+import 'package:filiera_token_front_end/components/organisms/user_environment/services/secure_storage_service.dart';
+import 'package:filiera_token_front_end/models/User.dart';
 import 'package:flutter/material.dart';
 
 // Components Page 
@@ -9,7 +11,7 @@ import 'package:filiera_token_front_end/components/molecules/custom_nav_bar.dart
 
 class UserProfilePage extends StatefulWidget {
 
-  const UserProfilePage({super.key});
+  const UserProfilePage({super.key, required String userType, required String idUser});
 
   @override
   State<UserProfilePage> createState() => _UserProfilePageAnimations();
@@ -20,14 +22,18 @@ class _UserProfilePageAnimations extends State<UserProfilePage> with SingleTicke
 
   late AnimationController _drawerSlideController;
 
+  late User userDataStored ;
+
+
   @override
-  void initState() {
+  Future<void> initState() async {
     super.initState();
 
     _drawerSlideController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 150),
     );
+     userDataStored = (await SecureStorageService().get())!;
   }
 
   @override
@@ -64,7 +70,7 @@ class _UserProfilePageAnimations extends State<UserProfilePage> with SingleTicke
       appBar: _buildAppBar(),
       body: Stack(
         children: [
-          const CustomViewProfile(),
+          CustomViewProfile(userDataStore: userDataStored,),
           const CustomDeleteUserButton(),
           _buildDrawer(),
         ],

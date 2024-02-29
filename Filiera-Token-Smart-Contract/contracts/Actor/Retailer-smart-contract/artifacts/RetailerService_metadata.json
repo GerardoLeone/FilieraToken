@@ -237,30 +237,6 @@
 						"internalType": "address",
 						"name": "walletRetailer",
 						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "_id",
-						"type": "uint256"
-					}
-				],
-				"name": "getRetailerWallet",
-				"outputs": [
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "walletRetailer",
-						"type": "address"
 					}
 				],
 				"name": "isUserPresent",
@@ -451,19 +427,19 @@
 			]
 		},
 		"contracts/Actor/Retailer-smart-contract/RetailerService.sol": {
-			"keccak256": "0xa2d10bfddc01aa71b88c31d70929e984267a47280ebac0a42579398da8978b54",
+			"keccak256": "0x50d02ba78fe67a5957094f1277ccd4fc556b7f6f843cb19d415af2b40f4ff4c1",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://fb4cf6933261c976f205ff9b452b1da99a7a05f6006f3387b13ee2346b2740cd",
-				"dweb:/ipfs/QmUpro5Zu8KbBfdxEVVLGkNv5XvE1J9iYBadeVK8eAUieD"
+				"bzz-raw://b4d9dd359de4e26294dbaeaab4ae58aa3bc4e6537d5a6ed243bb0850bc9c3069",
+				"dweb:/ipfs/QmQaTkFomMCeJ1k63nYH1JyQ3TyQZQnSqVig3jxP4LQS4K"
 			]
 		},
 		"contracts/Actor/Retailer-smart-contract/RetailerStorage.sol": {
-			"keccak256": "0x41a3692bb50d6c02362b8491a932564261b1ef2f9eea3f99e01c586a919e7f3c",
+			"keccak256": "0xfce94b57394efc0b804d4a8fb63224be55dbe3571c431ebd210efa1b5229a522",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://15cdec361fff769f88e2a5fcda78f88c13be1003fea3bfb132721884676f9fe9",
-				"dweb:/ipfs/QmaBdkoNPBr5Q116dVtCYYgDD4hysVWKC9vvPJEei1yiPa"
+				"bzz-raw://87df5faace990b1e5fd9067322669ce15dc2f2c9646988c30b20db63e727566e",
+				"dweb:/ipfs/QmVTVQA9GBjmbcGVPMRq5V2FjyUPpgnwURsAY43fjM6q58"
 			]
 		},
 		"contracts/Service/Filieratoken.sol": {

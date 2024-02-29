@@ -152,11 +152,6 @@ contract ConsumerService {
         return consumerStorageStorage.getEmail(walletConsumer,_id);
     }
 
-    function getConsumerWallet(address walletConsumer,uint256 _id) external  view checkAddress(walletConsumer) returns (address){
-        
-        return consumerStorageStorage.getWallet(walletConsumer, _id);
-    }
-
     /**
         - Funzione getBalance() attraverso l'address del Consumer riusciamo a recuperare il suo Balance
     */

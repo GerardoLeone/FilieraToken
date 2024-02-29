@@ -22,7 +22,6 @@ contract RetailerStorage is IUserStorageInterface {
         string password; // Si presume che sia già crittografata dal Front-End
         string email;
         uint256 balance;
-        address wallet;
     }
 
     // Mapping che collega l'indirizzo del portafoglio (wallet address) ai dati del consumatore
@@ -43,7 +42,6 @@ contract RetailerStorage is IUserStorageInterface {
         require(bytes(_fullName).length > 0, "Full name cannot be empty");
         require(bytes(_password).length > 0, "Password cannot be empty");
         require(bytes(_email).length > 0, "Email cannot be empty");
-        require(address(walletRetailer)!=address(0),"Address cannot be empty");
         
         // Crea un nuovo consumatore con l'ID univoco
         Retailer memory newRetailer = Retailer({
@@ -51,8 +49,7 @@ contract RetailerStorage is IUserStorageInterface {
             fullName: _fullName,
             password: _password,
             email: _email,
-            balance: 100,
-            wallet: walletRetailer
+            balance: 100
         });
         // Inserisco l'address 
         addressList.push(walletRetailer);
@@ -140,16 +137,6 @@ contract RetailerStorage is IUserStorageInterface {
 
         Retailer memory retailer = retailers[walletRetailer];
         return retailer.balance;
-    }
-
-    /**
-        - Funzione getWallet() attraverso l'address del Retailer riusciamo a recuperare il suo Balance
-    */
-    function getWallet(address walletRetailer, uint256 _id) external view  returns(address){
-        require(retailers[walletRetailer].id == _id,"ID not Valid!");
-        
-        Retailer memory retailer = retailers[walletRetailer];
-        return retailer.wallet;
     }
 
     /**

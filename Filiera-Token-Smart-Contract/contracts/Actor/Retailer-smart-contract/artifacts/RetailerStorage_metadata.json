@@ -150,7 +150,7 @@
 			},
 			{
 				"inputs": [],
-				"name": "getListAddress",
+				"name": "getListAddressRetailer",
 				"outputs": [
 					{
 						"internalType": "address[]",
@@ -290,7 +290,7 @@
 				"getId(address)": {
 					"notice": "- Funzione getId() attraverso l'address del Retailer riusciamo a recuperare il suo ID"
 				},
-				"getListAddress()": {
+				"getListAddressRetailer()": {
 					"notice": "Ritorna la Lista degli address"
 				},
 				"getUser(address)": {
@@ -320,19 +320,19 @@
 	},
 	"sources": {
 		"contracts/Actor/IUserStorageInterface.sol": {
-			"keccak256": "0xc4f5e58158b13ff68c4fe49d72a2e48c560818ddbfc965b0733932d540b50e09",
+			"keccak256": "0xae0b245125f0e611e9ae29c1970d635b4a982787afafab5290759d9ef7d821c8",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://f1884e9167a862d283cbfa84ea8fad1c65e344deb6e2699e6264852c257b1be8",
-				"dweb:/ipfs/QmWtfGJ23czQ2HSjg7buPSCsawgJ57ypcXQpZQsnZCDYu8"
+				"bzz-raw://793118144f90c043aa0cde1c1a65a0c2e7dd8657dc71ca869ac29492605fa108",
+				"dweb:/ipfs/QmRFZhVDtbAC27oFHQVDrzgM9FLLHgcK7peiYh4U4P4bL1"
 			]
 		},
 		"contracts/Actor/Retailer-smart-contract/RetailerStorage.sol": {
-			"keccak256": "0x4eacecfdeaf13cd79a701777e615684dcb816d6482080132c94f8cac118dfafa",
+			"keccak256": "0x3046458f0ee4cbca921901f212f06a643d9be56fff07442b95d8e01c761d9f6d",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://c09fe148f4a4d99f7eef3eaf5ac0f10e8df8e723302216ce97d0a97b19cadf85",
-				"dweb:/ipfs/QmWQWraxshKnsNPJGXPaQuKh3cUqySvtL1nJcP3FLRFm9C"
+				"bzz-raw://b814374002072bff900a82025ce6b164e9cf0f8353f96c91b05577eb6824a656",
+				"dweb:/ipfs/QmNp6ChEeZ3EC7NwLuGaYMFhYinDQELBv7mgQem2xt8GsZ"
 			]
 		}
 	},

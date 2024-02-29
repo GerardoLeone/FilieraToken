@@ -152,11 +152,6 @@ contract MilkHubService {
         return milkhubStorage.getEmail(walletMilkHub,_id);
     }
 
-    function getMilkHubWallet(address walletMilkhub,uint256 _id) external  view checkAddress(walletMilkhub) returns (address){
-        
-        return milkhubStorage.getWallet(walletMilkhub, _id);
-    }
-
     /**
         - Funzione getBalance() attraverso l'address del MilkHub riusciamo a recuperare il suo Balance
     */

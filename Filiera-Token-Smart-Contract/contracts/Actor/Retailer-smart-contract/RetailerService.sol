@@ -152,10 +152,6 @@ contract RetailerService {
         return retailerStorage.getEmail(walletRetailer,_id);
     }
 
-    function getRetailerWallet(address walletRetailer,uint256 _id) external  view checkAddress(walletRetailer) returns (address){
-        
-        return retailerStorage.getWallet(walletRetailer, _id);
-    }
 
     /**
         - Funzione getBalance() attraverso l'address del Retailer riusciamo a recuperare il suo Balance

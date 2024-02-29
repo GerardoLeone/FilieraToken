@@ -576,11 +576,11 @@
 			]
 		},
 		"contracts/Actor/MilkHub-smart-contract/inventory/MilkHubInventoryStorage.sol": {
-			"keccak256": "0x53fae66d64f822d9979b61134f3dd9324ec6a5b9b06e22e69cda8c15632502c4",
+			"keccak256": "0x01b55caaeaed2b761fd3645b723e34f0d023d49eb1e5bf52f099e260d5451933",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://cb9e8ad368a284e53ab40ee93a3069d5a09fd8ae1f370a2ccb0961bc7b29dca3",
-				"dweb:/ipfs/QmPVWUYTb9fYsnLq8i9sBS6T4VYXGDWGYU9BpeppmBeSi1"
+				"bzz-raw://63d2e5b6efc4833f7bfe24effc917d62919c1485e9f5d9a63fb1732415936a80",
+				"dweb:/ipfs/QmQPHapiyf8RDr3Vrop3wASyvR3JMxbbb75bo1e4bf97Dx"
 			]
 		},
 		"contracts/Actor/Retailer-smart-contract/RetailerService.sol": {

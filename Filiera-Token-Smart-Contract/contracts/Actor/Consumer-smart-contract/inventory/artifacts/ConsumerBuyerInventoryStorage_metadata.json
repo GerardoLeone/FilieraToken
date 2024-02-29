@@ -102,6 +102,25 @@
 				"inputs": [
 					{
 						"internalType": "address",
+						"name": "walletConsumer",
+						"type": "address"
+					}
+				],
+				"name": "getListCheesePieseIdPurchasedByConsumer",
+				"outputs": [
+					{
+						"internalType": "uint256[]",
+						"name": "",
+						"type": "uint256[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
 						"name": "walletConsumerBuyer",
 						"type": "address"
 					},
@@ -117,47 +136,6 @@
 						"internalType": "uint256",
 						"name": "",
 						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "walletConsumer",
-						"type": "address"
-					}
-				],
-				"name": "getPurchasedCheesePieceByConsumer",
-				"outputs": [
-					{
-						"components": [
-							{
-								"internalType": "uint256",
-								"name": "id",
-								"type": "uint256"
-							},
-							{
-								"internalType": "address",
-								"name": "walletRetailer",
-								"type": "address"
-							},
-							{
-								"internalType": "uint256",
-								"name": "price",
-								"type": "uint256"
-							},
-							{
-								"internalType": "uint256",
-								"name": "weight",
-								"type": "uint256"
-							}
-						],
-						"internalType": "struct ConsumerBuyerInventoryStorage.CheesePiece[]",
-						"name": "",
-						"type": "tuple[]"
 					}
 				],
 				"stateMutability": "view",
@@ -249,7 +227,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"Filiera-Token-Smart-Contract/contracts/Actor/Consumer-smart-contract/inventory/ConsumerBuyerInventoryStorage.sol": "ConsumerBuyerInventoryStorage"
+			"contracts/Actor/Consumer-smart-contract/inventory/ConsumerBuyerInventoryStorage.sol": "ConsumerBuyerInventoryStorage"
 		},
 		"evmVersion": "shanghai",
 		"libraries": {},
@@ -263,12 +241,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"Filiera-Token-Smart-Contract/contracts/Actor/Consumer-smart-contract/inventory/ConsumerBuyerInventoryStorage.sol": {
-			"keccak256": "0x5d780e0bb647aaa17095a541aacf286c4f589400ccf93d3e2596cb3dfc658731",
+		"contracts/Actor/Consumer-smart-contract/inventory/ConsumerBuyerInventoryStorage.sol": {
+			"keccak256": "0x038c84cd4ea9ab158989b8024ede65ef85ac7be836ca3c695aaccc0e58a73fbc",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://0bf0789dec84f750b8ed6353407bad6b4804676ca1c1a5de744a2175e5f1c6fe",
-				"dweb:/ipfs/QmeZggvBf1m3cHbwgSGYZaqouDUN5AMNre5Q7ikfSgxTW3"
+				"bzz-raw://05e5a9f2d747708d7b2edc227f6172b2b5bf04bbd1b658060d891a9fb9365746",
+				"dweb:/ipfs/QmNRWwyJLXdCCZjzKf4Az5YK7LyYyeLvNwGx9XTTCvBBUo"
 			]
 		}
 	},

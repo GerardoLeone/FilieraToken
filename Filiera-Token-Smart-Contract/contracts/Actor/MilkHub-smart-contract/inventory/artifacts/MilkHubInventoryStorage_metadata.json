@@ -113,30 +113,6 @@
 				"type": "function"
 			},
 			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "walletMilkHub",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "_id",
-						"type": "uint256"
-					}
-				],
-				"name": "getExpirationDate",
-				"outputs": [
-					{
-						"internalType": "string",
-						"name": "",
-						"type": "string"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
 				"inputs": [],
 				"name": "getListMilkBatchAll",
 				"outputs": [
@@ -157,7 +133,7 @@
 						"type": "address"
 					}
 				],
-				"name": "getListMilkBatchId",
+				"name": "getListMilkBatchIdByMilkHub",
 				"outputs": [
 					{
 						"internalType": "uint256[]",
@@ -268,6 +244,30 @@
 						"type": "uint256"
 					}
 				],
+				"name": "getScadenza",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletMilkHub",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
 				"name": "isMilkBatchPresent",
 				"outputs": [
 					{
@@ -335,11 +335,11 @@
 	},
 	"sources": {
 		"contracts/Actor/MilkHub-smart-contract/inventory/MilkHubInventoryStorage.sol": {
-			"keccak256": "0x9bdf3493c885fdb2804df11997795d441f20b46e3e349f2c837e1dbeb351898a",
+			"keccak256": "0x01b55caaeaed2b761fd3645b723e34f0d023d49eb1e5bf52f099e260d5451933",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://a17afe43f350bfb32496a35fb889bd107a5130d9fb95d999c4447889dc5e2955",
-				"dweb:/ipfs/QmPW3KszuBZfFpK6ZStaNa5gq4cSQZFi8n2ni6AaFi1rSJ"
+				"bzz-raw://63d2e5b6efc4833f7bfe24effc917d62919c1485e9f5d9a63fb1732415936a80",
+				"dweb:/ipfs/QmQPHapiyf8RDr3Vrop3wASyvR3JMxbbb75bo1e4bf97Dx"
 			]
 		}
 	},

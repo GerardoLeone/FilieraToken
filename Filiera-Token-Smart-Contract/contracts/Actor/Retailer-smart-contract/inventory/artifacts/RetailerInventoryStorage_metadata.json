@@ -79,36 +79,13 @@
 				"type": "function"
 			},
 			{
-				"inputs": [
-					{
-						"internalType": "address[]",
-						"name": "retailerListAddress",
-						"type": "address[]"
-					}
-				],
-				"name": "getAllCheesePieceList",
+				"inputs": [],
+				"name": "getAllCheesePieceIdList",
 				"outputs": [
 					{
-						"components": [
-							{
-								"internalType": "uint256",
-								"name": "id",
-								"type": "uint256"
-							},
-							{
-								"internalType": "uint256",
-								"name": "price",
-								"type": "uint256"
-							},
-							{
-								"internalType": "uint256",
-								"name": "weight",
-								"type": "uint256"
-							}
-						],
-						"internalType": "struct RetailerInventoryStorage.CheesePiece[]",
+						"internalType": "uint256[]",
 						"name": "",
-						"type": "tuple[]"
+						"type": "uint256[]"
 					}
 				],
 				"stateMutability": "view",
@@ -156,29 +133,12 @@
 						"type": "address"
 					}
 				],
-				"name": "getCheesePieceListPurchasedByRetailer",
+				"name": "getCheesePieceListIdBySingleRetailer",
 				"outputs": [
 					{
-						"components": [
-							{
-								"internalType": "uint256",
-								"name": "id",
-								"type": "uint256"
-							},
-							{
-								"internalType": "uint256",
-								"name": "price",
-								"type": "uint256"
-							},
-							{
-								"internalType": "uint256",
-								"name": "weight",
-								"type": "uint256"
-							}
-						],
-						"internalType": "struct RetailerInventoryStorage.CheesePiece[]",
+						"internalType": "uint256[]",
 						"name": "",
-						"type": "tuple[]"
+						"type": "uint256[]"
 					}
 				],
 				"stateMutability": "view",
@@ -308,11 +268,11 @@
 	},
 	"sources": {
 		"contracts/Actor/Retailer-smart-contract/inventory/RetailerInventoryStorage.sol": {
-			"keccak256": "0x2758f8b25c0185eaa112b507a45b523d1863af7ce983f31143ef961bb18b2332",
+			"keccak256": "0xb0501d359e02ec5472ed198da99a3269615dca311eb59549384c4e2d3da91cd7",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://eb05e570d018be1800cfd189364dfc5a5a6a21f5e782c7052be466b48594c311",
-				"dweb:/ipfs/QmS6pQafasZi17j4iPuL6DvFj5VkHhtkZKdWYQen1kYUn1"
+				"bzz-raw://9efce1f88f722c4bb2434322edb5668b0aeec8de4c5a340451120097cc56f938",
+				"dweb:/ipfs/QmUQzhLSBJiaQNrGoB8kmBSHspUXtHChCdwXDju9Kkcmq8"
 			]
 		}
 	},

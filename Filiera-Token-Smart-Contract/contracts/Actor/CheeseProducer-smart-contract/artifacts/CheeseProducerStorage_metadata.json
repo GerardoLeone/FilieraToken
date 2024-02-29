@@ -150,7 +150,7 @@
 			},
 			{
 				"inputs": [],
-				"name": "getListAddress",
+				"name": "getListAddressCheeseProducer",
 				"outputs": [
 					{
 						"internalType": "address[]",
@@ -195,6 +195,30 @@
 						"internalType": "uint256",
 						"name": "",
 						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletCheeseProducer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
+				"name": "getWallet",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
 					}
 				],
 				"stateMutability": "view",
@@ -290,11 +314,14 @@
 				"getId(address)": {
 					"notice": "- Funzione getId() attraverso l'address del CheeseProducer riusciamo a recuperare il suo ID"
 				},
-				"getListAddress()": {
+				"getListAddressCheeseProducer()": {
 					"notice": "Ritorna la Lista degli address"
 				},
 				"getUser(address)": {
 					"notice": "getUser(walletCheeseProducer) :  CheeseProducer visualizza le sue informazioni principali - email, password , fullName , balance "
+				},
+				"getWallet(address,uint256)": {
+					"notice": "- Funzione getWallet() attraverso l'address del CheeseProducer riusciamo a recuperare il suo Balance"
 				},
 				"loginUser(address,string,string)": {
 					"notice": "LoginUser() effettua il login dell'utente  La comparazione Hash tra (email e password) di input e quelli salvati return true se la comparazione è vera, La comparazione è falsa se l'hashing non risulta valido"
@@ -320,19 +347,19 @@
 	},
 	"sources": {
 		"contracts/Actor/CheeseProducer-smart-contract/CheeseProducerStorage.sol": {
-			"keccak256": "0x9b451701f942ac07609b3b2e43a9c7a355f678e2fe613c9c22cd940d348dad41",
+			"keccak256": "0x9d959250d8fb4aa826b92772681c72b3cfb3f39ae2b8b9005a2a86931b680116",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://79e6bf77568c7758b4cbf58ca7a01dccd00c92fd3e79ebac10990febd0d03a56",
-				"dweb:/ipfs/QmeaLGQu4WLkgGYh4VrKgCF2LPkiWRLnDuCk7KDV1gmm7R"
+				"bzz-raw://5b9c0682e6ccc8fbec1b6c34ace6bf87d5b1a18b51cd638dd6986860b5d1aad0",
+				"dweb:/ipfs/QmPMcCjrjdAWREoD55zvEaXR9hJxMosw7KDs3PkaTNU8KB"
 			]
 		},
 		"contracts/Actor/IUserStorageInterface.sol": {
-			"keccak256": "0xc4f5e58158b13ff68c4fe49d72a2e48c560818ddbfc965b0733932d540b50e09",
+			"keccak256": "0xae0b245125f0e611e9ae29c1970d635b4a982787afafab5290759d9ef7d821c8",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://f1884e9167a862d283cbfa84ea8fad1c65e344deb6e2699e6264852c257b1be8",
-				"dweb:/ipfs/QmWtfGJ23czQ2HSjg7buPSCsawgJ57ypcXQpZQsnZCDYu8"
+				"bzz-raw://793118144f90c043aa0cde1c1a65a0c2e7dd8657dc71ca869ac29492605fa108",
+				"dweb:/ipfs/QmRFZhVDtbAC27oFHQVDrzgM9FLLHgcK7peiYh4U4P4bL1"
 			]
 		}
 	},

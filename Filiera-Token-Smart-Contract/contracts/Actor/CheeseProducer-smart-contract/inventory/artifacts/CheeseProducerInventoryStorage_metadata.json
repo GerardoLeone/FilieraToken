@@ -91,47 +91,6 @@
 			{
 				"inputs": [
 					{
-						"internalType": "address[]",
-						"name": "cheeseProducerListAddress",
-						"type": "address[]"
-					}
-				],
-				"name": "getAllCheeseBlockList",
-				"outputs": [
-					{
-						"components": [
-							{
-								"internalType": "uint256",
-								"name": "id",
-								"type": "uint256"
-							},
-							{
-								"internalType": "string",
-								"name": "dop",
-								"type": "string"
-							},
-							{
-								"internalType": "uint256",
-								"name": "price",
-								"type": "uint256"
-							},
-							{
-								"internalType": "uint256",
-								"name": "quantity",
-								"type": "uint256"
-							}
-						],
-						"internalType": "struct CheeseProducerInventoryStorage.Cheese[]",
-						"name": "",
-						"type": "tuple[]"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
 						"internalType": "address",
 						"name": "walletCheeseProducer",
 						"type": "address"
@@ -174,47 +133,6 @@
 						"internalType": "address",
 						"name": "walletCheeseProducer",
 						"type": "address"
-					}
-				],
-				"name": "getCheeseBlockByCheeseProducer",
-				"outputs": [
-					{
-						"components": [
-							{
-								"internalType": "uint256",
-								"name": "id",
-								"type": "uint256"
-							},
-							{
-								"internalType": "string",
-								"name": "dop",
-								"type": "string"
-							},
-							{
-								"internalType": "uint256",
-								"name": "price",
-								"type": "uint256"
-							},
-							{
-								"internalType": "uint256",
-								"name": "quantity",
-								"type": "uint256"
-							}
-						],
-						"internalType": "struct CheeseProducerInventoryStorage.Cheese[]",
-						"name": "",
-						"type": "tuple[]"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "walletCheeseProducer",
-						"type": "address"
 					},
 					{
 						"internalType": "uint256",
@@ -228,6 +146,38 @@
 						"internalType": "string",
 						"name": "",
 						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getListCheeseBlockAll",
+				"outputs": [
+					{
+						"internalType": "uint256[]",
+						"name": "",
+						"type": "uint256[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletCheeseProducer",
+						"type": "address"
+					}
+				],
+				"name": "getListCheeseBlockIdByCheeseProducer",
+				"outputs": [
+					{
+						"internalType": "uint256[]",
+						"name": "",
+						"type": "uint256[]"
 					}
 				],
 				"stateMutability": "view",
@@ -357,11 +307,11 @@
 	},
 	"sources": {
 		"contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerInventoryStorage.sol": {
-			"keccak256": "0x31fdc3d6aa5da19d5a6cf2feb33219cb36f6330dc83f146cf71a600879d11fdf",
+			"keccak256": "0xd23feb30b2747e222f4ea726b3a0d006916233b65fc3216c1d4c8483b2ccdf93",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://dd7e1a21efcc1393213bdbfb1569cb6e7db392eeae8cc47fc4fdde4d34836151",
-				"dweb:/ipfs/QmdipzNqTrZWtG7CPwgy1c44rphHQCaSemasJimmfLW6rD"
+				"bzz-raw://acfa3bdd7c8b67c9a049611d49532199917a500a106be5c5efdb1ab9259e2789",
+				"dweb:/ipfs/QmXbn1siHM19YP9fzfKkLZtvcE5y9EeC93k1Un461g4ZEY"
 			]
 		}
 	},

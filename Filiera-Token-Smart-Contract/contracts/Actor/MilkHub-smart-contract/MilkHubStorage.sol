@@ -22,6 +22,7 @@ contract MilkHubStorage is IUserStorageInterface {
         string password; // Si presume che sia già crittografata dal Front-End
         string email;
         uint256 balance;
+        address wallet;
     }
 
     // Mapping che collega l'indirizzo del portafoglio (wallet address) ai dati del consumatore
@@ -35,13 +36,14 @@ contract MilkHubStorage is IUserStorageInterface {
     function addUser(string memory _fullName, string memory _password,string memory _email, address walletMilkHub) external {
                 
         // Genera l'ID manualmente utilizzando keccak256
-        bytes32 idHash = keccak256(abi.encodePacked(_fullName, _password, _email, walletMilkHub));
+        bytes32 idHash = ripemd160(abi.encodePacked(_fullName, _password, _email, walletMilkHub)); // Produce un hash di 20 byte
         uint256 lastIdMilkHub = uint256(idHash);
 
         require(milkhubs[walletMilkHub].id == 0, "MilkHub already registered");
         require(bytes(_fullName).length > 0, "Full name cannot be empty");
         require(bytes(_password).length > 0, "Password cannot be empty");
         require(bytes(_email).length > 0, "Email cannot be empty");
+        require(address(walletMilkHub)!=address(0),"Address cannot be empty");
         
         // Crea un nuovo consumatore con l'ID univoco
         MilkHub memory newMilkHub = MilkHub({
@@ -49,7 +51,8 @@ contract MilkHubStorage is IUserStorageInterface {
             fullName: _fullName,
             password: _password,
             email: _email,
-            balance: 100
+            balance: 100,
+            wallet: walletMilkHub
         });
         // Inserisco l'address 
         addressList.push(walletMilkHub);
@@ -69,7 +72,7 @@ contract MilkHubStorage is IUserStorageInterface {
         MilkHub storage milkhub = milkhubs[walletMilkHub];
         
         // Verifico che l'email e la password hashate sono uguali tra di loro 
-        return keccak256(abi.encodePacked(milkhub.email, milkhub.password)) == keccak256(abi.encodePacked(_email, _password));
+        return ripemd160(abi.encodePacked(milkhub.email, milkhub.password)) == ripemd160(abi.encodePacked(_email, _password));
     }
 
     // Funzione per eliminare il Consumer dato il suo indirizzo del wallet 
@@ -82,6 +85,16 @@ contract MilkHubStorage is IUserStorageInterface {
         }else {
             return false;
         }
+    }
+
+    function deleteMilkHubFromList(address walletMilkHub)internal returns (bool) {
+        for(uint256 i=0; ; i++){
+            if(addressList[i] == walletMilkHub){
+                delete  addressList[i];
+                return true;
+            }
+        }
+        return false;
     }
 
     // Check if exist the User 
@@ -124,8 +137,19 @@ contract MilkHubStorage is IUserStorageInterface {
     */
     function getBalance(address walletMilkHub, uint256 _id) external view  returns(uint256){
         require(milkhubs[walletMilkHub].id == _id,"ID not Valid!");
+
         MilkHub memory milkhub = milkhubs[walletMilkHub];
         return milkhub.balance;
+    }
+
+    /**
+        - Funzione getWallet() attraverso l'address del MilkHub riusciamo a recuperare il suo Balance
+    */
+    function getWallet(address walletMilkHub, uint256 _id) external view  returns(address){
+        require(milkhubs[walletMilkHub].id == _id,"ID not Valid!");
+        
+        MilkHub memory milkhub = milkhubs[walletMilkHub];
+        return milkhub.wallet;
     }
 
     /**
@@ -138,16 +162,21 @@ contract MilkHubStorage is IUserStorageInterface {
         MilkHub memory milkhub = milkhubs[walletMilkHub];
 
         // Restituisce i dati del consumatore
-        return (milkhub.id, milkhub.fullName, milkhub.password, milkhub.email, milkhub.balance);
+        return (
+            milkhub.id,
+         milkhub.fullName,
+          milkhub.password,
+           milkhub.email,
+            milkhub.balance
+            );
     }
 
     /**
     *Ritorna la Lista degli address
     */
-    function getListAddress() external view returns (address [] memory){  
+    function getListAddressMilkHub() external view returns (address [] memory){  
         return addressList;
     }
-
 
     // - Funzione updateBalance() attraverso l'address e l'id, riusciamo a settare il nuovo balance
     function updateBalance(address walletMilkHub, uint256 balance) external{
@@ -155,15 +184,7 @@ contract MilkHubStorage is IUserStorageInterface {
         milkhubs[walletMilkHub].balance = balance;
     }
 
-    function deleteMilkHubFromList(address walletMilkHub)internal returns (bool) {
-        for(uint256 i=0; ; i++){
-            if(addressList[i] == walletMilkHub){
-                delete  addressList[i];
-                return true;
-            }
-        }
-        return false;
-    }
+
 
 }   
 

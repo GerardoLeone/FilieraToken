@@ -152,6 +152,11 @@ contract MilkHubService {
         return milkhubStorage.getEmail(walletMilkHub,_id);
     }
 
+    function getMilkHubWallet(address walletMilkhub,uint256 _id) external  view checkAddress(walletMilkhub) returns (address){
+        
+        return milkhubStorage.getWallet(walletMilkhub, _id);
+    }
+
     /**
         - Funzione getBalance() attraverso l'address del MilkHub riusciamo a recuperare il suo Balance
     */
@@ -174,24 +179,8 @@ contract MilkHubService {
         return milkhubStorage.getUser(walletMilkHub);
     }
 
-    
-    // Funzione per far visualizzare i dati ai vari utenti esterni 
-    function getMilkHubInfo(address walletMilkHub) external view checkAddress(walletMilkHub) returns (uint256, string memory, string memory) {
-        
-        // Verifico che l'utente esista
-        require(this.isUserPresent(walletMilkHub), "User not found");
-
-        uint256 id = milkhubStorage.getId(walletMilkHub); // Non è necessario, ma viene recuperato per rispettare il controllo in MilkHubStorage
-        
-        string memory fullName = milkhubStorage.getFullName(walletMilkHub, id);
-        
-        string memory email = milkhubStorage.getEmail(walletMilkHub, id);
-
-        return (id, fullName, email);
-    }
-
     function getListAddressMilkHub() external view returns ( address [ ] memory){
-        return milkhubStorage.getListAddress();
+        return milkhubStorage.getListAddressMilkHub();
     }
 
 //------------------------------------------------------------ Set Function -------------------------------------------------------------------//

@@ -19,9 +19,9 @@ contract CheeseProducerBuyerStorage {
         uint256 quantity; // Quantità da acquistare 
     }
 
-    mapping(address => mapping(uint256 => MilkBatch)) private purchasedMilkBatches;
+    mapping(address => mapping(uint256 => MilkBatch)) private purchasedMilkBatches; // map of all MilkBatches
 
-    uint256 [] private milkBatchIdPurchasedList;
+    mapping(address => uint256[]) private purchasedMilkBatchListIdForSingleCheeseProducer; // List of Product Purchased of CheeseProducer 
 
 
 //--------------------------------------------------------------- Business Logic Service -----------------------------------------------------------------------------------------//
@@ -68,8 +68,8 @@ contract CheeseProducerBuyerStorage {
 
         //Inserisce la nuova Partita di Latte nella lista purchasedMilkBatches
         purchasedMilkBatches[_walletCheeseProducer][_id] = milkBatch;
-        // Inserisce il riferimento all'interno della lista
-        milkBatchIdPurchasedList.push(_id);
+        // Inserisce la partita di latte acquistata nell'elenco delle singole partite di latte 
+        purchasedMilkBatchListIdForSingleCheeseProducer[_walletCheeseProducer].push(_id);
 
         return (purchasedMilkBatches[_walletCheeseProducer][_id].id, purchasedMilkBatches[_walletCheeseProducer][_id].expirationDate, purchasedMilkBatches[_walletCheeseProducer][_id].quantity);
 
@@ -81,6 +81,11 @@ contract CheeseProducerBuyerStorage {
         MilkBatch memory milkBatch = purchasedMilkBatches[walletCheeseProducer][_id_MilkBatchAcquistato];
 
         return (milkBatch.id, milkBatch.walletMilkHub, milkBatch.expirationDate, milkBatch.quantity);
+    }
+
+    function getMilkBatchListIdPurchased(address walletCheeseProducer)external view returns (uint256[] memory){
+        
+        return purchasedMilkBatchListIdForSingleCheeseProducer[walletCheeseProducer];
     }
 
 
@@ -130,31 +135,6 @@ contract CheeseProducerBuyerStorage {
         MilkBatch memory milkBatch = purchasedMilkBatches[walletCheeseProducer][_id];
         return milkBatch.walletMilkHub;
     }
-
-    function getId(address walletCheeseProducer, uint256 _id) external view returns(uint256) {
-
-        return purchasedMilkBatches[walletCheeseProducer][_id].id;
-    }
-
-    /*
-        - Funzione per recuperare tutti i MilKBatchPurchased di un determinato walletCheeseProducer
-    */
-    function getMilkBatchListPurchasedByCheeseProducer(address walletCheeseProducer) external view returns (MilkBatch[] memory) {
-        MilkBatch [ ] memory  milkBatchPurchasedList  = new MilkBatch[](milkBatchIdPurchasedList.length);
-        
-        for (uint256 i=0; i<milkBatchIdPurchasedList.length; i++){
-
-                uint256 _id = milkBatchIdPurchasedList[i];
-                if(purchasedMilkBatches[walletCheeseProducer][_id].id != 0){
-                    // Esiste e questo è il MilkBatch dell'Utente 
-                    MilkBatch storage new_milkbatchPurchased = purchasedMilkBatches[walletCheeseProducer][_id];
-                    milkBatchPurchasedList[i] = new_milkbatchPurchased;
-                } 
-        }
-
-        return milkBatchPurchasedList;
-    }
-
 
 
 // -------------------------------------------------------------- Check Function ------------------------------------------------------------------------------------------//

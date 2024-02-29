@@ -115,6 +115,23 @@ contract MilkHubInventoryService {
         return milkhubInventoryStorage.getMilkBatch(walletMilkHub,_id);
     }
 
+    // - Ritorna la lista degli id di tutti i MilkBatch 
+    // - Solo l'utente può vedere questa Lista ( il suo inventario ) 
+    function getListMilkBatchIdByMilkHub(address walletMilkHub) external view checkAddress(walletMilkHub) returns (uint256[] memory){
+        // Verifico che l'utente sia presente 
+        require(milkhubService.isUserPresent(walletMilkHub),"Utente non Presente!");
+
+        return milkhubInventoryStorage.getListMilkBatchIdByMilkHub(walletMilkHub);
+    }
+
+    function getListMilkBatches(address walletCheeseProducer) external view returns(uint256[]memory){
+        // Solo il cheeseProducer può vedere questa Lista 
+        // AccessControlProduct -> controlla se è il CheeseProducer 
+        require(accessControlProduct.checkViewMilkBatchProduct(walletCheeseProducer),"Utente non autorizzato!");
+
+        return milkhubInventoryStorage.getListMilkBatchAll();
+    }
+
     /**
      * Eliminare un MilkBatch attraverso l'id 
      * - ID 
@@ -135,27 +152,6 @@ contract MilkHubInventoryService {
     }
 
 
-    /*function getMilkBatchListByMilkHub(address walletMilkHub) external checkAddress(walletMilkHub) view returns (MilkHubInventoryStorage.MilkBatch[] memory){
-        // Check if exist 
-        require(milkhubService.isUserPresent(walletMilkHub), "User is not present!");
-
-        return milkhubInventoryStorage.getMilkBatchListByMilkHub(walletMilkHub);
-    }*/
-
-    /*
-        - Recupera tutti i MilkBatch presenti all'interno di Inventory 
-        - Verifica che quel CheeseProducer sia all'interno del sistema 
-    function getAllMilkBatchList(address walletCheeseProducer) view  external  returns (MilkHubInventoryStorage.MilkBatch[] memory){
-        require(accessControlProduct.checkViewMilkBatchProduct(walletCheeseProducer),"User Not Authorized!");
-            address[] memory addressListMilkHub = milkhubService.getListAddressMilkHub();
-
-            return milkhubInventoryStorage.getAllMilkBatchList(addressListMilkHub); 
-    }*/
-
-
-
-
-
 // ----------------------------------------------------------- TransactionManager ------------------------------------//
 
     function checkProductToSell(address ownerMilkBatch, uint256 _id_MilkBatch, uint256 quantityToBuy) external view returns (bool){
@@ -174,7 +170,7 @@ contract MilkHubInventoryService {
 
         require(this.isMilkBatchPresent(walletMilkHub, _id),"MilkBatch not Present!");
 
-        return milkhubInventoryStorage.getExpirationDate(walletMilkHub,_id);        
+        return milkhubInventoryStorage.getScadenza(walletMilkHub,_id);        
     }
 
 

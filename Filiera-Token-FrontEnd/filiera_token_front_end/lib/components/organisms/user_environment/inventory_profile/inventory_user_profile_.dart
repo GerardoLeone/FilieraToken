@@ -1,16 +1,23 @@
+import 'package:filiera_token_front_end/components/molecules/custom_loading_bar.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_nav_bar.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_product_list.dart';
 import 'package:filiera_token_front_end/components/organisms/user_environment/inventory_profile/components/custom_floating_button_add.dart';
 import 'package:filiera_token_front_end/components/organisms/user_environment/inventory_profile/components/custom_menu_user_inventory.dart';
 import 'package:filiera_token_front_end/components/molecules/dialog/dialog_product_details.dart';
+import 'package:filiera_token_front_end/components/organisms/user_environment/services/secure_storage_service.dart';
 import 'package:filiera_token_front_end/models/Product.dart';
+import 'package:filiera_token_front_end/models/User.dart';
 import 'package:filiera_token_front_end/utils/enums.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
 //Prodotti convertiti
 class UserProfileInventoryProductPage extends StatefulWidget {
-  const UserProfileInventoryProductPage({Key? key, required String userType, required String idUser}) : super(key: key);
+  const UserProfileInventoryProductPage({Key? key, 
+  required String userType,
+   required String idUser
+   }) : super(key: key);
 
   @override
   State<UserProfileInventoryProductPage> createState() => _UserProfileInventoryProductPageState();
@@ -21,6 +28,10 @@ class _UserProfileInventoryProductPageState extends State<UserProfileInventoryPr
 
   late AnimationController _drawerSlideController;
 
+  late SecureStorageService secureStorageService;
+
+  User? user;
+
   @override
   void initState() {
     super.initState();
@@ -29,7 +40,25 @@ class _UserProfileInventoryProductPageState extends State<UserProfileInventoryPr
       vsync: this,
       duration: const Duration(milliseconds: 150),
     );
+    final storage = GetIt.I.get<SecureStorageService>();
+    if(storage!=null){
+      print("storage non è nullo!");
+      secureStorageService = storage;
+      _fetch_Data();
+      
+    }
   }
+
+  Future<void> _fetch_Data() async {
+  final retrievedUser = await secureStorageService.get();
+  if (retrievedUser != null) {
+    setState(() {
+      user = retrievedUser;
+    });
+    print("Type of User : ${user!.type.name}");
+    print("User is Alive!");
+  }
+}
 
   @override
   void dispose() {
@@ -90,6 +119,11 @@ class _UserProfileInventoryProductPageState extends State<UserProfileInventoryPr
 
   @override
   Widget build(BuildContext context) {
+    
+    if (user == null) {
+    // Se user non è ancora stato inizializzato, visualizza un indicatore di caricamento o un altro widget di fallback
+    return CustomLoadingIndicator(progress: 4.5,);
+  } else {
     return Scaffold(
           appBar: _buildAppBar(),
           body: Stack(
@@ -106,6 +140,7 @@ class _UserProfileInventoryProductPageState extends State<UserProfileInventoryPr
           ],
             ),
           );
+  }
   }
 
 
@@ -154,7 +189,7 @@ class _UserProfileInventoryProductPageState extends State<UserProfileInventoryPr
       builder: (context, child) {
         return FractionalTranslation(
           translation: Offset(1.0 - _drawerSlideController.value, 0.0),
-          child: _isDrawerClosed() ? const SizedBox() : const CustomMenuUserInventory(),
+          child: _isDrawerClosed() ? const SizedBox() :  CustomMenuUserInventory(userData: user!,),
         );
       },
     );

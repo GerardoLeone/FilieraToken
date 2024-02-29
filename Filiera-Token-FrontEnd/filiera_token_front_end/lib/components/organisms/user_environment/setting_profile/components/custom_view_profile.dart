@@ -1,14 +1,15 @@
+import 'package:filiera_token_front_end/components/organisms/user_environment/services/secure_storage_service.dart';
 import 'package:filiera_token_front_end/models/User.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 import 'package:image_picker/image_picker.dart';
 
 
 class CustomViewProfile extends StatefulWidget {
 
-  final User userDataStore;
-
-  const CustomViewProfile({required this.userDataStore});
+  final User userData;
+  CustomViewProfile({super.key, required this.userData});
   
 
 
@@ -18,16 +19,13 @@ class CustomViewProfile extends StatefulWidget {
 }
 
 class _CustomViewProfile extends State<CustomViewProfile> {
-  User? get userDataStored => null;
-
-  
 
 
   @override
   void initState()  {
     super.initState();
   }
-  
+
   /**
    * Function to Add Image 
    */
@@ -153,8 +151,8 @@ class _CustomViewProfile extends State<CustomViewProfile> {
             const SizedBox(height: 16.0),
             _buildThirdRow(userDataStored)
           ],
-          ),
-          );
+        ),
+      );
   }
 
 
@@ -167,7 +165,7 @@ class _CustomViewProfile extends State<CustomViewProfile> {
       return Column(
       children: [
         // Other content widgets
-        _buildViewProfile(widget.userDataStore),
+        _buildViewProfile(widget.userData),
          // Add the registration form
       ],
     );

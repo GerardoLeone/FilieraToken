@@ -1,11 +1,14 @@
 import 'package:filiera_token_front_end/components/molecules/custom_product_list.dart';
 import 'package:filiera_token_front_end/components/molecules/dialog/dialog_product_details.dart';
 import 'package:filiera_token_front_end/components/organisms/user_environment/components/custom_menu_home_user_page_environment.dart';
+import 'package:filiera_token_front_end/components/organisms/user_environment/services/secure_storage_service.dart';
 import 'package:filiera_token_front_end/models/Product.dart';
+import 'package:filiera_token_front_end/models/User.dart';
 import 'package:filiera_token_front_end/utils/enums.dart';
 import 'package:flutter/material.dart';
 
 import 'package:filiera_token_front_end/components/molecules/custom_nav_bar.dart';
+import 'package:get_it/get_it.dart';
 
 class HomePageUser extends StatefulWidget {
   const HomePageUser({
@@ -22,6 +25,11 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
 
   late AnimationController _drawerSlideController;
 
+  late SecureStorageService secureStorageService;
+
+  late User? user;
+
+
   @override
   void initState() {
     super.initState();
@@ -29,6 +37,20 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
       vsync: this,
       duration: const Duration(milliseconds: 150),
     );
+   final storage = GetIt.I.get<SecureStorageService>();
+    if(storage!=null){
+      print("storage non è nullo!");
+      secureStorageService = storage;
+      _fetch_Data();
+      
+    }
+  }
+
+  Future<User?> _fetch_Data() async {
+    user = await secureStorageService.get();
+    print("Type of User : "+user!.type.name);
+    if(user!=null)
+    print("User is Alive!");
   }
 
   @override
@@ -164,7 +186,7 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
       builder: (context, child) {
         return FractionalTranslation(
           translation: Offset(1.0 - _drawerSlideController.value, 0.0),
-          child: _isDrawerClosed() ? const SizedBox() : const CustomMenuHomeUserPageEnv(),
+          child: _isDrawerClosed() ? const SizedBox() :  CustomMenuHomeUserPageEnv(userData: user!),
         );
       },
     );

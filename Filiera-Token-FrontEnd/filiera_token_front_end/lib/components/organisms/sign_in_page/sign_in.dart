@@ -5,6 +5,7 @@ import 'package:filiera_token_front_end/components/organisms/user_environment/se
 import 'package:filiera_token_front_end/models/User.dart';
 import 'package:filiera_token_front_end/utils/enums.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../molecules/custom_nav_bar.dart';
@@ -43,6 +44,8 @@ class _MySignInPageAnimations extends State<MySignInPage> with SingleTickerProvi
 
   final signinService = SigninService();
 
+  late SecureStorageService secureStorageService;
+
 
 
 
@@ -60,6 +63,12 @@ class _MySignInPageAnimations extends State<MySignInPage> with SingleTickerProvi
       vsync: this,
       duration: const Duration(milliseconds: 150),
     );
+    final storage = GetIt.I.get<SecureStorageService>();
+    if(storage!=null){
+      print("storage non è nullo!");
+      secureStorageService = storage;
+    }
+    
   }
 
 
@@ -180,10 +189,12 @@ class _MySignInPageAnimations extends State<MySignInPage> with SingleTickerProvi
 
                       if(await signinService.checkLogin(emailInput, passwordInput, walletInput, selectedValueUserType) ){
                         // Inserisce i dati se questo ha avuto successo nel login 
-                        User? userLogged = await signinService.onLoginSuccess(selectedValueUserType, walletInput);
+                        User? userLogged = await signinService.onLoginSuccess(selectedValueUserType, walletInput,secureStorageService);
+                        User? userDataStored = await secureStorageService.get();
+                        if(userDataStored!=null){
                         // Naviga alla rotta home-page-user con parametri
-                        context.go('/home-page-user/$selectedValueUserType/'+userLogged!.getId);
-
+                          context.go('/home-page-user/$selectedValueUserType/'+userLogged!.getId);
+                        }
                       }else{
                           /// Login Errata 
                       } 

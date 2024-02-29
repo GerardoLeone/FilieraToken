@@ -26,6 +26,28 @@ class Enums {
     }
   }
 
+
+  /*
+  *   Questa funzione restituisce un testo di default basandosi sull'Actor dati in input
+  */
+  static Actor getActor(String actorName) {
+    print("Get Actor Name : "+actorName);
+    switch(actorName) {
+      case "MilkHub":
+        return Actor.MilkHub;
+      case "CheeseProducer":
+        return Actor.CheeseProducer;
+      case "Retailer":
+        return Actor.Retailer;
+      case "Consumer":
+      return Actor.Consumer;
+      default :
+      return Actor.unknown;  
+    }
+  }
+
+
+
   /*
    *  Questa funzione restituisce un testo di default basandosi sul CustomType
    */

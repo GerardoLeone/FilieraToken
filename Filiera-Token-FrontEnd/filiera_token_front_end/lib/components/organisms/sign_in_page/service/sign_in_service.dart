@@ -10,11 +10,12 @@ class SigninService {
   final userService = UserSerivce();
 
 
+
     Future<bool> checkLogin(
     String emailInput,
     String passwordInput,
     String walletInput,
-    String selectedValueUserType
+    String selectedValueUserType, 
     )async {
       return await userService.login(emailInput, passwordInput, walletInput, selectedValueUserType);
     }
@@ -22,7 +23,7 @@ class SigninService {
 
 
 
-  Future<User?> onLoginSuccess(String selectedValueUserType, String walletInput) async{
+  Future<User?> onLoginSuccess(String selectedValueUserType, String walletInput, SecureStorageService secureStorageService) async{
     /// Go to Home User page 
     /// Create a JWT (Optional)  
     /// Move to home-page-user and select our product 
@@ -30,19 +31,19 @@ class SigninService {
     /// Retrieve all data of other Product 
     User? userProvider =  await userService.getData(selectedValueUserType,walletInput);
     // Inserisco nel Database 
-    _saveUserReference(userProvider!);
+    await _saveUserReference(userProvider!,walletInput, secureStorageService);
 
     return userProvider;
   }
 
-  Future<void> _saveUserReference(User user) async {
-    
-      await SecureStorageService().save(
+  Future<void> _saveUserReference(User user, String wallet, SecureStorageService secureStorageService) async {    
+      await secureStorageService.save(
         user.id,
         user.fullName,
         user.email,
         user.password,
         user.balance,
+        wallet,
         user.type
       );
   }

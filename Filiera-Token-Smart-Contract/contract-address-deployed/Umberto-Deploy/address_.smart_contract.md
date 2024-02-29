@@ -17,7 +17,7 @@
 
 
 - FilieraToken : Smart Contract 
-"address" : "0xac2035beb811680932af7d1e7f3f3f5303e52006"
+"address" : "0xa0bf9c9da46e1f9bb25faf4870370b21453acd2e"
 
 -----------------------------------------------------------------------------
 

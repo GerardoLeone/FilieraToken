@@ -1,8 +1,12 @@
+import 'package:filiera_token_front_end/models/User.dart';
+import 'package:filiera_token_front_end/utils/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class CustomMenuHomeUserPageEnv extends StatefulWidget {
-  const CustomMenuHomeUserPageEnv({super.key});
+
+  final User userData;
+  const CustomMenuHomeUserPageEnv({super.key, required this.userData});
 
   @override
   State<CustomMenuHomeUserPageEnv> createState() => _MenuState();
@@ -72,7 +76,7 @@ class _MenuState extends State<CustomMenuHomeUserPageEnv> with SingleTickerProvi
         fit: StackFit.expand,
         children: [
           _buildFlutterLogo(),
-          _buildContent(),
+          _buildContent(widget.userData),
         ],
       ),
     );
@@ -91,18 +95,18 @@ class _MenuState extends State<CustomMenuHomeUserPageEnv> with SingleTickerProvi
     );
   }
 
-  Widget _buildContent() {
+  Widget _buildContent(User userData) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 16),
-        ..._buildListItems(),
+        ..._buildListItems(userData),
         const Spacer(),
       ],
     );
   }
 
-  List<Widget> _buildListItems() {
+  List<Widget> _buildListItems(User userData) {
     final listItems = <Widget>[];
     for (var i = 0; i < _menuTitles.length; ++i) {
       listItems.add(
@@ -127,7 +131,10 @@ class _MenuState extends State<CustomMenuHomeUserPageEnv> with SingleTickerProvi
             padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 16),
             child: ElevatedButton(
               onPressed: () {
-
+                print("Ho premuto il bottone dal menù principale!");
+                String type = Enums.getActorText(userData.type);
+                print(type);
+                String userId = userData.id;
 
                 if(_menuTitles[i].compareTo('Logout') == 0){
                   // Logout Routing 
@@ -135,19 +142,19 @@ class _MenuState extends State<CustomMenuHomeUserPageEnv> with SingleTickerProvi
 
                 }else if(_menuTitles[i].compareTo('Inventory') == 0){
                   // Product Buyed Routing 
-                  //context.go('/home-page-user/'+type+'/'+userId+'/profile/inventory');
+                  context.go('/home-page-user/'+type+'/'+userId+'/profile/inventory');
 
                 }else if(_menuTitles[i].compareTo('History') == 0){
                   // History
                   /// TODO: Rendere dinamica questa Route
-                  //context.go('/home-page-user/'+type+'/'+userId+'/profile/history');
+                  context.go('/home-page-user/'+type+'/'+userId+'/profile/history');
 
                 }else if(_menuTitles[i].compareTo('Setting') ==0){
 
-                  //context.go('/home-page-user/'+type+'/'+userId+'/profile');
+                  context.go('/home-page-user/'+type+'/'+userId+'/profile');
 
                 }else if(_menuTitles[i].compareTo('Product Buyed')==0){
-                  //context.go('/home-page-user/'+type+'/'+userId+'/profile/product-buyed');
+                  context.go('/home-page-user/'+type+'/'+userId+'/profile/product-buyed');
                 }
                 },
               child: 

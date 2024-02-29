@@ -235,26 +235,21 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "walletMilkHub",
+						"name": "walletMilkhub",
 						"type": "address"
-					}
-				],
-				"name": "getMilkHubInfo",
-				"outputs": [
+					},
 					{
 						"internalType": "uint256",
-						"name": "",
+						"name": "_id",
 						"type": "uint256"
-					},
+					}
+				],
+				"name": "getMilkHubWallet",
+				"outputs": [
 					{
-						"internalType": "string",
+						"internalType": "address",
 						"name": "",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "",
-						"type": "string"
+						"type": "address"
 					}
 				],
 				"stateMutability": "view",
@@ -456,19 +451,19 @@
 			]
 		},
 		"contracts/Actor/MilkHub-smart-contract/MilkHubService.sol": {
-			"keccak256": "0xd43e5d6251965c172043598562270eacaf43db0dfef3793017439a116b3e4db6",
+			"keccak256": "0xcfe8ada20d618b1430407ad0e2ba9d0def9675bff69c085f86c2901e4a86396d",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://f4e77528c2dbfdaa35bb3ad8cb254f451e54727ada6ee346f1984e3b9db78af3",
-				"dweb:/ipfs/QmU7JbUCZgHYUxQv1aJZnYB6RETCp8fJ7XVvM21vs9kDde"
+				"bzz-raw://b732d2219c5cf86feb83977181952a0899425bec9c8412906fdd6de9477a0965",
+				"dweb:/ipfs/Qmd6b7QV3ozQNybksPVhNeiDrMkkga7hN1zg24VWCjLDNe"
 			]
 		},
 		"contracts/Actor/MilkHub-smart-contract/MilkHubStorage.sol": {
-			"keccak256": "0x78a0eca7f6fef8c684591b457daf3b53dd4d398dc2f9508b7445934ab98b870f",
+			"keccak256": "0x7495fe14bb937aad8a927ae9e71ef42a48b03d8d7bc4e3f7797eb6fd6f046631",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://fa3d434e7d5bf631b12250c8af673cd237d4d10baf234a8c2d4c51874a5f68a6",
-				"dweb:/ipfs/QmcWwqsQKedrGokuHKPGF43kxzsDE6EY31P9qhLsRtjYrR"
+				"bzz-raw://8454a746da7d10cc65004e1b215f55ebafc1ab2a84a8d1e8016114e6b71d725e",
+				"dweb:/ipfs/QmTQpMDmVoaG4efBdH5y8itXLfKhN8jCv6EoYCoDEgitAE"
 			]
 		},
 		"contracts/Service/Filieratoken.sol": {

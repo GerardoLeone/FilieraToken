@@ -22,6 +22,7 @@ contract CheeseProducerStorage is IUserStorageInterface {
         string password; // Si presume che sia già crittografata dal Front-End
         string email;
         uint256 balance;
+        address wallet;
     }
 
     // Mapping che collega l'indirizzo del portafoglio (wallet address) ai dati del consumatore
@@ -35,13 +36,14 @@ contract CheeseProducerStorage is IUserStorageInterface {
     function addUser(string memory _fullName, string memory _password,string memory _email, address walletCheeseProducer) external {
                 
         // Genera l'ID manualmente utilizzando keccak256
-        bytes32 idHash = keccak256(abi.encodePacked(_fullName, _password, _email, walletCheeseProducer));
+        bytes32 idHash = ripemd160(abi.encodePacked(_fullName, _password, _email, walletCheeseProducer)); // Produce un hash di 20 byte
         uint256 lastIdCheeseProducer = uint256(idHash);
 
         require(cheeseProducers[walletCheeseProducer].id == 0, "CheeseProducer already registered");
         require(bytes(_fullName).length > 0, "Full name cannot be empty");
         require(bytes(_password).length > 0, "Password cannot be empty");
         require(bytes(_email).length > 0, "Email cannot be empty");
+        require(address(walletCheeseProducer)!=address(0),"Address cannot be empty");
         
         // Crea un nuovo consumatore con l'ID univoco
         CheeseProducer memory newCheeseProducer = CheeseProducer({
@@ -49,12 +51,13 @@ contract CheeseProducerStorage is IUserStorageInterface {
             fullName: _fullName,
             password: _password,
             email: _email,
-            balance: 100
+            balance: 100,
+            wallet: walletCheeseProducer
         });
         // Inserisco l'address 
         addressList.push(walletCheeseProducer);
 
-        // Inserisce il nuovo consumer all'interno della Lista dei Consumer 
+        // Inserisce il nuovo cheeseProducer all'interno della Lista dei CheeseProducer 
         cheeseProducers[walletCheeseProducer] = newCheeseProducer;
     }
 
@@ -69,19 +72,29 @@ contract CheeseProducerStorage is IUserStorageInterface {
         CheeseProducer storage cheeseProducer = cheeseProducers[walletCheeseProducer];
         
         // Verifico che l'email e la password hashate sono uguali tra di loro 
-        return keccak256(abi.encodePacked(cheeseProducer.email, cheeseProducer.password)) == keccak256(abi.encodePacked(_email, _password));
+        return ripemd160(abi.encodePacked(cheeseProducer.email, cheeseProducer.password)) == ripemd160(abi.encodePacked(_email, _password));
     }
 
-    // Funzione per eliminare il Consumer dato il suo indirizzo del wallet 
+    // Funzione per eliminare il CheeseProducer dato il suo indirizzo del wallet 
     function deleteUser(address walletCheeseProducer) external returns(bool){
 
         delete cheeseProducers[walletCheeseProducer];
 
-        if(cheeseProducers[walletCheeseProducer].id == 0 && deleteCheeseProducerFromList(walletCheeseProducer) ){
+        if(cheeseProducers[walletCheeseProducer].id == 0 && deleteCheeseProducerFromList(walletCheeseProducer)){
             return true;
         }else {
             return false;
         }
+    }
+
+    function deleteCheeseProducerFromList(address walletCheeseProducer)internal returns (bool) {
+        for(uint256 i=0; ; i++){
+            if(addressList[i] == walletCheeseProducer){
+                delete  addressList[i];
+                return true;
+            }
+        }
+        return false;
     }
 
     // Check if exist the User 
@@ -124,8 +137,19 @@ contract CheeseProducerStorage is IUserStorageInterface {
     */
     function getBalance(address walletCheeseProducer, uint256 _id) external view  returns(uint256){
         require(cheeseProducers[walletCheeseProducer].id == _id,"ID not Valid!");
+
         CheeseProducer memory cheeseProducer = cheeseProducers[walletCheeseProducer];
         return cheeseProducer.balance;
+    }
+
+    /**
+        - Funzione getWallet() attraverso l'address del CheeseProducer riusciamo a recuperare il suo Balance
+    */
+    function getWallet(address walletCheeseProducer, uint256 _id) external view  returns(address){
+        require(cheeseProducers[walletCheeseProducer].id == _id,"ID not Valid!");
+        
+        CheeseProducer memory cheeseProducer = cheeseProducers[walletCheeseProducer];
+        return cheeseProducer.wallet;
     }
 
     /**
@@ -138,10 +162,20 @@ contract CheeseProducerStorage is IUserStorageInterface {
         CheeseProducer memory cheeseProducer = cheeseProducers[walletCheeseProducer];
 
         // Restituisce i dati del consumatore
-        return (cheeseProducer.id, cheeseProducer.fullName, cheeseProducer.password, cheeseProducer.email, cheeseProducer.balance);
+        return (cheeseProducer.id,
+         cheeseProducer.fullName,
+          cheeseProducer.password,
+           cheeseProducer.email,
+            cheeseProducer.balance
+            );
     }
 
-
+    /**
+    *Ritorna la Lista degli address
+    */
+    function getListAddressCheeseProducer() external view returns (address [] memory){  
+        return addressList;
+    }
 
     // - Funzione updateBalance() attraverso l'address e l'id, riusciamo a settare il nuovo balance
     function updateBalance(address walletCheeseProducer, uint256 balance) external{
@@ -150,25 +184,8 @@ contract CheeseProducerStorage is IUserStorageInterface {
     }
 
 
-     /**
-    *Ritorna la Lista degli address
-    */
-    function getListAddress() external view returns (address [] memory){  
-        return addressList;
-    }
-    
-
-    function deleteCheeseProducerFromList(address walletCheeseProducer)internal returns (bool) {
-        for(uint256 i=0; ; i++){
-            if(addressList[i] == walletCheeseProducer){
-                delete  addressList[i];
-                return true;
-            }
-        }
-        return false;
-    }
-    
 
 }   
+
 
 

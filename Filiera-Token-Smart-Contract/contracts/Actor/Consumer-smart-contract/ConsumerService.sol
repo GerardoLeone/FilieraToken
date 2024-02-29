@@ -11,7 +11,7 @@ contract ConsumerService {
 
 
     // Address of Consumer Storage 
-    ConsumerStorage private consumerStorage;
+    ConsumerStorage private consumerStorageStorage;
     
     // Address of Token FT - ERC-20
     Filieratoken private filieraToken;
@@ -31,8 +31,8 @@ contract ConsumerService {
 
 
 //---------------------------------------------------------------------- Constructor ----------------------------------------------------------------------------//    
-    constructor(address _consumerStorage, address _filieraToken) {
-        consumerStorage = ConsumerStorage(_consumerStorage);
+    constructor(address _consumerStorageStorage, address _filieraToken) {
+        consumerStorageStorage = ConsumerStorage(_consumerStorageStorage);
         filieraToken = Filieratoken(_filieraToken);
         ConsumerOrg = msg.sender;
     }
@@ -51,7 +51,7 @@ contract ConsumerService {
     modifier checkAddress(address walletConsumer){
 
         require(walletConsumer != address(0),"Address is zero");
-        require(walletConsumer != address(consumerStorage), "Address is ConsumerStorage Smart Contract!");
+        require(walletConsumer != address(consumerStorageStorage), "Address is ConsumerStorage Smart Contract!");
         require(walletConsumer != address(filieraToken), "Address is FilieraToken Smart Contract!" );
         require(walletConsumer != ConsumerOrg ,"Organization address");
 
@@ -73,7 +73,7 @@ contract ConsumerService {
         require(!(this.isUserPresent(walletConsumer)), "Utente gia' registrato !");
 
         // Chiama la funzione di Storage 
-        consumerStorage.addUser(fullName, password, email, walletConsumer);
+        consumerStorageStorage.addUser(fullName, password, email, walletConsumer);
 
         // Autogenera dei token nel balance del Consumer 
         require(filieraToken.registerUserWithToken(address(walletConsumer), 100),"Transfer Token not Valid!");
@@ -93,7 +93,7 @@ contract ConsumerService {
         // Verifichiamo che l'utente è presente 
         require(this.isUserPresent(walletConsumer),"Utente non e' presente!");
         
-        return consumerStorage.loginUser(walletConsumer, email, password);
+        return consumerStorageStorage.loginUser(walletConsumer, email, password);
     }
 
 
@@ -107,9 +107,9 @@ contract ConsumerService {
         // Verifico che l'utente è presente 
         require(this.isUserPresent(walletConsumer), "Utente non e' presente!");
         // Restituisce l'id del Consumer tramite il suo address wallet
-        require(consumerStorage.getId(walletConsumer) == _id , "Utente non Autorizzato!");
+        require(consumerStorageStorage.getId(walletConsumer) == _id , "Utente non Autorizzato!");
         // Effettuo la cancellazione dell'utente 
-        require(consumerStorage.deleteUser(walletConsumer), "Errore durante la cancellazione");
+        require(consumerStorageStorage.deleteUser(walletConsumer), "Errore durante la cancellazione");
         // Burn all token ( elimina i token che sono in circolazione, di un utente che non effettua transazioni ) 
         filieraToken.burnToken(walletConsumer, filieraToken.balanceOf(walletConsumer));
         // Emit Event on FireFly 
@@ -120,7 +120,7 @@ contract ConsumerService {
 
     function isUserPresent(address walletConsumer) external view returns(bool){
         
-        return consumerStorage.isUserPresent(walletConsumer);
+        return consumerStorageStorage.isUserPresent(walletConsumer);
     }
 
 
@@ -132,7 +132,7 @@ contract ConsumerService {
     */
     function getConsumerId(address walletConsumer) external view checkAddress(walletConsumer)  returns (uint256){
         
-        return consumerStorage.getId(walletConsumer);
+        return consumerStorageStorage.getId(walletConsumer);
     }
 
     
@@ -141,7 +141,7 @@ contract ConsumerService {
     */
     function getConsumerFullName(address walletConsumer,uint256 _id) external view checkAddress(walletConsumer) returns(string memory){
 
-        return consumerStorage.getFullName(walletConsumer,_id);
+        return consumerStorageStorage.getFullName(walletConsumer,_id);
     }
 
     /**
@@ -149,7 +149,12 @@ contract ConsumerService {
     */
     function getConsumerEmail(address walletConsumer, uint256 _id) external view checkAddress(walletConsumer) returns(string memory){
         
-        return consumerStorage.getEmail(walletConsumer,_id);
+        return consumerStorageStorage.getEmail(walletConsumer,_id);
+    }
+
+    function getConsumerWallet(address walletConsumer,uint256 _id) external  view checkAddress(walletConsumer) returns (address){
+        
+        return consumerStorageStorage.getWallet(walletConsumer, _id);
     }
 
     /**
@@ -157,7 +162,7 @@ contract ConsumerService {
     */
     function getConsumerBalance(address walletConsumer, uint256 _id) external view checkAddress(walletConsumer)  returns(uint256){
 
-        return consumerStorage.getBalance(walletConsumer,_id);
+        return consumerStorageStorage.getBalance(walletConsumer,_id);
     }
 
     /**
@@ -169,29 +174,13 @@ contract ConsumerService {
         // Verifico che l'utente è presente 
         require(this.isUserPresent(walletConsumer), "Utente non e' presente!");
         // Restituisce l'id del Consumer tramite il suo address wallet
-        require(consumerStorage.getId(walletConsumer) == _id , "Utente non Autorizzato!");
+        require(consumerStorageStorage.getId(walletConsumer) == _id , "Utente non Autorizzato!");
         // Call function of Storage         
-        return consumerStorage.getUser(walletConsumer);
-    }
-
-    
-    // Funzione per far visualizzare i dati ai vari utenti esterni 
-    function getConsumerInfo(address walletConsumer) external view checkAddress(walletConsumer) returns (uint256, string memory, string memory) {
-        
-        // Verifico che l'utente esista
-        require(this.isUserPresent(walletConsumer), "User not found");
-
-        uint256 id = consumerStorage.getId(walletConsumer); // Non è necessario, ma viene recuperato per rispettare il controllo in ConsumerStorage
-        
-        string memory fullName = consumerStorage.getFullName(walletConsumer, id);
-        
-        string memory email = consumerStorage.getEmail(walletConsumer, id);
-
-        return (id, fullName, email);
+        return consumerStorageStorage.getUser(walletConsumer);
     }
 
     function getListAddressConsumer() external view returns ( address [ ] memory){
-        return consumerStorage.getListAddress();
+        return consumerStorageStorage.getListAddressConsumer();
     }
 
 //------------------------------------------------------------ Set Function -------------------------------------------------------------------//
@@ -203,15 +192,15 @@ contract ConsumerService {
         // Verifico che l'utente esista 
         require(this.isUserPresent(walletConsumer),"User Not Found!");
         // Update Balance 
-        consumerStorage.updateBalance(walletConsumer, balance);
+        consumerStorageStorage.updateBalance(walletConsumer, balance);
     }
 
 
 // ------------------------------------------------------------ Change Address Contract of Service -----------------------------------------------------//
 
 
-    function changeConsumerStorage(address _milkhubStorageNew)private  {
-        consumerStorage = ConsumerStorage(_milkhubStorageNew);
+    function changeConsumerStorage(address _consumerStorageStorageNew)private {
+        consumerStorageStorage = ConsumerStorage(_consumerStorageStorageNew);
     }
 
 
@@ -221,3 +210,4 @@ contract ConsumerService {
 
 
 }
+

@@ -150,30 +150,6 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "_id",
-						"type": "uint256"
-					}
-				],
-				"name": "getId",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "walletCheeseProducer",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
 						"name": "_id_MilkBatchAcquistato",
 						"type": "uint256"
 					}
@@ -212,39 +188,12 @@
 						"type": "address"
 					}
 				],
-				"name": "getMilkBatchListPurchasedByCheeseProducer",
+				"name": "getMilkBatchListIdPurchased",
 				"outputs": [
 					{
-						"components": [
-							{
-								"internalType": "uint256",
-								"name": "id",
-								"type": "uint256"
-							},
-							{
-								"internalType": "uint256",
-								"name": "id_MilkBatch",
-								"type": "uint256"
-							},
-							{
-								"internalType": "address",
-								"name": "walletMilkHub",
-								"type": "address"
-							},
-							{
-								"internalType": "string",
-								"name": "expirationDate",
-								"type": "string"
-							},
-							{
-								"internalType": "uint256",
-								"name": "quantity",
-								"type": "uint256"
-							}
-						],
-						"internalType": "struct CheeseProducerBuyerStorage.MilkBatch[]",
+						"internalType": "uint256[]",
 						"name": "",
-						"type": "tuple[]"
+						"type": "uint256[]"
 					}
 				],
 				"stateMutability": "view",
@@ -381,11 +330,11 @@
 	},
 	"sources": {
 		"contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerBuyerStorage.sol": {
-			"keccak256": "0x09974798b4f01cef0a211ff1da9af38da8f7d22b03d45e06ae25c83cfe1c4f84",
+			"keccak256": "0x86ca6d4b163892c876d0cf9b9acf80da05d2d2564264fc61f2f93f2a01a8b289",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://7dbb82d90997b71887bc7f95864cf2dbb331c068465e08d7358f4d9fa2c3f76e",
-				"dweb:/ipfs/QmYi8gQto4Kwatkb8z3teyL7MHUEdTo85caoyEDVdyH5mv"
+				"bzz-raw://ca31693f0c6c1e1adfc76f6b5ac7373d309aa3afb8df1f156f5889b136661ba3",
+				"dweb:/ipfs/QmeNRX1hXyYKcXC8oTCngUtCKidNxgadvABA67hSfqWK2m"
 			]
 		}
 	},

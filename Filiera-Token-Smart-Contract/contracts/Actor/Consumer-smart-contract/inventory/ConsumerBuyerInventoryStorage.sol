@@ -19,9 +19,10 @@ contract ConsumerBuyerInventoryStorage {
         uint256 weight;
     }
 
-    mapping(address => mapping(uint256 => CheesePiece)) private purchasedCheesePieces;
+    mapping(address => mapping(uint256 => CheesePiece)) private purchasedCheesePieces; // Map of Alla CheesePiece Buyed 
 
-    uint256 [] private purchasedCheesePieceListId;
+    mapping(address => uint256[]) private purchasedCheesePieceListIdForSingleConsumer;
+
 
 
     //--------------------------------------------------------------- Business Logic Service -----------------------------------------------------------------------------------------//
@@ -49,19 +50,25 @@ contract ConsumerBuyerInventoryStorage {
         purchasedCheesePieces[_walletConsumerBuyer][_id] = cheesePiece;
 
         //Inserisci l'id all'interno della Lista
-        purchasedCheesePieceListId.push(_id);
+        purchasedCheesePieceListIdForSingleConsumer[_walletConsumerBuyer].push(_id);
 
-        return (purchasedCheesePieces[_walletConsumerBuyer][_id].id, purchasedCheesePieces[_walletConsumerBuyer][_id].price, purchasedCheesePieces[_walletConsumerBuyer][_id].weight);
+        return (
+            purchasedCheesePieces[_walletConsumerBuyer][_id].id,
+            purchasedCheesePieces[_walletConsumerBuyer][_id].price,
+            purchasedCheesePieces[_walletConsumerBuyer][_id].weight
+            );
     }
 
     function getCheesePiece(address walletConsumerBuyer, uint256 _id_CheesePieceAcquistato) external view returns (uint256, address, uint256, uint256) {
         CheesePiece memory cheesePiece = purchasedCheesePieces[walletConsumerBuyer][_id_CheesePieceAcquistato];
+        
         return (cheesePiece.id, cheesePiece.walletRetailer, cheesePiece.price, cheesePiece.weight);
     }
 
     function isCheesePiecePresent(address walletConsumerBuyer, uint256 _id_CheesePieceAcquistato) external view returns(bool) {
         require(_id_CheesePieceAcquistato != 0 && _id_CheesePieceAcquistato > 0, "ID CheesePiece Not Valid!");
-        return purchasedCheesePieces[walletConsumerBuyer][_id_CheesePieceAcquistato].id == _id_CheesePieceAcquistato;
+        
+        return purchasedCheesePieces[walletConsumerBuyer][_id_CheesePieceAcquistato].id != 0;
     }
 
     function getWeight(address walletConsumerBuyer, uint256 _id) external view returns (uint256) {
@@ -75,19 +82,11 @@ contract ConsumerBuyerInventoryStorage {
     function getWalletRetailer(address walletConsumerBuyer, uint256 _id) external view returns (address) {
         return purchasedCheesePieces[walletConsumerBuyer][_id].walletRetailer;
     }
-
-    function getPurchasedCheesePieceByConsumer(address walletConsumer)external view returns (CheesePiece[]memory){
-        CheesePiece [ ] memory  purchasedCheesePieceList  = new CheesePiece[](purchasedCheesePieceListId.length);
-        for (uint256 i=0; i<purchasedCheesePieceListId.length; i++){
-
-                uint256 _id = purchasedCheesePieceListId[i];
-                if(purchasedCheesePieces[walletConsumer][_id].id != 0){
-                    // Esiste e questo è il MilkBatch dell'Utente 
-                    CheesePiece storage new_cheese = purchasedCheesePieces[walletConsumer][_id];
-                    purchasedCheesePieceList[i] = new_cheese;
-                } 
-        }
-        return purchasedCheesePieceList;
+    
+    /*
+    * Restituisce la Lista di tutti gli ID dei prodotti di un determinato utente
+    */
+    function getListCheesePieseIdPurchasedByConsumer(address walletConsumer)external view returns (uint256[] memory){
+        return purchasedCheesePieceListIdForSingleConsumer[walletConsumer];
     }
-
 }

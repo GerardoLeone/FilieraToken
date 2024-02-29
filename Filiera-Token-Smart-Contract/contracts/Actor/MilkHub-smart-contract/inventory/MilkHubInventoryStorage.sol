@@ -97,7 +97,7 @@ contract MilkHubInventoryStorage {
 
         
         // Check CheesePiece in the mapping 
-        if(milkBatches[walletMilkHub][_id].id  == 0 && deleteMilkBatchIdFromList(_id,walletMilkHub) ){
+        if(milkBatches[walletMilkHub][_id].id  == 0 && deleteMilkBatchIdFromList(_id) && deleteMilkBatchIdFromListSingleUser(_id,walletMilkHub) ){
             return true;
         }else {
             return false;
@@ -152,15 +152,27 @@ contract MilkHubInventoryStorage {
 
 //---------------------------------------------------------- Delete Function ----------------------------------------------------------------------//   
 
-    function deleteMilkBatchIdFromList(uint256 _id,address walletMilkHub )internal returns (bool) {
+
+    function deleteMilkBatchIdFromList(uint256 _id ) internal returns (bool) {
         for(uint256 i=0; ; i++){
-            if(milkBatchIdList[i] == _id && milkBatchIdListForSingleMilkHub[walletMilkHub][i] == _id){
+            if(milkBatchIdList[i] == _id ){
                 delete  milkBatchIdList[i];
-                delete milkBatchIdListForSingleMilkHub[walletMilkHub][i];
-                return true;
+                return false;
             }
         }
-        return false;
+        return false;   
+    }
+
+    function deleteMilkBatchIdFromListSingleUser(uint256 _id, address walletMilkHub)internal returns(bool){
+        bool flag = false;
+        for(uint256 j=0; ;j++){
+            if(milkBatchIdListForSingleMilkHub[walletMilkHub][j] == _id){
+                delete milkBatchIdListForSingleMilkHub[walletMilkHub][j];
+                flag = true;
+                return flag;
+            }
+        }
+        return flag;
     }
 
 // ------------------------------------------------------------ Set Function ------------------------------------------------------------------//

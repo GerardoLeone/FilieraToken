@@ -9,7 +9,7 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "_milkhubStorage",
+						"name": "_retailerStorage",
 						"type": "address"
 					},
 					{
@@ -237,24 +237,19 @@
 						"internalType": "address",
 						"name": "walletRetailer",
 						"type": "address"
-					}
-				],
-				"name": "getRetailerInfo",
-				"outputs": [
+					},
 					{
 						"internalType": "uint256",
-						"name": "",
+						"name": "_id",
 						"type": "uint256"
-					},
+					}
+				],
+				"name": "getRetailerWallet",
+				"outputs": [
 					{
-						"internalType": "string",
+						"internalType": "address",
 						"name": "",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "",
-						"type": "string"
+						"type": "address"
 					}
 				],
 				"stateMutability": "view",
@@ -364,28 +359,28 @@
 			"kind": "user",
 			"methods": {
 				"deleteRetailer(address,uint256)": {
-					"notice": "deleteMilkHub() elimina un Consumer all'interno del sistema  - Solo l'owner può effettuare l'eliminazione  - msg.sender dovrebbe essere solo quello dell'owner "
+					"notice": "deleteRetailer() elimina un Retailer all'interno del sistema  - Solo l'owner può effettuare l'eliminazione  - msg.sender dovrebbe essere solo quello dell'owner "
 				},
 				"getRetailerBalance(address,uint256)": {
-					"notice": "- Funzione getBalance() attraverso l'address del Consumer riusciamo a recuperare il suo Balance"
+					"notice": "- Funzione getBalance() attraverso l'address del Retailer riusciamo a recuperare il suo Balance"
 				},
 				"getRetailerData(address,uint256)": {
-					"notice": "getMilkHubData() otteniamo i dati del Consumer - tramite l'address del Consumer riusciamo a visualizzare anche i suoi dati - Dati sensibili e visibili solo dal Consumer stesso "
+					"notice": "getRetailerData() otteniamo i dati del Retailer - tramite l'address del Retailer riusciamo a visualizzare anche i suoi dati - Dati sensibili e visibili solo dal Retailer stesso "
 				},
 				"getRetailerEmail(address,uint256)": {
-					"notice": "- Funzione getEmail() attraverso l'address del Consumer riusciamo a recuperare la sua Email "
+					"notice": "- Funzione getEmail() attraverso l'address del Retailer riusciamo a recuperare la sua Email "
 				},
 				"getRetailerFullName(address,uint256)": {
-					"notice": "- Funzione getFullName() attraverso l'address del Consumer riusciamo a recuperare il suo FullName"
+					"notice": "- Funzione getFullName() attraverso l'address del Retailer riusciamo a recuperare il suo FullName"
 				},
 				"getRetailerId(address)": {
-					"notice": "-  Funzione getRetailerId() attraverso l'address del Consumer siamo riusciti ad ottenere il suo ID"
+					"notice": "-  Funzione getRetailerId() attraverso l'address del Retailer siamo riusciti ad ottenere il suo ID"
 				},
 				"login(address,string,string)": {
 					"notice": "login() effettua la Login con email e password  - Inserisce l'email e la password  - return True se l'utente esiste ed ha accesso con le giuste credenziali  - return False altrimenti "
 				},
 				"registerRetailer(string,string,string,address)": {
-					"notice": "registerRetailer() registra gli utenti della piattaforma che sono Consumer  - Inserisce i dati all'interno della Blockchain - Trasferisce 100 token dal contratto di FilieraToken  - Emette un evento appena l'utente è stato registrato   "
+					"notice": "registerRetailer() registra gli utenti della piattaforma che sono Retailer  - Inserisce i dati all'interno della Blockchain - Trasferisce 100 token dal contratto di FilieraToken  - Emette un evento appena l'utente è stato registrato   "
 				}
 			},
 			"version": 1
@@ -448,35 +443,35 @@
 			]
 		},
 		"contracts/Actor/IUserStorageInterface.sol": {
-			"keccak256": "0xc4f5e58158b13ff68c4fe49d72a2e48c560818ddbfc965b0733932d540b50e09",
+			"keccak256": "0xae0b245125f0e611e9ae29c1970d635b4a982787afafab5290759d9ef7d821c8",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://f1884e9167a862d283cbfa84ea8fad1c65e344deb6e2699e6264852c257b1be8",
-				"dweb:/ipfs/QmWtfGJ23czQ2HSjg7buPSCsawgJ57ypcXQpZQsnZCDYu8"
+				"bzz-raw://793118144f90c043aa0cde1c1a65a0c2e7dd8657dc71ca869ac29492605fa108",
+				"dweb:/ipfs/QmRFZhVDtbAC27oFHQVDrzgM9FLLHgcK7peiYh4U4P4bL1"
 			]
 		},
 		"contracts/Actor/Retailer-smart-contract/RetailerService.sol": {
-			"keccak256": "0xf712151a929f31bfbd3d10309414a54bd5e3960fda1edf549e4f75ae90ce7884",
+			"keccak256": "0xa2d10bfddc01aa71b88c31d70929e984267a47280ebac0a42579398da8978b54",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://963195a777ef7cd43efa4cdca8647c083fef962599c396dc6391049a170da7c4",
-				"dweb:/ipfs/QmaymcxS79HhL5SUmkLETt25NN7FWpv4GzBwm6q7KcbfF8"
+				"bzz-raw://fb4cf6933261c976f205ff9b452b1da99a7a05f6006f3387b13ee2346b2740cd",
+				"dweb:/ipfs/QmUpro5Zu8KbBfdxEVVLGkNv5XvE1J9iYBadeVK8eAUieD"
 			]
 		},
 		"contracts/Actor/Retailer-smart-contract/RetailerStorage.sol": {
-			"keccak256": "0x4eacecfdeaf13cd79a701777e615684dcb816d6482080132c94f8cac118dfafa",
+			"keccak256": "0x41a3692bb50d6c02362b8491a932564261b1ef2f9eea3f99e01c586a919e7f3c",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://c09fe148f4a4d99f7eef3eaf5ac0f10e8df8e723302216ce97d0a97b19cadf85",
-				"dweb:/ipfs/QmWQWraxshKnsNPJGXPaQuKh3cUqySvtL1nJcP3FLRFm9C"
+				"bzz-raw://15cdec361fff769f88e2a5fcda78f88c13be1003fea3bfb132721884676f9fe9",
+				"dweb:/ipfs/QmaBdkoNPBr5Q116dVtCYYgDD4hysVWKC9vvPJEei1yiPa"
 			]
 		},
 		"contracts/Service/Filieratoken.sol": {
-			"keccak256": "0x87e1f62675088493da458d348c0850df9e62fabe0193bc2cd1a715ca426afb05",
+			"keccak256": "0xcb2e21f42a384efcf6bf6e72bd5b5d5cd3b919a67b9d3afe7e4be79cbdd92fae",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://708a7bdd92893f185d662105e47be097a316a15e5d26fc6dca922571e55ee938",
-				"dweb:/ipfs/QmVmNaj8dCM2ySmpwXk8hA5LPo6fSiDhCbxcSYojCECHkQ"
+				"bzz-raw://ee169673c236b45853fed29f2be2e5b9e30db35dff8658900e7ec37be2a0155a",
+				"dweb:/ipfs/QmYWm26mnSaRmT2fYadXWYRtQw7rhtsw9pW9BwXr6aYFrQ"
 			]
 		}
 	},

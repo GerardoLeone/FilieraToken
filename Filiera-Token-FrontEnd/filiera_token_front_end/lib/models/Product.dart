@@ -79,16 +79,15 @@ class MilkBatch extends Product {
     quantity -= quantityChange;
   }
   
-  static Product fromJson(Map<String, dynamic> json) {
-    final milkBatchData = json['input'] as Map<String, dynamic>; // Access nested data
+  static Product fromJson(Map<String, dynamic> milkBatchData) {
     
-    String id = json['id'];
+    String id = milkBatchData['output'];
     String name = "Partita di Latte";
     String description = "Silos contenente latte, disponibile all'acquisto immediato.";
     String seller = "N.A."; //TODO: funzione che restituisce il nome del MilkHub dal MilkHubService
-    String expirationDate = milkBatchData['expirationDate'] as String;
-    int quantity = milkBatchData['quantity'] as int;
-    double pricePerLitre = milkBatchData['price'] as double; //TODO: gestire il double
+    String expirationDate = milkBatchData['output1'];
+    String quantity = milkBatchData['output2'];
+    String pricePerLitre = milkBatchData['output3']; //TODO: gestire il double
 
     return MilkBatch(
             id: id, 
@@ -96,8 +95,8 @@ class MilkBatch extends Product {
             description: description, 
             seller: seller, 
             expirationDate: expirationDate, 
-            quantity: quantity, 
-            pricePerLitre: pricePerLitre);
+            quantity: int.parse(quantity), 
+            pricePerLitre: double.parse(pricePerLitre));
   }
 }
 

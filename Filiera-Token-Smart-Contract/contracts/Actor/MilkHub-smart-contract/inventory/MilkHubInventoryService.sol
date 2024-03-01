@@ -23,12 +23,12 @@ contract MilkHubInventoryService {
 
 //----------------------------------------------------------------- Costructor Function ---------------------------------------------------------------------------//
 
-    constructor(address _milkhubInventoryStorage, address _milkhubService//, address _accessControlProduct
+    constructor(address _milkhubInventoryStorage, address _milkhubService, address _accessControlProduct
     ){
         MilkHubOrg = msg.sender;
         milkhubInventoryStorage = MilkHubInventoryStorage(_milkhubInventoryStorage);
         milkhubService = MilkHubService(_milkhubService);
-        //accessControlProduct = AccessControlProduct(_accessControlProduct);
+        accessControlProduct = AccessControlProduct(_accessControlProduct);
     }
 
 

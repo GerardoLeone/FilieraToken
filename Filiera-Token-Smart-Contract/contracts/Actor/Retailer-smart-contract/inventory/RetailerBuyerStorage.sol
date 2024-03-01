@@ -21,7 +21,8 @@ contract RetailerBuyerStorage {
 
     mapping(address => mapping(uint256 => Cheese)) private purchasedCheeseBlocks;
 
-    uint256 [] private purchasedCheeseBlockListId;
+    mapping(address => uint256[]) private purchasedCheeseBlockListBySingleRetailer;
+
 
 
 //--------------------------------------------------------------- Business Logic Service -----------------------------------------------------------------------------------------//
@@ -39,7 +40,7 @@ contract RetailerBuyerStorage {
     function addCheeseBlock( 
         
             address _walletRetailer, 
-            address _walletCheeseProducer, // Riferimento al wallet del MilkHub 
+            address _walletCheeseProducer, // Riferimento al wallet del Cheeseproducer 
             uint256 _id_CheeseBlock, // riferimento al prodotto di Cheese
             string memory dop, // attributo del formaggio  
             uint256 _quantity //Quantità acquisita
@@ -77,7 +78,7 @@ contract RetailerBuyerStorage {
         purchasedCheeseBlocks[_walletRetailer][_id] = cheese;
 
         //Inserisci l'id all'interno della Lista
-        purchasedCheeseBlockListId.push(_id);
+        purchasedCheeseBlockListBySingleRetailer[_walletRetailer].push(_id);
 
         return (cheese.id, cheese.dop, cheese.quantity);
 
@@ -102,20 +103,6 @@ contract RetailerBuyerStorage {
         require( _id_CheeseBlockAcquistato !=0 && _id_CheeseBlockAcquistato>0,"ID Cheese Not Valid!");
 
         return purchasedCheeseBlocks[walletRetailer][_id_CheeseBlockAcquistato].id == _id_CheeseBlockAcquistato;
-    }
-
-    function getPurchasedCheeseBlockByRetailer(address walletRetailer)external view returns (Cheese[]memory){
-        Cheese [ ] memory  purchasedCheeseBlockList  = new Cheese[](purchasedCheeseBlockListId.length);
-        for (uint256 i=0; i<purchasedCheeseBlockListId.length; i++){
-
-                uint256 _id = purchasedCheeseBlockListId[i];
-                if(purchasedCheeseBlocks[walletRetailer][_id].id != 0){
-                    // Esiste e questo è il MilkBatch dell'Utente 
-                    Cheese storage new_cheese = purchasedCheeseBlocks[walletRetailer][_id];
-                    purchasedCheeseBlockList[i] = new_cheese;
-                } 
-        }
-        return purchasedCheeseBlockList;
     }
 
 // -------------------------------------------------------------- Set Function ------------------------------------------------------------------------------------------//
@@ -155,6 +142,13 @@ contract RetailerBuyerStorage {
     function getId(address walletRetailer, uint256 _id) external view returns(uint256) {
 
         return purchasedCheeseBlocks[walletRetailer][_id].id;
+    }
+
+    /*
+    * Restituisce la Lista di tutti gli ID dei prodotti di un determinato utente
+    */
+    function getListCheeseIdPurchasedByRetailer(address walletRetailer)external view returns (uint256[] memory){
+        return purchasedCheeseBlockListBySingleRetailer[walletRetailer];
     }
 
 

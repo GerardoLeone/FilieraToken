@@ -18,7 +18,9 @@ contract RetailerInventoryStorage {
 
     mapping(address => mapping(uint256 => CheesePiece)) private cheesePieces;
 
-    uint256 [] private cheesePieceIdPurchasedList;
+    mapping(address => uint256[]) cheesePiecesListIdBySingleRetailer;
+
+    uint256 [] private cheesePieceIdList;
 
     // --------------------------------------------------- Business Function --------------------------------------------------------------------------------------//
 
@@ -26,8 +28,7 @@ contract RetailerInventoryStorage {
         address walletRetailer,
         uint256 _id_CheeseBlock,
         uint256 _price,
-        uint256 _weight
-    ) external returns (uint256, uint256, uint256) {
+        uint256 _weight) external returns (uint256, uint256, uint256) {
 
         uint256 _id = uint256(keccak256(abi.encodePacked(
             _id_CheeseBlock,
@@ -45,7 +46,10 @@ contract RetailerInventoryStorage {
         });
 
         // Inserisce il riferimento all'interno della lista
-        cheesePieceIdPurchasedList.push(_id);
+        cheesePieceIdList.push(_id);
+
+        // Inserisce il nuovo pezzo di formaggio nella Lista dell'utente 
+        cheesePiecesListIdBySingleRetailer[walletRetailer].push(_id);
 
         // Inserisce il nuovo Pezzo di formaggio nella lista cheesePieces
         cheesePieces[walletRetailer][_id] = cheesePiece;
@@ -65,7 +69,9 @@ contract RetailerInventoryStorage {
 
         delete cheesePieces[walletRetailer][_id];
         // Check CheesePiece in the mapping 
-        if (cheesePieces[walletRetailer][_id].id == 0 && deleteCheesePieceIdFromList(_id)) {
+        if (cheesePieces[walletRetailer][_id].id == 0 && 
+        deleteCheesePieceIdFromList(_id) && 
+        deleteCheesePieceIdFromSingleRetailerList(_id, walletRetailer)) {
             return true;
         } else {
             return false;
@@ -96,10 +102,21 @@ contract RetailerInventoryStorage {
         cheesePieces[walletRetailer][_id_Cheese].weight = _newQuantity;
     }
 
+    function deleteCheesePieceIdFromSingleRetailerList(uint256 _id, address walletRetailer) internal returns (bool) {
+        
+        for (uint256 i = 0; ; i++) {
+            if (cheesePiecesListIdBySingleRetailer[walletRetailer][i] == _id) {
+                delete cheesePiecesListIdBySingleRetailer[walletRetailer][i];
+                return true;
+            }
+        }
+        return false;
+    }
+
     function deleteCheesePieceIdFromList(uint256 _id) internal returns (bool) {
-        for (uint256 i = 0; i < cheesePieceIdPurchasedList.length; i++) {
-            if (cheesePieceIdPurchasedList[i] == _id) {
-                delete cheesePieceIdPurchasedList[i];
+        for (uint256 i = 0; i < cheesePieceIdList.length; i++) {
+            if (cheesePieceIdList[i] == _id) {
+                delete cheesePieceIdList[i];
                 return true;
             }
         }
@@ -124,40 +141,12 @@ contract RetailerInventoryStorage {
     /*
         - Funzione per recuperare tutti i MilKBatchPurchased di un determinato walletCheeseProducer
     */
-    function getCheesePieceListPurchasedByRetailer(address walletRetailer) external view returns (CheesePiece[] memory) {
-        CheesePiece [ ] memory  cheesePiecePurchasedList  = new CheesePiece[](cheesePieceIdPurchasedList.length);
-        
-        for (uint256 i=0; i<cheesePieceIdPurchasedList.length; i++){
-
-                uint256 _id = cheesePieceIdPurchasedList[i];
-                if(cheesePieces[walletRetailer][_id].id != 0){
-                    // Esiste e questo è il MilkBatch dell'Utente 
-                    CheesePiece storage new_milkbatchPurchased = cheesePieces[walletRetailer][_id];
-                    cheesePiecePurchasedList[i] = new_milkbatchPurchased;
-                } 
-        }
-
-        return cheesePiecePurchasedList;
+    function getCheesePieceListIdBySingleRetailer(address walletRetailer) external view returns (uint256[] memory) {
+        return cheesePiecesListIdBySingleRetailer[walletRetailer];
     }
 
-    function getAllCheesePieceList(address[] memory retailerListAddress) external view returns (CheesePiece[] memory) {
-        
-        CheesePiece[] memory cheesePieceList = new CheesePiece[](cheesePieceIdPurchasedList.length);
-            
-        uint256 t = 0;
-
-        for(uint256 i = 0; i < retailerListAddress.length; i++) {
-            
-            CheesePiece[] memory cheesePieceListFromUser = this.getCheesePieceListPurchasedByRetailer(retailerListAddress[i]);
-                
-            for(uint256 j = 0; j < cheesePieceListFromUser.length; j++) {
-                CheesePiece memory new_cheesePiece = cheesePieceListFromUser[j];
-                cheesePieceList[t] = new_cheesePiece;
-                t = t + 1;
-            }
-        }
-
-        return cheesePieceList;
+    function getAllCheesePieceIdList() external view returns (uint256[] memory) {
+        return  cheesePieceIdList;
     }
 
 

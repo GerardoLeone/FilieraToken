@@ -148,22 +148,21 @@ contract RetailerInventoryService {
         return retailerInventoryStorage.isCheesePiecePresent(walletRetailer, _id_cheesePiece);
     }
 
-    function getCheesePieceByRetailer(address walletRetailer) external checkAddress(walletRetailer) view returns (RetailerInventoryStorage.CheesePiece[] memory) {
+    function getCheesePieceIdListBySingleRetailer(address walletRetailer) external checkAddress(walletRetailer) view returns (uint256[] memory) {
     // Check if exist 
         require(retailerService.isUserPresent(walletRetailer), "User is not present!");
 
-        return retailerInventoryStorage.getCheesePieceListPurchasedByRetailer(walletRetailer);
+        return retailerInventoryStorage.getCheesePieceListIdBySingleRetailer(walletRetailer);
     }
 
     /*
         - Recupera tutti i CheesePiece presenti all'interno dell'inventario del Retailer
         - Verifica che quel Consumer sia autorizzato
     */
-    function getAllCheesePieceList(address walletConsumer) view external returns (RetailerInventoryStorage.CheesePiece[] memory) {
+    function getAllCheesePieceList(address walletConsumer) view external returns (uint256[] memory) {
         require(accessControlProduct.checkViewCheesePieceProduct(walletConsumer), "User Not Authorized!");
-        address[] memory addressListRetailer = retailerService.getListAddressRetailer();
 
-        return retailerInventoryStorage.getAllCheesePieceList(addressListRetailer); 
+        return retailerInventoryStorage.getAllCheesePieceIdList(); 
     }
 
 

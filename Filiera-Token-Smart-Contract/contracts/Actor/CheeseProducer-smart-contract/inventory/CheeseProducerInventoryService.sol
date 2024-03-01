@@ -80,9 +80,11 @@ contract CheeseProducerInventoryService {
        Un prodotto CheeseBlock all'inventario da poter mettere in vendita
        
        - Check da effettuare : 
+
        - Verifica che l'address dell'utente sia registrato 
        - Verifica che l'address dell'utente non sia l'organizzazione che ha deployato il contratto 
-       
+       - Aggiunta del blocco di formaggio in dipendenza dal milkbatch acquistato 
+
        - Evento : 
        - CheeseBlockAdded()
      */
@@ -169,22 +171,21 @@ contract CheeseProducerInventoryService {
     }
 
 
-     function getCheeseBlockByCheeseProducer(address walletCheeseProducer) external checkAddress(walletCheeseProducer) view returns (CheeseProducerInventoryStorage.Cheese[] memory){
+     function getCheeseBlockListIdBySingleCheeseProducer(address walletCheeseProducer) external checkAddress(walletCheeseProducer) view returns (uint256[] memory){
         // Check if exist 
         require(cheeseProducerService.isUserPresent(walletCheeseProducer), "User is not present!");
 
-        return cheeseProducerInventoryStorage.getCheeseBlockByCheeseProducer(walletCheeseProducer);
+        return cheeseProducerInventoryStorage.getListCheeseBlockIdByCheeseProducer(walletCheeseProducer);
     }
 
     /*
         - Recupera tutti i CheeseBlock presenti all'interno di Inventory 
         - Verifica che quel CheeseProducer sia all'interno del sistema 
     */
-    function getAllCheeseBlockList(address walleRetailer) view  external  returns (CheeseProducerInventoryStorage.Cheese[] memory){
+    function getAllCheeseBlockList(address walleRetailer) view  external  returns (uint256[] memory){
         require(accessControlProduct.checkViewCheeseBlockProduct(walleRetailer),"User Not Authorized!");
-            address[] memory addressListCheeseBlock = cheeseProducerService.getListAddressCheeseProducer();
-
-            return cheeseProducerInventoryStorage.getAllCheeseBlockList(addressListCheeseBlock); 
+        
+        return cheeseProducerInventoryStorage.getListCheeseBlockAll();
     }
 
 //--------------------------------------------------------------------- Update Function of Service Contract -----------------------------------------------//

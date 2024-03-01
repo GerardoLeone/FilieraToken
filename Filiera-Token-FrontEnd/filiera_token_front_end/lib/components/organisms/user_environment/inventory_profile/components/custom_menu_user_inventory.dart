@@ -1,14 +1,19 @@
+import 'package:filiera_token_front_end/models/User.dart';
+import 'package:filiera_token_front_end/utils/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class CustomMenuUserInventory extends StatefulWidget {
-  const CustomMenuUserInventory({super.key});
+  final User userData;
+  const CustomMenuUserInventory({super.key, required this.userData});
 
   @override
   State<CustomMenuUserInventory> createState() => _MenuState();
 }
 
 class _MenuState extends State<CustomMenuUserInventory> with SingleTickerProviderStateMixin {
+
+  
   static const _menuTitles = [
     'Setting', // Go to profile setting 
     'Product Buyed', // Product Buyed
@@ -70,7 +75,7 @@ class _MenuState extends State<CustomMenuUserInventory> with SingleTickerProvide
         fit: StackFit.expand,
         children: [
           _buildFlutterLogo(),
-          _buildContent(),
+          _buildContent(widget.userData),
         ],
       ),
     );
@@ -89,18 +94,18 @@ class _MenuState extends State<CustomMenuUserInventory> with SingleTickerProvide
     );
   }
 
-  Widget _buildContent() {
+  Widget _buildContent(User userData) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 16),
-        ..._buildListItems(),
+        ..._buildListItems(userData),
         const Spacer(),
       ],
     );
   }
 
-  List<Widget> _buildListItems() {
+  List<Widget> _buildListItems(User userData) {
     final listItems = <Widget>[];
     for (var i = 0; i < _menuTitles.length; ++i) {
       listItems.add(
@@ -125,26 +130,30 @@ class _MenuState extends State<CustomMenuUserInventory> with SingleTickerProvide
             padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 16),
             child: ElevatedButton(
               onPressed: () {
-                if(_menuTitles[i].compareTo('Logout')==0){
-                  // Logout Routing 
-                  context.go('/');
+                
+                String idUser = userData.id;
+                  String type = Enums.getActorText(userData.type);
 
-                }else if(_menuTitles[i].compareTo('Product Buyed')==0){
-                  // Product Buyed Routing 
-                  context.go('/home-page-user/profile/product-buyed');
+                  if(_menuTitles[i].compareTo('Logout')==0){
+                    // Logout Routing
+                    /// Logout Service  
+                    context.go('/');
 
-                }else if(_menuTitles[i].compareTo('History')==0){
-                  // History
-                  context.go('/home-page-user/profile/history');
+                  }else if(_menuTitles[i].compareTo('Product Buyed')==0){
+                    // Product Buyed Routing 
+                    context.go('/home-page-user/$type/$idUser/profile/product-buyed');
 
-                }else if(_menuTitles[i].compareTo('Shop')==0){
-                  // Go to shop home 
-                  context.go('/home-page-user');
+                  }else if(_menuTitles[i].compareTo('History')==0){
+                    // History
+                    context.go('/home-page-user/$type/$idUser/profile/history');
 
-                }else if(_menuTitles[i].compareTo('Setting')==0){
-                  // Setting Routing 
-                  context.go('/home-page-user/profile');
-                }
+                  }else if(_menuTitles[i].compareTo('Shop')==0){
+                    // Go to shop home 
+                    context.go('/home-page-user/$type/$idUser/');
+                  }else if(_menuTitles[i].compareTo('Setting')==0){
+                    // Inventory Routing 
+                    context.go('/home-page-user/$type/$idUser/profile');
+                  }
                 },
               child: 
               Text(

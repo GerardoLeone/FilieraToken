@@ -1,6 +1,6 @@
 enum CustomType { neutral, danger, warning, success }
 
-enum Actor { MilkHub, CheeseProducer, Retailer, Consumer }
+enum Actor { MilkHub, CheeseProducer, Retailer, Consumer, unknown }
 
 enum Asset { MilkBatch, CheeseBlock, CheesePiece }
 
@@ -21,8 +21,32 @@ class Enums {
         return "Retailer";
       case Actor.Consumer:
         return "Consumer";
+      case Actor.unknown:
+        return "";
     }
   }
+
+
+  /*
+  *   Questa funzione restituisce un testo di default basandosi sull'Actor dati in input
+  */
+  static Actor getActor(String actorName) {
+    print("Get Actor Name : "+actorName);
+    switch(actorName) {
+      case "MilkHub":
+        return Actor.MilkHub;
+      case "CheeseProducer":
+        return Actor.CheeseProducer;
+      case "Retailer":
+        return Actor.Retailer;
+      case "Consumer":
+      return Actor.Consumer;
+      default :
+      return Actor.unknown;  
+    }
+  }
+
+
 
   /*
    *  Questa funzione restituisce un testo di default basandosi sul CustomType
@@ -67,6 +91,8 @@ class Enums {
         return 3;
       case Actor.Consumer:
         return 4;
+      case Actor.unknown:
+        return 0;
     }
   } 
 

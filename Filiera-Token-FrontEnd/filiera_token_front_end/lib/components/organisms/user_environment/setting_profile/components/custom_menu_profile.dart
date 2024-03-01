@@ -1,14 +1,19 @@
+import 'package:filiera_token_front_end/models/User.dart';
+import 'package:filiera_token_front_end/utils/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class CustomMenu extends StatefulWidget {
-  const CustomMenu({super.key});
+
+  final User userData;
+  const CustomMenu({super.key, required this.userData});
 
   @override
   State<CustomMenu> createState() => _MenuState();
 }
 
 class _MenuState extends State<CustomMenu> with SingleTickerProviderStateMixin {
+  
   static const _menuTitles = [
     'Product Buyed', // Product Buyed
     'Inventory',// Inventory
@@ -70,7 +75,7 @@ class _MenuState extends State<CustomMenu> with SingleTickerProviderStateMixin {
         fit: StackFit.expand,
         children: [
           _buildFlutterLogo(),
-          _buildContent(),
+          _buildContent(widget.userData),
         ],
       ),
     );
@@ -89,18 +94,18 @@ class _MenuState extends State<CustomMenu> with SingleTickerProviderStateMixin {
     );
   }
 
-  Widget _buildContent() {
+  Widget _buildContent(User user) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 16),
-        ..._buildListItems(),
+        ..._buildListItems(user),
         const Spacer(),
       ],
     );
   }
 
-  List<Widget> _buildListItems() {
+  List<Widget> _buildListItems(User user) {
     final listItems = <Widget>[];
     for (var i = 0; i < _menuTitles.length; ++i) {
       listItems.add(
@@ -125,25 +130,29 @@ class _MenuState extends State<CustomMenu> with SingleTickerProviderStateMixin {
             padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 16),
             child: ElevatedButton(
               onPressed: () {
-                if(_menuTitles[i].compareTo('Logout')==0){
-                  // Logout Routing 
-                  context.go('/');
 
-                }else if(_menuTitles[i].compareTo('Product Buyed')==0){
-                  // Product Buyed Routing 
-                  context.go('/home-page-user/profile/product-buyed');
+                  String idUser = user.id;
+                  String _type = Enums.getActorText(user.type);
+                  if(_menuTitles[i].compareTo('Logout')==0){
+                    // Logout Routing
+                    /// Logout Service  
+                    context.go('/');
 
-                }else if(_menuTitles[i].compareTo('History')==0){
-                  // History
-                  context.go('/home-page-user/profile/history');
+                  }else if(_menuTitles[i].compareTo('Product Buyed')==0){
+                    // Product Buyed Routing 
+                    context.go('/home-page-user/$_type/$idUser/profile/product-buyed');
 
-                }else if(_menuTitles[i].compareTo('Shop')==0){
-                  // Go to shop home 
-                  context.go('/home-page-user');
-                }else if(_menuTitles[i].compareTo('Inventory')==0){
-                  // Inventory Routing 
-                  context.go('/home-page-user/profile/inventory');
-                }
+                  }else if(_menuTitles[i].compareTo('History')==0){
+                    // History
+                    context.go('/home-page-user/$_type/$idUser/profile/history');
+
+                  }else if(_menuTitles[i].compareTo('Shop')==0){
+                    // Go to shop home 
+                    context.go('/home-page-user/$_type/$idUser');
+                  }else if(_menuTitles[i].compareTo('Inventory')==0){
+                    // Inventory Routing 
+                    context.go('/home-page-user/$_type/$idUser/profile/inventory');
+                  }
                 },
               child: 
               Text(

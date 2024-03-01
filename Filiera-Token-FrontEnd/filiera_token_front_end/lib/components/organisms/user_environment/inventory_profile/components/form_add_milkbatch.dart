@@ -80,7 +80,7 @@ class _MilkBatchFormState extends State<MilkBatchForm> {
                 // Dati del form validi, esegui l'azione desiderata
                 // Esempio: creazione di un oggetto MilkBatch
                 Product milkBatch = MilkBatch(
-                  id: 1, //TODO: Sostituisci con la logica per generare un ID univoco
+                  id: "1", //TODO: Sostituisci con la logica per generare un ID univoco
                   name: _nameController.text,
                   description: _descriptionController.text,
                   seller: "Nome del Seller", //TODO: Sostituisci con la logica per ottenere il seller

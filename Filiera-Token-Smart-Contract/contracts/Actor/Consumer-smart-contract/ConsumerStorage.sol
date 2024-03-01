@@ -32,39 +32,30 @@ contract ConsumerStorage is IUserStorageInterface {
     /**
      * addUser() effettuiamo la registrazione dell'utente Consumer 
      */
-    function addUser(
-        string memory _fullName,
-         string memory _password,
-         string memory _email,
-          address walletConsumer) external {
+    function addUser(string memory _fullName, string memory _password,string memory _email, address walletConsumer) external {
                 
         // Genera l'ID manualmente utilizzando keccak256
-        bytes32 idHash = keccak256(abi.encodePacked(
-            _fullName,
-            _password,
-            _email,
-            walletConsumer
-               ));
-        uint256 lastIdMilkHub = uint256(idHash);
+        bytes32 idHash = ripemd160(abi.encodePacked(_fullName, _password, _email, walletConsumer)); // Produce un hash di 20 byte
+        uint256 lastIdConsumer = uint256(idHash);
 
         require(consumers[walletConsumer].id == 0, "Consumer already registered");
         require(bytes(_fullName).length > 0, "Full name cannot be empty");
         require(bytes(_password).length > 0, "Password cannot be empty");
         require(bytes(_email).length > 0, "Email cannot be empty");
+        require(address(walletConsumer)!=address(0),"Address cannot be empty");
         
         // Crea un nuovo consumatore con l'ID univoco
-        Consumer memory newMilkHub = Consumer({
-            id: lastIdMilkHub,
+        Consumer memory newConsumer = Consumer({
+            id: lastIdConsumer,
             fullName: _fullName,
             password: _password,
             email: _email,
-            balance: 100
-        });
+            balance: 100        });
         // Inserisco l'address 
         addressList.push(walletConsumer);
 
         // Inserisce il nuovo consumer all'interno della Lista dei Consumer 
-        consumers[walletConsumer] = newMilkHub;
+        consumers[walletConsumer] = newConsumer;
     }
 
     /**
@@ -75,10 +66,10 @@ contract ConsumerStorage is IUserStorageInterface {
     function loginUser(address walletConsumer, string memory _email, string memory _password) external view returns(bool){
 
         // Recupero il Consumer 
-        Consumer storage milkhub = consumers[walletConsumer];
+        Consumer storage consumer = consumers[walletConsumer];
         
         // Verifico che l'email e la password hashate sono uguali tra di loro 
-        return keccak256(abi.encodePacked(milkhub.email, milkhub.password)) == keccak256(abi.encodePacked(_email, _password));
+        return ripemd160(abi.encodePacked(consumer.email, consumer.password)) == ripemd160(abi.encodePacked(_email, _password));
     }
 
     // Funzione per eliminare il Consumer dato il suo indirizzo del wallet 
@@ -93,6 +84,16 @@ contract ConsumerStorage is IUserStorageInterface {
         }
     }
 
+    function deleteConsumerFromList(address walletConsumer)internal returns (bool) {
+        for(uint256 i=0; ; i++){
+            if(addressList[i] == walletConsumer){
+                delete  addressList[i];
+                return true;
+            }
+        }
+        return false;
+    }
+
     // Check if exist the User 
     function isUserPresent(address walletConsumer) external view returns(bool){
 
@@ -105,8 +106,8 @@ contract ConsumerStorage is IUserStorageInterface {
         - Funzione getId() attraverso l'address del Consumer riusciamo a recuperare il suo ID
     */
     function getId(address walletConsumer) external view  returns(uint256){
-        Consumer memory milkhub = consumers[walletConsumer];
-        return milkhub.id;
+        Consumer memory consumer = consumers[walletConsumer];
+        return consumer.id;
     }
 
     /**
@@ -115,8 +116,8 @@ contract ConsumerStorage is IUserStorageInterface {
     function getFullName(address walletConsumer, uint256 _id) external view  returns(string memory){
         require(consumers[walletConsumer].id ==_id,"ID not Valid!");
         
-        Consumer memory milkhub = consumers[walletConsumer];
-        return milkhub.fullName;
+        Consumer memory consumer = consumers[walletConsumer];
+        return consumer.fullName;
     }
 
     /**
@@ -124,8 +125,8 @@ contract ConsumerStorage is IUserStorageInterface {
     */
     function getEmail(address walletConsumer, uint256 _id) external view  returns(string memory){
         require(consumers[walletConsumer].id==_id,"ID not Valid!");
-        Consumer memory milkhub = consumers[walletConsumer];
-        return milkhub.email;
+        Consumer memory consumer = consumers[walletConsumer];
+        return consumer.email;
     }
 
     /**
@@ -133,8 +134,9 @@ contract ConsumerStorage is IUserStorageInterface {
     */
     function getBalance(address walletConsumer, uint256 _id) external view  returns(uint256){
         require(consumers[walletConsumer].id == _id,"ID not Valid!");
-        Consumer memory milkhub = consumers[walletConsumer];
-        return milkhub.balance;
+
+        Consumer memory consumer = consumers[walletConsumer];
+        return consumer.balance;
     }
 
     /**
@@ -144,19 +146,23 @@ contract ConsumerStorage is IUserStorageInterface {
      */
     function getUser(address walletConsumer) external view returns (uint256, string memory, string memory, string memory, uint256) {
 
-        Consumer memory milkhub = consumers[walletConsumer];
+        Consumer memory consumer = consumers[walletConsumer];
 
         // Restituisce i dati del consumatore
-        return (milkhub.id, milkhub.fullName, milkhub.password, milkhub.email, milkhub.balance);
+        return (consumer.id,
+         consumer.fullName,
+          consumer.password,
+           consumer.email,
+            consumer.balance
+            );
     }
 
     /**
     *Ritorna la Lista degli address
     */
-    function getListAddress() external view returns (address [] memory){  
+    function getListAddressConsumer() external view returns (address [] memory){  
         return addressList;
     }
-
 
     // - Funzione updateBalance() attraverso l'address e l'id, riusciamo a settare il nuovo balance
     function updateBalance(address walletConsumer, uint256 balance) external{
@@ -164,15 +170,9 @@ contract ConsumerStorage is IUserStorageInterface {
         consumers[walletConsumer].balance = balance;
     }
 
-    function deleteConsumerFromList(address walletConsumer)internal returns (bool) {
-        for(uint256 i=0; ; i++){
-            if(addressList[i] == walletConsumer){
-                delete  addressList[i];
-                return true;
-            }
-        }
-        return false;
-    }
+
 
 }   
+
+
 

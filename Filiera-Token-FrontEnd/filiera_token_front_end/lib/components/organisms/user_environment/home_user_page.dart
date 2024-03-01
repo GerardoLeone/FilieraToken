@@ -89,36 +89,14 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
     }
   }
 
-  /*= [
+
 
     // Lista di prodotti fittizia
     List<Product> products = [
-    MilkBatch(id: 1, name: "Partita di Latte 1", description: "Descrizione partita di latte 1", seller: "Milk Hub 1", expirationDate: "10-01-2025", quantity: 30, pricePerLitre: 3),
-    MilkBatch(id: 2, name: "Partita di Latte 2", description: "Descrizione partita di latte 2", seller: "Milk Hub 2", expirationDate: "10-05-2025", quantity: 22, pricePerLitre: 2),
-    MilkBatch(id: 1, name: "Partita di Latte 1", description: "Descrizione partita di latte 1", seller: "Milk Hub 1", expirationDate: "10-01-2025", quantity: 30, pricePerLitre: 3),
-    MilkBatch(id: 2, name: "Partita di Latte 2", description: "Descrizione partita di latte 2", seller: "Milk Hub 2", expirationDate: "10-05-2025", quantity: 22, pricePerLitre: 2),
-    MilkBatch(id: 1, name: "Partita di Latte 1", description: "Descrizione partita di latte 1", seller: "Milk Hub 1", expirationDate: "10-01-2025", quantity: 30, pricePerLitre: 3),
-    MilkBatch(id: 2, name: "Partita di Latte 2", description: "Descrizione partita di latte 2", seller: "Milk Hub 2", expirationDate: "10-05-2025", quantity: 22, pricePerLitre: 2),
-
-    MilkBatch(id: 1, name: "Partita di Latte 1", description: "Descrizione partita di latte 1", seller: "Milk Hub 1", expirationDate: "10-01-2025", quantity: 30, pricePerLitre: 3),
-    MilkBatch(id: 2, name: "Partita di Latte 2", description: "Descrizione partita di latte 2", seller: "Milk Hub 2", expirationDate: "10-05-2025", quantity: 22, pricePerLitre: 2),
-    
-    CheeseBlock(id: 3, name: "Blocco di Formaggio 1", description: "Descrizione blocco di formaggio 3", seller: "Cheese Producer 1", dop: "dop", price: 500, quantity: 1),
-    CheeseBlock(id: 4, name: "Blocco di Formaggio 2", description: "Descrizione blocco di formaggio 4", seller: "Cheese Producer 2", dop: "dop", price: 550, quantity: 2),
-    CheeseBlock(id: 4, name: "Blocco di Formaggio 2", description: "Descrizione blocco di formaggio 4", seller: "Cheese Producer 2", dop: "dop", price: 550, quantity: 2),
-    CheeseBlock(id: 3, name: "Blocco di Formaggio 1", description: "Descrizione blocco di formaggio 3", seller: "Cheese Producer 1", dop: "dop", price: 500, quantity: 1),
-    CheeseBlock(id: 4, name: "Blocco di Formaggio 2", description: "Descrizione blocco di formaggio 4", seller: "Cheese Producer 2", dop: "dop", price: 550, quantity: 2),
-
-    CheesePiece(id: 5, name: "Pezzo di Formaggio 1", description: "Descrizione pezzo di formaggio 5", seller: "Retailer 1", price: 10, weight: 1),
-    CheesePiece(id: 6, name: "Pezzo di Formaggio 2", description: "Descrizione pezzo di formaggio 6", seller: "Retailer 2", price: 15, weight: 2),
-    CheeseBlock(id: 3, name: "Blocco di Formaggio 1", description: "Descrizione blocco di formaggio 3", seller: "Cheese Producer 1", dop: "dop", price: 500, quantity: 1),
-    CheesePiece(id: 5, name: "Pezzo di Formaggio 1", description: "Descrizione pezzo di formaggio 5", seller: "Retailer 1", price: 10, weight: 1),
-    CheesePiece(id: 6, name: "Pezzo di Formaggio 2", description: "Descrizione pezzo di formaggio 6", seller: "Retailer 2", price: 15, weight: 2),
-    CheesePiece(id: 5, name: "Pezzo di Formaggio 1", description: "Descrizione pezzo di formaggio 5", seller: "Retailer 1", price: 10, weight: 1),
-    CheesePiece(id: 6, name: "Pezzo di Formaggio 2", description: "Descrizione pezzo di formaggio 6", seller: "Retailer 2", price: 15, weight: 2),
-
+    MilkBatch(id: "1", name: "Partita di Latte 1", description: "Descrizione partita di latte 1", seller: "Milk Hub 1", expirationDate: "10-01-2025", quantity: 30, pricePerLitre: 3),
+    MilkBatch(id: "2", name: "Partita di Latte 2", description: "Descrizione partita di latte 2", seller: "Milk Hub 2", expirationDate: "10-05-2025", quantity: 22, pricePerLitre: 2),
+    MilkBatch(id: "2", name: "Partita di Latte 2", description: "Descrizione partita di latte 2", seller: "Milk Hub 2", expirationDate: "10-05-2025", quantity: 22, pricePerLitre: 2),
   ];
-*/
   
   // Indice della pagina corrente
   int currentPage = 0;
@@ -131,9 +109,9 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
       return CustomLoadingIndicator(progress: 4.5);
       } else {
 
-    Actor actor = Actor.MilkHub; //TODO: gettarsi con hive il valore dell'attore
+    /*Actor actor = Actor.MilkHub; //TODO: gettarsi con hive il valore dell'attore
     String wallet = "0x7dDc959b89472A1812Ace5b2D2ae6f2926c0AABD"; //TODO: gettarsi con hive il wallet
-    Future<List<Product>> productList = Future(() => []);
+    Future<List<Product>> productList = products as Future<List<Product>>;
 
     switch(actor) {
       case Actor.MilkHub:
@@ -151,7 +129,7 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
       default:
         print("Errore nella selezione dell'attore in fase di build (home_user_page.dart)");
         break;
-    }
+    }*/
 
     return Scaffold(
       appBar: _buildAppBar(),
@@ -160,7 +138,7 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
           Padding(
             padding: EdgeInsets.all(50.5),
             child: FutureBuilder(
-              future: productList,
+              future: null,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   // Se il futuro è ancora in attesa, mostra un indicatore di caricamento
@@ -170,9 +148,9 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
                   return Text('Errore: ${snapshot.error}');
                 } else {
                   // Se il futuro è completato con successo, otterrai la lista di prodotti
-                  List<Product> products = snapshot.data as List<Product>;
+                  List<Product> productsList = products as List<Product>;
                   return SingleChildScrollView(
-                    child: CustomProductList(products: products, onProductTap: handleProductTap),
+                    child: CustomProductList(products: productsList, onProductTap: handleProductTap),
                   );
                 }
               },

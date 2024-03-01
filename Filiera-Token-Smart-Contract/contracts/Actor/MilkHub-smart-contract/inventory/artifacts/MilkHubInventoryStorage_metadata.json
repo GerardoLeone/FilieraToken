@@ -19,17 +19,17 @@
 					},
 					{
 						"internalType": "string",
-						"name": "_scadenza",
+						"name": "expirationDate",
 						"type": "string"
 					},
 					{
 						"internalType": "uint256",
-						"name": "_quantity",
+						"name": "quantity",
 						"type": "uint256"
 					},
 					{
 						"internalType": "uint256",
-						"name": "_price",
+						"name": "price",
 						"type": "uint256"
 					}
 				],
@@ -68,7 +68,7 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "_id_MilkBatch",
+						"name": "idMilkBatch",
 						"type": "uint256"
 					},
 					{
@@ -97,7 +97,7 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "_id",
+						"name": "id",
 						"type": "uint256"
 					}
 				],
@@ -113,27 +113,32 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
-				"name": "getListMilkBatchAll",
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletMilkHub",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					}
+				],
+				"name": "getExpirationDate",
 				"outputs": [
 					{
-						"internalType": "uint256[]",
+						"internalType": "string",
 						"name": "",
-						"type": "uint256[]"
+						"type": "string"
 					}
 				],
 				"stateMutability": "view",
 				"type": "function"
 			},
 			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "walletMilkHub",
-						"type": "address"
-					}
-				],
-				"name": "getListMilkBatchIdByMilkHub",
+				"inputs": [],
+				"name": "getGlobalMilkBatchIds",
 				"outputs": [
 					{
 						"internalType": "uint256[]",
@@ -153,7 +158,7 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "_id",
+						"name": "id",
 						"type": "uint256"
 					}
 				],
@@ -192,7 +197,7 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "_id",
+						"name": "id",
 						"type": "uint256"
 					}
 				],
@@ -216,7 +221,7 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "_id",
+						"name": "id",
 						"type": "uint256"
 					}
 				],
@@ -237,19 +242,14 @@
 						"internalType": "address",
 						"name": "walletMilkHub",
 						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "_id",
-						"type": "uint256"
 					}
 				],
-				"name": "getScadenza",
+				"name": "getUserMilkBatchIds",
 				"outputs": [
 					{
-						"internalType": "string",
+						"internalType": "uint256[]",
 						"name": "",
-						"type": "string"
+						"type": "uint256[]"
 					}
 				],
 				"stateMutability": "view",
@@ -264,7 +264,7 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "_id",
+						"name": "id",
 						"type": "uint256"
 					}
 				],
@@ -288,12 +288,12 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "_id",
+						"name": "id",
 						"type": "uint256"
 					},
 					{
 						"internalType": "uint256",
-						"name": "_newQuantity",
+						"name": "newQuantity",
 						"type": "uint256"
 					}
 				],
@@ -312,7 +312,7 @@
 			"kind": "user",
 			"methods": {
 				"isMilkBatchPresent(address,uint256)": {
-					"notice": "- Funzione isMilkBatchPresent() funzione per verificare che il MilkBatch è presente  - Verifica tramite _id e address del walletMilkHub se il Prodotto è presente  - ritorna TRUE se il confronto è vero  - ritorna FALSE se non è presente "
+					"notice": "- Funzione isMilkBatchPresent() funzione per verificare che il MilkBatch è presente  - Verifica tramite id e address del walletMilkHub se il Prodotto è presente  - ritorna TRUE se il confronto è vero  - ritorna FALSE se non è presente "
 				}
 			},
 			"version": 1
@@ -335,11 +335,11 @@
 	},
 	"sources": {
 		"contracts/Actor/MilkHub-smart-contract/inventory/MilkHubInventoryStorage.sol": {
-			"keccak256": "0x01b55caaeaed2b761fd3645b723e34f0d023d49eb1e5bf52f099e260d5451933",
+			"keccak256": "0x9ff7271555b5205475fbf85b929af7e6733d3c29cabf4d021f33768d9df35bab",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://63d2e5b6efc4833f7bfe24effc917d62919c1485e9f5d9a63fb1732415936a80",
-				"dweb:/ipfs/QmQPHapiyf8RDr3Vrop3wASyvR3JMxbbb75bo1e4bf97Dx"
+				"bzz-raw://aac58acdb9459fb605749ea0e70c4ef5f9325fd1684c3bf5cfdb58e9aa111249",
+				"dweb:/ipfs/QmQhvrn1Lo72cKSqczH1gwo67D47sSJf3W9TGyLb6C5KmA"
 			]
 		}
 	},

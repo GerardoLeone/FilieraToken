@@ -5,7 +5,7 @@ pragma solidity ^0.8.21;
 import "./Filieratoken.sol";
 
 import "../Actor/Retailer-smart-contract/inventory/RetailerInventoryService.sol";
-import "../Actor/Consumer-smart-contract/inventory/ConsumerBuyerInventoryService.sol";
+import "../Actor/Consumer-smart-contract/inventory/ConsumerBuyerService.sol";
 import "../Actor/Consumer-smart-contract/ConsumerService.sol";
 import "../Actor/Retailer-smart-contract/RetailerService.sol";
 
@@ -28,7 +28,7 @@ contract TransactionCheesePieceProductService {
     RetailerInventoryService private retailerInventoryService;
 
     // Consumer - Contains CheesePiece (product bought by Consumer).
-    ConsumerBuyerInventoryService private consumerBuyerInventoryService;
+    ConsumerBuyerService private consumerBuyerService;
 
 
         /**
@@ -39,7 +39,7 @@ contract TransactionCheesePieceProductService {
      * @param _consumerService Indirizzo del contratto ConsumerService.
      * 
      * @param _retailerInventoryService Indirizzo del contratto RetailerInventoryService.
-     * @param _consumerBuyerInventoryService Indirizzo del contratto ConsumerBuyerInventoryService.
+     * @param _consumerBuyerService Indirizzo del contratto ConsumerBuyerService.
      */
     constructor(
         address _filieraToken,
@@ -47,7 +47,7 @@ contract TransactionCheesePieceProductService {
         address _retailerService,
         address _consumerService,
         address _retailerInventoryService,
-        address _consumerBuyerInventoryService
+        address _consumerBuyerService
 
         ){
         // Filiera Token Service 
@@ -58,7 +58,7 @@ contract TransactionCheesePieceProductService {
         consumerService = ConsumerService(_consumerService);
     
         retailerInventoryService = RetailerInventoryService(_retailerInventoryService);
-        consumerBuyerInventoryService = ConsumerBuyerInventoryService(_consumerBuyerInventoryService);
+        consumerBuyerService = ConsumerBuyerService(_consumerBuyerService);
     }
 
 
@@ -104,7 +104,7 @@ contract TransactionCheesePieceProductService {
 
 
         // Aggiunta del MilkBatch nell'inventario del CheeseProducer
-        consumerBuyerInventoryService.addCheesePiece(
+        consumerBuyerService.addCheesePiece(
             ownerCheesePiece,
             msg.sender, 
             _id_CheesePiece,

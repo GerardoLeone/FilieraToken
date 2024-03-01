@@ -37,7 +37,7 @@ contract MilkHubInventoryService {
 
 
     // Evento per notificare l'aggiunta e l'eliminazione dei dati
-    event MilkBatchAdded(address indexed userAddress, uint256 id, string message, string scadenza, uint256 quantity, uint256 price);
+    event MilkBatchAdded(address indexed userAddress, uint256 id, string message, string expirationDate, uint256 quantity, uint256 price);
     // Evento per notificare l'eliminazione del MilkBatch 
     event MilkBatchDeleted(address indexed userAddress, uint256 indexed id, string message);
     // Evento per notificare la modifica del MilkBatch 
@@ -92,14 +92,14 @@ contract MilkHubInventoryService {
        - Evento : 
        - milkBatchAdded()
      */
-    function addMilkBatch(string memory _scadenza, uint256 _quantity, uint256 _price, address walletMilkHub) external checkAddress(walletMilkHub) {
+    function addMilkBatch(string memory expirationDate, uint256 quantity, uint256 price, address walletMilkHub) external checkAddress(walletMilkHub) {
         // Check if User exists
         require(milkhubService.isUserPresent(walletMilkHub), "User is not present in data");
 
         //Call function of Storage 
-        (uint256 id, string memory scadenza, uint256 quantity, uint256 price) = milkhubInventoryStorage.addMilkBatch(walletMilkHub, _scadenza, _quantity, _price);
+        (uint256 _id, string memory _expirationDate, uint256 _quantity, uint256 _price) = milkhubInventoryStorage.addMilkBatch(walletMilkHub, expirationDate, quantity, price);
         // Emissione dell'evento 
-        emit MilkBatchAdded(walletMilkHub, id, "Pezzo di formaggio inserito !", scadenza, quantity, price);
+        emit MilkBatchAdded(walletMilkHub, _id, "Pezzo di formaggio inserito !", _expirationDate, _quantity, _price);
     }
 
     /**
@@ -107,29 +107,29 @@ contract MilkHubInventoryService {
      * - ID milkBatch
        - msg.sender -> mi permette di visualizzare solo se sono il proprietario di questo prodotto 
      * */  
-    function getMilkBatch(uint256 _id, address walletMilkHub) external view checkAddress(walletMilkHub) returns (uint256, string memory, uint256, uint256)  {
+    function getMilkBatch(uint256 id, address walletMilkHub) external view checkAddress(walletMilkHub) returns (uint256, string memory, uint256, uint256)  {
         
         // Retrieve msg.sender 
-        require(this.isMilkBatchPresent(walletMilkHub, _id),"MilkBatch not Present!");
+        require(this.isMilkBatchPresent(walletMilkHub, id),"MilkBatch not Present!");
 
-        return milkhubInventoryStorage.getMilkBatch(walletMilkHub,_id);
+        return milkhubInventoryStorage.getMilkBatch(walletMilkHub,id);
     }
 
     // - Ritorna la lista degli id di tutti i MilkBatch 
     // - Solo l'utente può vedere questa Lista ( il suo inventario ) 
-    function getListMilkBatchIdByMilkHub(address walletMilkHub) external view checkAddress(walletMilkHub) returns (uint256[] memory){
+    function getUserMilkBatchIds(address walletMilkHub) external view checkAddress(walletMilkHub) returns (uint256[] memory){
         // Verifico che l'utente sia presente 
         require(milkhubService.isUserPresent(walletMilkHub),"Utente non Presente!");
 
-        return milkhubInventoryStorage.getListMilkBatchIdByMilkHub(walletMilkHub);
+        return milkhubInventoryStorage.getUserMilkBatchIds(walletMilkHub);
     }
 
-    function getListMilkBatches(address walletCheeseProducer) external view returns(uint256[]memory){
+    function getGlobalMilkBatchIds(address walletCheeseProducer) external view returns(uint256[]memory){
         // Solo il cheeseProducer può vedere questa Lista 
         // AccessControlProduct -> controlla se è il CheeseProducer 
         require(accessControlProduct.checkViewMilkBatchProduct(walletCheeseProducer),"Utente non autorizzato!");
 
-        return milkhubInventoryStorage.getListMilkBatchAll();
+        return milkhubInventoryStorage.getGlobalMilkBatchIds();
     }
 
     /**
@@ -137,14 +137,14 @@ contract MilkHubInventoryService {
      * - ID 
      * - Verficare che l'utente che vuole eseguire la transazione sia presente.
      */
-    function deleteMilkBatch(uint256 _id,address walletMilkHub) external checkAddress(walletMilkHub) returns(bool value) {
+    function deleteMilkBatch(uint256 id,address walletMilkHub) external checkAddress(walletMilkHub) returns(bool value) {
         // Check if User is Present
         require(milkhubService.isUserPresent(walletMilkHub), "User is not present!");
         // Check if Product is present 
-        require(this.isMilkBatchPresent(walletMilkHub, _id),"MilkBatch not Present!");
+        require(this.isMilkBatchPresent(walletMilkHub, id),"MilkBatch not Present!");
 
-        if(milkhubInventoryStorage.deleteMilkBatch(walletMilkHub,_id)){
-            emit MilkBatchDeleted(walletMilkHub,_id,"Pezzo di Formaggio e' stato eleminato");
+        if(milkhubInventoryStorage.deleteMilkBatch(walletMilkHub,id)){
+            emit MilkBatchDeleted(walletMilkHub,id,"Pezzo di Formaggio e' stato eleminato");
             return true;
         }else {
             return false;
@@ -154,50 +154,50 @@ contract MilkHubInventoryService {
 
 // ----------------------------------------------------------- TransactionManager ------------------------------------//
 
-    function checkProductToSell(address ownerMilkBatch, uint256 _id_MilkBatch, uint256 quantityToBuy) external view returns (bool){
+    function checkProductToSell(address ownerMilkBatch, uint256 idMilkBatch, uint256 quantityToBuy) external view returns (bool){
         
         require(msg.sender != address(0),"Address not Valid!");
         require(ownerMilkBatch != address(0),"Address not Valid!");
 
-        return milkhubInventoryStorage.checkProduct(ownerMilkBatch, _id_MilkBatch, quantityToBuy);
+        return milkhubInventoryStorage.checkProduct(ownerMilkBatch, idMilkBatch, quantityToBuy);
     }
 
 //-------------------------------------------------------------------- Get Function --------------------------------------------------------------------//
 
-    function getMilkBatchExpirationDate(address walletMilkHub, uint256 _id) external view checkAddress(walletMilkHub) returns(string memory) {
+    function getMilkBatchExpirationDate(address walletMilkHub, uint256 id) external view checkAddress(walletMilkHub) returns(string memory) {
         
         require(milkhubService.isUserPresent(walletMilkHub), "User is not present!");
 
-        require(this.isMilkBatchPresent(walletMilkHub, _id),"MilkBatch not Present!");
+        require(this.isMilkBatchPresent(walletMilkHub, id),"MilkBatch not Present!");
 
-        return milkhubInventoryStorage.getScadenza(walletMilkHub,_id);        
+        return milkhubInventoryStorage.getExpirationDate(walletMilkHub,id);        
     }
 
 
-    function getMilkBatchQuantity(address walletMilkHub, uint256 _id) external view checkAddress(walletMilkHub) returns(uint256) {
+    function getMilkBatchQuantity(address walletMilkHub, uint256 id) external view checkAddress(walletMilkHub) returns(uint256) {
         
         require(milkhubService.isUserPresent(walletMilkHub), "User is not present!");
 
-        require(this.isMilkBatchPresent(walletMilkHub, _id),"MilkBatch not Present!");
+        require(this.isMilkBatchPresent(walletMilkHub, id),"MilkBatch not Present!");
         
-        return milkhubInventoryStorage.getQuantity(walletMilkHub,_id);        
+        return milkhubInventoryStorage.getQuantity(walletMilkHub,id);        
     }
 
 
-    function getMilkBatchPrice(address walletMilkHub, uint256 _id) external view checkAddress(walletMilkHub) returns(uint256) {
+    function getMilkBatchPrice(address walletMilkHub, uint256 id) external view checkAddress(walletMilkHub) returns(uint256) {
         require(milkhubService.isUserPresent(walletMilkHub), "User is not present!");
 
-        require(this.isMilkBatchPresent(walletMilkHub, _id),"MilkBatch not Present!");
+        require(this.isMilkBatchPresent(walletMilkHub, id),"MilkBatch not Present!");
         
-        return milkhubInventoryStorage.getPrice(walletMilkHub,_id);        
+        return milkhubInventoryStorage.getPrice(walletMilkHub,id);        
     }
 
     /**
     * Verifica che il MilkBatch è presente all'interno dell'inventario 
     * - Verifica che l'id non sia nullo e che sia maggiore di 0 e che coincida con l'elemento 
     */
-    function isMilkBatchPresent(address walletMilkHub, uint256 _id) external view checkAddress(walletMilkHub)  returns (bool){
-        return milkhubInventoryStorage.isMilkBatchPresent(walletMilkHub, _id);
+    function isMilkBatchPresent(address walletMilkHub, uint256 id) external view checkAddress(walletMilkHub)  returns (bool){
+        return milkhubInventoryStorage.isMilkBatchPresent(walletMilkHub, id);
     }
 
 
@@ -208,15 +208,15 @@ contract MilkHubInventoryService {
     * Decremento della quantità del MilkBatch 
     * Verifica che la quantità sia maggiore di 0 -> altrimenti elimina
     */
-    function updateMilkBatchQuantity(address ownerMilkHub, uint256 _id, uint256 _quantity) external checkAddress(ownerMilkHub) {
+    function updateMilkBatchQuantity(address ownerMilkHub, uint256 id, uint256 quantity) external checkAddress(ownerMilkHub) {
 
         require(milkhubService.isUserPresent(ownerMilkHub), "User is not present!");
 
-        require(this.isMilkBatchPresent(ownerMilkHub, _id),"MilkBatch not Present!");
+        require(this.isMilkBatchPresent(ownerMilkHub, id),"MilkBatch not Present!");
 
-        milkhubInventoryStorage.updateQuantity(ownerMilkHub, _id, _quantity);
+        milkhubInventoryStorage.updateQuantity(ownerMilkHub, id, quantity);
 
-        emit MilkBatchEdited(ownerMilkHub,"MilkBatch edited!", _quantity);
+        emit MilkBatchEdited(ownerMilkHub,"MilkBatch edited!", quantity);
     }
 
 

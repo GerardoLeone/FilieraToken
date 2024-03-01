@@ -13,7 +13,7 @@ contract CheeseProducerBuyerStorage {
 
     struct MilkBatch {
         uint256 id; // Generato nuovo per il CheeseProducer 
-        uint256 id_MilkBatch; // id di riferimento del MilkBatch 
+        uint256 idMilkBatch; // id di riferimento del MilkBatch 
         address walletMilkHub; // Address del Wallet del MilkHub 
         string expirationDate; // Data di scadenza 
         uint256 quantity; // Quantità da acquistare 
@@ -21,7 +21,7 @@ contract CheeseProducerBuyerStorage {
 
     mapping(address => mapping(uint256 => MilkBatch)) private purchasedMilkBatches; // map of all MilkBatches
 
-    mapping(address => uint256[]) private purchasedMilkBatchListIdForSingleCheeseProducer; // List of Product Purchased of CheeseProducer 
+    mapping(address => uint256[]) private userMilkBatchIds; // List of Product Purchased of CheeseProducer 
 
 
 //--------------------------------------------------------------- Business Logic Service -----------------------------------------------------------------------------------------//
@@ -34,24 +34,24 @@ contract CheeseProducerBuyerStorage {
     * params : 
     * - walletCheeseProducer -> mi serve per il mapping 
     * - walletMilkHub -> mi serve per creare il nuovo elemento  
-    * - id_milkBatch -> mi serve per il riferimento all'elemento acquistato
+    * - idmilkBatch -> mi serve per il riferimento all'elemento acquistato
     */
     function addMilkBatch( 
         
-            address _walletCheeseProducer, 
-            address _walletMilkHub, // Riferimento al wallet del MilkHub 
-            uint256 _id_MilkBatch, // riferimento al prodotto di MilkBatch 
-            string memory _expirationDate,
-            uint256 _quantity
+            address walletCheeseProducer, 
+            address walletMilkHub, // Riferimento al wallet del MilkHub 
+            uint256 idMilkBatch, // riferimento al prodotto di MilkBatch 
+            string memory expirationDate,
+            uint256 quantity
         
-        ) external returns (uint256 id_MilkBatch_Acquistato, string memory expDate, uint256 quantityAcquistata){
+        ) external returns (uint256, string memory, uint256){
 
-        uint256 _id = uint256(keccak256(abi.encodePacked(
-            _expirationDate,
-            _quantity,
-            _walletCheeseProducer,
-            _walletMilkHub,
-            _id_MilkBatch,
+        uint256 id = uint256(keccak256(abi.encodePacked(
+            expirationDate,
+            quantity,
+            walletCheeseProducer,
+            walletMilkHub,
+            idMilkBatch,
             block.timestamp // inserimento di questo attributo per rendere l'acquisto unico nel suo genere 
             // l'articolo in questo modo può essere riacquistato dallo stesso cheeseProducer un'altra volta 
         )));
@@ -59,33 +59,33 @@ contract CheeseProducerBuyerStorage {
 
         //Crea una nuova Partita di Latte
         MilkBatch memory milkBatch = MilkBatch({
-            id: _id,
-            id_MilkBatch: _id_MilkBatch,
-            walletMilkHub: _walletMilkHub,
-            expirationDate: _expirationDate,
-            quantity: _quantity
+            id: id,
+            idMilkBatch: idMilkBatch,
+            walletMilkHub: walletMilkHub,
+            expirationDate: expirationDate,
+            quantity: quantity
         });
 
         //Inserisce la nuova Partita di Latte nella lista purchasedMilkBatches
-        purchasedMilkBatches[_walletCheeseProducer][_id] = milkBatch;
+        purchasedMilkBatches[walletCheeseProducer][id] = milkBatch;
         // Inserisce la partita di latte acquistata nell'elenco delle singole partite di latte 
-        purchasedMilkBatchListIdForSingleCheeseProducer[_walletCheeseProducer].push(_id);
+        userMilkBatchIds[walletCheeseProducer].push(id);
 
-        return (purchasedMilkBatches[_walletCheeseProducer][_id].id, purchasedMilkBatches[_walletCheeseProducer][_id].expirationDate, purchasedMilkBatches[_walletCheeseProducer][_id].quantity);
+        return (purchasedMilkBatches[walletCheeseProducer][id].id, purchasedMilkBatches[walletCheeseProducer][id].expirationDate, purchasedMilkBatches[walletCheeseProducer][id].quantity);
 
     }
 
 
-    function getMilkBatch(address walletCheeseProducer, uint256 _id_MilkBatchAcquistato) external view returns (uint256, address, string memory, uint256) {
+    function getMilkBatch(address walletCheeseProducer, uint256 idMilkBatch) external view returns (uint256, address, string memory, uint256) {
 
-        MilkBatch memory milkBatch = purchasedMilkBatches[walletCheeseProducer][_id_MilkBatchAcquistato];
+        MilkBatch memory milkBatch = purchasedMilkBatches[walletCheeseProducer][idMilkBatch];
 
         return (milkBatch.id, milkBatch.walletMilkHub, milkBatch.expirationDate, milkBatch.quantity);
     }
 
-    function getMilkBatchListIdPurchased(address walletCheeseProducer)external view returns (uint256[] memory){
+    function getUserMilkBatchIds(address walletCheeseProducer)external view returns (uint256[] memory){
         
-        return purchasedMilkBatchListIdForSingleCheeseProducer[walletCheeseProducer];
+        return userMilkBatchIds[walletCheeseProducer];
     }
 
 
@@ -95,10 +95,10 @@ contract CheeseProducerBuyerStorage {
     * - ritorna FALSe se non esiste 
     * - effettua il controllo sull'uguaglianza dell'id del MilkBatch Acquistato
     */
-    function isMilkBatchPresent(address walletCheeseProducer, uint256 _id_MilkBatchAcquistato)external view returns(bool){
-        require( _id_MilkBatchAcquistato !=0 && _id_MilkBatchAcquistato>0,"ID MilkBatch Not Valid!");
+    function isMilkBatchPresent(address walletCheeseProducer, uint256 idMilkBatch)external view returns(bool){
+        require( idMilkBatch !=0 && idMilkBatch>0,"ID MilkBatch Not Valid!");
 
-        return purchasedMilkBatches[walletCheeseProducer][_id_MilkBatchAcquistato].id == _id_MilkBatchAcquistato;
+        return purchasedMilkBatches[walletCheeseProducer][idMilkBatch].id == idMilkBatch;
     }
 
 // -------------------------------------------------------------- Set Function ------------------------------------------------------------------------------------------//
@@ -106,11 +106,11 @@ contract CheeseProducerBuyerStorage {
 
 
     // - Funzione updateMilkBatchQuantity() aggiorna la quantità del MilkBatch 
-    function updateMilkBatchQuantity(address walletCheeseProducer, uint256 _id, uint256 _newQuantity) external  {
+    function updateMilkBatchQuantity(address walletCheeseProducer, uint256 id, uint256 newQuantity) external  {
         // Controllo sulla quantita' 
-        require(_newQuantity<=purchasedMilkBatches[walletCheeseProducer][_id].quantity,"Controllo della Quantita' da utilizzare non andata a buon fine!");
+        require(newQuantity<=purchasedMilkBatches[walletCheeseProducer][id].quantity,"Controllo della Quantita' da utilizzare non andata a buon fine!");
 
-        purchasedMilkBatches[walletCheeseProducer][_id].quantity = _newQuantity;
+        purchasedMilkBatches[walletCheeseProducer][id].quantity = newQuantity;
     }
 
 
@@ -118,21 +118,21 @@ contract CheeseProducerBuyerStorage {
 
 
 
-    function getExpirationDate(address walletCheeseProducer, uint256 _id) external view returns(string memory) {
+    function getExpirationDate(address walletCheeseProducer, uint256 id) external view returns(string memory) {
 
-        MilkBatch memory milkBatch = purchasedMilkBatches[walletCheeseProducer][_id];
+        MilkBatch memory milkBatch = purchasedMilkBatches[walletCheeseProducer][id];
         return milkBatch.expirationDate;
     }
 
-    function getQuantity(address walletCheeseProducer, uint256 _id) external view returns(uint256) {
+    function getQuantity(address walletCheeseProducer, uint256 id) external view returns(uint256) {
 
-        MilkBatch memory milkBatch = purchasedMilkBatches[walletCheeseProducer][_id];
+        MilkBatch memory milkBatch = purchasedMilkBatches[walletCheeseProducer][id];
         return milkBatch.quantity;        
     }
 
-    function getWalletMilkHub(address walletCheeseProducer, uint256 _id) external view returns(address) {
+    function getWalletMilkHub(address walletCheeseProducer, uint256 id) external view returns(address) {
 
-        MilkBatch memory milkBatch = purchasedMilkBatches[walletCheeseProducer][_id];
+        MilkBatch memory milkBatch = purchasedMilkBatches[walletCheeseProducer][id];
         return milkBatch.walletMilkHub;
     }
 
@@ -140,21 +140,21 @@ contract CheeseProducerBuyerStorage {
 // -------------------------------------------------------------- Check Function ------------------------------------------------------------------------------------------//
 
 
-    function checkMilkBatch(address walletCheeseProducer, uint256 _id, uint256 _quantityToTransform) external view returns(bool) {
-        require(purchasedMilkBatches[walletCheeseProducer][_id].id == _id, "Partita di Latte non presente!");
+    function checkMilkBatch(address walletCheeseProducer, uint256 id, uint256 quantityToTransform) external view returns(bool) {
+        require(purchasedMilkBatches[walletCheeseProducer][id].id == id, "Partita di Latte non presente!");
 
-        MilkBatch storage milkBatchObj = purchasedMilkBatches[walletCheeseProducer][_id];
+        MilkBatch storage milkBatchObj = purchasedMilkBatches[walletCheeseProducer][id];
             
-        require(milkBatchObj.quantity >= _quantityToTransform, "Quantity not Valid!");
+        require(milkBatchObj.quantity >= quantityToTransform, "Quantity not Valid!");
         return true;    
     }
 
 
-    function checkQuantity(address walletCheeseProducer,  uint256 _id, uint256 _quantityToTransform ) external view returns(bool){
+    function checkQuantity(address walletCheeseProducer,  uint256 id, uint256 quantityToTransform ) external view returns(bool){
         
-        MilkBatch storage milkBatchObj = purchasedMilkBatches[walletCheeseProducer][_id];
+        MilkBatch storage milkBatchObj = purchasedMilkBatches[walletCheeseProducer][id];
             
-        require(milkBatchObj.quantity >= _quantityToTransform, "Quantity not Valid!");
+        require(milkBatchObj.quantity >= quantityToTransform, "Quantity not Valid!");
 
         return true;    
     }

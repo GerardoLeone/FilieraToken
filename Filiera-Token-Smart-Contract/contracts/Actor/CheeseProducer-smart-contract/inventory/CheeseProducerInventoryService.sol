@@ -89,32 +89,31 @@ contract CheeseProducerInventoryService {
        - CheeseBlockAdded()
      */
     function addCheeseBlock(
-        address _walletCheeseProducer,
-        uint256 _id_MilkBatchAcquistato,
-        string memory _dop,
-        uint256 _quantity,
-        uint256 _price) internal  checkAddress(_walletCheeseProducer) {
+        address walletCheeseProducer,
+        string memory dop,
+        uint256 quantity,
+        uint256 price) internal  checkAddress(walletCheeseProducer) {
         
-        require(cheeseProducerService.isUserPresent(_walletCheeseProducer), "User is not present in data");
+        require(cheeseProducerService.isUserPresent(walletCheeseProducer), "User is not present in data");
         
-        (uint id_Cheese,string memory dop, uint256 pricePerKg, uint256 quantityToTal) = cheeseProducerInventoryStorage.addCheeseBlock(_walletCheeseProducer, _id_MilkBatchAcquistato, _dop, _quantity, _price);
+        (uint _idCheese,string memory _dop, uint256 _pricePerKg, uint256 _quantityToTal) = cheeseProducerInventoryStorage.addCheeseBlock(walletCheeseProducer, dop, quantity, price);
 
-        emit CheeseBlockAdded(_walletCheeseProducer,"MilkBatch convertito con successo ! Ecco il nuovo cheeseBlock!",id_Cheese, dop, quantityToTal, pricePerKg);
+        emit CheeseBlockAdded(walletCheeseProducer,"MilkBatch convertito con successo ! Ecco il nuovo cheeseBlock!",_idCheese, _dop, _quantityToTal, _pricePerKg);
     }
 
     /**
      * Ottenere le informazioni del cheeseblock attraverso : 
      * - ID cheeseBlock
      * */  
-    function getCheeseBlock(uint256 _id_CheeseBlock) external view checkAddress(msg.sender) returns (uint256, string memory, uint256, uint256) {
+    function getCheeseBlock(uint256 idCheeseBlock) external view checkAddress(msg.sender) returns (uint256, string memory, uint256, uint256) {
         
         address walletCheeseProducer = msg.sender;
 
         require(cheeseProducerService.isUserPresent(walletCheeseProducer), "User is not present in data");
 
-        require(this.isCheeseBlockPresent(walletCheeseProducer, _id_CheeseBlock), "CheeseBlock is not present in data");
+        require(this.isCheeseBlockPresent(walletCheeseProducer, idCheeseBlock), "CheeseBlock is not present in data");
 
-        return cheeseProducerInventoryStorage.getCheeseBlock(walletCheeseProducer, _id_CheeseBlock);
+        return cheeseProducerInventoryStorage.getCheeseBlock(walletCheeseProducer, idCheeseBlock);
     }
 
     /**
@@ -122,16 +121,16 @@ contract CheeseProducerInventoryService {
      * - ID 
      * - Verficare che l'utente che vuole eseguire la transazione sia presente.
      */
-    function deleteCheeseBlock(uint256 _id) external returns(bool){
+    function deleteCheeseBlock(uint256 id) external returns(bool){
         // Retrieve msg.sender 
         address walletCheeseProducer = msg.sender;
         // Check if User is Present
         require(cheeseProducerService.isUserPresent(walletCheeseProducer), "User is not present!");
         // Check if Product is present 
-        require(this.isCheeseBlockPresent(walletCheeseProducer, _id),"Cheese Block not Present!");
+        require(this.isCheeseBlockPresent(walletCheeseProducer, id),"Cheese Block not Present!");
 
-        if(cheeseProducerInventoryStorage.deleteCheeseBlock(walletCheeseProducer,_id)){
-            emit CheeseBlockDeleted(walletCheeseProducer,"Cheese Block e' stato eleminato", _id);
+        if(cheeseProducerInventoryStorage.deleteCheeseBlock(walletCheeseProducer,id)){
+            emit CheeseBlockDeleted(walletCheeseProducer,"Cheese Block e' stato eleminato", id);
             return true;
         }else {
             return false;
@@ -140,73 +139,73 @@ contract CheeseProducerInventoryService {
 
 //--------------------------------------------------------------------- Get Function of Service Contract -----------------------------------------------//
 
-    function getDop(address walletCheeseProducer, uint256 _id) external view returns(string memory) {
+    function getDop(address walletCheeseProducer, uint256 id) external view returns(string memory) {
         require(cheeseProducerService.isUserPresent(walletCheeseProducer), "User is not present!");
 
-        require(this.isCheeseBlockPresent(walletCheeseProducer, _id),"MilkBatch not Present!");
+        require(this.isCheeseBlockPresent(walletCheeseProducer, id),"MilkBatch not Present!");
 
-        return cheeseProducerInventoryStorage.getDop(walletCheeseProducer,_id);        
+        return cheeseProducerInventoryStorage.getDop(walletCheeseProducer,id);        
     }
 
-    function getPrice(address walletCheeseProducer, uint256 _id) external view returns(uint256) {
+    function getPrice(address walletCheeseProducer, uint256 id) external view returns(uint256) {
         require(cheeseProducerService.isUserPresent(walletCheeseProducer), "User is not present!");
 
-        require(this.isCheeseBlockPresent(walletCheeseProducer, _id),"MilkBatch not Present!");
+        require(this.isCheeseBlockPresent(walletCheeseProducer, id),"MilkBatch not Present!");
 
-        return cheeseProducerInventoryStorage.getPrice(walletCheeseProducer,_id);        
+        return cheeseProducerInventoryStorage.getPrice(walletCheeseProducer,id);        
     }
 
-    function getCheeseBlockQuantity(address walletCheeseProducer, uint256 _id) external view returns(uint256) {
+    function getCheeseBlockQuantity(address walletCheeseProducer, uint256 id) external view returns(uint256) {
         require(cheeseProducerService.isUserPresent(walletCheeseProducer), "User is not present!");
 
-        require(this.isCheeseBlockPresent(walletCheeseProducer, _id),"MilkBatch not Present!");
+        require(this.isCheeseBlockPresent(walletCheeseProducer, id),"MilkBatch not Present!");
 
-        return cheeseProducerInventoryStorage.getQuantity(walletCheeseProducer,_id);        
+        return cheeseProducerInventoryStorage.getQuantity(walletCheeseProducer,id);        
     }
 
     // Verifica se un determinato CheeseBlock è presente 
-    function isCheeseBlockPresent(address walletCheeseProducer, uint256 _id_cheeseBlock) external view  checkAddress(walletCheeseProducer) returns(bool){
+    function isCheeseBlockPresent(address walletCheeseProducer, uint256 idcheeseBlock) external view  checkAddress(walletCheeseProducer) returns(bool){
 
-        return cheeseProducerInventoryStorage.isCheeseBlockPresent(walletCheeseProducer,_id_cheeseBlock);
+        return cheeseProducerInventoryStorage.isCheeseBlockPresent(walletCheeseProducer,idcheeseBlock);
     }
 
 
-     function getCheeseBlockListIdBySingleCheeseProducer(address walletCheeseProducer) external checkAddress(walletCheeseProducer) view returns (uint256[] memory){
+     function getUserCheeseBlockIds(address walletCheeseProducer) external checkAddress(walletCheeseProducer) view returns (uint256[] memory){
         // Check if exist 
         require(cheeseProducerService.isUserPresent(walletCheeseProducer), "User is not present!");
 
-        return cheeseProducerInventoryStorage.getListCheeseBlockIdByCheeseProducer(walletCheeseProducer);
+        return cheeseProducerInventoryStorage.getUserCheeseBlockIds(walletCheeseProducer);
     }
 
     /*
         - Recupera tutti i CheeseBlock presenti all'interno di Inventory 
         - Verifica che quel CheeseProducer sia all'interno del sistema 
     */
-    function getAllCheeseBlockList(address walleRetailer) view  external  returns (uint256[] memory){
+    function getGlobalCheeseBlockIds(address walleRetailer) view  external  returns (uint256[] memory){
         require(accessControlProduct.checkViewCheeseBlockProduct(walleRetailer),"User Not Authorized!");
         
-        return cheeseProducerInventoryStorage.getListCheeseBlockAll();
+        return cheeseProducerInventoryStorage.getGlobalCheeseBlockIds();
     }
 
 //--------------------------------------------------------------------- Update Function of Service Contract -----------------------------------------------//
 
     // Funzione per trasformare i vari milkBatch in CheeseBlock 
-    function transformMilkBatch(address walletCheeseProducer, uint256 _id_MilkBatchAcquistato, uint256 quantityToTransform, uint256 pricePerKg, string memory dop) external  {
+    function transformMilkBatch(address walletCheeseProducer, uint256 idMilkBatch, uint256 quantityToTransform, uint256 pricePerKg, string memory dop) external  {
         
         //Verifico che il prodotto esiste, che la quantità richiesta da trasformare non ecceda il massimo consentito
-        require(cheeseProducerBuyerService.isMilkBatchAcquistataPresent(walletCheeseProducer,_id_MilkBatchAcquistato),"Prodotto non presente!");
+        require(cheeseProducerBuyerService.isMilkBatchPresent(walletCheeseProducer,idMilkBatch),"Prodotto non presente!");
         // Verifico la quantità 
         // Verifico che quella che devo trasformare sia inferiore o uguale a quella che ho acquistato 
-        require(quantityToTransform<=cheeseProducerBuyerService.getQuantity(walletCheeseProducer,_id_MilkBatchAcquistato),"Quantita' da trasformare non valida!");
+        require(quantityToTransform<=cheeseProducerBuyerService.getQuantity(walletCheeseProducer,idMilkBatch),"Quantita' da trasformare non valida!");
 
-        uint256 _newQuantity = cheeseProducerBuyerService.getQuantity(walletCheeseProducer,_id_MilkBatchAcquistato) - quantityToTransform;
+        uint256 newQuantity = cheeseProducerBuyerService.getQuantity(walletCheeseProducer,idMilkBatch) - quantityToTransform;
 
         //TODO: gestire data di scadenza nel frontend ( Verificare la data di Scadenza con quella Odierna ) 
-        cheeseProducerBuyerService.updateMilkBatchQuantity(walletCheeseProducer,_id_MilkBatchAcquistato, _newQuantity);
+        cheeseProducerBuyerService.updateMilkBatchQuantity(walletCheeseProducer,idMilkBatch, newQuantity);
 
         uint256 weight = quantityToTransform * 5;
         //TODO: gestire il prezzo con SafeMath
-        addCheeseBlock(walletCheeseProducer,_id_MilkBatchAcquistato, dop, weight,pricePerKg);
+        addCheeseBlock(walletCheeseProducer, dop, weight, pricePerKg);
     }
 
 
@@ -217,15 +216,15 @@ contract CheeseProducerInventoryService {
     * Decremento della quantità del CheeseBlock 
     * Verifica che la quantità sia maggiore di 0 -> altrimenti rimani 
     */
-    function updateCheeseBlockQuantity(address ownerCheeseProducer, uint256 _id, uint256 _quantity) external checkAddress(ownerCheeseProducer) {
+    function updateCheeseBlockQuantity(address ownerCheeseProducer, uint256 id, uint256 quantity) external checkAddress(ownerCheeseProducer) {
 
         require(cheeseProducerService.isUserPresent(ownerCheeseProducer), "User is not present!");
 
-        require(this.isCheeseBlockPresent(ownerCheeseProducer, _id),"MilkBatch not Present!");
+        require(this.isCheeseBlockPresent(ownerCheeseProducer, id),"MilkBatch not Present!");
 
-        cheeseProducerInventoryStorage.updateCheeseBlockQuantity(ownerCheeseProducer, _id, _quantity);
+        cheeseProducerInventoryStorage.updateCheeseBlockQuantity(ownerCheeseProducer, id, quantity);
 
-        emit CheeseBlockEdited(ownerCheeseProducer,"CheeseBlock edited!", _quantity);
+        emit CheeseBlockEdited(ownerCheeseProducer,"CheeseBlock edited!", quantity);
     }
 
 }

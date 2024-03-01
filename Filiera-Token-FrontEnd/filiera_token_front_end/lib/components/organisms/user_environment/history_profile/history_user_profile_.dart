@@ -1,13 +1,20 @@
 import 'dart:async';
 
+import 'package:filiera_token_front_end/components/molecules/custom_loading_bar.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_nav_bar.dart';
 import 'package:filiera_token_front_end/components/organisms/user_environment/history_profile/components/custom_eventi_list.dart';
 import 'package:filiera_token_front_end/components/organisms/user_environment/history_profile/components/custom_menu_history.dart';
+import 'package:filiera_token_front_end/components/organisms/user_environment/services/secure_storage_service.dart';
+import 'package:filiera_token_front_end/models/User.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 //Prodotti convertiti
 class UserProfileHistoryPage extends StatefulWidget {
-  const UserProfileHistoryPage({Key? key}) : super(key: key);
+  const UserProfileHistoryPage({Key? key,
+   required String idUser,
+   required String userType
+   }) : super(key: key);
 
   @override
   State<UserProfileHistoryPage> createState() => _UserProfileInventoryProductPageState();
@@ -19,6 +26,10 @@ class _UserProfileInventoryProductPageState extends State<UserProfileHistoryPage
   late AnimationController _drawerSlideController;
 
   late Timer _timer;
+
+  User? user;
+  
+  late SecureStorageService secureStorageService;
 
 
 final GlobalKey<EventListState> _eventListKey = GlobalKey<EventListState>();
@@ -37,7 +48,25 @@ final GlobalKey<EventListState> _eventListKey = GlobalKey<EventListState>();
         _eventListKey.currentState?.generateAndAddEvent();
       });
     });
+    final storage = GetIt.I.get<SecureStorageService>();
+    if(storage!=null){
+      print("storage non è nullo!");
+      secureStorageService = storage;
+      _fetch_Data();
+      
+    }
   }
+
+  Future<void> _fetch_Data() async {
+  final retrievedUser = await secureStorageService.get();
+  if (retrievedUser != null) {
+    setState(() {
+      user = retrievedUser;
+    });
+    print("Type of User : ${user!.type.name}");
+    print("User is Alive!");
+  }
+}
 
   @override
   void dispose() {
@@ -71,6 +100,11 @@ final GlobalKey<EventListState> _eventListKey = GlobalKey<EventListState>();
 
   @override
   Widget build(BuildContext context) {
+    if (user == null) {
+    // Se user non è ancora stato inizializzato, visualizza un indicatore di caricamento o un altro widget di fallback
+    return CustomLoadingIndicator(progress: 4.5,);
+  } else {
+    
     return Scaffold(
           appBar: _buildAppBar(),
           body: Stack(
@@ -87,6 +121,9 @@ final GlobalKey<EventListState> _eventListKey = GlobalKey<EventListState>();
             ),
           );
   }
+  }
+
+
 
 
 
@@ -134,7 +171,7 @@ final GlobalKey<EventListState> _eventListKey = GlobalKey<EventListState>();
       builder: (context, child) {
         return FractionalTranslation(
           translation: Offset(1.0 - _drawerSlideController.value, 0.0),
-          child: _isDrawerClosed() ? const SizedBox() : const CustomMenuHistory(),
+          child: _isDrawerClosed() ? const SizedBox() :  CustomMenuHistory(userData: user!,),
         );
       },
     );

@@ -1,11 +1,13 @@
+import 'package:filiera_token_front_end/models/User.dart';
 import 'package:flutter/material.dart';
-
 import 'package:image_picker/image_picker.dart';
 
 
 class CustomViewProfile extends StatefulWidget {
 
-  const CustomViewProfile({super.key});
+  final User userData;
+  CustomViewProfile({super.key, required this.userData});
+  
 
 
   @override
@@ -14,7 +16,13 @@ class CustomViewProfile extends StatefulWidget {
 }
 
 class _CustomViewProfile extends State<CustomViewProfile> {
-  
+
+
+  @override
+  void initState()  {
+    super.initState();
+  }
+
   /**
    * Function to Add Image 
    */
@@ -34,7 +42,11 @@ class _CustomViewProfile extends State<CustomViewProfile> {
   //TODO : Remoxe Text with InputValidator 
 
   // Riga 1: Image, Wallet , Saldo
-  Widget _buildFirstRow(){
+  Widget _buildFirstRow(User userDataStore){
+
+
+    String wallet = userDataStore.wallet;
+    String balance = userDataStore.balance;
     return Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -55,13 +67,13 @@ class _CustomViewProfile extends State<CustomViewProfile> {
                 Expanded(
                   child: 
                   Text(
-                    "Wallet : "+utente.address,
+                    "Wallet : "+wallet,
                     style: const TextStyle(fontSize: 16.0),
                   ),
                 ),
                 const SizedBox(width: 3.0),
                 Text(
-                  "Saldo: " + utente.balance.toStringAsFixed(0) + " FTL",
+                  "Saldo: " + balance + " FTL",
                   style: const TextStyle(fontSize: 16.0),
                 ),
                 const SizedBox(width: 8.0),
@@ -76,13 +88,14 @@ class _CustomViewProfile extends State<CustomViewProfile> {
   }
 
   // Riga 2: Email
-  Widget _buildSecondRow(){
+  Widget _buildSecondRow(User userDataStored){
+    String email = userDataStored.email;
     // Riga 2: Email
     return Row(
               children: [
                 Expanded(
                   child: Text(
-                    "E-Mail : "+ utente.email,
+                    "E-Mail : "+ email,
                     style: const TextStyle(fontSize: 16.0),
                   ),
                 ),
@@ -90,13 +103,15 @@ class _CustomViewProfile extends State<CustomViewProfile> {
             );
   }
 
-  Widget _buildThirdRow(){
+  Widget _buildThirdRow(User userDataStored){
+    String password = userDataStored.password;
+    String fullName = userDataStored.fullName;
     return // Riga 3: Nome, cognome e password
             Row(
               children: [
                 Expanded(
                   child: Text(
-                    utente.nome + " " + utente.cognome,
+                    fullName,
                     style: const TextStyle(fontSize: 16.0),
                   ),
                 ),
@@ -107,7 +122,7 @@ class _CustomViewProfile extends State<CustomViewProfile> {
                     decoration: const InputDecoration(
                       labelText: "Password",
                     ),
-                    controller: TextEditingController(text: utente.password),
+                    controller: TextEditingController(text: password),
                   ),
                 ),
               ],
@@ -120,20 +135,20 @@ class _CustomViewProfile extends State<CustomViewProfile> {
    * Build Form di Registrazione 
    */
 
-  Widget _buildViewProfile(){
+  Widget _buildViewProfile(User userDataStored)  {
            return 
            Padding(
           padding: const EdgeInsets.all(120.0),
             child: Column(
                   children: [
-            _buildFirstRow(),         
+            _buildFirstRow(userDataStored),         
             const SizedBox(height: 16.0),
-            _buildSecondRow(),
+            _buildSecondRow(userDataStored),
             const SizedBox(height: 16.0),
-            _buildThirdRow()
-          ],
-          ),
-          );
+            _buildThirdRow(userDataStored)
+            ],
+        ),
+      );
   }
 
 
@@ -142,41 +157,14 @@ class _CustomViewProfile extends State<CustomViewProfile> {
 
   @override
   Widget build(BuildContext context) {
+
       return Column(
       children: [
         // Other content widgets
-        _buildViewProfile(),
+        _buildViewProfile(widget.userData),
          // Add the registration form
       ],
     );
   }
 
 }
-
-
-class Utente {
-  final String address;
-  final double balance;
-  final String email;
-  final String nome;
-  final String cognome;
-  final String password;
-
-  const Utente({
-    required this.address,
-    required this.balance,
-    required this.email,
-    required this.nome,
-    required this.cognome,
-    required this.password,
-  });
-}
-
-final utente = Utente(
-  address: "asdfjhafsdfbsjdhfbh39548454875",
-  balance: 100.0,
-  email: "email@utente.it",
-  nome: "Nome",
-  cognome: "Cognome",
-  password: "********",
-);

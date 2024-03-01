@@ -2,9 +2,14 @@
 
 import 'package:filiera_token_front_end/components/molecules/custom_nav_bar.dart';
 import 'package:filiera_token_front_end/components/organisms/home_page/components/custom_menu_home_page.dart';
+import 'package:filiera_token_front_end/components/organisms/home_page/components/slide_card.dart';
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter_social_button/flutter_social_button.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+
 
 
 
@@ -22,6 +27,13 @@ class MyHomePage extends StatefulWidget {
 class _HomePageAnimations extends State<MyHomePage> with SingleTickerProviderStateMixin {
 
   late AnimationController _drawerSlideController;
+
+
+  static String firstRowDescription = "Benvenuti nel mondo del latte fresco,dove la natura incontra la perfezione.\nImmagina un paesaggio idilliaco, circondato da lussureggianti pascoli e dolci colline,\n dove mucche felici pascolano serenamente sotto un cielo azzurro.\n È qui che inizia il viaggio di ogni goccia di latte che arriva sulle tue labbra";
+
+  static String SecondRowDescription = "Benvenuti nel mondo del latte fresco,dove la natura incontra la perfezione.\nImmagina un paesaggio idilliaco, circondato da lussureggianti pascoli e dolci colline,\n dove mucche felici pascolano serenamente sotto un cielo azzurro.\n È qui che inizia il viaggio di ogni goccia di latte che arriva sulle tue labbra";
+  
+  static String thirdRowDescription = "Benvenuti nel mondo del latte fresco,dove la natura incontra la perfezione.\nImmagina un paesaggio idilliaco, circondato da lussureggianti pascoli e dolci colline,\n dove mucche felici pascolano serenamente sotto un cielo azzurro.\n È qui che inizia il viaggio di ogni goccia di latte che arriva sulle tue labbra";
 
   @override
   void initState() {
@@ -60,29 +72,99 @@ class _HomePageAnimations extends State<MyHomePage> with SingleTickerProviderSta
   }
 
 
-
-
-  @override
-  Widget build(BuildContext context) {
-
-    MaterialApp homePage = MaterialApp(
-      title: 'FilieraToken-Shop',
-      home: Scaffold(
-        // AppBar comune a tutti 
-        appBar: _buildAppBar(),
-        body: Stack(
-        children: [
-                //buildFirstRow(context),
-                const SizedBox(width: 20,height: 20), // Spazio tra i bottoni
-                //buildSecondRow(context),
-                //_buildHomePageUser(context),
-                _buildDrawer()
+      @override
+      Widget build(BuildContext context) {
+        MaterialApp homePage = MaterialApp(
+              title: 'FilieraToken-Shop',
+              home: Scaffold(
+              // AppBar comune a tutti 
+              appBar: _buildAppBar(),
+              body: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Expanded(
+                  child: Stack(
+                    children: [
+                      _buildHomePage(),
+                      _buildDrawer(),
+                    ],
+                  ),
+                  ),
               ],
-          ), 
+            ),
+          ));
+          return homePage;
+        }
+
+
+
+
+
+  Widget _buildHomePage(){
+    return Expanded(
+      child: ListView(
+        padding: EdgeInsets.all(16.0),
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Image.asset(
+                '../assets/milk.png',
+                width: MediaQuery.of(context).size.width * 0.2,
+              ),
+              SizedBox(width: 16.0),
+              SlideInCard(
+                title: 'La Filiera del Latte',
+                description: firstRowDescription
+                ,beginOffset: Offset(1.5, 0),
+                    endOffset: Offset.zero,
+              ),
+            ],
           ),
+          SizedBox(height: 16.0),
+          Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              SlideInCard(
+                title: 'La Filiera del Latte',
+                description:
+                    SecondRowDescription,
+                    beginOffset: Offset(-1.5,0),
+                    endOffset: Offset.zero,
+              ),
+              SizedBox(width: 16.0),
+              Image.asset(
+                '../assets/cheese_block.png',
+                width: MediaQuery.of(context).size.width * 0.2,
+              ),
+            ],
+          ),
+          SizedBox(height: 16.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Image.asset(
+                '../assets/cheese_piece.png',
+                width: MediaQuery.of(context).size.width * 0.2,
+              ),
+              SizedBox(width: 16.0),
+              SlideInCard(
+                title: 'La Filiera del Latte',
+                description:
+                thirdRowDescription,
+                    beginOffset: Offset(1.5, 0),
+                    endOffset: Offset.zero,
+              ),
+            ],
+          ),
+        ],
+      )
       );
-    return homePage;
   }
+
+
+
+
 
    /// Construisce la NavBar Custom
    /// - Inserimento del Logo 
@@ -119,7 +201,7 @@ class _HomePageAnimations extends State<MyHomePage> with SingleTickerProviderSta
   }
 
 
-    Widget _buildDrawer() {
+  Widget _buildDrawer() {
     return AnimatedBuilder(
       animation: _drawerSlideController,
       builder: (context, child) {
@@ -135,3 +217,5 @@ class _HomePageAnimations extends State<MyHomePage> with SingleTickerProviderSta
 
 
 }
+
+

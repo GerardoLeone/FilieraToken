@@ -1,3 +1,6 @@
+import 'package:filiera_token_front_end/components/molecules/custom_loading_bar.dart';
+import 'package:filiera_token_front_end/components/organisms/user_environment/services/secure_storage_service.dart';
+import 'package:filiera_token_front_end/models/User.dart';
 import 'package:flutter/material.dart';
 
 // Components Page 
@@ -5,11 +8,17 @@ import 'package:filiera_token_front_end/components/organisms/user_environment/se
 import 'package:filiera_token_front_end/components/organisms/user_environment/setting_profile/components/custom_menu_profile.dart';
 import 'package:filiera_token_front_end/components/organisms/user_environment/setting_profile/components/custom_view_profile.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_nav_bar.dart';
+import 'package:get_it/get_it.dart';
 
 
 class UserProfilePage extends StatefulWidget {
+  
+  UserProfilePage({
+    super.key,
+     required String userType,
+      required String idUser
+      });
 
-  const UserProfilePage({super.key});
 
   @override
   State<UserProfilePage> createState() => _UserProfilePageAnimations();
@@ -18,17 +27,41 @@ class UserProfilePage extends StatefulWidget {
 
 class _UserProfilePageAnimations extends State<UserProfilePage> with SingleTickerProviderStateMixin {
 
+
   late AnimationController _drawerSlideController;
+
+  User? user;
+
+  late SecureStorageService secureStorageService;
+
+
 
   @override
   void initState() {
     super.initState();
-
     _drawerSlideController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 150),
     );
+    final storage = GetIt.I.get<SecureStorageService>();
+    if(storage!=null){
+      print("storage non è nullo!");
+      secureStorageService = storage;
+      _fetch_Data();
+      
+    }
   }
+
+  Future<void> _fetch_Data() async {
+  final retrievedUser = await secureStorageService.get();
+  if (retrievedUser != null) {
+    setState(() {
+      user = retrievedUser;
+    });
+    print("Type of User : ${user!.type.name}");
+    print("User is Alive!");
+  }
+}
 
   @override
   void dispose() {
@@ -58,19 +91,26 @@ class _UserProfilePageAnimations extends State<UserProfilePage> with SingleTicke
 
 
   @override
-  Widget build(BuildContext context) {
+Widget build(BuildContext context) {
+  if (user == null) {
+    // Se user non è ancora stato inizializzato, visualizza un indicatore di caricamento o un altro widget di fallback
+    return CustomLoadingIndicator(progress: 4.5);
+  } else {
+    // Se user è stato inizializzato, costruisci il widget CustomViewProfile
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: _buildAppBar(),
       body: Stack(
         children: [
-          const CustomViewProfile(),
-          const CustomDeleteUserButton(),
+          CustomViewProfile(userData: user!),
+          CustomDeleteUserButton(),
           _buildDrawer(),
         ],
       ),
     );
   }
+}
+
 
   /**
    * Construisce la NavBar Custom
@@ -115,7 +155,7 @@ class _UserProfilePageAnimations extends State<UserProfilePage> with SingleTicke
       builder: (context, child) {
         return FractionalTranslation(
           translation: Offset(1.0 - _drawerSlideController.value, 0.0),
-          child: _isDrawerClosed() ? const SizedBox() : const CustomMenu(),
+          child: _isDrawerClosed() ? const SizedBox() : CustomMenu(userData: user!),
         );
       },
     );

@@ -72,15 +72,16 @@ contract TransactionCheesePieceProductService {
      * @param totalPrice Prezzo totale del CheesePiece da acquistare (espresso in FilieraToken).
      */ 
     function BuyCheesePieceProduct(
+        address buyer,
         address ownerCheesePiece,
         uint256 _id_CheesePiece,
         uint256 _quantityToBuy,
         uint256 totalPrice) external {
         
         // Verifica degli address con controlli generici 
-        require(msg.sender != address(0), "Invalid sender address");
+        require(buyer != address(0), "Invalid sender address");
         require(ownerCheesePiece != address(0), "Invalid owner address");
-        require(msg.sender != ownerCheesePiece, "Cannot buy from yourself");
+        require(buyer != ownerCheesePiece, "Cannot buy from yourself");
         // Verfica della presenza del Prodotto 
         require(retailerInventoryService.isCheesePiecePresent(ownerCheesePiece, _id_CheesePiece), "Product not found");
         // Verifica della quantità da acquistare rispetto alla quantità totale 
@@ -89,14 +90,14 @@ contract TransactionCheesePieceProductService {
         require(filieraTokenService.balanceOf(msg.sender) >= totalPrice, "Insufficient balance");
 
         // Acquisto 
-        require(filieraTokenService.transferTokenBuyProduct(msg.sender, ownerCheesePiece, totalPrice),"Acquisto non andato a buon fine!");
+        require(filieraTokenService.transferTokenBuyProduct(buyer, ownerCheesePiece, totalPrice),"Acquisto non andato a buon fine!");
 
         // Aggiornamento del saldo del Retailer
         uint256 newRetailerBalance = filieraTokenService.balanceOf(ownerCheesePiece);
         retailerService.updateRetailerBalance(ownerCheesePiece, newRetailerBalance);
         // Aggiornamento del saldo del Consumer 
         uint256 newConsumerBalance = filieraTokenService.balanceOf(msg.sender);
-        consumerService.updateConsumerBalance(msg.sender, newConsumerBalance);
+        consumerService.updateConsumerBalance(buyer, newConsumerBalance);
 
         // Riduzione della quantità nel MilkHubInventory
         uint256 currentQuantity = retailerInventoryService.getWeight(ownerCheesePiece, _id_CheesePiece);
@@ -106,7 +107,7 @@ contract TransactionCheesePieceProductService {
         // Aggiunta del MilkBatch nell'inventario del CheeseProducer
         consumerBuyerService.addCheesePiece(
             ownerCheesePiece,
-            msg.sender, 
+            buyer, 
             _id_CheesePiece,
             retailerInventoryService.getPrice(ownerCheesePiece, _id_CheesePiece),
             _quantityToBuy);

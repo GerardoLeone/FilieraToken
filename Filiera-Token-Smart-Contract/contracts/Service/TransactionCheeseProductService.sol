@@ -84,31 +84,32 @@ contract TransactionCheeseProductService {
     * @param totalPrice Prezzo totale del CheeseBlock da acquistare (espresso in FilieraToken).
     */ 
     function BuyCheeseProduct(
+            address buyer, 
             address ownerCheese,
             uint256 _id_Cheese,
             uint256 _quantityToBuy,
             uint256 totalPrice // Effettuare il calcolo dal front-End 
         ) external {
        // Verifica degli address con controlli generici 
-        require(msg.sender != address(0), "Invalid sender address");
+        require(buyer != address(0), "Invalid sender address");
         require(ownerCheese != address(0), "Invalid owner address");
-        require(msg.sender != ownerCheese, "Cannot buy from yourself");
+        require(buyer != ownerCheese, "Cannot buy from yourself");
         // Verfica della presenza del Prodotto 
         require(cheeseProducerInventoryService.isCheeseBlockPresent(ownerCheese, _id_Cheese), "Product not found");
         // Verifica della quantità da acquistare rispetto alla quantità totale 
         require(_quantityToBuy <= cheeseProducerInventoryService.getCheeseBlockQuantity(ownerCheese, _id_Cheese), "Invalid quantity");
         // Verifica del saldo dell'acquirente 
-        require(filieraTokenService.balanceOf(msg.sender) >= totalPrice, "Insufficient balance");
+        require(filieraTokenService.balanceOf(buyer) >= totalPrice, "Insufficient balance");
 
         // Acquisto 
-        require(filieraTokenService.transferTokenBuyProduct(msg.sender, ownerCheese, totalPrice),"Acquisto non andato a buon fine!");
+        require(filieraTokenService.transferTokenBuyProduct(buyer, ownerCheese, totalPrice),"Acquisto non andato a buon fine!");
 
         // Aggiornamento del saldo del MilkHub 
         uint256 newCheeseProducerBalance = filieraTokenService.balanceOf(ownerCheese);
         cheeseProducerService.updateCheeseProducerBalance(ownerCheese, newCheeseProducerBalance);
         // Aggiornamento del saldo del CheeseProducer 
-        uint256 newRetailerBalance = filieraTokenService.balanceOf(msg.sender);
-        retailerService.updateRetailerBalance(msg.sender, newRetailerBalance);
+        uint256 newRetailerBalance = filieraTokenService.balanceOf(buyer);
+        retailerService.updateRetailerBalance(buyer, newRetailerBalance);
 
         // Riduzione della quantità nel MilkHubInventory
         uint256 currentQuantity = cheeseProducerInventoryService.getCheeseBlockQuantity(ownerCheese, _id_Cheese);
@@ -117,7 +118,7 @@ contract TransactionCheeseProductService {
         // Aggiunta del MilkBatch nell'inventario del CheeseProducer
         retailerCheeseBlockService.addCheeseBlock(
             ownerCheese,
-            msg.sender, 
+            buyer, 
             _id_Cheese,
             cheeseProducerInventoryService.getDop(ownerCheese, _id_Cheese),
             _quantityToBuy);

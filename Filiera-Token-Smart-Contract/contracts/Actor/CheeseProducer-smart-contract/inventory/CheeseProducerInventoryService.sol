@@ -105,9 +105,8 @@ contract CheeseProducerInventoryService {
      * Ottenere le informazioni del cheeseblock attraverso : 
      * - ID cheeseBlock
      * */  
-    function getCheeseBlock(uint256 idCheeseBlock) external view checkAddress(msg.sender) returns (uint256, string memory, uint256, uint256) {
+    function getCheeseBlock(uint256 idCheeseBlock, address walletCheeseProducer) external view checkAddress(walletCheeseProducer) returns (uint256, string memory, uint256, uint256) {
         
-        address walletCheeseProducer = msg.sender;
 
         require(cheeseProducerService.isUserPresent(walletCheeseProducer), "User is not present in data");
 
@@ -121,9 +120,7 @@ contract CheeseProducerInventoryService {
      * - ID 
      * - Verficare che l'utente che vuole eseguire la transazione sia presente.
      */
-    function deleteCheeseBlock(uint256 id) external returns(bool){
-        // Retrieve msg.sender 
-        address walletCheeseProducer = msg.sender;
+    function deleteCheeseBlock(uint256 id,address walletCheeseProducer) external returns(bool){
         // Check if User is Present
         require(cheeseProducerService.isUserPresent(walletCheeseProducer), "User is not present!");
         // Check if Product is present 

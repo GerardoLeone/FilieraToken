@@ -98,8 +98,8 @@ class _UserProfileInventoryProductPageState extends State<UserProfileInventoryPr
     MilkBatch(id: 1, name: "Partita di Latte 1", description: "Descrizione partita di latte 1", seller: "Milk Hub 1", expirationDate: "10-01-2025", quantity: 30, pricePerLitre: 3),
     MilkBatch(id: 2, name: "Partita di Latte 2", description: "Descrizione partita di latte 2", seller: "Milk Hub 2", expirationDate: "10-05-2025", quantity: 22, pricePerLitre: 2),
 */
-    CheeseBlock(id: 3, name: "Blocco di Formaggio 1", description: "Descrizione blocco di formaggio 3", seller: "Cheese Producer 1", dop: "dop", price: 500, quantity: 1),
-    CheeseBlock(id: 4, name: "Blocco di Formaggio 2", description: "Descrizione blocco di formaggio 4", seller: "Cheese Producer 2", dop: "dop", price: 550, quantity: 2),
+    CheeseBlock(id: "3", name: "Blocco di Formaggio 1", description: "Descrizione blocco di formaggio 3", seller: "Cheese Producer 1", dop: "dop", price: 500, quantity: 1),
+    CheeseBlock(id: "4", name: "Blocco di Formaggio 2", description: "Descrizione blocco di formaggio 4", seller: "Cheese Producer 2", dop: "dop", price: 550, quantity: 2),
     /*CheeseBlock(id: 3, name: "Blocco di Formaggio 1", description: "Descrizione blocco di formaggio 3", seller: "Cheese Producer 1", dop: "dop", price: 500, quantity: 1),
     CheeseBlock(id: 4, name: "Blocco di Formaggio 2", description: "Descrizione blocco di formaggio 4", seller: "Cheese Producer 2", dop: "dop", price: 550, quantity: 2),
     CheeseBlock(id: 3, name: "Blocco di Formaggio 1", description: "Descrizione blocco di formaggio 3", seller: "Cheese Producer 1", dop: "dop", price: 500, quantity: 1),

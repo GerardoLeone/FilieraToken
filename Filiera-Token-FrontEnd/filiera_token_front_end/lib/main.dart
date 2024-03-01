@@ -4,7 +4,6 @@ import 'package:filiera_token_front_end/components/organisms/user_environment/in
 import 'package:filiera_token_front_end/components/organisms/user_environment/product_buy_profile/product_buyed_user_profile_.dart';
 import 'package:filiera_token_front_end/components/organisms/user_environment/services/secure_storage_service.dart';
 import 'package:filiera_token_front_end/components/organisms/user_environment/setting_profile/setting_user_profile_page.dart';
-import 'package:filiera_token_front_end/models/User.dart';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

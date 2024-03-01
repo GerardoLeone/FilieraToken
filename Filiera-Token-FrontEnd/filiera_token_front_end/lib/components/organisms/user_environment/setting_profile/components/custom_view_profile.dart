@@ -1,14 +1,12 @@
 import 'package:filiera_token_front_end/models/User.dart';
 import 'package:flutter/material.dart';
-
 import 'package:image_picker/image_picker.dart';
 
 
 class CustomViewProfile extends StatefulWidget {
 
-  final User userDataStore;
-
-  const CustomViewProfile({required this.userDataStore});
+  final User userData;
+  CustomViewProfile({super.key, required this.userData});
   
 
 
@@ -18,16 +16,13 @@ class CustomViewProfile extends StatefulWidget {
 }
 
 class _CustomViewProfile extends State<CustomViewProfile> {
-  User? get userDataStored => null;
-
-  
 
 
   @override
   void initState()  {
     super.initState();
   }
-  
+
   /**
    * Function to Add Image 
    */
@@ -50,8 +45,7 @@ class _CustomViewProfile extends State<CustomViewProfile> {
   Widget _buildFirstRow(User userDataStore){
 
 
-    String id = userDataStore.id;
-    String fullName = userDataStore.fullName;
+    String wallet = userDataStore.wallet;
     String balance = userDataStore.balance;
     return Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -73,7 +67,7 @@ class _CustomViewProfile extends State<CustomViewProfile> {
                 Expanded(
                   child: 
                   Text(
-                    "Wallet : "+id,
+                    "Wallet : "+wallet,
                     style: const TextStyle(fontSize: 16.0),
                   ),
                 ),
@@ -95,7 +89,6 @@ class _CustomViewProfile extends State<CustomViewProfile> {
 
   // Riga 2: Email
   Widget _buildSecondRow(User userDataStored){
-    String password = userDataStored.password;
     String email = userDataStored.email;
     // Riga 2: Email
     return Row(
@@ -112,12 +105,13 @@ class _CustomViewProfile extends State<CustomViewProfile> {
 
   Widget _buildThirdRow(User userDataStored){
     String password = userDataStored.password;
+    String fullName = userDataStored.fullName;
     return // Riga 3: Nome, cognome e password
             Row(
               children: [
                 Expanded(
                   child: Text(
-                    widget.toString(),
+                    fullName,
                     style: const TextStyle(fontSize: 16.0),
                   ),
                 ),
@@ -152,9 +146,9 @@ class _CustomViewProfile extends State<CustomViewProfile> {
             _buildSecondRow(userDataStored),
             const SizedBox(height: 16.0),
             _buildThirdRow(userDataStored)
-          ],
-          ),
-          );
+            ],
+        ),
+      );
   }
 
 
@@ -167,7 +161,7 @@ class _CustomViewProfile extends State<CustomViewProfile> {
       return Column(
       children: [
         // Other content widgets
-        _buildViewProfile(widget.userDataStore),
+        _buildViewProfile(widget.userData),
          // Add the registration form
       ],
     );

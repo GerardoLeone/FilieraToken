@@ -4,6 +4,7 @@ import 'package:filiera_token_front_end/components/organisms/user_environment/in
 import 'package:filiera_token_front_end/components/organisms/user_environment/product_buy_profile/product_buyed_user_profile_.dart';
 import 'package:filiera_token_front_end/components/organisms/user_environment/services/secure_storage_service.dart';
 import 'package:filiera_token_front_end/components/organisms/user_environment/setting_profile/setting_user_profile_page.dart';
+import 'package:filiera_token_front_end/models/User.dart';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -18,11 +19,14 @@ import 'package:filiera_token_front_end/components/organisms/home_page/home_page
 
 import 'package:get_it/get_it.dart';
 
-final getIt = GetIt.instance;
+
+void setupDependencies() {
+  GetIt.I.registerSingleton<SecureStorageService>(SecureStorageService.instance);
+}
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  getIt.registerSingleton<SecureStorageService>(SecureStorageService());
+  setupDependencies();
   runApp(MyApp());
 }
 
@@ -123,15 +127,15 @@ final GoRouter _routerConsumer = GoRouter(
         return HomePageUser(
           userType: userType,
           idUser: idUser,
+
         );
       },
       routes: [
         GoRoute(
           path: 'profile',
-          builder: (context, state) {
+          builder: (context, state)  {
             final userType = state.pathParameters['userType']!;
             final idUser = state.pathParameters['id_user']!;
-
             return UserProfilePage(
               userType: userType,
               idUser: idUser,

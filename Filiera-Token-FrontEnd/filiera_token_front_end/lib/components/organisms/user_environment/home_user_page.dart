@@ -1,3 +1,5 @@
+
+import 'package:filiera_token_front_end/components/molecules/custom_loading_bar.dart';
 import 'package:filiera_token_front_end/Actor/CheeseProducer/service/CheeseProducerInventoryService.dart';
 import 'package:filiera_token_front_end/Actor/Consumer/service/ConsumerBuyerInventoryService.dart';
 import 'package:filiera_token_front_end/Actor/MilkHub/service/MilkHubInventoryService.dart';
@@ -5,11 +7,14 @@ import 'package:filiera_token_front_end/Actor/Retailer/service/RetailerInventory
 import 'package:filiera_token_front_end/components/molecules/custom_product_list.dart';
 import 'package:filiera_token_front_end/components/molecules/dialog/dialog_product_details.dart';
 import 'package:filiera_token_front_end/components/organisms/user_environment/components/custom_menu_home_user_page_environment.dart';
+import 'package:filiera_token_front_end/components/organisms/user_environment/services/secure_storage_service.dart';
 import 'package:filiera_token_front_end/models/Product.dart';
+import 'package:filiera_token_front_end/models/User.dart';
 import 'package:filiera_token_front_end/utils/enums.dart';
 import 'package:flutter/material.dart';
 
 import 'package:filiera_token_front_end/components/molecules/custom_nav_bar.dart';
+import 'package:get_it/get_it.dart';
 
 class HomePageUser extends StatefulWidget {
   const HomePageUser({
@@ -26,6 +31,11 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
 
   late AnimationController _drawerSlideController;
 
+  late SecureStorageService secureStorageService;
+
+  User? user;
+
+
   @override
   void initState() {
     super.initState();
@@ -33,7 +43,25 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
       vsync: this,
       duration: const Duration(milliseconds: 150),
     );
+    final storage = GetIt.I.get<SecureStorageService>();
+    if(storage!=null){
+      print("storage non è nullo!");
+      secureStorageService = storage;
+      _fetch_Data();
+      
+    }
   }
+
+  Future<void> _fetch_Data() async {
+  final retrievedUser = await secureStorageService.get();
+  if (retrievedUser != null) {
+    setState(() {
+      user = retrievedUser;
+    });
+    print("Type of User : ${user!.type.name}");
+    print("User is Alive!");
+  }
+}
 
   @override
   void dispose() {
@@ -98,6 +126,10 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
   @override
   Widget build(BuildContext context) {
     // Ottieni l'istanza di UserProvider
+    if (user == null) {
+    // Se user non è ancora stato inizializzato, visualizza un indicatore di caricamento o un altro widget di fallback
+      return CustomLoadingIndicator(progress: 4.5);
+      } else {
 
     Actor actor = Actor.MilkHub; //TODO: gettarsi con hive il valore dell'attore
     String wallet = "0x7dDc959b89472A1812Ace5b2D2ae6f2926c0AABD"; //TODO: gettarsi con hive il wallet
@@ -150,6 +182,7 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
         ],
       ),
     );
+  }
   }
 
   void handleProductTap(BuildContext context, Product product) {
@@ -206,7 +239,7 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
       builder: (context, child) {
         return FractionalTranslation(
           translation: Offset(1.0 - _drawerSlideController.value, 0.0),
-          child: _isDrawerClosed() ? const SizedBox() : const CustomMenuHomeUserPageEnv(),
+          child: _isDrawerClosed() ? const SizedBox() :  CustomMenuHomeUserPageEnv(userData: user!),
         );
       },
     );

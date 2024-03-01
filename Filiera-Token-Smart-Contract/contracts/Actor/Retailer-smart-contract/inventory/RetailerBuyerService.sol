@@ -62,89 +62,89 @@ contract RetailerBuyerService {
     */
     function addCheeseBlock(
             
-            address _walletCheeseProducer,
-            address _walletRetailer,
-            uint256 _id_CheeseBlock,
-            string memory _dop,
-            uint256 _quantity
+            address walletCheeseProducer,
+            address walletRetailer,
+            uint256 idCheeseBlock,
+            string memory dop,
+            uint256 quantity
 
-        ) external checkAddress(_walletRetailer) checkAddress(_walletCheeseProducer) {
+        ) external checkAddress(walletRetailer) checkAddress(walletCheeseProducer) {
         
         // Verifico che Retailer e MilkHub address non sono identici
-        require(address(_walletRetailer)!=address(_walletCheeseProducer),"Address uguali Retailer e MilkHub!");
+        require(address(walletRetailer)!=address(walletCheeseProducer),"Address uguali Retailer e MilkHub!");
 
         // Verfico che il Retailer è presente 
-        require(retailerService.isUserPresent(_walletRetailer), "Utente non trovato!");
+        require(retailerService.isUserPresent(walletRetailer), "Utente non trovato!");
 
         // Aggiungo il CheeseBlock all'interno dell'Inventario del Retailer 
-        (uint256 id_CheeseBlock_Acquistato, string memory _dopCheese,uint256 quantity) = retailerBuyerStorage.addCheeseBlock(_walletRetailer, _walletCheeseProducer, _id_CheeseBlock, _dop, _quantity);
+        (uint256 _idCheeseBlock, string memory _dopCheese,uint256 _quantity) = retailerBuyerStorage.addCheeseBlock(walletRetailer, walletCheeseProducer, idCheeseBlock, dop, quantity);
 
         // Invio dell'Evento 
-        emit RetailerCheeseBlockAdded(_walletRetailer,"CheeseBlock Acquistato!", id_CheeseBlock_Acquistato ,  _dopCheese, quantity);
+        emit RetailerCheeseBlockAdded(walletRetailer,"CheeseBlock Acquistato!", _idCheeseBlock ,  _dopCheese, _quantity);
     }
 
     
     //TODO : Controllo sull'owner del CheeseBlock Acquistato 
-    function getCheeseBlock(uint256 _id_CheeseBlockAcquistato) external view checkAddress(msg.sender) returns (uint256, address, string memory, uint256) {
+    function getCheeseBlock(uint256 idCheeseBlock) external view checkAddress(msg.sender) returns (uint256, address, string memory, uint256) {
         
-        address _walletRetailer = msg.sender;
+        address walletRetailer = msg.sender;
 
-        require(retailerService.isUserPresent(_walletRetailer), "Utente non trovato!");
+        require(retailerService.isUserPresent(walletRetailer), "Utente non trovato!");
 
-        require(this.isCheeseBlockAcquistataPresent(_walletRetailer,_id_CheeseBlockAcquistato),"Prodotto non Presente!");
+        require(this.isCheeseBlockPresent(walletRetailer,idCheeseBlock),"Prodotto non Presente!");
 
-        return retailerBuyerStorage.getCheeseBlock(_walletRetailer, _id_CheeseBlockAcquistato);
+        return retailerBuyerStorage.getCheeseBlock(walletRetailer, idCheeseBlock);
     }
 
 
     
-    function getDop(address _walletRetailer, uint256 _id_CheeseBlockAcquistato) external view checkAddress(msg.sender) returns(string memory) {
+    function getDop(address walletRetailer, uint256 idCheeseBlock) external view checkAddress(msg.sender) returns(string memory) {
         
-        require(retailerService.isUserPresent(_walletRetailer), "Utente non trovato!");
+        require(retailerService.isUserPresent(walletRetailer), "Utente non trovato!");
 
-        require(this.isCheeseBlockAcquistataPresent(_walletRetailer,_id_CheeseBlockAcquistato),"Prodotto non Presente!");
+        require(this.isCheeseBlockPresent(walletRetailer,idCheeseBlock),"Prodotto non Presente!");
         
-        return retailerBuyerStorage.getDop(_walletRetailer,_id_CheeseBlockAcquistato);        
+        return retailerBuyerStorage.getDop(walletRetailer,idCheeseBlock);        
     }
 
     
-    function getQuantity(address _walletRetailer, uint256 _id_CheeseBlockAcquistato) external view checkAddress(msg.sender) returns(uint256) {
+    function getQuantity(address walletRetailer, uint256 idCheeseBlock) external view checkAddress(msg.sender) returns(uint256) {
         
-        require(retailerService.isUserPresent(_walletRetailer), "Utente non trovato!");
+        require(retailerService.isUserPresent(walletRetailer), "Utente non trovato!");
 
-        require(this.isCheeseBlockAcquistataPresent(_walletRetailer,_id_CheeseBlockAcquistato),"Prodotto non Presente!");
+        require(this.isCheeseBlockPresent(walletRetailer,idCheeseBlock),"Prodotto non Presente!");
         
-        return retailerBuyerStorage.getQuantity(_walletRetailer,_id_CheeseBlockAcquistato);        
+        return retailerBuyerStorage.getQuantity(walletRetailer,idCheeseBlock);        
     }
 
     
-    function getWalletCheeseProducer(address _walletRetailer, uint256 _id_CheeseBlockAcquistato) external view checkAddress(msg.sender) returns(address) {
+    function getWalletCheeseProducer(address walletRetailer, uint256 idCheeseBlock) external view checkAddress(msg.sender) returns(address) {
         
-        require(retailerService.isUserPresent(_walletRetailer), "Utente non trovato!");
+        require(retailerService.isUserPresent(walletRetailer), "Utente non trovato!");
 
-        require(this.isCheeseBlockAcquistataPresent(_walletRetailer,_id_CheeseBlockAcquistato),"Prodotto non Presente!");
+        require(this.isCheeseBlockPresent(walletRetailer,idCheeseBlock),"Prodotto non Presente!");
         
-        return retailerBuyerStorage.getWalletCheeseProducer(_walletRetailer,_id_CheeseBlockAcquistato);        
+        return retailerBuyerStorage.getWalletCheeseProducer(walletRetailer,idCheeseBlock);        
     }
 
     /**
     * Verifica che il CheeseBlock è presente all'interno dell'inventario 
     * - Verifica che l'id non sia nullo e che sia maggiore di 0 e che coincida con l'elemento 
     */
-    function isCheeseBlockAcquistataPresent(address _walletRetailer, uint256 _id_CheeseBlockAcquistato) external view checkAddress(_walletRetailer)  returns (bool){
+    function isCheeseBlockPresent(address walletRetailer, uint256 idCheeseBlock) external view checkAddress(walletRetailer)  returns (bool){
         
-        require(retailerService.isUserPresent(_walletRetailer),"Utente non presente!");
+        require(retailerService.isUserPresent(walletRetailer),"Utente non presente!");
 
-        return retailerBuyerStorage.isCheesePresent(_walletRetailer, _id_CheeseBlockAcquistato);
+        return retailerBuyerStorage.isCheeseBlockPresent(walletRetailer, idCheeseBlock);
     }
 
     
     
-    function getPurchasedCheeseBlockByRetailer(address walletRetailer) external checkAddress(walletRetailer) view returns (uint256[] memory){
+    function getUserCheeseBlockIds(address walletRetailer) external checkAddress(walletRetailer) view returns (uint256[] memory){
         // Check if exist 
         require(retailerService.isUserPresent(walletRetailer), "User is not present!");
 
-        return retailerBuyerStorage.getListCheeseIdPurchasedByRetailer(walletRetailer);
+        return retailerBuyerStorage.getUserCheeseBlockIds(walletRetailer);
     }
 
 
@@ -154,15 +154,15 @@ contract RetailerBuyerService {
     * 
     * - Decremento della quantità del CheeseBlockAcquistato per la trasformazione in Cheese 
     */
-    function updateCheeseBlockQuantity(address walletRetailer, uint256 _id_CheeseBlock, uint256 _quantity) external checkAddress(walletRetailer) {
+    function updateCheeseBlockQuantity(address walletRetailer, uint256 idCheeseBlock, uint256 quantity) external checkAddress(walletRetailer) {
 
         require(retailerService.isUserPresent(walletRetailer), "User is not present!");
 
-        require(retailerBuyerStorage.isCheesePresent(walletRetailer, _id_CheeseBlock),"CheeseBlock not Present!");
+        require(retailerBuyerStorage.isCheeseBlockPresent(walletRetailer, idCheeseBlock),"CheeseBlock not Present!");
 
-        retailerBuyerStorage.updateCheeseQuantity(walletRetailer, _id_CheeseBlock, _quantity);
+        retailerBuyerStorage.updateCheeseQuantity(walletRetailer, idCheeseBlock, quantity);
 
-        emit RetailerCheeseBlockEdited(walletRetailer,"CheeseBlock edited!", _quantity);
+        emit RetailerCheeseBlockEdited(walletRetailer,"CheeseBlock edited!", quantity);
     }
 
 

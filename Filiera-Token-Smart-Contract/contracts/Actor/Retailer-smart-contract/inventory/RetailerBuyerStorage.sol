@@ -13,7 +13,7 @@ contract RetailerBuyerStorage {
 
     struct Cheese {
         uint256 id; // Generato nuovo per il Retailer 
-        uint256 id_CheeseBlock; // id di riferimento del CheeseBlock 
+        uint256 idCheeseBlock; // id di riferimento del CheeseBlock 
         address walletCheeseProducer; // Address del Wallet del CheeseProducer
         string dop; 
         uint256 quantity; // Quantità da acquistare 
@@ -21,7 +21,7 @@ contract RetailerBuyerStorage {
 
     mapping(address => mapping(uint256 => Cheese)) private purchasedCheeseBlocks;
 
-    mapping(address => uint256[]) private purchasedCheeseBlockListBySingleRetailer;
+    mapping(address => uint256[]) private userCheeseBlockIds;
 
 
 
@@ -35,59 +35,55 @@ contract RetailerBuyerStorage {
     * params : 
     * - walletCheeseProducer -> mi serve per il mapping 
     * - walletCheeseProducer -> mi serve per creare il nuovo elemento  
-    * - id_cheese -> mi serve per il riferimento all'elemento acquistato
+    * - idcheese -> mi serve per il riferimento all'elemento acquistato
     */
     function addCheeseBlock( 
         
-            address _walletRetailer, 
-            address _walletCheeseProducer, // Riferimento al wallet del Cheeseproducer 
-            uint256 _id_CheeseBlock, // riferimento al prodotto di Cheese
+            address walletRetailer, 
+            address walletCheeseProducer, // Riferimento al wallet del Cheeseproducer 
+            uint256 idCheeseBlock, // riferimento al prodotto di Cheese
             string memory dop, // attributo del formaggio  
-            uint256 _quantity //Quantità acquisita
+            uint256 quantity //Quantità acquisita
         
-        ) external returns (
-            uint256 id_CheeseBlock_Acquistato,
-            string memory dopCheese,
-            uint256 quantityAcquistata 
-        ){
+        ) external returns (uint256,string memory,uint256){
 
-        uint256 _id = uint256(keccak256(abi.encodePacked(
-            _quantity,
+        uint256 id = uint256(keccak256(abi.encodePacked(
+            quantity,
             dop,
-            _walletRetailer,
-            _walletCheeseProducer,
-            _id_CheeseBlock,
+            walletRetailer,
+            walletCheeseProducer,
+            idCheeseBlock,
             block.timestamp // inserimento di questo attributo per rendere l'acquisto unico nel suo genere 
             // l'articolo in questo modo può essere riacquistato dallo stesso cheeseProducer un'altra volta 
         )));
 
 
-        Cheese storage cheeseControl = purchasedCheeseBlocks[_walletRetailer][_id];
+        Cheese storage cheeseControl = purchasedCheeseBlocks[walletRetailer][id];
         require( cheeseControl.id == 0, "Partita di Latte gia' presente!");
 
         //Crea una nuova Partita di Latte
         Cheese memory cheese = Cheese({
-            id: _id,
+            id: id,
             dop:dop,
-            id_CheeseBlock: _id_CheeseBlock,
-            walletCheeseProducer: _walletCheeseProducer,
-            quantity: _quantity
+            idCheeseBlock: idCheeseBlock,
+            walletCheeseProducer: walletCheeseProducer,
+            quantity: quantity
         });
 
         //Inserisce la nuova Partita di Latte nella lista purchasedCheeseBlocks
-        purchasedCheeseBlocks[_walletRetailer][_id] = cheese;
+        purchasedCheeseBlocks[walletRetailer][id] = cheese;
 
         //Inserisci l'id all'interno della Lista
-        purchasedCheeseBlockListBySingleRetailer[_walletRetailer].push(_id);
+        userCheeseBlockIds[walletRetailer].push(id);
 
         return (cheese.id, cheese.dop, cheese.quantity);
 
     }
 
 
-    function getCheeseBlock(address walletRetailer, uint256 _id_CheeseBlockAcquistato) external view returns (uint256, address,string memory, uint256) {
+    function getCheeseBlock(address walletRetailer, uint256 idCheeseBlock) external view returns (uint256, address,string memory, uint256) {
 
-        Cheese memory cheese = purchasedCheeseBlocks[walletRetailer][_id_CheeseBlockAcquistato];
+        Cheese memory cheese = purchasedCheeseBlocks[walletRetailer][idCheeseBlock];
 
         return (cheese.id, cheese.walletCheeseProducer, cheese.dop, cheese.quantity);
     }
@@ -99,10 +95,10 @@ contract RetailerBuyerStorage {
     * - ritorna FALSe se non esiste 
     * - effettua il controllo sull'uguaglianza dell'id del Cheese Acquistato
     */
-    function isCheesePresent(address walletRetailer, uint256 _id_CheeseBlockAcquistato)external view returns(bool){
-        require( _id_CheeseBlockAcquistato !=0 && _id_CheeseBlockAcquistato>0,"ID Cheese Not Valid!");
+    function isCheeseBlockPresent(address walletRetailer, uint256 idCheeseBlock)external view returns(bool){
+        require( idCheeseBlock !=0 && idCheeseBlock>0,"ID Cheese Not Valid!");
 
-        return purchasedCheeseBlocks[walletRetailer][_id_CheeseBlockAcquistato].id == _id_CheeseBlockAcquistato;
+        return purchasedCheeseBlocks[walletRetailer][idCheeseBlock].id == idCheeseBlock;
     }
 
 // -------------------------------------------------------------- Set Function ------------------------------------------------------------------------------------------//
@@ -110,66 +106,66 @@ contract RetailerBuyerStorage {
 
 
     // - Funzione updateCheeseQuantity() aggiorna la quantità del Cheese 
-    function updateCheeseQuantity(address walletRetailer, uint256 _id, uint256 _newQuantity) external  {
+    function updateCheeseQuantity(address walletRetailer, uint256 id, uint256 newQuantity) external  {
         // Controllo sulla quantita' 
-        require(_newQuantity<=purchasedCheeseBlocks[walletRetailer][_id].quantity,"Controllo della Quantita' da utilizzare non andata a buon fine!");
+        require(newQuantity<=purchasedCheeseBlocks[walletRetailer][id].quantity,"Controllo della Quantita' da utilizzare non andata a buon fine!");
 
-        purchasedCheeseBlocks[walletRetailer][_id].quantity = _newQuantity;
+        purchasedCheeseBlocks[walletRetailer][id].quantity = newQuantity;
     }
 
 
 // -------------------------------------------------------------- Get Function ------------------------------------------------------------------------------------------//
 
-    function getDop(address walletRetailer, uint256 _id_cheeseBlockAcquistato) external view returns(string memory) {
+    function getDop(address walletRetailer, uint256 idcheeseBlock) external view returns(string memory) {
 
-        Cheese memory cheese = purchasedCheeseBlocks[walletRetailer][_id_cheeseBlockAcquistato];
+        Cheese memory cheese = purchasedCheeseBlocks[walletRetailer][idcheeseBlock];
         return cheese.dop;
     }
 
 
-    function getQuantity(address walletRetailer, uint256 _id) external view returns(uint256) {
+    function getQuantity(address walletRetailer, uint256 id) external view returns(uint256) {
 
-        Cheese memory cheese = purchasedCheeseBlocks[walletRetailer][_id];
+        Cheese memory cheese = purchasedCheeseBlocks[walletRetailer][id];
         return cheese.quantity;        
     }
 
-    function getWalletCheeseProducer(address walletRetailer, uint256 _id) external view returns(address) {
+    function getWalletCheeseProducer(address walletRetailer, uint256 id) external view returns(address) {
 
-        Cheese memory cheese = purchasedCheeseBlocks[walletRetailer][_id];
+        Cheese memory cheese = purchasedCheeseBlocks[walletRetailer][id];
         return cheese.walletCheeseProducer;
     }
 
-    function getId(address walletRetailer, uint256 _id) external view returns(uint256) {
+    function getId(address walletRetailer, uint256 id) external view returns(uint256) {
 
-        return purchasedCheeseBlocks[walletRetailer][_id].id;
+        return purchasedCheeseBlocks[walletRetailer][id].id;
     }
 
     /*
     * Restituisce la Lista di tutti gli ID dei prodotti di un determinato utente
     */
-    function getListCheeseIdPurchasedByRetailer(address walletRetailer)external view returns (uint256[] memory){
-        return purchasedCheeseBlockListBySingleRetailer[walletRetailer];
+    function getUserCheeseBlockIds(address walletRetailer)external view returns (uint256[] memory){
+        return userCheeseBlockIds[walletRetailer];
     }
 
 
 // -------------------------------------------------------------- Check Function ------------------------------------------------------------------------------------------//
 
 
-    function checkCheese(address walletRetailer, uint256 _id, uint256 _quantityToTransform) external view returns(bool) {
-        require(purchasedCheeseBlocks[walletRetailer][_id].id == _id, "Partita di Latte non presente!");
+    function checkCheese(address walletRetailer, uint256 id, uint256 quantityToTransform) external view returns(bool) {
+        require(purchasedCheeseBlocks[walletRetailer][id].id == id, "Partita di Latte non presente!");
 
-        Cheese storage cheeseObj = purchasedCheeseBlocks[walletRetailer][_id];
+        Cheese storage cheeseObj = purchasedCheeseBlocks[walletRetailer][id];
             
-        require(cheeseObj.quantity >= _quantityToTransform, "Quantity not Valid!");
+        require(cheeseObj.quantity >= quantityToTransform, "Quantity not Valid!");
         return true;    
     }
 
 
-    function checkQuantity(address walletRetailer,  uint256 _id, uint256 _quantityToTransform ) external view returns(bool){
+    function checkQuantity(address walletRetailer,  uint256 id, uint256 quantityToTransform ) external view returns(bool){
         
-        Cheese storage cheeseObj = purchasedCheeseBlocks[walletRetailer][_id];
+        Cheese storage cheeseObj = purchasedCheeseBlocks[walletRetailer][id];
             
-        require(cheeseObj.quantity >= _quantityToTransform, "Quantity not Valid!");
+        require(cheeseObj.quantity >= quantityToTransform, "Quantity not Valid!");
 
         return true;    
     }

@@ -28,65 +28,68 @@ contract ConsumerBuyerStorage {
     //--------------------------------------------------------------- Business Logic Service -----------------------------------------------------------------------------------------//
 
     function addCheesePiece(
-        address _walletConsumerBuyer,
-        address _walletRetailer, // Riferimento al wallet del Retailer
-        uint256 _id,
-        uint256 _price,
-        uint256 _weight
-    ) external returns (uint256 id_CheesePiece_Acquistato, uint256 price, uint256 weight) {
+        address walletConsumerBuyer,
+        address walletRetailer, // Riferimento al wallet del Retailer
+        uint256 id,
+        uint256 price,
+        uint256 weight
+    ) external returns (uint256, uint256, uint256) {
 
-        CheesePiece storage cheesePieceControl = purchasedCheesePieces[_walletConsumerBuyer][_id];
+        CheesePiece storage cheesePieceControl = purchasedCheesePieces[walletConsumerBuyer][id];
+
         require(cheesePieceControl.id == 0, "CheesePiece gia' presente!");
 
         // Crea un nuovo CheesePiece
         CheesePiece memory cheesePiece = CheesePiece({
-            id: _id,
-            walletRetailer: _walletRetailer,
-            price: _price,
-            weight: _weight
+            id: id,
+            walletRetailer: walletRetailer,
+            price: price,
+            weight: weight
         });
 
         // Inserisce il nuovo CheesePiece nella lista purchasedCheesePieces
-        purchasedCheesePieces[_walletConsumerBuyer][_id] = cheesePiece;
+        purchasedCheesePieces[walletConsumerBuyer][id] = cheesePiece;
 
         //Inserisci l'id all'interno della Lista
-        purchasedCheesePieceListIdForSingleConsumer[_walletConsumerBuyer].push(_id);
+        userCheesePieceIds[walletConsumerBuyer].push(id);
 
         return (
-            purchasedCheesePieces[_walletConsumerBuyer][_id].id,
-            purchasedCheesePieces[_walletConsumerBuyer][_id].price,
-            purchasedCheesePieces[_walletConsumerBuyer][_id].weight
+            purchasedCheesePieces[walletConsumerBuyer][id].id,
+            purchasedCheesePieces[walletConsumerBuyer][id].price,
+            purchasedCheesePieces[walletConsumerBuyer][id].weight
             );
     }
 
-    function getCheesePiece(address walletConsumerBuyer, uint256 _id_CheesePieceAcquistato) external view returns (uint256, address, uint256, uint256) {
-        CheesePiece memory cheesePiece = purchasedCheesePieces[walletConsumerBuyer][_id_CheesePieceAcquistato];
+    function getCheesePiece(address walletConsumerBuyer, uint256 idCheesePiece) external view returns (uint256, address, uint256, uint256) {
+        CheesePiece memory cheesePiece = purchasedCheesePieces[walletConsumerBuyer][idCheesePiece];
+
         
         return (cheesePiece.id, cheesePiece.walletRetailer, cheesePiece.price, cheesePiece.weight);
     }
 
-    function isCheesePiecePresent(address walletConsumerBuyer, uint256 _id_CheesePieceAcquistato) external view returns(bool) {
-        require(_id_CheesePieceAcquistato != 0 && _id_CheesePieceAcquistato > 0, "ID CheesePiece Not Valid!");
+    function isCheesePiecePresent(address walletConsumerBuyer, uint256 idCheesePiece) external view returns(bool) {
+        require(idCheesePiece != 0 && idCheesePiece > 0, "ID CheesePiece Not Valid!");
         
-        return purchasedCheesePieces[walletConsumerBuyer][_id_CheesePieceAcquistato].id != 0;
+        return purchasedCheesePieces[walletConsumerBuyer][idCheesePiece].id != 0;
     }
 
-    function getWeight(address walletConsumerBuyer, uint256 _id) external view returns (uint256) {
-        return purchasedCheesePieces[walletConsumerBuyer][_id].weight;
+    function getWeight(address walletConsumerBuyer, uint256 id) external view returns (uint256) {
+        return purchasedCheesePieces[walletConsumerBuyer][id].weight;
     }
 
-    function getPrice(address walletConsumerBuyer, uint256 _id) external view returns (uint256) {
-        return purchasedCheesePieces[walletConsumerBuyer][_id].price;
+    function getPrice(address walletConsumerBuyer, uint256 id) external view returns (uint256) {
+        return purchasedCheesePieces[walletConsumerBuyer][id].price;
     }
 
-    function getWalletRetailer(address walletConsumerBuyer, uint256 _id) external view returns (address) {
-        return purchasedCheesePieces[walletConsumerBuyer][_id].walletRetailer;
+    function getWalletRetailer(address walletConsumerBuyer, uint256 id) external view returns (address) {
+        return purchasedCheesePieces[walletConsumerBuyer][id].walletRetailer;
+
     }
     
     /*
     * Restituisce la Lista di tutti gli ID dei prodotti di un determinato utente
     */
-    function getListCheesePieseIdPurchasedByConsumer(address walletConsumer)external view returns (uint256[] memory){
-        return purchasedCheesePieceListIdForSingleConsumer[walletConsumer];
+    function getUserCheesePieceIds(address walletConsumer)external view returns (uint256[] memory){
+        return userCheesePieceIds[walletConsumer];
     }
 }

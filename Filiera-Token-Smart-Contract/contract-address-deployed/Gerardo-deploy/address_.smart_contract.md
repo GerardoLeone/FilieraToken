@@ -47,10 +47,10 @@
 * - ConsumerService Address
 "address": "0xdfd65896df9fa146f65090e88b10fedb820dcf3e"
 
-* - ConsumerBuyerInventoryStorage Address
+* - ConsumerBuyerStorage Address
 "address": "0xa1d1f90165c674acfa108b87ba77a59e3e6cc538"
 
-* - ConsumerBuyerInventoryService Address
+* - ConsumerBuyerService Address
 "address": "0x698d3cb5b567240c6988326189ec44e938819759"
 
 ---------------------------------------------------------------

@@ -19,9 +19,9 @@ contract CheeseProducerInventoryStorage {
 
     mapping(address => mapping(uint256 => Cheese)) private cheeseBlocks; // map of CheeseBlock 
 
-    mapping( address => uint256[] ) cheeseBlockIdListForSingleCheeseProducer; // List of id of Single User CheeseProducer 
+    mapping( address => uint256[] ) userCheeseBlockIds; // List of id of Single User CheeseProducer 
 
-    uint256 [] private cheeseBlockListId; // All CheeseBlock 
+    uint256 [] private globalCheeseBlockIds; // All CheeseBlock 
 
 // --------------------------------------------------- Business Function --------------------------------------------------------------------------------------//
 
@@ -29,17 +29,15 @@ contract CheeseProducerInventoryStorage {
 
     function addCheeseBlock(
             address walletCheeseProducer,
-            uint256 _id_MilkBatchAcquistato,
-            string memory _dop,
-            uint256 _price,
-            uint256 _quantity
+            string memory dop,
+            uint256 price,
+            uint256 quantity
         ) external returns (uint256 , string memory , uint256 , uint256 ){
 
-        uint256 _id = uint256(keccak256(abi.encodePacked(
-            _id_MilkBatchAcquistato,
-            _dop,
-            _price,
-            _quantity,
+        uint256 id = uint256(keccak256(abi.encodePacked(
+            dop,
+            price,
+            quantity,
             walletCheeseProducer,
             block.timestamp
         )));
@@ -47,37 +45,37 @@ contract CheeseProducerInventoryStorage {
 
         // Crea un nuovo Blocco di formaggio
         Cheese memory cheeseBlock = Cheese({
-            id: _id,
-            dop: _dop,
-            price: _price,
-            quantity: _quantity
+            id: id,
+            dop: dop,
+            price: price,
+            quantity: quantity
         });
 
         // Inserisci l'id all'interno della Lista 
-        cheeseBlockListId.push(_id);
+        globalCheeseBlockIds.push(id);
         // Inserisce l'id all'interno della Lista del CheeseProducer 
-        cheeseBlockIdListForSingleCheeseProducer[walletCheeseProducer].push(_id);
+        userCheeseBlockIds[walletCheeseProducer].push(id);
         // Inserisce il nuovo Blocco di formaggio nella lista cheeseBlocks
-        cheeseBlocks[walletCheeseProducer][_id] = cheeseBlock;
+        cheeseBlocks[walletCheeseProducer][id] = cheeseBlock;
 
         return (cheeseBlock.id,cheeseBlock.dop,cheeseBlock.price,cheeseBlock.quantity);
     }
 
-    function getCheeseBlock(address walletCheeseProducer, uint256 _id) external view returns (uint256, string memory, uint256, uint256) {
+    function getCheeseBlock(address walletCheeseProducer, uint256 id) external view returns (uint256, string memory, uint256, uint256) {
 
-        Cheese memory cheeseBlock = cheeseBlocks[walletCheeseProducer][_id];
+        Cheese memory cheeseBlock = cheeseBlocks[walletCheeseProducer][id];
 
         return (cheeseBlock.id, cheeseBlock.dop, cheeseBlock.price, cheeseBlock.quantity);
     }
 
     // Elimina il CheeseBlock 
-    function deleteCheeseBlock(address walletCheeseProducer, uint256 _id) external returns(bool value) {
+    function deleteCheeseBlock(address walletCheeseProducer, uint256 id) external returns(bool value) {
 
-        delete cheeseBlocks[walletCheeseProducer][_id];
+        delete cheeseBlocks[walletCheeseProducer][id];
         // Check CheesePiece in the mapping 
-        if(cheeseBlocks[walletCheeseProducer][_id].id  == 0 && 
-        deleteCheeseBlockIdFromList(_id) && 
-        deleteCheeseBlockIdFromListSingleUser(_id, walletCheeseProducer) ){
+        if(cheeseBlocks[walletCheeseProducer][id].id  == 0 && 
+        deleteCheeseBlockIdFromList(id) && 
+        deleteCheeseBlockIdFromListSingleUser(id, walletCheeseProducer) ){
             return true;
         }else {
             return false;
@@ -86,31 +84,31 @@ contract CheeseProducerInventoryStorage {
 
 
     // Verifica che il CheeseBlock è già presente 
-    function isCheeseBlockPresent(address walletCheeseProducer,uint256 _id_CheeseBlock) external view returns(bool){
+    function isCheeseBlockPresent(address walletCheeseProducer,uint256 idCheeseBlock) external view returns(bool){
         
-        require( _id_CheeseBlock !=0 && _id_CheeseBlock>0, "ID MilkBatch Not Valid!");
+        require( idCheeseBlock !=0 && idCheeseBlock>0, "ID MilkBatch Not Valid!");
 
-        return cheeseBlocks[walletCheeseProducer][_id_CheeseBlock].id == _id_CheeseBlock;
+        return cheeseBlocks[walletCheeseProducer][idCheeseBlock].id == idCheeseBlock;
     }
     
 
 // --------------------------------------------------- Get Function --------------------------------------------------------------------------------------//
     
-    function getDop(address walletCheeseProducer, uint256 _id) external view returns(string memory) {
+    function getDop(address walletCheeseProducer, uint256 id) external view returns(string memory) {
 
-        Cheese memory cheeseBlock = cheeseBlocks[walletCheeseProducer][_id];
+        Cheese memory cheeseBlock = cheeseBlocks[walletCheeseProducer][id];
         return cheeseBlock.dop;
     }
 
-    function getPrice(address walletCheeseProducer, uint256 _id) external view returns(uint256) {
+    function getPrice(address walletCheeseProducer, uint256 id) external view returns(uint256) {
 
-        Cheese memory cheeseBlock = cheeseBlocks[walletCheeseProducer][_id];
+        Cheese memory cheeseBlock = cheeseBlocks[walletCheeseProducer][id];
         return cheeseBlock.price;
     }
 
-    function getQuantity(address walletCheeseProducer, uint256 _id) external view returns(uint256) {
+    function getQuantity(address walletCheeseProducer, uint256 id) external view returns(uint256) {
 
-        Cheese memory cheeseBlock = cheeseBlocks[walletCheeseProducer][_id];
+        Cheese memory cheeseBlock = cheeseBlocks[walletCheeseProducer][id];
         return cheeseBlock.quantity;
     }
 
@@ -118,13 +116,13 @@ contract CheeseProducerInventoryStorage {
     /*
     * Restituisce la Lista di tutti gli ID dei prodotti di un determinato utente
     */
-    function getListCheeseBlockIdByCheeseProducer(address walletCheeseProducer)external view returns (uint256[] memory){
-        return cheeseBlockIdListForSingleCheeseProducer[walletCheeseProducer];
+    function getUserCheeseBlockIds(address walletCheeseProducer)external view returns (uint256[] memory){
+        return userCheeseBlockIds[walletCheeseProducer];
     }
     
     // Restituisce tutti i CheeseBlock per i Retailer 
-    function getListCheeseBlockAll()external view returns(uint256[]memory){
-        return cheeseBlockListId;
+    function getGlobalCheeseBlockIds()external view returns(uint256[]memory){
+        return globalCheeseBlockIds;
     }
 // --------------------------------------------------- Set Function --------------------------------------------------------------------------------------//
 
@@ -132,29 +130,29 @@ contract CheeseProducerInventoryStorage {
     // - Funzione updateCheeseBlockQuantity() aggiorna la quantità del CheeseBlock 
     function updateCheeseBlockQuantity(
         address walletCheeseProducer,
-        uint256 _id_Cheese,
-        uint256 _newQuantity) external  {
+        uint256 idCheese,
+        uint256 newQuantity) external  {
         
         // Controllo sulla quantita' 
-        require(_newQuantity<=cheeseBlocks[walletCheeseProducer][_id_Cheese].quantity,"Controllo della Quantita' da utilizzare non andata a buon fine!");
+        require(newQuantity<=cheeseBlocks[walletCheeseProducer][idCheese].quantity,"Controllo della Quantita' da utilizzare non andata a buon fine!");
 
-        cheeseBlocks[walletCheeseProducer][_id_Cheese].quantity = _newQuantity;
+        cheeseBlocks[walletCheeseProducer][idCheese].quantity = newQuantity;
     }
 
-    function deleteCheeseBlockIdFromList(uint256 _id)internal returns (bool) {
+    function deleteCheeseBlockIdFromList(uint256 id)internal returns (bool) {
         for(uint256 i=0; ; i++){
-            if(cheeseBlockListId[i] == _id ){
-                delete  cheeseBlockListId[i];
+            if(globalCheeseBlockIds[i] == id ){
+                delete  globalCheeseBlockIds[i];
                 return true;
             }
         }
         return false;
     }
 
-    function deleteCheeseBlockIdFromListSingleUser(uint256 _id, address walletCheeseProducer)internal returns (bool) {
+    function deleteCheeseBlockIdFromListSingleUser(uint256 id, address walletCheeseProducer)internal returns (bool) {
         for(uint256 i=0; ; i++){
-            if(cheeseBlockIdListForSingleCheeseProducer[walletCheeseProducer][i] == _id){
-                delete cheeseBlockIdListForSingleCheeseProducer[walletCheeseProducer][i];
+            if(userCheeseBlockIds[walletCheeseProducer][i] == id){
+                delete userCheeseBlockIds[walletCheeseProducer][i];
                 return true;
             }
         }

@@ -52,88 +52,88 @@ contract ConsumerBuyerService {
     * - Ammettiamo che i controlli sul prodotto vengono già fatti a monte 
     * - verifichiamo che il ConsumerBuyer e il Retailer esistono 
     * - verifichiamo che il CheesePiece associato al Retailer esiste 
-    * - Aggiungiamo questi dati all'interno del  
+    * - Aggiungiamo questi dati all'interno del Inventory 
     */
     function addCheesePiece(
-        address _walletRetailer,
-        address _walletConsumerBuyer,
-        uint256 _id_CheesePiece,
-        uint256 _price,
-        uint256 _weight
-    ) external checkAddress(_walletConsumerBuyer) checkAddress(_walletRetailer) {
+        address walletRetailer,
+        address walletConsumer,
+        uint256 idCheesePiece,
+        uint256 price,
+        uint256 weight
+    ) external checkAddress(walletConsumer) checkAddress(walletRetailer) {
 
         // Verifico che ConsumerBuyer e Retailer address non siano identici
-        require(address(_walletConsumerBuyer) != address(_walletRetailer), "Address uguali ConsumerBuyer e Retailer!");
+        require(address(walletConsumer) != address(walletRetailer), "Address uguali ConsumerBuyer e Retailer!");
 
         // Verifico che il ConsumerBuyer è presente 
-        require(consumerService.isUserPresent(_walletConsumerBuyer), "Utente non trovato!");
+        require(consumerService.isUserPresent(walletConsumer), "Utente non trovato!");
 
         // Aggiungo il CheesePiece all'interno dell'Inventario del ConsumerBuyer 
-        (uint256 id_CheesePiece_Acquistato, uint256 price, uint256 weight) = consumerBuyerStorage.addCheesePiece(_walletConsumerBuyer, _walletRetailer, _id_CheesePiece, _price, _weight);
+        (uint256 _idCheesePiece, uint256 _price, uint256 _weight) = consumerBuyerStorage.addCheesePiece(walletConsumer, walletRetailer, idCheesePiece, price, weight);
 
         // Invio dell'Evento 
-        emit ConsumerBuyerCheesePieceAdded(_walletConsumerBuyer, "CheesePiece Acquistato!", id_CheesePiece_Acquistato, price, weight);
+        emit ConsumerBuyerCheesePieceAdded(walletConsumer, "CheesePiece Acquistato!", _idCheesePiece, _price, _weight);
     }
 
     //TODO : Controllo sull'owner del CheesePiece Acquistato 
-    function getCheesePiece(uint256 _id_CheesePieceAcquistato) external view checkAddress(msg.sender) returns (uint256, address, uint256, uint256) {
+    function getCheesePiece(uint256 idCheesePiece) external view checkAddress(msg.sender) returns (uint256, address, uint256, uint256) {
 
-        address _walletConsumerBuyer = msg.sender;
+        address walletConsumer = msg.sender;
 
-        require(consumerService.isUserPresent(_walletConsumerBuyer), "Utente non trovato!");
+        require(consumerService.isUserPresent(walletConsumer), "Utente non trovato!");
 
-        require(this.isCheesePiecePresent(_walletConsumerBuyer, _id_CheesePieceAcquistato), "Prodotto non Presente!");
+        require(this.isCheesePiecePresent(walletConsumer, idCheesePiece), "Prodotto non Presente!");
 
-        return consumerBuyerStorage.getCheesePiece(_walletConsumerBuyer, _id_CheesePieceAcquistato);
+        return consumerBuyerStorage.getCheesePiece(walletConsumer, idCheesePiece);
     }
 
-    function getPrice(address _walletConsumerBuyer, uint256 _id_CheesePieceAcquistato) external view checkAddress(msg.sender) returns (uint256) {
+    function getPrice(address walletConsumer, uint256 idCheesePiece) external view checkAddress(msg.sender) returns (uint256) {
 
-        require(consumerService.isUserPresent(_walletConsumerBuyer), "Utente non trovato!");
+        require(consumerService.isUserPresent(walletConsumer), "Utente non trovato!");
 
-        require(this.isCheesePiecePresent(_walletConsumerBuyer, _id_CheesePieceAcquistato), "Prodotto non Presente!");
+        require(this.isCheesePiecePresent(walletConsumer, idCheesePiece), "Prodotto non Presente!");
 
-        return consumerBuyerStorage.getPrice(_walletConsumerBuyer, _id_CheesePieceAcquistato);
+        return consumerBuyerStorage.getPrice(walletConsumer, idCheesePiece);
     }
 
-    function getWeight(address _walletConsumerBuyer, uint256 _id_CheesePieceAcquistato) external view checkAddress(msg.sender) returns (uint256) {
+    function getWeight(address walletConsumer, uint256 idCheesePiece) external view checkAddress(msg.sender) returns (uint256) {
 
-        require(consumerService.isUserPresent(_walletConsumerBuyer), "Utente non trovato!");
+        require(consumerService.isUserPresent(walletConsumer), "Utente non trovato!");
 
-        require(this.isCheesePiecePresent(_walletConsumerBuyer, _id_CheesePieceAcquistato), "Prodotto non Presente!");
+        require(this.isCheesePiecePresent(walletConsumer, idCheesePiece), "Prodotto non Presente!");
 
-        return consumerBuyerStorage.getWeight(_walletConsumerBuyer, _id_CheesePieceAcquistato);
+        return consumerBuyerStorage.getWeight(walletConsumer, idCheesePiece);
     }
 
-    function getWalletRetailer(address _walletConsumerBuyer, uint256 _id_CheesePieceAcquistato) external view checkAddress(msg.sender) returns (address) {
+    function getWalletRetailer(address walletConsumer, uint256 idCheesePiece) external view checkAddress(msg.sender) returns (address) {
 
-        require(consumerService.isUserPresent(_walletConsumerBuyer), "Utente non trovato!");
+        require(consumerService.isUserPresent(walletConsumer), "Utente non trovato!");
 
-        require(this.isCheesePiecePresent(_walletConsumerBuyer, _id_CheesePieceAcquistato), "Prodotto non Presente!");
+        require(this.isCheesePiecePresent(walletConsumer, idCheesePiece), "Prodotto non Presente!");
 
-        return consumerBuyerStorage.getWalletRetailer(_walletConsumerBuyer, _id_CheesePieceAcquistato);
+        return consumerBuyerStorage.getWalletRetailer(walletConsumer, idCheesePiece);
     }
 
     /**
     * Verifica che il CheesePiece è presente all'interno dell'inventario 
     * - Verifica che l'id non sia nullo e che sia maggiore di 0 e che coincida con l'elemento 
     */
-    function isCheesePiecePresent(address _walletConsumerBuyer, uint256 _id_CheesePieceAcquistato) external view checkAddress(_walletConsumerBuyer) returns (bool) {
+    function isCheesePiecePresent(address walletConsumer, uint256 idCheesePiece) external view checkAddress(walletConsumer) returns (bool) {
 
-        require(consumerService.isUserPresent(_walletConsumerBuyer), "Utente non presente!");
+        require(consumerService.isUserPresent(walletConsumer), "Utente non presente!");
 
-        return consumerBuyerStorage.isCheesePiecePresent(_walletConsumerBuyer, _id_CheesePieceAcquistato);
+        return consumerBuyerStorage.isCheesePiecePresent(walletConsumer, idCheesePiece);
     }
 
     
     /*
     * Funzione che recupera tutti gli ID dei prodotti acquistati di un Consumer tramite il suo wallet 
     */ 
-    function getListCheesePieceIdPurchasedByConsumer(address walletConsumer) external checkAddress(walletConsumer) view returns (uint256[] memory){
+    function getUserCheesePieceIds(address walletConsumer) external checkAddress(walletConsumer) view returns (uint256[] memory){
         // Check if exist 
         require(consumerService.isUserPresent(walletConsumer), "User is not present!");
 
-        return consumerBuyerStorage.getListCheesePieseIdPurchasedByConsumer(walletConsumer);
+        return consumerBuyerStorage.getUserCheesePieceIds(walletConsumer);
     }
 
 //-------------------------------------------------------------------- Set Function ------------------------------------------------------------------------//

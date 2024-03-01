@@ -61,7 +61,7 @@ class API {
   static Map<String, dynamic> getMilkBatchPayload(String wallet, String id){
     return {
       'input': {
-        'id': id,
+        '_id': id,
         'walletMilkHub': wallet
       }
     };

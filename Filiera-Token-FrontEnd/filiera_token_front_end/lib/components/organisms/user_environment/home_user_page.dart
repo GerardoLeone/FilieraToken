@@ -17,6 +17,7 @@ import 'package:filiera_token_front_end/components/molecules/custom_nav_bar.dart
 import 'package:get_it/get_it.dart';
 
 class HomePageUser extends StatefulWidget {
+
   const HomePageUser({
     Key? key,
     required String userType,
@@ -88,15 +89,6 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
       _drawerSlideController.forward();
     }
   }
-
-
-
-    // Lista di prodotti fittizia
-    List<Product> products = [
-    MilkBatch(id: "1", name: "Partita di Latte 1", description: "Descrizione partita di latte 1", seller: "Milk Hub 1", expirationDate: "10-01-2025", quantity: 30, pricePerLitre: 3),
-    MilkBatch(id: "2", name: "Partita di Latte 2", description: "Descrizione partita di latte 2", seller: "Milk Hub 2", expirationDate: "10-05-2025", quantity: 22, pricePerLitre: 2),
-    MilkBatch(id: "2", name: "Partita di Latte 2", description: "Descrizione partita di latte 2", seller: "Milk Hub 2", expirationDate: "10-05-2025", quantity: 22, pricePerLitre: 2),
-  ];
   
   // Indice della pagina corrente
   int currentPage = 0;
@@ -109,9 +101,13 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
       return CustomLoadingIndicator(progress: 4.5);
       } else {
 
-    /*Actor actor = Actor.MilkHub; //TODO: gettarsi con hive il valore dell'attore
-    String wallet = "0x7dDc959b89472A1812Ace5b2D2ae6f2926c0AABD"; //TODO: gettarsi con hive il wallet
-    Future<List<Product>> productList = products as Future<List<Product>>;
+    print("Build!");
+    Actor actor = user!.type; //TODO: gettarsi con hive il valore dell'attore    
+    String wallet = user!.wallet; //TODO: gettarsi con hive il wallet
+    Future<List<Product>> productList = Future.value([]);
+
+    print(actor);
+    print(wallet);
 
     switch(actor) {
       case Actor.MilkHub:
@@ -129,7 +125,7 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
       default:
         print("Errore nella selezione dell'attore in fase di build (home_user_page.dart)");
         break;
-    }*/
+    }
 
     return Scaffold(
       appBar: _buildAppBar(),
@@ -138,7 +134,7 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
           Padding(
             padding: EdgeInsets.all(50.5),
             child: FutureBuilder(
-              future: null,
+              future: productList,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   // Se il futuro è ancora in attesa, mostra un indicatore di caricamento
@@ -148,9 +144,9 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
                   return Text('Errore: ${snapshot.error}');
                 } else {
                   // Se il futuro è completato con successo, otterrai la lista di prodotti
-                  List<Product> productsList = products as List<Product>;
+                  List<Product> products = snapshot.data as List<Product>;
                   return SingleChildScrollView(
-                    child: CustomProductList(products: productsList, onProductTap: handleProductTap),
+                    child: CustomProductList(products: products, onProductTap: handleProductTap),
                   );
                 }
               },

@@ -35,7 +35,7 @@ contract RetailerStorage is IUserStorageInterface {
     function addUser(string memory _fullName, string memory _password,string memory _email, address walletRetailer) external {
                 
         // Genera l'ID manualmente utilizzando keccak256
-        bytes32 idHash = keccak256(abi.encodePacked(_fullName, _password, _email, walletRetailer));
+        bytes32 idHash = ripemd160(abi.encodePacked(_fullName, _password, _email, walletRetailer)); // Produce un hash di 20 byte
         uint256 lastIdRetailer = uint256(idHash);
 
         require(retailers[walletRetailer].id == 0, "Retailer already registered");
@@ -69,7 +69,7 @@ contract RetailerStorage is IUserStorageInterface {
         Retailer storage retailer = retailers[walletRetailer];
         
         // Verifico che l'email e la password hashate sono uguali tra di loro 
-        return keccak256(abi.encodePacked(retailer.email, retailer.password)) == keccak256(abi.encodePacked(_email, _password));
+        return ripemd160(abi.encodePacked(retailer.email, retailer.password)) == ripemd160(abi.encodePacked(_email, _password));
     }
 
     // Funzione per eliminare il Consumer dato il suo indirizzo del wallet 
@@ -82,6 +82,16 @@ contract RetailerStorage is IUserStorageInterface {
         }else {
             return false;
         }
+    }
+
+    function deleteRetailerFromList(address walletRetailer)internal returns (bool) {
+        for(uint256 i=0; ; i++){
+            if(addressList[i] == walletRetailer){
+                delete  addressList[i];
+                return true;
+            }
+        }
+        return false;
     }
 
     // Check if exist the User 
@@ -124,6 +134,7 @@ contract RetailerStorage is IUserStorageInterface {
     */
     function getBalance(address walletRetailer, uint256 _id) external view  returns(uint256){
         require(retailers[walletRetailer].id == _id,"ID not Valid!");
+
         Retailer memory retailer = retailers[walletRetailer];
         return retailer.balance;
     }
@@ -138,31 +149,26 @@ contract RetailerStorage is IUserStorageInterface {
         Retailer memory retailer = retailers[walletRetailer];
 
         // Restituisce i dati del consumatore
-        return (retailer.id, retailer.fullName, retailer.password, retailer.email, retailer.balance);
+        return (
+            retailer.id,
+         retailer.fullName,
+          retailer.password,
+           retailer.email,
+            retailer.balance
+            );
     }
 
     /**
     *Ritorna la Lista degli address
     */
-    function getListAddress() external view returns (address [] memory){  
+    function getListAddressRetailer() external view returns (address [] memory){  
         return addressList;
     }
-
 
     // - Funzione updateBalance() attraverso l'address e l'id, riusciamo a settare il nuovo balance
     function updateBalance(address walletRetailer, uint256 balance) external{
         // Update Balance 
         retailers[walletRetailer].balance = balance;
-    }
-
-    function deleteRetailerFromList(address walletRetailer)internal returns (bool) {
-        for(uint256 i=0; ; i++){
-            if(addressList[i] == walletRetailer){
-                delete  addressList[i];
-                return true;
-            }
-        }
-        return false;
     }
 
 }   

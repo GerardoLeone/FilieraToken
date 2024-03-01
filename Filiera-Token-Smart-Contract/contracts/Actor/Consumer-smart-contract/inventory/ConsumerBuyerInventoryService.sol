@@ -125,11 +125,15 @@ contract ConsumerBuyerInventoryService {
         return consumerBuyerInventoryStorage.isCheesePiecePresent(_walletConsumerBuyer, _id_CheesePieceAcquistato);
     }
 
-    function getPurchasedCheesePieceByConsumer(address walletConsumer) external checkAddress(walletConsumer) view returns (ConsumerBuyerInventoryStorage.CheesePiece[] memory){
+    
+    /*
+    * Funzione che recupera tutti gli ID dei prodotti acquistati di un Consumer tramite il suo wallet 
+    */ 
+    function getListCheesePieceIdPurchasedByConsumer(address walletConsumer) external checkAddress(walletConsumer) view returns (uint256[] memory){
         // Check if exist 
         require(consumerService.isUserPresent(walletConsumer), "User is not present!");
 
-        return consumerBuyerInventoryStorage.getPurchasedCheesePieceByConsumer(walletConsumer);
+        return consumerBuyerInventoryStorage.getListCheesePieseIdPurchasedByConsumer(walletConsumer);
     }
 
 //-------------------------------------------------------------------- Set Function ------------------------------------------------------------------------//

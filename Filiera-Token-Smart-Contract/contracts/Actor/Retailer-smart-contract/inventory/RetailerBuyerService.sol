@@ -140,11 +140,11 @@ contract RetailerBuyerService {
 
     
     
-    function getPurchasedCheeseBlockByRetailer(address walletRetailer) external checkAddress(walletRetailer) view returns (RetailerBuyerStorage.Cheese[] memory){
+    function getPurchasedCheeseBlockByRetailer(address walletRetailer) external checkAddress(walletRetailer) view returns (uint256[] memory){
         // Check if exist 
         require(retailerService.isUserPresent(walletRetailer), "User is not present!");
 
-        return retailerBuyerStorage.getPurchasedCheeseBlockByRetailer(walletRetailer);
+        return retailerBuyerStorage.getListCheeseIdPurchasedByRetailer(walletRetailer);
     }
 
 

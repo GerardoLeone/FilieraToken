@@ -2,7 +2,9 @@ import 'package:filiera_token_front_end/components/organisms/user_environment/hi
 import 'package:filiera_token_front_end/components/organisms/user_environment/home_user_page.dart';
 import 'package:filiera_token_front_end/components/organisms/user_environment/inventory_profile/inventory_user_profile_.dart';
 import 'package:filiera_token_front_end/components/organisms/user_environment/product_buy_profile/product_buyed_user_profile_.dart';
+import 'package:filiera_token_front_end/components/organisms/user_environment/services/secure_storage_service.dart';
 import 'package:filiera_token_front_end/components/organisms/user_environment/setting_profile/setting_user_profile_page.dart';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -14,17 +16,18 @@ import 'package:filiera_token_front_end/components/organisms/home_page/home_page
 // Page User 
 
 
-// Profile Page 
-//import 'package:filiera_token_front_end/components/organisms/user_environment/setting_profile/setting_user_profile_page.dart';
+import 'package:get_it/get_it.dart';
 
-// Profile Sub-Page
-//import 'package:filiera_token_front_end/components/organisms/user_environment/history_profile/user_profile_history.dart';
-//import 'package:filiera_token_front_end/components/organisms/user_environment/inventory_profile/user_profile_inventory.dart';
 
-void main() { 
-  runApp(MyApp());
+void setupDependencies() {
+  GetIt.I.registerSingleton<SecureStorageService>(SecureStorageService.instance);
 }
 
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  setupDependencies();
+  runApp(MyApp());
+}
 
 
 class MyApp extends StatelessWidget {
@@ -33,8 +36,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      routerConfig: _router,
+
+    return  MaterialApp.router(
+      routerConfig: _routerConsumer,
     );
   }
 }
@@ -42,7 +46,7 @@ class MyApp extends StatelessWidget {
 /**
  * Map Router 
  */
-final GoRouter _router = GoRouter(
+/*final GoRouter _router = GoRouter(
   initialLocation: '/',
   routes: [
     
@@ -81,6 +85,102 @@ final GoRouter _router = GoRouter(
       ),
     ],
   ),
+  ],
+);*/
+
+
+/// Route Consumer 
+
+// Assuming you have defined your page widgets:
+// - MyHomePage
+// - MySignUpPage
+// - MySignInPage
+// - HomePageUser
+// - UserProfilePage
+// - UserProfileHistoryPage
+// - UserProfileInventoryProductPage
+// - UserProfileProductBuyed
+
+final GoRouter _routerConsumer = GoRouter(
+  initialLocation: '/',
+  routes: [
+    GoRoute(
+      path: '/',
+      builder: (context, state) => const MyHomePage(),
+    ),
+    GoRoute(
+      path: '/signup',
+      builder: (context, state) => const MySignUpPage(title: "Filiera-Token-SignUp"),
+    ),
+    GoRoute(
+      path: '/signin',
+      builder: (context, state) => const MySignInPage(title: "Filiera-Token-SignIn"),
+    ),
+
+    // Dynamically pass user data to nested routes
+    GoRoute(
+      path: '/home-page-user/:userType/:id_user',
+      builder: (context, state) {
+        final userType = state.pathParameters['userType']!;
+        final idUser = state.pathParameters['id_user']!;
+        return HomePageUser(
+          userType: userType,
+          idUser: idUser,
+
+        );
+      },
+      routes: [
+        GoRoute(
+          path: 'profile',
+          builder: (context, state)  {
+            final userType = state.pathParameters['userType']!;
+            final idUser = state.pathParameters['id_user']!;
+            return UserProfilePage(
+              userType: userType,
+              idUser: idUser,
+            );
+          },
+          routes: [
+            GoRoute(
+              path: 'history',
+              builder: (context, state) {
+                final userType = state.pathParameters['userType']!;
+                final idUser = state.pathParameters['id_user']!;
+
+                return UserProfileHistoryPage(
+                  userType: userType,
+                  idUser: idUser,
+                );
+              },
+            ),
+            GoRoute(
+              path: 'inventory',
+              builder: (context, state) {
+                final userType = state.pathParameters['userType']!;
+                final idUser = state.pathParameters['id_user']!;
+
+                return UserProfileInventoryProductPage(
+                  userType: userType,
+                  idUser: idUser,
+                );
+              },
+            ),
+            GoRoute(
+              path: 'product-buyed',
+              builder: (context, state) {
+                final userType = state.pathParameters['userType']!;
+                final idUser = state.pathParameters['id_user']!;
+
+                return UserProfileProductBuyed(
+                  userType: userType,
+                  idUser: idUser,
+                );
+              },
+            ),
+          ],
+        ),
+      ],
+    ),
   ],
 );
 

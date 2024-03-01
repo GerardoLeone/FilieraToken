@@ -1,99 +1,104 @@
 import 'dart:async' show Future;
 import 'package:filiera_token_front_end/models/Product.dart';
+import 'package:filiera_token_front_end/utils/api.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class MilkHubInventoryService {
 
-  static const String _apiUrl = 'http://127.0.0.1:5000/api/v1/namespaces/default/apis/MilkHubInventoryService';
-
-  static const String _APINameMilkHub = "MilkHubInventoryService";
-
-  static const String _APINameCheeseProducer = "CheeseProducerInventoryService";
-
-  static const String _APINameRetailer = "RetailerInventoryService";
-
-  static const String _APINameConsumer = "ConsumerInventoryService";
-
-
 //getMilkHubId per calcolare wallet
 //gestire double
 //Name fissa e togliere la description
-  Future<List<Product>> getMilkBatchListByMilkHub(String wallet) async {
-    const url = '$_apiUrl/query/getMilkBatchListByMilkHub';
-    final headers = _getHeaders();
+
+  /**
+   * Questa funzione restituisce una lista di MilkBatch a partire dal wallet del MilkHub che li possiede.
+   */
+  static Future<List<Product>> getMilkBatchList(String wallet) async {
+    String url = API.buildURL(API.MilkHubInventoryService, API.Query, "getListMilkBatchId");
+
+    print(url);
+
+    final headers = API.getHeaders();
+
+    print(headers);
+
+    final body = jsonEncode(API.getMilkHubPayload(wallet)); // Prepare JSON body with wallet data
+
+    print(body);
 
     try {
-      final response = await http.get(Uri.parse(url), headers: headers);
+      final response = await http.post(Uri.parse(url), headers: headers, body: body);
 
-      if (response.statusCode == 200) {
-        final jsonList = jsonDecode(response.body) as List;
+      if (response.statusCode == 200 || response.statusCode == 202) {
 
-        // Parse JSON list into Product objects
-        final productList = jsonList.map((json) => MilkBatch.fromJson(json)).toList();
+        print(jsonEncode(response.body));
+
+        final jsonData = jsonDecode(response.body);
+
+        final List<String> idList = jsonData['output'].cast<String>();
+        List<Product> productList = [];
+
+        for (int i = 0; i < idList.length; i++) {
+          Product product = await MilkHubInventoryService.getMilkBatch(wallet, idList[i]);
+          productList.add(product);
+        }
 
         return productList;
       } else {
-        throw Exception('Failed to fetch products: ${response.statusCode}');
+        throw Exception('Failed to fetch MilkBatch Id List: ${response.statusCode}');
       }
     } catch (error) {
-      print('Error fetching products: $error');
+      print('Error fetching MilkBatch Id List: $error');
       rethrow; // Re-throw to allow external handling of errors
     }
   }
 
+  /**
+   * Questa funzione restituisce un MilkBatch a partire dal wallet che lo possiede e dall'identificativo.
+   */
+  static Future<Product> getMilkBatch(String wallet, String id) async {
+    String url = API.buildURL(API.MilkHubInventoryService, API.Query, "getMilkBatch");
+    final headers = API.getHeaders();
+    final body = jsonEncode(API.getMilkBatchPayload(wallet, id));
 
-//aggiungere name e description
-//TODO: da cambiare
-  Future<bool> addMilkBatch(double price, int quantity, String expirationDate) async {
+    try {
+      final response = await http.post(Uri.parse(url), headers: headers, body: body);
 
-    const url = '$_apiUrl/invoke/addMilkBatch';
-    final headers = _getHeaders();
-    final body = _getMilkBatchBody(price, quantity, expirationDate);
+      if (response.statusCode == 200 || response.statusCode == 202) {
+        final jsonData = jsonDecode(response.body);
+        
+        return MilkBatch.fromJson(jsonData);
+      } else {
+          throw Exception('Failed to fetch MilkBatch: ${response.statusCode}');
+      }
 
-    final response = await http.post(
-      Uri.parse(url),
-      headers: headers,
-      body: jsonEncode(body),
-    );
+    } catch (error) {
+      print('Error fetching MilkBatch: $error');
+      rethrow; // Re-throw to allow external handling of errors
+    }
 
-    if (response.statusCode == 200 || response.statusCode == 202) {
-      // Richiesta avvenuta con successo
-      print('Partita di Latte aggiunta con successo');
-      return true;
-    } else {
-      // Errore nella richiesta
-      final error = jsonDecode(response.body)['error'];
-      print('Partita di Latte non aggiunta!' + error);
-      return false;
+  }
+
+  /**
+   * Questa funzione permette di aggiungere un MilkBatch all'interno del sistema, restituendo true se va a buon fine, false altrimenti.
+   */
+  static Future<bool> addMilkBatch(String wallet, double price, int quantity, String expirationDate) async {
+    String url = API.buildURL(API.MilkHubInventoryService, API.Query, "getMilkBatch");
+    final headers = API.getHeaders();
+    final body = jsonEncode(API.getMilkBatchBody(wallet, price.toString(), quantity.toString(), expirationDate));
+    try {
+      final response = await http.post(Uri.parse(url), headers: headers, body: body);
+
+      if (response.statusCode == 200 || response.statusCode == 202) {        
+        return true;
+      } else {
+          throw Exception('Failed to add MilkBatch: ${response.statusCode}');
+      }
+
+    } catch (error) {
+      print('Error adding MilkBatch: $error');
+      rethrow;
     }
   }
-
-  Map<String, String> _getHeaders() {
-    return {
-      'Accept': 'application/json',
-      'Request-Timeout': '2m0s',
-      'Content-Type': 'application/json',
-    };
-  }
-
-  Map<String, dynamic> _getMilkBatchBody(double price, int quantity, String expirationDate){
-    return {
-      'input': {
-        'price': price,
-        'quantity': quantity,
-        'expirationDate': expirationDate
-      }
-    };
-  }
-  
-  Map<String, dynamic> _getMilkBatchPayload(int id) {
-    return {
-      "input": {
-        "id": id,
-      }
-    };
-  }
-
 
 }

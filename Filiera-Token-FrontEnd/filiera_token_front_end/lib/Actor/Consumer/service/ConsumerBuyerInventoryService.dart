@@ -6,8 +6,14 @@ import 'dart:convert';
 
 class ConsumerBuyerInventoryService {
 
-  static Future<List<Product>> getCheesePieceList(String wallet) async {
-    String url = API.buildURL(API.ConsumerBuyerInventoryService, API.Query, "getListCheesePieceId");
+
+  static const String _queryListProductIDPurchased ='getListCheesePieseIdPurchasedByConsumer';
+
+  static const String _queryCheesePiece="getCheesePiece";
+
+
+  Future<List<Product>> getCheesePieceList(String wallet) async {
+    String url = API.buildURL(API.ConsumerBuyerInventoryService, API.Query, _queryListProductIDPurchased);
 
     print(url);
 
@@ -28,10 +34,12 @@ class ConsumerBuyerInventoryService {
         final jsonData = jsonDecode(response.body);
 
         final List<String> idList = jsonData['output'].cast<String>();
+
+        print("List : "+idList.toString());
         List<Product> productList = [];
 
         for (int i = 0; i < idList.length; i++) {
-          Product product = await ConsumerBuyerInventoryService.getCheesePiece(wallet, idList[i]);
+          Product product = await getCheesePiece(idList[i],wallet);
           productList.add(product);
         }
 
@@ -45,7 +53,7 @@ class ConsumerBuyerInventoryService {
     }
   }
 
-  static Future<Product> getCheesePiece(String wallet, String id) async {
+  /*static Future<Product> getCheesePiece(String wallet, String id) async {
     String url = API.buildURL(API.ConsumerBuyerInventoryService, API.Query, "getCheesePiece");
     final headers = API.getHeaders();
     final body = jsonEncode(API.getCheesePieceConsumerPayload(wallet, id));
@@ -64,23 +72,72 @@ class ConsumerBuyerInventoryService {
       print('Error fetching CheesePiece: $error');
       rethrow;
     }
-  }
+  }*/
 
-  static Future<bool> addCheesePiece(String wallet, double price, int quantity, String expirationDate) async {
-    String url = API.buildURL(API.ConsumerBuyerInventoryService, API.Query, "getCheesePiece");
+
+  // Effettuo una chiamata di prova per cercare di aggiungere i prodotti 
+
+  Future<Product> addCheesePiece(String id, String price, String walletConsumerBuyer, String walletRetailer, String weight) async {
+    final url = Uri.parse('http://127.0.0.1:5003/api/v1/namespaces/default/apis/ConsumerBuyerInventoryStorage/invoke/addCheesePiece');
+    
+    final body = jsonEncode({
+      'input': {
+        '_id': id,
+        '_price': price,
+        '_walletConsumerBuyer': walletConsumerBuyer,
+        '_walletRetailer': walletRetailer,
+        '_weight': weight,
+      },
+    });
     final headers = API.getHeaders();
-    final body = jsonEncode(API.getCheesePieceBody(wallet, price.toString(), quantity.toString(), expirationDate));
-    try {
-      final response = await http.post(Uri.parse(url), headers: headers, body: body);
+      try {
+      final response = await http.post(url, headers: headers, body: body);
 
       if (response.statusCode == 200 || response.statusCode == 202) {
-        return true;
+        final jsonData = jsonDecode(response.body);
+
+        print(jsonData);
+
+        return CheesePiece.fromJson(jsonData);
       } else {
-        throw Exception('Failed to add CheesePiece: ${response.statusCode}');
+        throw Exception('Failed to fetch CheesePiece: ${response.statusCode}');
       }
     } catch (error) {
-      print('Error adding CheesePiece: $error');
+      print('Error fetching CheesePiece: $error');
       rethrow;
     }
   }
+
+
+
+
+  Future<Product> getCheesePiece(String cheeseId, String walletConsumerBuyer) async {
+    
+    String url = API.buildURL(API.ConsumerBuyerInventoryService, API.Query, _queryCheesePiece);
+    
+    final body = jsonEncode(_getCheesePieceQueryBody(cheeseId, walletConsumerBuyer));
+    final headers = API.getHeaders();
+
+    final response = await http.post(Uri.parse(url), body: body, headers: headers);
+
+    print(response.toString());
+    final jsonData = jsonDecode(response.body);
+    
+    return CheesePiece.fromJson(jsonData);
+  }
+
+
+  _getCheesePieceQueryBody(String cheeseId,String walletConsumerBuyer){
+    return {
+      'input': {
+        '_id_CheesePieceAcquistato': cheeseId,
+        'walletConsumerBuyer': walletConsumerBuyer,
+      },
+    };
+  }
+
+
+
+
+
 }

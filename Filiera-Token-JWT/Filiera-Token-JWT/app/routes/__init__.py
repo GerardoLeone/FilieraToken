@@ -2,4 +2,4 @@ from flask import Flask
 
 app = Flask(__name__)
 
-from app.routes import auth
+from app.routes import jwt_controller

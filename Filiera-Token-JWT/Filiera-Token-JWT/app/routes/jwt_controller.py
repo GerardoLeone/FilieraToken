@@ -1,7 +1,6 @@
 from flask import request, jsonify
 from app import app
-from app.services.jwt_service import generate_token, validate_token
-
+from app.services.jwt_service import generate_token, validate_token, invalidate_token
 
 @app.route('/generate-jwt-token', methods=['POST'])
 def generate_jwt_token():
@@ -39,3 +38,18 @@ def protected():
     # Utilizzo dei dati decodificati dal token
     user_data = decoded_token.get('user')
     return jsonify({'message': 'Access granted', 'user': user_data}), 200
+
+@app.route('/invalidate-token', methods=['POST'])
+def invalidate_token():
+    # Controlla se il token è presente nella richiesta
+    data = request.json
+    if 'token' not in data:
+        return jsonify({'error': 'Token missing'}), 400
+
+    # Ottieni il token dalla richiesta
+    token = data['token']
+
+    # Invalida il token
+    invalidate_token(token)
+
+    return jsonify({'message': 'Token invalidated successfully'}), 200

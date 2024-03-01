@@ -29,7 +29,7 @@ class API {
    * Costanti Consumer
    */
   static const String ConsumerService = "ConsumerService";
-  static const String ConsumerBuyerInventoryService = "ConsumerBuyerInventoryService";
+  static const String ConsumerBuyerInventoryService = "ConsumerBuyerInventoryStorage"; //TODO: Change the Name 
 
   /**
    * Questa funzione permette di costruire l'URL per la chiamata di un metodo dell'API utilizzando le costanti offerte dalla classe api.dart
@@ -112,8 +112,8 @@ class API {
   static Map<String, dynamic> getCheesePieceConsumerPayload(String wallet, String id){
     return {
       'input': {
-        'id': id,
-        'walletConsumer': wallet
+        '_id_CheesePieceAcquistato': id,
+        'walletConsumerBuyer': wallet
       }
     };
   }
@@ -144,12 +144,14 @@ class API {
     };
   }
 
-  static Map<String, dynamic> getCheesePieceBody(String wallet, String cheeseBlockId, String price, String weight) {
+  static Map<String, dynamic> getCheesePieceBody(String wallet,String walletRetailer, String cheeseBlockId, String price, String weight) {
     return {
-      'input': {
-        'id_CheeseBlock': cheeseBlockId,
-        'price': price,
-        'weight': weight
+        "input": {
+        "_id": cheeseBlockId,
+        "_price": price,
+        "_walletConsumerBuyer": wallet,
+        "_walletRetailer": wallet,
+        "_weight": weight
       }
     };
   }

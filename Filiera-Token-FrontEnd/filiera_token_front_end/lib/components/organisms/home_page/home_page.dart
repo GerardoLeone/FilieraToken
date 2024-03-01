@@ -6,9 +6,6 @@ import 'package:filiera_token_front_end/components/organisms/home_page/component
 
 
 import 'package:flutter/material.dart';
-import 'package:flutter_social_button/flutter_social_button.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 
 
 

@@ -197,15 +197,14 @@ class CheesePiece extends Product {
   @override
   void updateQuantity(int quantityChange) {}
   
-  static Product fromJson(Map<String, dynamic> json) {
-    final cheesePieceData = json['input'] as Map<String, dynamic>;
+  static Product fromJson(Map<String, dynamic> cheesePiece) {
 
-    String id = json['id'];
+    String id = cheesePiece['output'];
     String name = "Pezzo di Formaggio";
     String description = "Pezzo di formaggio di alta qualità.";
-    String cheeseBlockId = "N.A.";
-    double price = double.parse(cheesePieceData['price'] as String); // Parsing price as double
-    double weight = double.parse(cheesePieceData['weight'] as String);
+    String cheeseBlockId = cheesePiece["output1"];
+    double price = double.parse(cheesePiece['output2'] as String); // Parsing price as double
+    double weight = double.parse(cheesePiece['output3'] as String);
 
     return CheesePiece(
       id: id, 

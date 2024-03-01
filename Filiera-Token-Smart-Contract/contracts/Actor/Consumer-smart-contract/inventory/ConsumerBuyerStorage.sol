@@ -3,7 +3,7 @@
 pragma solidity ^0.8.0;
 
 // Smart Contract per lo storage dei MilkHub acquistati dai ConsumerBuyer
-contract ConsumerBuyerInventoryStorage {
+contract ConsumerBuyerStorage {
 
     // Address of Organization che gestisce gli utenti
     address private consumerBuyerOrg;
@@ -21,7 +21,7 @@ contract ConsumerBuyerInventoryStorage {
 
     mapping(address => mapping(uint256 => CheesePiece)) private purchasedCheesePieces; // Map of Alla CheesePiece Buyed 
 
-    mapping(address => uint256[]) private purchasedCheesePieceListIdForSingleConsumer;
+    mapping(address => uint256[]) private userCheesePieceIds;
 
 
 

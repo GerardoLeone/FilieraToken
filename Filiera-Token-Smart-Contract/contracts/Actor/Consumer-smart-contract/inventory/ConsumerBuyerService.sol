@@ -1,17 +1,17 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.21;
 
-import "./ConsumerBuyerInventoryStorage.sol";
+import "./ConsumerBuyerStorage.sol";
 import "../ConsumerService.sol";
 
-contract ConsumerBuyerInventoryService {
+contract ConsumerBuyerService {
 
     //------------------------------------------------------------------------ Address of other Contract Service -----------------------------------------------------------//
 
     // Address of Organization che gestisce gli utenti
     address private consumerBuyerOrg;
     // Address of CheesePieceStorage 
-    ConsumerBuyerInventoryStorage private consumerBuyerInventoryStorage;
+    ConsumerBuyerStorage private consumerBuyerStorage;
 
     ConsumerService private consumerService;
 
@@ -27,9 +27,9 @@ contract ConsumerBuyerInventoryService {
     //------------------------------------------------------------------------ Constructor of other Contract Service -----------------------------------------------------------//
 
     constructor(
-        address _consumerBuyerInventoryStorage, 
+        address _consumerBuyerStorage, 
         address _consumerService) {
-        consumerBuyerInventoryStorage = ConsumerBuyerInventoryStorage(_consumerBuyerInventoryStorage);
+        consumerBuyerStorage = ConsumerBuyerStorage(_consumerBuyerStorage);
         consumerService = ConsumerService(_consumerService);
         consumerBuyerOrg = msg.sender;
     }
@@ -38,7 +38,7 @@ contract ConsumerBuyerInventoryService {
 
     modifier checkAddress(address caller) {
         require(caller != address(0), "Address value is 0!");
-        require(caller != address(consumerBuyerInventoryStorage), "Address is consumerBuyerInventoryStorage!");
+        require(caller != address(consumerBuyerStorage), "Address is consumerBuyerStorage!");
         require(caller != address(consumerService), "Address is ConsumerBuyerService!");
         require(caller != address(consumerBuyerOrg), "Address is Organization!");
         _;
@@ -52,7 +52,7 @@ contract ConsumerBuyerInventoryService {
     * - Ammettiamo che i controlli sul prodotto vengono già fatti a monte 
     * - verifichiamo che il ConsumerBuyer e il Retailer esistono 
     * - verifichiamo che il CheesePiece associato al Retailer esiste 
-    * - Aggiungiamo questi dati all'interno del Inventory 
+    * - Aggiungiamo questi dati all'interno del  
     */
     function addCheesePiece(
         address _walletRetailer,
@@ -69,7 +69,7 @@ contract ConsumerBuyerInventoryService {
         require(consumerService.isUserPresent(_walletConsumerBuyer), "Utente non trovato!");
 
         // Aggiungo il CheesePiece all'interno dell'Inventario del ConsumerBuyer 
-        (uint256 id_CheesePiece_Acquistato, uint256 price, uint256 weight) = consumerBuyerInventoryStorage.addCheesePiece(_walletConsumerBuyer, _walletRetailer, _id_CheesePiece, _price, _weight);
+        (uint256 id_CheesePiece_Acquistato, uint256 price, uint256 weight) = consumerBuyerStorage.addCheesePiece(_walletConsumerBuyer, _walletRetailer, _id_CheesePiece, _price, _weight);
 
         // Invio dell'Evento 
         emit ConsumerBuyerCheesePieceAdded(_walletConsumerBuyer, "CheesePiece Acquistato!", id_CheesePiece_Acquistato, price, weight);
@@ -84,7 +84,7 @@ contract ConsumerBuyerInventoryService {
 
         require(this.isCheesePiecePresent(_walletConsumerBuyer, _id_CheesePieceAcquistato), "Prodotto non Presente!");
 
-        return consumerBuyerInventoryStorage.getCheesePiece(_walletConsumerBuyer, _id_CheesePieceAcquistato);
+        return consumerBuyerStorage.getCheesePiece(_walletConsumerBuyer, _id_CheesePieceAcquistato);
     }
 
     function getPrice(address _walletConsumerBuyer, uint256 _id_CheesePieceAcquistato) external view checkAddress(msg.sender) returns (uint256) {
@@ -93,7 +93,7 @@ contract ConsumerBuyerInventoryService {
 
         require(this.isCheesePiecePresent(_walletConsumerBuyer, _id_CheesePieceAcquistato), "Prodotto non Presente!");
 
-        return consumerBuyerInventoryStorage.getPrice(_walletConsumerBuyer, _id_CheesePieceAcquistato);
+        return consumerBuyerStorage.getPrice(_walletConsumerBuyer, _id_CheesePieceAcquistato);
     }
 
     function getWeight(address _walletConsumerBuyer, uint256 _id_CheesePieceAcquistato) external view checkAddress(msg.sender) returns (uint256) {
@@ -102,7 +102,7 @@ contract ConsumerBuyerInventoryService {
 
         require(this.isCheesePiecePresent(_walletConsumerBuyer, _id_CheesePieceAcquistato), "Prodotto non Presente!");
 
-        return consumerBuyerInventoryStorage.getWeight(_walletConsumerBuyer, _id_CheesePieceAcquistato);
+        return consumerBuyerStorage.getWeight(_walletConsumerBuyer, _id_CheesePieceAcquistato);
     }
 
     function getWalletRetailer(address _walletConsumerBuyer, uint256 _id_CheesePieceAcquistato) external view checkAddress(msg.sender) returns (address) {
@@ -111,7 +111,7 @@ contract ConsumerBuyerInventoryService {
 
         require(this.isCheesePiecePresent(_walletConsumerBuyer, _id_CheesePieceAcquistato), "Prodotto non Presente!");
 
-        return consumerBuyerInventoryStorage.getWalletRetailer(_walletConsumerBuyer, _id_CheesePieceAcquistato);
+        return consumerBuyerStorage.getWalletRetailer(_walletConsumerBuyer, _id_CheesePieceAcquistato);
     }
 
     /**
@@ -122,7 +122,7 @@ contract ConsumerBuyerInventoryService {
 
         require(consumerService.isUserPresent(_walletConsumerBuyer), "Utente non presente!");
 
-        return consumerBuyerInventoryStorage.isCheesePiecePresent(_walletConsumerBuyer, _id_CheesePieceAcquistato);
+        return consumerBuyerStorage.isCheesePiecePresent(_walletConsumerBuyer, _id_CheesePieceAcquistato);
     }
 
     
@@ -133,7 +133,7 @@ contract ConsumerBuyerInventoryService {
         // Check if exist 
         require(consumerService.isUserPresent(walletConsumer), "User is not present!");
 
-        return consumerBuyerInventoryStorage.getListCheesePieseIdPurchasedByConsumer(walletConsumer);
+        return consumerBuyerStorage.getListCheesePieseIdPurchasedByConsumer(walletConsumer);
     }
 
 //-------------------------------------------------------------------- Set Function ------------------------------------------------------------------------//
@@ -142,9 +142,9 @@ contract ConsumerBuyerInventoryService {
 // -------------------------------------------------- Change Address Function Contract Service ---------------------------------------------------//
 
     // TODO: insert modifier onlyOrg(address sender) {}
-    function changeConsumerBuyerCheesePieceStorage(address _consumerBuyerInventoryStorage) external {
+    function changeConsumerBuyerCheesePieceStorage(address _consumerBuyerStorage) external {
         require(msg.sender == consumerBuyerOrg, "Address is not the organization");
-        consumerBuyerInventoryStorage = ConsumerBuyerInventoryStorage(_consumerBuyerInventoryStorage);
+        consumerBuyerStorage = ConsumerBuyerStorage(_consumerBuyerStorage);
     }
 
     // TODO: insert modifier onlyOrg(address sender) {}

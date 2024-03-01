@@ -47,7 +47,9 @@ class RetailerInventoryService {
 
   static Future<Product> getCheesePiece(String wallet, String id) async {
     String url = API.buildURL(API.RetailerInventoryService, API.Query, "getCheesePiece");
+
     final headers = API.getHeaders();
+    
     final body = jsonEncode(API.getCheesePieceRetailerPayload(wallet, id));
 
     try {
@@ -69,7 +71,7 @@ class RetailerInventoryService {
   static Future<bool> addCheesePiece(String wallet, double price, int quantity, String expirationDate) async {
     String url = API.buildURL(API.RetailerInventoryService, API.Query, "getCheesePiece");
     final headers = API.getHeaders();
-    final body = jsonEncode(API.getCheesePieceBody(wallet, price.toString(), quantity.toString(), expirationDate));
+    final body = jsonEncode(API.getCheesePieceBody(wallet,"", price.toString(), quantity.toString(), expirationDate));
     try {
       final response = await http.post(Uri.parse(url), headers: headers, body: body);
 

@@ -1,4 +1,7 @@
+import 'package:filiera_token_front_end/Actor/CheeseProducer/service/CheeseProducerInventoryService.dart';
+import 'package:filiera_token_front_end/Actor/Consumer/service/ConsumerBuyerInventoryService.dart';
 import 'package:filiera_token_front_end/Actor/MilkHub/service/MilkHubInventoryService.dart';
+import 'package:filiera_token_front_end/Actor/Retailer/service/RetailerInventoryService.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_product_list.dart';
 import 'package:filiera_token_front_end/components/molecules/dialog/dialog_product_details.dart';
 import 'package:filiera_token_front_end/components/organisms/user_environment/components/custom_menu_home_user_page_environment.dart';
@@ -98,18 +101,24 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
 
     Actor actor = Actor.MilkHub; //TODO: gettarsi con hive il valore dell'attore
     String wallet = "0x7dDc959b89472A1812Ace5b2D2ae6f2926c0AABD"; //TODO: gettarsi con hive il wallet
+    Future<List<Product>> productList = Future(() => []);
 
     switch(actor) {
       case Actor.MilkHub:
+        productList = MilkHubInventoryService.getMilkBatchList(wallet);
         break;
       case Actor.CheeseProducer:
+        productList = CheeseProducerInventoryService.getCheeseBlockList(wallet);
         break;
       case Actor.Retailer:
+        productList = RetailerInventoryService.getCheesePieceList(wallet);
         break;
       case Actor.Consumer:
+        productList = ConsumerBuyerInventoryService.getCheesePieceList(wallet);
         break;  
       default:
         print("Errore nella selezione dell'attore in fase di build (home_user_page.dart)");
+        break;
     }
 
     return Scaffold(
@@ -119,7 +128,7 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
           Padding(
             padding: EdgeInsets.all(50.5),
             child: FutureBuilder(
-              future: MilkHubInventoryService.getMilkBatchList(wallet),
+              future: productList,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   // Se il futuro è ancora in attesa, mostra un indicatore di caricamento

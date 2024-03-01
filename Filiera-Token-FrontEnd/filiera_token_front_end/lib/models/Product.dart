@@ -2,6 +2,10 @@ import 'dart:convert';
 
 import 'package:filiera_token_front_end/utils/enums.dart';
 
+/**
+ * Classe astratta per i Prodotti.
+ * il parametro seller è da impostare solo per i valori restituiti dal Buyer, per il resto delle chiamate rimane inutilizzato.
+ */
 abstract class Product {
 
   const Product({
@@ -11,7 +15,7 @@ abstract class Product {
     required this.seller
   });
 
-  final int id;
+  final String id;
   final String name;
   final String description;
   final String seller;
@@ -32,12 +36,13 @@ abstract class Product {
   String toString() => 'Prodotto(id: $id)';
 
   void updateQuantity(int quantityChange);
+
 }
 
 class MilkBatch extends Product {
 
   MilkBatch({
-    required int id,
+    required String id,
     required String name,
     required String description,
     required String seller,
@@ -77,7 +82,7 @@ class MilkBatch extends Product {
   static Product fromJson(Map<String, dynamic> json) {
     final milkBatchData = json['input'] as Map<String, dynamic>; // Access nested data
     
-    int id = 1; //TODO:
+    String id = json['id'];
     String name = "Partita di Latte";
     String description = "Silos contenente latte, disponibile all'acquisto immediato.";
     String seller = "N.A."; //TODO: funzione che restituisce il nome del MilkHub dal MilkHubService
@@ -90,58 +95,16 @@ class MilkBatch extends Product {
             name: name, 
             description: description, 
             seller: seller, 
-            expirationDate: 
-            expirationDate, 
+            expirationDate: expirationDate, 
             quantity: quantity, 
             pricePerLitre: pricePerLitre);
   }
-
-  static List<Product> fromJsonToList(String responseBody) {
-    final jsonData = jsonDecode(responseBody); // Parse the response body
-
-    // Handle potential parsing errors:
-    if (jsonData is! Map<String, dynamic>) {
-      // Handle non-JSON data structure or parsing errors (e.g., throwing an error)
-      print("Error: Could not parse response as JSON.");
-      throw Exception("Failed to parse response: Unexpected data format.");
-    }
-
-    // Access the "input" and "milkBatches" arrays based on API structure:
-    final milkBatchList = jsonData['input']['milkBatches'] as List<dynamic>;
-
-
-    // Convert each element in the list into a MilkBatch object:
-    final products = milkBatchList.map((milkBatchData) {
-      String expirationDate = milkBatchData['scadenza'] as String;
-      int quantity = milkBatchData['quantity'] as int;
-      double pricePerLitre = double.tryParse(milkBatchData['price'] as String) ?? 0.0;
-
-      // Temporary solution for missing values:
-      int id = 1;
-      String name = "Partita di Latte";
-      String description = "Silos contenente latte, disponibile all'acquisto immediato.";
-      String seller = "N.A.";
-
-      return MilkBatch(
-          id: id,
-          name: name,
-          description: description,
-          seller: seller,
-          expirationDate: expirationDate,
-          quantity: quantity,
-          pricePerLitre: pricePerLitre);
-    }).toList();
-
-    return products;
-}
-
-
 }
 
 class CheeseBlock extends Product {
 
   CheeseBlock({
-    required int id,
+    required String id,
     required String name,
     required String description,
     required String seller,
@@ -178,22 +141,37 @@ class CheeseBlock extends Product {
     quantity -= quantityChange;
   }
   
-  @override
-  Product fromJson(Map<String, dynamic> json) {
-    // TODO: implement fromJson
-    throw UnimplementedError();
+  static Product fromJson(Map<String, dynamic> json) {
+    final cheeseBlockData = json['input'] as Map<String, dynamic>; // Access nested data
+    
+    String id = json['id'];
+    String name = "Partita di Formaggio"; // Changed name
+    String description = "Silos contenente formaggio, disponibile all'acquisto immediato."; // Changed description
+    String milkBatchId = "N.A."; // TODO: Replace with function that returns the name of the CheeseProducer from CheeseProducerServiceù
+    int quantity = int.parse(cheeseBlockData['quantity'] as String); // Parsing quantity as int
+    double price = double.parse(cheeseBlockData['price'] as String); // Parsing price as double
+    String dop = cheeseBlockData['dop'] as String;
+
+    return CheeseBlock(
+      id: id, 
+      name: name, 
+      description: description, 
+      seller: milkBatchId, 
+      dop: dop, 
+      price: price, 
+      quantity: quantity);
   }
 }
 
 class CheesePiece extends Product {
 
   const CheesePiece({
-    required int id,
+    required String id,
     required String name,
     required String description,
     required String seller,
     required this.price,
-    required this.weight,
+    required this.weight
   }) : super(id: id, name: name, description: description, seller: seller);
 
   final double price;
@@ -220,9 +198,23 @@ class CheesePiece extends Product {
   @override
   void updateQuantity(int quantityChange) {}
   
-  @override
-  Product fromJson(Map<String, dynamic> json) {
-    // TODO: implement fromJson
-    throw UnimplementedError();
+  static Product fromJson(Map<String, dynamic> json) {
+    final cheesePieceData = json['input'] as Map<String, dynamic>;
+
+    String id = json['id'];
+    String name = "Pezzo di Formaggio";
+    String description = "Pezzo di formaggio di alta qualità.";
+    String cheeseBlockId = "N.A.";
+    double price = double.parse(cheesePieceData['price'] as String); // Parsing price as double
+    double weight = double.parse(cheesePieceData['weight'] as String);
+
+    return CheesePiece(
+      id: id, 
+      name: name, 
+      description: description, 
+      seller: cheeseBlockId, 
+      price: price, 
+      weight: weight);
+
   }
 }

@@ -29,7 +29,7 @@ class API {
    * Costanti Consumer
    */
   static const String ConsumerService = "ConsumerService";
-  static const String ConsumerInventoryService = "ConsumerInventoryService";
+  static const String ConsumerBuyerInventoryService = "ConsumerBuyerInventoryService";
 
   /**
    * Questa funzione permette di costruire l'URL per la chiamata di un metodo dell'API utilizzando le costanti offerte dalla classe api.dart
@@ -48,6 +48,8 @@ class API {
     };
   }
 
+//Payload (Get) ---------------------------------------------------------------------------------------------------------------------------------------
+
   static Map<String, dynamic> getMilkHubPayload(String wallet){
     return {
       'input': {
@@ -65,6 +67,60 @@ class API {
     };
   }
 
+  static Map<String, dynamic> getCheeseProducerPayload(String wallet){
+    return {
+      'input': {
+        'walletCheeseProducer': wallet,
+      }
+    };
+  }  
+
+  static Map<String, dynamic> getCheeseBlockPayload(String wallet, String id){
+    return {
+      'input': {
+        'id': id,
+        'walletCheeseProducer': wallet
+      }
+    };
+  }
+
+  static Map<String, dynamic> getRetailerPayload(String wallet){
+    return {
+      'input': {
+        'walletRetailer': wallet,
+      }
+    };
+  }  
+
+  static Map<String, dynamic> getCheesePieceRetailerPayload(String wallet, String id){
+    return {
+      'input': {
+        'id': id,
+        'walletRetailer': wallet
+      }
+    };
+  }
+
+  static Map<String, dynamic> getConsumerPayload(String wallet){
+    return {
+      'input': {
+        'walletConsumer': wallet,
+      }
+    };
+  }
+
+  static Map<String, dynamic> getCheesePieceConsumerPayload(String wallet, String id){
+    return {
+      'input': {
+        'id': id,
+        'walletConsumer': wallet
+      }
+    };
+  }
+  
+
+//Body (Add) ---------------------------------------------------------------------------------------------------------------------------------------
+
   static Map<String, dynamic> getMilkBatchBody(String wallet, String price, String quantity, String expirationDate){
     return {
       'input': {
@@ -74,9 +130,29 @@ class API {
         'walletMilkHub': wallet
       }
     };
+  } 
+
+  static Map<String, dynamic> getCheeseBlockBody(String wallet, String milkBatchId, String dop, String quantity, String price) {
+    return {
+      'input': {
+        'id_MilkBatchAcquistato': milkBatchId,
+        'dop': dop,
+        'quantity': quantity,
+        'price': price,
+        'walletCheeseProducer': wallet,
+      }
+    };
   }
 
-  
+  static Map<String, dynamic> getCheesePieceBody(String wallet, String cheeseBlockId, String price, String weight) {
+    return {
+      'input': {
+        'id_CheeseBlock': cheeseBlockId,
+        'price': price,
+        'weight': weight
+      }
+    };
+  }
   
 
 }

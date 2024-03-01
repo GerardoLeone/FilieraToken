@@ -13,7 +13,7 @@ class PurchaseDialog extends StatefulWidget {
 
 class _PurchaseDialogState extends State<PurchaseDialog> {
   TextEditingController quantityController = TextEditingController();
-  double totalPrice = 0.0;
+  int totalPrice = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -40,10 +40,10 @@ class _PurchaseDialogState extends State<PurchaseDialog> {
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             style: TextStyle(color: Colors.white),
             onChanged: (value) {
-              if (double.tryParse(value) != null) {
+              if (int.tryParse(value) != null) {
                 int quantity = int.parse(value);
                 setState(() {
-                  totalPrice = quantity * widget.product.getUnitPrice();
+                  totalPrice = (quantity * widget.product.getUnitPrice()) as int;
                 });
               }
             },

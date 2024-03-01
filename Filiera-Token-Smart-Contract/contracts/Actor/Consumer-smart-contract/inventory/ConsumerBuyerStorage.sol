@@ -36,6 +36,7 @@ contract ConsumerBuyerStorage {
     ) external returns (uint256, uint256, uint256) {
 
         CheesePiece storage cheesePieceControl = purchasedCheesePieces[walletConsumerBuyer][id];
+
         require(cheesePieceControl.id == 0, "CheesePiece gia' presente!");
 
         // Crea un nuovo CheesePiece
@@ -61,6 +62,7 @@ contract ConsumerBuyerStorage {
 
     function getCheesePiece(address walletConsumerBuyer, uint256 idCheesePiece) external view returns (uint256, address, uint256, uint256) {
         CheesePiece memory cheesePiece = purchasedCheesePieces[walletConsumerBuyer][idCheesePiece];
+
         
         return (cheesePiece.id, cheesePiece.walletRetailer, cheesePiece.price, cheesePiece.weight);
     }
@@ -81,6 +83,7 @@ contract ConsumerBuyerStorage {
 
     function getWalletRetailer(address walletConsumerBuyer, uint256 id) external view returns (address) {
         return purchasedCheesePieces[walletConsumerBuyer][id].walletRetailer;
+
     }
     
     /*

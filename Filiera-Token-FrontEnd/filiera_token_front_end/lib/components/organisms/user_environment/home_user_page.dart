@@ -1,4 +1,7 @@
 
+import 'package:filiera_token_front_end/Actor/CheeseProducer/service/CheeseProducerInventoryService.dart';
+import 'package:filiera_token_front_end/Actor/Consumer/service/ConsumerBuyerInventoryService.dart';
+import 'package:filiera_token_front_end/Actor/Retailer/service/RetailerInventoryService.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_loading_bar.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_product_list.dart';
 import 'package:filiera_token_front_end/components/molecules/dialog/dialog_product_details.dart';
@@ -11,6 +14,8 @@ import 'package:flutter/material.dart';
 
 import 'package:filiera_token_front_end/components/molecules/custom_nav_bar.dart';
 import 'package:get_it/get_it.dart';
+
+import 'package:filiera_token_front_end/Actor/MilkHub/service/MilkHubInventoryService.dart';
 
 class HomePageUser extends StatefulWidget {
   const HomePageUser({
@@ -28,6 +33,8 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
   late AnimationController _drawerSlideController;
 
   late SecureStorageService secureStorageService;
+
+  ConsumerBuyerInventoryService consumerBuyerInventoryService = ConsumerBuyerInventoryService();
 
   User? user;
 
@@ -115,7 +122,7 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
         productList = RetailerInventoryService.getCheesePieceList(wallet);
         break;
       case Actor.Consumer:
-        productList = ConsumerBuyerInventoryService.getCheesePieceList(wallet);
+        productList = consumerBuyerInventoryService.getCheesePieceList(wallet);
         break;  
       default:
         print("Errore nella selezione dell'attore in fase di build (home_user_page.dart)");

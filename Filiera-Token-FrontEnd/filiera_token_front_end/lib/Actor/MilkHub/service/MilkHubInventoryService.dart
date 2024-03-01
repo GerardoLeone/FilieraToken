@@ -10,6 +10,7 @@ class MilkHubInventoryService {
    * Questa funzione restituisce una lista di MilkBatch a partire dal wallet del MilkHub che li possiede.
    */
   static Future<List<Product>> getMilkBatchList(String wallet) async {
+    
     String url = API.buildURL(API.MilkHubInventoryService, API.Query, "getListMilkBatchIdByMilkHub");
     final headers = API.getHeaders();
     final body = jsonEncode(API.getMilkHubPayload(wallet)); // Prepare JSON body with wallet data
@@ -49,9 +50,9 @@ class MilkHubInventoryService {
     final headers = API.getHeaders();
     final body = jsonEncode(API.getMilkBatchPayload(wallet, id));
 
-  print(url);
-  print(headers);
-  print(body);
+      print(url);
+    print(headers);
+    print(body);
 
     try {
       final response = await http.post(Uri.parse(url), headers: headers, body: body);

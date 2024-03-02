@@ -66,4 +66,23 @@ class RetailerInventoryService {
       rethrow;
     }
   }
+
+  static Future<bool> transformCheeseBlock(String wallet, String idCheeseBlock, String quantityToTransform, String price) async {
+    String url = API.buildURL(API.RetailerNodePort, API.RetailerInventoryService, API.Invoke, "transformMilkBatch");
+    final headers = API.getHeaders();
+    final body = jsonEncode(API.getTransformRetailerBody(idCheeseBlock, price, quantityToTransform, wallet));
+    try {
+      final response = await http.post(Uri.parse(url), headers: headers, body: body);
+
+      if (response.statusCode == 200 || response.statusCode == 202) {        
+        return true;
+      } else {
+          throw Exception('Failed to transform CheeseBlock in CheesePiece: ${response.statusCode}');
+      }
+
+    } catch (error) {
+      print('Error transforming CheeseBlock in CheesePiece: $error');
+      rethrow;
+    }
+  }
 }

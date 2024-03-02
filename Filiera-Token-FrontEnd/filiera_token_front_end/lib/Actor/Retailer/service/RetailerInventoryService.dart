@@ -7,7 +7,7 @@ import 'dart:convert';
 class RetailerInventoryService {
 
   static Future<List<Product>> getCheesePieceList(String wallet) async {
-    String url = API.buildURL(API.RetailerInventoryService, API.Query, "getListCheesePieceId");
+    String url = API.buildURL(API.RetailerNodePort, API.RetailerInventoryService, API.Query, "getUserCheesePieceIds");
 
     print(url);
 
@@ -46,8 +46,7 @@ class RetailerInventoryService {
   }
 
   static Future<Product> getCheesePiece(String wallet, String id) async {
-    String url = API.buildURL(API.RetailerInventoryService, API.Query, "getCheesePiece");
-
+    String url = API.buildURL(API.RetailerNodePort, API.RetailerInventoryService, API.Query, "getCheesePiece");
     final headers = API.getHeaders();
     
     final body = jsonEncode(API.getCheesePieceRetailerPayload(wallet, id));
@@ -64,24 +63,6 @@ class RetailerInventoryService {
       }
     } catch (error) {
       print('Error fetching CheesePiece: $error');
-      rethrow;
-    }
-  }
-
-  static Future<bool> addCheesePiece(String wallet, double price, int quantity, String expirationDate) async {
-    String url = API.buildURL(API.RetailerInventoryService, API.Query, "getCheesePiece");
-    final headers = API.getHeaders();
-    final body = jsonEncode(API.getCheesePieceBody(wallet,"", price.toString(), quantity.toString(), expirationDate));
-    try {
-      final response = await http.post(Uri.parse(url), headers: headers, body: body);
-
-      if (response.statusCode == 200 || response.statusCode == 202) {
-        return true;
-      } else {
-        throw Exception('Failed to add CheesePiece: ${response.statusCode}');
-      }
-    } catch (error) {
-      print('Error adding CheesePiece: $error');
       rethrow;
     }
   }

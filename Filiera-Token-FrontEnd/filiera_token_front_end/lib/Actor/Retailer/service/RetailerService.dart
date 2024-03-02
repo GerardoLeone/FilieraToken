@@ -101,7 +101,7 @@ class RetailerService {
 
     final body = jsonEncode({
       "input": {
-        "_id": id,
+        "id": id,
         "walletRetailer": wallet,
       }
     });

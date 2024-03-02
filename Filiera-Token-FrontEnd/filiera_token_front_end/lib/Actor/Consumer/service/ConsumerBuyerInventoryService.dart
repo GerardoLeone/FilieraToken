@@ -6,14 +6,8 @@ import 'dart:convert';
 
 class ConsumerBuyerInventoryService {
 
-
-  static const String _queryListProductIDPurchased ='getListCheesePieseIdPurchasedByConsumer';
-
-  static const String _queryCheesePiece="getCheesePiece";
-
-
-  Future<List<Product>> getCheesePieceList(String wallet) async {
-    String url = API.buildURL(API.ConsumerBuyerInventoryService, API.Query, _queryListProductIDPurchased);
+  static Future<List<Product>> getCheesePieceList(String wallet) async {
+    String url = API.buildURL(API.ConsumerNodePort, API.ConsumerBuyerInventoryService, API.Query, "getUserCheesePieceIds");
 
     print(url);
 
@@ -39,7 +33,7 @@ class ConsumerBuyerInventoryService {
         List<Product> productList = [];
 
         for (int i = 0; i < idList.length; i++) {
-          Product product = await getCheesePiece(idList[i],wallet);
+          Product product = await ConsumerBuyerInventoryService.getCheesePiece(idList[i],wallet);
           productList.add(product);
         }
 
@@ -54,7 +48,7 @@ class ConsumerBuyerInventoryService {
   }
 
   /*static Future<Product> getCheesePiece(String wallet, String id) async {
-    String url = API.buildURL(API.ConsumerBuyerInventoryService, API.Query, "getCheesePiece");
+    String url = API.buildURL(API.ConsumerNodePort, API.ConsumerBuyerInventoryService, API.Query, "getCheesePiece");
     final headers = API.getHeaders();
     final body = jsonEncode(API.getCheesePieceConsumerPayload(wallet, id));
 
@@ -78,7 +72,7 @@ class ConsumerBuyerInventoryService {
   // Effettuo una chiamata di prova per cercare di aggiungere i prodotti 
 
   Future<Product> addCheesePiece(String id, String price, String walletConsumerBuyer, String walletRetailer, String weight) async {
-    final url = Uri.parse('http://127.0.0.1:5003/api/v1/namespaces/default/apis/ConsumerBuyerInventoryStorage/invoke/addCheesePiece');
+    final url = API.buildURL(API.ConsumerNodePort, API.ConsumerBuyerInventoryService, API.Invoke, "addCheesePiece");
     
     final body = jsonEncode({
       'input': {
@@ -91,7 +85,7 @@ class ConsumerBuyerInventoryService {
     });
     final headers = API.getHeaders();
       try {
-      final response = await http.post(url, headers: headers, body: body);
+      final response = await http.post(Uri.parse(url), headers: headers, body: body);
 
       if (response.statusCode == 200 || response.statusCode == 202) {
         final jsonData = jsonDecode(response.body);
@@ -111,11 +105,11 @@ class ConsumerBuyerInventoryService {
 
 
 
-  Future<Product> getCheesePiece(String cheeseId, String walletConsumerBuyer) async {
+  static Future<Product> getCheesePiece(String cheeseId, String walletConsumerBuyer) async {
     
-    String url = API.buildURL(API.ConsumerBuyerInventoryService, API.Query, _queryCheesePiece);
+    String url = API.buildURL(API.ConsumerNodePort, API.ConsumerBuyerInventoryService, API.Query, "getCheesePiece");
     
-    final body = jsonEncode(_getCheesePieceQueryBody(cheeseId, walletConsumerBuyer));
+    final body = jsonEncode(API.getCheesePiecePayload(cheeseId, walletConsumerBuyer));
     final headers = API.getHeaders();
 
     final response = await http.post(Uri.parse(url), body: body, headers: headers);
@@ -125,19 +119,4 @@ class ConsumerBuyerInventoryService {
     
     return CheesePiece.fromJson(jsonData);
   }
-
-
-  _getCheesePieceQueryBody(String cheeseId,String walletConsumerBuyer){
-    return {
-      'input': {
-        '_id_CheesePieceAcquistato': cheeseId,
-        'walletConsumerBuyer': walletConsumerBuyer,
-      },
-    };
-  }
-
-
-
-
-
 }

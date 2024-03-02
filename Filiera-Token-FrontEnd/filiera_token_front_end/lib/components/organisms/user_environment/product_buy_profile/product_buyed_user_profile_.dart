@@ -123,7 +123,7 @@ class _UserProfileProductBuyedState extends State<UserProfileProductBuyed> with 
   } else {
     return Scaffold(
       appBar: _buildAppBar(),
-      body: Stack(
+      /*body: Stack(
         children: [
             Padding(
               padding: EdgeInsets.all(50.5),
@@ -134,9 +134,10 @@ class _UserProfileProductBuyedState extends State<UserProfileProductBuyed> with 
               ),
               _buildDrawer(),
           ],
-        ), 
+        ), */
       );
     }
+
   }
 
 

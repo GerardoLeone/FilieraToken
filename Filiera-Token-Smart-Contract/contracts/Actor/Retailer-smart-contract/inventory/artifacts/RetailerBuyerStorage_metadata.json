@@ -14,17 +14,17 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "_walletRetailer",
+						"name": "walletRetailer",
 						"type": "address"
 					},
 					{
 						"internalType": "address",
-						"name": "_walletCheeseProducer",
+						"name": "walletCheeseProducer",
 						"type": "address"
 					},
 					{
 						"internalType": "uint256",
-						"name": "_id_CheeseBlock",
+						"name": "idCheeseBlock",
 						"type": "uint256"
 					},
 					{
@@ -34,7 +34,7 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "_quantity",
+						"name": "quantity",
 						"type": "uint256"
 					}
 				],
@@ -42,17 +42,17 @@
 				"outputs": [
 					{
 						"internalType": "uint256",
-						"name": "id_CheeseBlock_Acquistato",
+						"name": "",
 						"type": "uint256"
 					},
 					{
 						"internalType": "string",
-						"name": "dopCheese",
+						"name": "",
 						"type": "string"
 					},
 					{
 						"internalType": "uint256",
-						"name": "quantityAcquistata",
+						"name": "",
 						"type": "uint256"
 					}
 				],
@@ -68,12 +68,12 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "_id",
+						"name": "id",
 						"type": "uint256"
 					},
 					{
 						"internalType": "uint256",
-						"name": "_quantityToTransform",
+						"name": "quantityToTransform",
 						"type": "uint256"
 					}
 				],
@@ -97,12 +97,12 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "_id",
+						"name": "id",
 						"type": "uint256"
 					},
 					{
 						"internalType": "uint256",
-						"name": "_quantityToTransform",
+						"name": "quantityToTransform",
 						"type": "uint256"
 					}
 				],
@@ -126,7 +126,7 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "_id_CheeseBlockAcquistato",
+						"name": "idCheeseBlock",
 						"type": "uint256"
 					}
 				],
@@ -165,7 +165,7 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "_id_cheeseBlockAcquistato",
+						"name": "idcheeseBlock",
 						"type": "uint256"
 					}
 				],
@@ -189,7 +189,7 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "_id",
+						"name": "id",
 						"type": "uint256"
 					}
 				],
@@ -210,29 +210,10 @@
 						"internalType": "address",
 						"name": "walletRetailer",
 						"type": "address"
-					}
-				],
-				"name": "getListCheeseIdPurchasedByRetailer",
-				"outputs": [
-					{
-						"internalType": "uint256[]",
-						"name": "",
-						"type": "uint256[]"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "walletRetailer",
-						"type": "address"
 					},
 					{
 						"internalType": "uint256",
-						"name": "_id",
+						"name": "id",
 						"type": "uint256"
 					}
 				],
@@ -253,10 +234,29 @@
 						"internalType": "address",
 						"name": "walletRetailer",
 						"type": "address"
+					}
+				],
+				"name": "getUserCheeseBlockIds",
+				"outputs": [
+					{
+						"internalType": "uint256[]",
+						"name": "",
+						"type": "uint256[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletRetailer",
+						"type": "address"
 					},
 					{
 						"internalType": "uint256",
-						"name": "_id",
+						"name": "id",
 						"type": "uint256"
 					}
 				],
@@ -280,11 +280,11 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "_id_CheeseBlockAcquistato",
+						"name": "idCheeseBlock",
 						"type": "uint256"
 					}
 				],
-				"name": "isCheesePresent",
+				"name": "isCheeseBlockPresent",
 				"outputs": [
 					{
 						"internalType": "bool",
@@ -304,12 +304,12 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "_id",
+						"name": "id",
 						"type": "uint256"
 					},
 					{
 						"internalType": "uint256",
-						"name": "_newQuantity",
+						"name": "newQuantity",
 						"type": "uint256"
 					}
 				],
@@ -328,9 +328,9 @@
 			"kind": "user",
 			"methods": {
 				"addCheeseBlock(address,address,uint256,string,uint256)": {
-					"notice": "Funzione addCheese() -> Utilizzata dal Transaction Manager per poter inserire il Cheese Acquistato  Scollego questa logica, ammettendo che il CheeseProducer può testare la logica di conversione  params :  - walletCheeseProducer -> mi serve per il mapping  - walletCheeseProducer -> mi serve per creare il nuovo elemento   - id_cheese -> mi serve per il riferimento all'elemento acquistato"
+					"notice": "Funzione addCheese() -> Utilizzata dal Transaction Manager per poter inserire il Cheese Acquistato  Scollego questa logica, ammettendo che il CheeseProducer può testare la logica di conversione  params :  - walletCheeseProducer -> mi serve per il mapping  - walletCheeseProducer -> mi serve per creare il nuovo elemento   - idcheese -> mi serve per il riferimento all'elemento acquistato"
 				},
-				"isCheesePresent(address,uint256)": {
+				"isCheeseBlockPresent(address,uint256)": {
 					"notice": "Funzione per la verifica dell'esistenza del prodotto Cheese acquistato  - ritorna TRUE se esiste  - ritorna FALSe se non esiste  - effettua il controllo sull'uguaglianza dell'id del Cheese Acquistato"
 				}
 			},
@@ -354,11 +354,11 @@
 	},
 	"sources": {
 		"contracts/Actor/Retailer-smart-contract/inventory/RetailerBuyerStorage.sol": {
-			"keccak256": "0x939f70054acd292a99e092366a874d59c9a71a1d33d9b8bece47573a739295b3",
+			"keccak256": "0x8388ba9c71ab2010013ed99f1bc56e4f7703c6b49705474e70aa78874793ff14",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://1dabdafa6e9965fe92ee4e7038c7abb63a47f420980b26306aac572d3a525504",
-				"dweb:/ipfs/Qmc9PGCSz4Wv8u21hJpVudnSaqzhBWeguMvF8Nngb6dBsS"
+				"bzz-raw://6bdb4eadd9204b447633203be8321ef8988e1bcc5e80e85ac5ad2a9b1398fd3b",
+				"dweb:/ipfs/QmZSgTDK1Rik3MrRCEnQCqDDPUVnqzCuYkBFEtki9VEXsw"
 			]
 		}
 	},

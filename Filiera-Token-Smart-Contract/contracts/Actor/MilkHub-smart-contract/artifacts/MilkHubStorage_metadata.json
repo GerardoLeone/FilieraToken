@@ -206,30 +206,6 @@
 						"internalType": "address",
 						"name": "walletMilkHub",
 						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "_id",
-						"type": "uint256"
-					}
-				],
-				"name": "getWallet",
-				"outputs": [
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "walletMilkHub",
-						"type": "address"
 					}
 				],
 				"name": "isUserPresent",
@@ -320,9 +296,6 @@
 				"getUser(address)": {
 					"notice": "getUser(walletMilkHub) :  MilkHub visualizza le sue informazioni principali - email, password , fullName , balance "
 				},
-				"getWallet(address,uint256)": {
-					"notice": "- Funzione getWallet() attraverso l'address del MilkHub riusciamo a recuperare il suo Balance"
-				},
 				"loginUser(address,string,string)": {
 					"notice": "LoginUser() effettua il login dell'utente  La comparazione Hash tra (email e password) di input e quelli salvati return true se la comparazione è vera, La comparazione è falsa se l'hashing non risulta valido"
 				}
@@ -355,11 +328,11 @@
 			]
 		},
 		"contracts/Actor/MilkHub-smart-contract/MilkHubStorage.sol": {
-			"keccak256": "0xa69dcf0f2cad8460d2a99e318f36adaae277f7d436e771048844908030d6f081",
+			"keccak256": "0x8aad3577264da70f4357ac3c9c87d995d7adc76bdb300b15e1eb466776d425f8",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://0ae58a6e2a8a14e7023e0a4ae20de3af06f5a622f314d67256ea689d32019ec4",
-				"dweb:/ipfs/QmSuM4unWJQTJDSmqcJYZknB4eiDNuDnRKK4V8yeZXkto7"
+				"bzz-raw://04a83cf76fa24ae7b64e0cef7da1b6b198cbc5ea89c23f3aa65752083e9ec68a",
+				"dweb:/ipfs/QmebGEpWrtb1rSqa213xBiBN3fwbfY5bvxuXXvKtQnferL"
 			]
 		}
 	},

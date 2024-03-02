@@ -14,27 +14,27 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "_walletCheeseProducer",
+						"name": "walletCheeseProducer",
 						"type": "address"
 					},
 					{
 						"internalType": "address",
-						"name": "_walletMilkHub",
+						"name": "walletMilkHub",
 						"type": "address"
 					},
 					{
 						"internalType": "uint256",
-						"name": "_id_MilkBatch",
+						"name": "idMilkBatch",
 						"type": "uint256"
 					},
 					{
 						"internalType": "string",
-						"name": "_expirationDate",
+						"name": "expirationDate",
 						"type": "string"
 					},
 					{
 						"internalType": "uint256",
-						"name": "_quantity",
+						"name": "quantity",
 						"type": "uint256"
 					}
 				],
@@ -42,17 +42,17 @@
 				"outputs": [
 					{
 						"internalType": "uint256",
-						"name": "id_MilkBatch_Acquistato",
+						"name": "",
 						"type": "uint256"
 					},
 					{
 						"internalType": "string",
-						"name": "expDate",
+						"name": "",
 						"type": "string"
 					},
 					{
 						"internalType": "uint256",
-						"name": "quantityAcquistata",
+						"name": "",
 						"type": "uint256"
 					}
 				],
@@ -68,12 +68,12 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "_id",
+						"name": "id",
 						"type": "uint256"
 					},
 					{
 						"internalType": "uint256",
-						"name": "_quantityToTransform",
+						"name": "quantityToTransform",
 						"type": "uint256"
 					}
 				],
@@ -97,12 +97,12 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "_id",
+						"name": "id",
 						"type": "uint256"
 					},
 					{
 						"internalType": "uint256",
-						"name": "_quantityToTransform",
+						"name": "quantityToTransform",
 						"type": "uint256"
 					}
 				],
@@ -126,7 +126,7 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "_id",
+						"name": "id",
 						"type": "uint256"
 					}
 				],
@@ -150,7 +150,7 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "_id_MilkBatchAcquistato",
+						"name": "idMilkBatch",
 						"type": "uint256"
 					}
 				],
@@ -186,29 +186,10 @@
 						"internalType": "address",
 						"name": "walletCheeseProducer",
 						"type": "address"
-					}
-				],
-				"name": "getMilkBatchListIdPurchased",
-				"outputs": [
-					{
-						"internalType": "uint256[]",
-						"name": "",
-						"type": "uint256[]"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "walletCheeseProducer",
-						"type": "address"
 					},
 					{
 						"internalType": "uint256",
-						"name": "_id",
+						"name": "id",
 						"type": "uint256"
 					}
 				],
@@ -229,10 +210,29 @@
 						"internalType": "address",
 						"name": "walletCheeseProducer",
 						"type": "address"
+					}
+				],
+				"name": "getUserMilkBatchIds",
+				"outputs": [
+					{
+						"internalType": "uint256[]",
+						"name": "",
+						"type": "uint256[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletCheeseProducer",
+						"type": "address"
 					},
 					{
 						"internalType": "uint256",
-						"name": "_id",
+						"name": "id",
 						"type": "uint256"
 					}
 				],
@@ -256,7 +256,7 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "_id_MilkBatchAcquistato",
+						"name": "idMilkBatch",
 						"type": "uint256"
 					}
 				],
@@ -280,12 +280,12 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "_id",
+						"name": "id",
 						"type": "uint256"
 					},
 					{
 						"internalType": "uint256",
-						"name": "_newQuantity",
+						"name": "newQuantity",
 						"type": "uint256"
 					}
 				],
@@ -304,7 +304,7 @@
 			"kind": "user",
 			"methods": {
 				"addMilkBatch(address,address,uint256,string,uint256)": {
-					"notice": "Funzione addMilkBatch() -> Utilizzata dal Transaction Manager per poter inserire il MilkBatch Acquistato  Scollego questa logica, ammettendo che il CheeseProducer può testare la logica di conversione  params :  - walletCheeseProducer -> mi serve per il mapping  - walletMilkHub -> mi serve per creare il nuovo elemento   - id_milkBatch -> mi serve per il riferimento all'elemento acquistato"
+					"notice": "Funzione addMilkBatch() -> Utilizzata dal Transaction Manager per poter inserire il MilkBatch Acquistato  Scollego questa logica, ammettendo che il CheeseProducer può testare la logica di conversione  params :  - walletCheeseProducer -> mi serve per il mapping  - walletMilkHub -> mi serve per creare il nuovo elemento   - idmilkBatch -> mi serve per il riferimento all'elemento acquistato"
 				},
 				"isMilkBatchPresent(address,uint256)": {
 					"notice": "Funzione per la verifica dell'esistenza del prodotto MilkBatch acquistato  - ritorna TRUE se esiste  - ritorna FALSe se non esiste  - effettua il controllo sull'uguaglianza dell'id del MilkBatch Acquistato"
@@ -330,11 +330,11 @@
 	},
 	"sources": {
 		"contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerBuyerStorage.sol": {
-			"keccak256": "0x86ca6d4b163892c876d0cf9b9acf80da05d2d2564264fc61f2f93f2a01a8b289",
+			"keccak256": "0x9efbdfeed5d55a1d80b009d987e496ae2da86966454541106a6ed3dfa9a379ee",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://ca31693f0c6c1e1adfc76f6b5ac7373d309aa3afb8df1f156f5889b136661ba3",
-				"dweb:/ipfs/QmeNRX1hXyYKcXC8oTCngUtCKidNxgadvABA67hSfqWK2m"
+				"bzz-raw://5a218bc872a3431e56a912850fa56ebdbe68aed6255b9b51792728b18a0b9ba8",
+				"dweb:/ipfs/QmS1masYENbmZf8yio75g11xsG5SKpWxB3nGT5RT9nxJi8"
 			]
 		}
 	},

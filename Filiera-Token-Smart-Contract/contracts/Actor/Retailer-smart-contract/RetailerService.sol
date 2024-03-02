@@ -102,12 +102,12 @@ contract RetailerService {
      * - Solo l'owner può effettuare l'eliminazione 
      * - msg.sender dovrebbe essere solo quello dell'owner 
      */
-    function deleteRetailer(address walletRetailer, uint256 _id) external checkAddress(walletRetailer)  {
+    function deleteRetailer(address walletRetailer, uint256 id) external checkAddress(walletRetailer)  {
         
         // Verifico che l'utente è presente 
         require(this.isUserPresent(walletRetailer), "Utente non e' presente!");
         // Restituisce l'id del Retailer tramite il suo address wallet
-        require(retailerStorage.getId(walletRetailer) == _id , "Utente non Autorizzato!");
+        require(retailerStorage.getId(walletRetailer) == id , "Utente non Autorizzato!");
         // Effettuo la cancellazione dell'utente 
         require(retailerStorage.deleteUser(walletRetailer), "Errore durante la cancellazione");
         // Burn all token ( elimina i token che sono in circolazione, di un utente che non effettua transazioni ) 
@@ -139,26 +139,26 @@ contract RetailerService {
     /**
         - Funzione getFullName() attraverso l'address del Retailer riusciamo a recuperare il suo FullName
     */
-    function getRetailerFullName(address walletRetailer,uint256 _id) external view checkAddress(walletRetailer) returns(string memory){
+    function getRetailerFullName(address walletRetailer,uint256 id) external view checkAddress(walletRetailer) returns(string memory){
 
-        return retailerStorage.getFullName(walletRetailer,_id);
+        return retailerStorage.getFullName(walletRetailer,id);
     }
 
     /**
         - Funzione getEmail() attraverso l'address del Retailer riusciamo a recuperare la sua Email 
     */
-    function getRetailerEmail(address walletRetailer, uint256 _id) external view checkAddress(walletRetailer) returns(string memory){
+    function getRetailerEmail(address walletRetailer, uint256 id) external view checkAddress(walletRetailer) returns(string memory){
         
-        return retailerStorage.getEmail(walletRetailer,_id);
+        return retailerStorage.getEmail(walletRetailer,id);
     }
 
 
     /**
         - Funzione getBalance() attraverso l'address del Retailer riusciamo a recuperare il suo Balance
     */
-    function getRetailerBalance(address walletRetailer, uint256 _id) external view checkAddress(walletRetailer)  returns(uint256){
+    function getRetailerBalance(address walletRetailer, uint256 id) external view checkAddress(walletRetailer)  returns(uint256){
 
-        return retailerStorage.getBalance(walletRetailer,_id);
+        return retailerStorage.getBalance(walletRetailer,id);
     }
 
     /**
@@ -166,11 +166,11 @@ contract RetailerService {
      * - tramite l'address del Retailer riusciamo a visualizzare anche i suoi dati
      * - Dati sensibili e visibili solo dal Retailer stesso 
      */
-    function getRetailerData(address walletRetailer, uint256 _id) external checkAddress(walletRetailer) view returns (uint256, string memory, string memory, string memory, uint256) {
+    function getRetailerData(address walletRetailer, uint256 id) external checkAddress(walletRetailer) view returns (uint256, string memory, string memory, string memory, uint256) {
         // Verifico che l'utente è presente 
         require(this.isUserPresent(walletRetailer), "Utente non e' presente!");
         // Restituisce l'id del Retailer tramite il suo address wallet
-        require(retailerStorage.getId(walletRetailer) == _id , "Utente non Autorizzato!");
+        require(retailerStorage.getId(walletRetailer) == id , "Utente non Autorizzato!");
         // Call function of Storage         
         return retailerStorage.getUser(walletRetailer);
     }

@@ -19,17 +19,12 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "_id_CheeseBlock",
+						"name": "price",
 						"type": "uint256"
 					},
 					{
 						"internalType": "uint256",
-						"name": "_price",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "_weight",
+						"name": "weight",
 						"type": "uint256"
 					}
 				],
@@ -63,7 +58,7 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "_id",
+						"name": "id",
 						"type": "uint256"
 					}
 				],
@@ -79,19 +74,6 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
-				"name": "getAllCheesePieceIdList",
-				"outputs": [
-					{
-						"internalType": "uint256[]",
-						"name": "",
-						"type": "uint256[]"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
 				"inputs": [
 					{
 						"internalType": "address",
@@ -100,7 +82,7 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "_id",
+						"name": "id",
 						"type": "uint256"
 					}
 				],
@@ -126,14 +108,8 @@
 				"type": "function"
 			},
 			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "walletRetailer",
-						"type": "address"
-					}
-				],
-				"name": "getCheesePieceListIdBySingleRetailer",
+				"inputs": [],
+				"name": "getGlobalCheesePieceIds",
 				"outputs": [
 					{
 						"internalType": "uint256[]",
@@ -153,7 +129,7 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "_id",
+						"name": "id",
 						"type": "uint256"
 					}
 				],
@@ -174,10 +150,29 @@
 						"internalType": "address",
 						"name": "walletRetailer",
 						"type": "address"
+					}
+				],
+				"name": "getUserCheesePieceIds",
+				"outputs": [
+					{
+						"internalType": "uint256[]",
+						"name": "",
+						"type": "uint256[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletRetailer",
+						"type": "address"
 					},
 					{
 						"internalType": "uint256",
-						"name": "_id",
+						"name": "id",
 						"type": "uint256"
 					}
 				],
@@ -201,7 +196,7 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "_id_CheesePiece",
+						"name": "idCheesePiece",
 						"type": "uint256"
 					}
 				],
@@ -225,12 +220,12 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "_id_Cheese",
+						"name": "idCheese",
 						"type": "uint256"
 					},
 					{
 						"internalType": "uint256",
-						"name": "_newQuantity",
+						"name": "newQuantity",
 						"type": "uint256"
 					}
 				],
@@ -268,11 +263,11 @@
 	},
 	"sources": {
 		"contracts/Actor/Retailer-smart-contract/inventory/RetailerInventoryStorage.sol": {
-			"keccak256": "0xb0501d359e02ec5472ed198da99a3269615dca311eb59549384c4e2d3da91cd7",
+			"keccak256": "0x9d297df78592f0b232c1172886c3cec8983933f0447fd1f9048b3e4c30409eb4",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://9efce1f88f722c4bb2434322edb5668b0aeec8de4c5a340451120097cc56f938",
-				"dweb:/ipfs/QmUQzhLSBJiaQNrGoB8kmBSHspUXtHChCdwXDju9Kkcmq8"
+				"bzz-raw://6097c045afb4dbbd727bfd0262302a2a460fb9c4739b6269e0051f2ed878e7f9",
+				"dweb:/ipfs/QmV9umevUKX6PTsYGxzq93duwBZxQWWRJ9dMjaB3CUysrX"
 			]
 		}
 	},

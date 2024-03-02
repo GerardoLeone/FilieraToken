@@ -71,9 +71,6 @@ class ConsumerService {
     }
   }
 
-
-
-
     /**
      * Recupera l'id del Consumer 
      */

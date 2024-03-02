@@ -118,7 +118,7 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
     switch(actor) {
       case Actor.CheeseProducer:
       // Milkhub List
-        productList = milkHubInventoryService.getMilkBatchList(wallet);
+        productList = milkHubInventoryService.getMilkBatchListAll(wallet);
         break;
       case Actor.Retailer:
         productList = cheeseProducerInventoryService.getCheeseBlockList(wallet);

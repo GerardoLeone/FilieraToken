@@ -5,7 +5,7 @@ import "./RetailerInventoryStorage.sol";
 import "../RetailerService.sol";
 import "./RetailerBuyerService.sol";
 
-import "../../../Service/AccessControlProduct.sol";
+import "../../../Service/access-control-product/AccessControlProductCheesePiece.sol";
 
 contract RetailerInventoryService {
 
@@ -21,7 +21,7 @@ contract RetailerInventoryService {
 
     RetailerBuyerService private retailerBuyerService;
 
-    AccessControlProduct private accessControlProduct;
+    AccessControlProductCheesePiece private accessControlProduct;
 
 
 //------------------------------------------------------------------------ Event of Service  -----------------------------------------------------------//
@@ -53,7 +53,7 @@ contract RetailerInventoryService {
         retailerInventoryStorage = RetailerInventoryStorage(_retailerInventoryStorage);
         retailerService = RetailerService(_retailerService);
         retailerBuyerService = RetailerBuyerService(_retailerBuyerService);
-        accessControlProduct = AccessControlProduct(_accessControlProduct);
+        accessControlProduct = AccessControlProductCheesePiece(_accessControlProduct);
         retailerOrg = msg.sender;
     }
 
@@ -76,8 +76,7 @@ contract RetailerInventoryService {
         emit CheesePieceAdded(walletRetailer, "CheeseBlock convertito con successo! Ecco il nuovo CheesePiece!", _idCheesePiece, _price, _weight);
     }
 
-    function getCheesePiece(uint256 idCheesePiece) external view checkAddress(msg.sender) returns (uint256, uint256, uint256) {
-        address walletRetailer = msg.sender;
+    function getCheesePiece(uint256 idCheesePiece, address walletRetailer) external view checkAddress(walletRetailer) returns (uint256, uint256, uint256) {
 
         require(retailerService.isUserPresent(walletRetailer), "User is not present in data");
 
@@ -86,8 +85,7 @@ contract RetailerInventoryService {
         return retailerInventoryStorage.getCheesePiece(walletRetailer, idCheesePiece);
     }
 
-    function deleteCheesePiece(uint256 id) external returns (bool) {
-        address walletRetailer = msg.sender;
+    function deleteCheesePiece(uint256 id, address walletRetailer) external returns (bool) {
 
         require(retailerService.isUserPresent(walletRetailer), "User is not present!");
 
@@ -185,8 +183,4 @@ contract RetailerInventoryService {
 
         emit CheesePieceEdited(onwerCheesePiece,"MilkBatch edited!", quantity);
     }
-
-
-
-    
 }

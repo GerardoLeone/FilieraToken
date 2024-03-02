@@ -102,12 +102,12 @@ contract CheeseProducerService {
      * - Solo l'owner può effettuare l'eliminazione 
      * - msg.sender dovrebbe essere solo quello dell'owner 
      */
-    function deleteCheeseProducer(address walletCheeseProducer, uint256 _id) external checkAddress(walletCheeseProducer)  {
+    function deleteCheeseProducer(address walletCheeseProducer, uint256 id) external checkAddress(walletCheeseProducer)  {
         
         // Verifico che l'utente è presente 
         require(this.isUserPresent(walletCheeseProducer), "Utente non e' presente!");
         // Restituisce l'id del CheeseProducer tramite il suo address wallet
-        require(cheeseProducerStorage.getId(walletCheeseProducer) == _id , "Utente non Autorizzato!");
+        require(cheeseProducerStorage.getId(walletCheeseProducer) == id , "Utente non Autorizzato!");
         // Effettuo la cancellazione dell'utente 
         require(cheeseProducerStorage.deleteUser(walletCheeseProducer), "Errore durante la cancellazione");
         // Burn all token ( elimina i token che sono in circolazione, di un utente che non effettua transazioni ) 
@@ -139,26 +139,26 @@ contract CheeseProducerService {
     /**
         - Funzione getFullName() attraverso l'address del CheeseProducer riusciamo a recuperare il suo FullName
     */
-    function getCheeseProducerFullName(address walletCheeseProducer,uint256 _id) external view checkAddress(walletCheeseProducer) returns(string memory){
+    function getCheeseProducerFullName(address walletCheeseProducer,uint256 id) external view checkAddress(walletCheeseProducer) returns(string memory){
 
-        return cheeseProducerStorage.getFullName(walletCheeseProducer,_id);
+        return cheeseProducerStorage.getFullName(walletCheeseProducer,id);
     }
 
     /**
         - Funzione getEmail() attraverso l'address del CheeseProducer riusciamo a recuperare la sua Email 
     */
-    function getCheeseProducerEmail(address walletCheeseProducer, uint256 _id) external view checkAddress(walletCheeseProducer) returns(string memory){
+    function getCheeseProducerEmail(address walletCheeseProducer, uint256 id) external view checkAddress(walletCheeseProducer) returns(string memory){
         
-        return cheeseProducerStorage.getEmail(walletCheeseProducer,_id);
+        return cheeseProducerStorage.getEmail(walletCheeseProducer,id);
     }
 
 
     /**
         - Funzione getBalance() attraverso l'address del CheeseProducer riusciamo a recuperare il suo Balance
     */
-    function getCheeseProducerBalance(address walletCheeseProducer, uint256 _id) external view checkAddress(walletCheeseProducer)  returns(uint256){
+    function getCheeseProducerBalance(address walletCheeseProducer, uint256 id) external view checkAddress(walletCheeseProducer)  returns(uint256){
 
-        return cheeseProducerStorage.getBalance(walletCheeseProducer,_id);
+        return cheeseProducerStorage.getBalance(walletCheeseProducer,id);
     }
 
     /**
@@ -166,11 +166,11 @@ contract CheeseProducerService {
      * - tramite l'address del CheeseProducer riusciamo a visualizzare anche i suoi dati
      * - Dati sensibili e visibili solo dal CheeseProducer stesso 
      */
-    function getCheeseProducerData(address walletCheeseProducer, uint256 _id) external checkAddress(walletCheeseProducer) view returns (uint256, string memory, string memory, string memory, uint256) {
+    function getCheeseProducerData(address walletCheeseProducer, uint256 id) external checkAddress(walletCheeseProducer) view returns (uint256, string memory, string memory, string memory, uint256) {
         // Verifico che l'utente è presente 
         require(this.isUserPresent(walletCheeseProducer), "Utente non e' presente!");
         // Restituisce l'id del CheeseProducer tramite il suo address wallet
-        require(cheeseProducerStorage.getId(walletCheeseProducer) == _id , "Utente non Autorizzato!");
+        require(cheeseProducerStorage.getId(walletCheeseProducer) == id , "Utente non Autorizzato!");
         // Call function of Storage         
         return cheeseProducerStorage.getUser(walletCheeseProducer);
     }

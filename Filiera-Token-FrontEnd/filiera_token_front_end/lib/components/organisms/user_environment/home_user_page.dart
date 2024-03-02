@@ -1,6 +1,8 @@
 
+import 'package:filiera_token_front_end/Actor/CheeseProducer/service/CheeseProducerBuyerService.dart';
 import 'package:filiera_token_front_end/Actor/CheeseProducer/service/CheeseProducerInventoryService.dart';
-import 'package:filiera_token_front_end/Actor/Consumer/service/ConsumerBuyerInventoryService.dart';
+import 'package:filiera_token_front_end/Actor/Consumer/service/ConsumerBuyerService.dart';
+import 'package:filiera_token_front_end/Actor/Retailer/service/RetailerBuyerService.dart';
 import 'package:filiera_token_front_end/Actor/Retailer/service/RetailerInventoryService.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_loading_bar.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_product_list.dart';
@@ -34,7 +36,13 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
 
   late SecureStorageService secureStorageService;
 
-  ConsumerBuyerInventoryService consumerBuyerInventoryService = ConsumerBuyerInventoryService();
+  ConsumerBuyerService consumerBuyerInventoryService = ConsumerBuyerService();
+
+  RetailerBuyerService retailerBuyerService = RetailerBuyerService();
+
+  CheeseProducerBuyerService cheeseProducerBuyerService = CheeseProducerBuyerService();
+
+
 
   User? user;
 
@@ -116,10 +124,10 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
         productList = MilkHubInventoryService.getMilkBatchList(wallet);
         break;
       case Actor.CheeseProducer:
-        productList = CheeseProducerInventoryService.getCheeseBlockList(wallet);
+        productList = cheeseProducerBuyerService.getMilkBatchList(wallet);
         break;
       case Actor.Retailer:
-        productList = RetailerInventoryService.getCheesePieceList(wallet);
+        productList = retailerBuyerService.getCheeseBlockList(wallet);
         break;
       case Actor.Consumer:
         productList = consumerBuyerInventoryService.getCheesePieceList(wallet);

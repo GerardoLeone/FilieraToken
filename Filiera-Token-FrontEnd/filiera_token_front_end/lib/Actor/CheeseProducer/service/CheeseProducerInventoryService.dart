@@ -6,7 +6,7 @@ import 'dart:convert';
 
 class CheeseProducerInventoryService {
 
-  static Future<List<Product>> getCheeseBlockList(String wallet) async {
+   Future<List<Product>> getCheeseBlockList(String wallet) async {
     String url = API.buildURL(API.CheeseProducerNodePort, API.CheeseProducerInventoryService, API.Query, "getUserCheeseBlockIds");
     final headers = API.getHeaders();
     final body = jsonEncode(API.getCheeseProducerPayload(wallet));
@@ -27,7 +27,7 @@ class CheeseProducerInventoryService {
             continue;
           }
 
-          Product product = await CheeseProducerInventoryService.getCheeseBlock(wallet, idList[i]);
+          Product product = await getCheeseBlock(wallet, idList[i]);
           productList.add(product);
         }
 
@@ -41,7 +41,7 @@ class CheeseProducerInventoryService {
     }
   }
 
-  static Future<Product> getCheeseBlock(String wallet, String id) async {
+   Future<Product> getCheeseBlock(String wallet, String id) async {
     String url = API.buildURL(API.CheeseProducerNodePort, API.CheeseProducerInventoryService, API.Query, "getCheeseBlock");
     final headers = API.getHeaders();
     final body = jsonEncode(API.getCheeseBlockPayload(wallet, id));

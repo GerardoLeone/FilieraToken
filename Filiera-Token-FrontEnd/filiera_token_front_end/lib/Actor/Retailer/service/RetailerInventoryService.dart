@@ -68,7 +68,7 @@ class RetailerInventoryService {
   }
 
   static Future<bool> transformMilkBatch(String wallet, double price, int quantity, String expirationDate) async {
-    String url = API.buildURL(API.RetailerInventoryService, API.Query, "getCheesePiece");
+    String url = API.buildURL(API.RetailerNodePort,API.RetailerInventoryService, API.Query, "getCheesePiece");
     final headers = API.getHeaders();
     final body = jsonEncode(API.getCheesePieceBody(wallet,"", price.toString(), quantity.toString(), expirationDate));
     try {

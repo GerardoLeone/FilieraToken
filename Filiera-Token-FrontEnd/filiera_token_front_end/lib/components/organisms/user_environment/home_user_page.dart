@@ -3,6 +3,7 @@ import 'package:filiera_token_front_end/Actor/CheeseProducer/service/CheeseProdu
 import 'package:filiera_token_front_end/Actor/CheeseProducer/service/CheeseProducerInventoryService.dart';
 import 'package:filiera_token_front_end/Actor/Consumer/service/ConsumerBuyerService.dart';
 import 'package:filiera_token_front_end/Actor/MilkHub/service/MilkHubInventoryService.dart';
+import 'package:filiera_token_front_end/Actor/Retailer/service/RetailerBuyerService.dart';
 import 'package:filiera_token_front_end/Actor/Retailer/service/RetailerInventoryService.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_loading_bar.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_product_list.dart';
@@ -36,7 +37,7 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
 
   late SecureStorageService secureStorageService;
 
-  ConsumerBuyerService consumerBuyerInventoryService = ConsumerBuyerService();
+  ConsumerBuyerService consumerBuyerService = ConsumerBuyerService();
 
   RetailerBuyerService retailerBuyerService = RetailerBuyerService();
 
@@ -128,7 +129,7 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
         productList = retailerBuyerService.getCheeseBlockList(wallet);
         break;
       case Actor.Consumer:
-        productList = ConsumerBuyerService.getCheesePieceList(wallet);
+        productList = consumerBuyerService.getCheesePieceList(wallet);
         break;  
       default:
         print("Errore nella selezione dell'attore in fase di build (home_user_page.dart)");

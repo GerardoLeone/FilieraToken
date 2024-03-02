@@ -32,6 +32,8 @@ class _UserProfileInventoryProductPageState extends State<UserProfileInventoryPr
 
   late SecureStorageService secureStorageService;
 
+  ConsumerBuyerService consumerBuyerService = ConsumerBuyerService();
+
   User? user;
 
   @override
@@ -118,7 +120,7 @@ class _UserProfileInventoryProductPageState extends State<UserProfileInventoryPr
           productList = RetailerInventoryService.getCheesePieceList(wallet);
           break;
         case Actor.Consumer:
-          productList = ConsumerBuyerService.getCheesePieceList(wallet);
+          productList = consumerBuyerService.getCheesePieceList(wallet);
           break;  
         default:
           print("Errore nella selezione dell'attore in fase di build (home_user_page.dart)");

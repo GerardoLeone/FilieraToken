@@ -66,4 +66,23 @@ class RetailerInventoryService {
       rethrow;
     }
   }
+
+  static Future<bool> transformMilkBatch(String wallet, double price, int quantity, String expirationDate) async {
+    String url = API.buildURL(API.RetailerInventoryService, API.Query, "getCheesePiece");
+    final headers = API.getHeaders();
+    final body = jsonEncode(API.getCheesePieceBody(wallet,"", price.toString(), quantity.toString(), expirationDate));
+    try {
+      final response = await http.post(Uri.parse(url), headers: headers, body: body);
+
+      if (response.statusCode == 200 || response.statusCode == 202) {
+        return true;
+      } else {
+        throw Exception('Failed to add CheesePiece: ${response.statusCode}');
+      }
+    } catch (error) {
+      print('Error adding CheesePiece: $error');
+      rethrow;
+    }
+  }
+
 }

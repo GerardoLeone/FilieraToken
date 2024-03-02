@@ -1,4 +1,4 @@
-class RetailerBuyerInventoryService {
+class RetailerBuyerService {
 
   static const String _queryGetCheeseBlockListIDPurchase="";
 

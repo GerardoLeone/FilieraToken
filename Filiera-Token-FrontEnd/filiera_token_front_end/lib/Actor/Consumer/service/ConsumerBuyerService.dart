@@ -4,7 +4,7 @@ import 'package:filiera_token_front_end/utils/api.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class ConsumerBuyerInventoryService {
+class ConsumerBuyerService {
 
   static Future<List<Product>> getCheesePieceList(String wallet) async {
     String url = API.buildURL(API.ConsumerNodePort, API.ConsumerBuyerInventoryService, API.Query, "getUserCheesePieceIds");
@@ -33,7 +33,7 @@ class ConsumerBuyerInventoryService {
         List<Product> productList = [];
 
         for (int i = 0; i < idList.length; i++) {
-          Product product = await ConsumerBuyerInventoryService.getCheesePiece(idList[i],wallet);
+          Product product = await ConsumerBuyerService.getCheesePiece(idList[i],wallet);
           productList.add(product);
         }
 

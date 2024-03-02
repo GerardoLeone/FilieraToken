@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:filiera_token_front_end/models/Product.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_card.dart';
+import 'package:filiera_token_front_end/components/molecules/custom_loading_bar.dart';
 
 class CustomProductList extends StatelessWidget {
   final Future<List<Product>> productList;
@@ -18,7 +19,7 @@ class CustomProductList extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           // Se il futuro è ancora in attesa, mostra un indicatore di caricamento
-          return CircularProgressIndicator();
+          return CustomLoadingIndicator(progress: 5.5,);
         } else if (snapshot.hasError) {
           // Se si è verificato un errore durante il recupero dei dati, mostra un messaggio di errore
           return Text('Errore: ${snapshot.error}');

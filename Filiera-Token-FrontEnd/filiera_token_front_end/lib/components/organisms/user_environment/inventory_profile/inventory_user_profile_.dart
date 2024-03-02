@@ -1,11 +1,10 @@
 import 'package:filiera_token_front_end/Actor/CheeseProducer/service/CheeseProducerInventoryService.dart';
-import 'package:filiera_token_front_end/Actor/Consumer/service/ConsumerBuyerInventoryService.dart';
+import 'package:filiera_token_front_end/Actor/Consumer/service/ConsumerBuyerService.dart';
 import 'package:filiera_token_front_end/Actor/MilkHub/service/MilkHubInventoryService.dart';
 import 'package:filiera_token_front_end/Actor/Retailer/service/RetailerInventoryService.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_loading_bar.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_nav_bar.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_product_list.dart';
-import 'package:filiera_token_front_end/components/organisms/user_environment/inventory_profile/components/custom_floating_button_add.dart';
 import 'package:filiera_token_front_end/components/organisms/user_environment/inventory_profile/components/custom_menu_user_inventory.dart';
 import 'package:filiera_token_front_end/components/molecules/dialog/dialog_product_details.dart';
 import 'package:filiera_token_front_end/components/organisms/user_environment/services/secure_storage_service.dart';
@@ -14,7 +13,6 @@ import 'package:filiera_token_front_end/models/User.dart';
 import 'package:filiera_token_front_end/utils/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:go_router/go_router.dart';
 
 //Prodotti convertiti
 class UserProfileInventoryProductPage extends StatefulWidget {
@@ -120,7 +118,7 @@ class _UserProfileInventoryProductPageState extends State<UserProfileInventoryPr
           productList = RetailerInventoryService.getCheesePieceList(wallet);
           break;
         case Actor.Consumer:
-          productList = ConsumerBuyerInventoryService.getCheesePieceList(wallet);
+          productList = ConsumerBuyerService.getCheesePieceList(wallet);
           break;  
         default:
           print("Errore nella selezione dell'attore in fase di build (home_user_page.dart)");

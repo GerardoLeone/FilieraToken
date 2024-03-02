@@ -9,10 +9,10 @@ class MilkHubInventoryService {
   /**
    * Questa funzione restituisce una lista di MilkBatch a partire dal wallet del MilkHub che li possiede.
    */
-  static Future<List<Product>> getMilkBatchList(String wallet) async {
-    String url = API.buildURL(API.MilkHubNodePort, API.MilkHubInventoryService, API.Query, "getListMilkBatchIdByMilkHub");
+  Future<List<Product>> getMilkBatchList(String walletMilkHub) async {
+    String url = API.buildURL(API.MilkHubNodePort, API.MilkHubInventoryService, API.Query, "getUserMilkBatchIds");
     final headers = API.getHeaders();
-    final body = jsonEncode(API.getMilkHubPayload(wallet)); // Prepare JSON body with wallet data
+    final body = jsonEncode(API.getMilkHubPayload(walletMilkHub)); // Prepare JSON body with wallet data
 
     try {
       final response = await http.post(Uri.parse(url), headers: headers, body: body);
@@ -27,7 +27,46 @@ class MilkHubInventoryService {
         List<Product> productList = [];
 
         for (int i = 0; i < idList.length; i++) {
-          Product product = await MilkHubInventoryService.getMilkBatch(wallet, idList[i]);
+          Product product = await getMilkBatch(walletMilkHub, idList[i]);
+          productList.add(product);
+        }
+
+        return productList;
+      } else {
+        throw Exception('Failed to fetch MilkBatch Id List: ${response.statusCode}');
+      }
+    } catch (error) {
+      print('Error fetching MilkBatch Id List: $error');
+      rethrow; // Re-throw to allow external handling of errors
+    }
+  }
+
+
+  /**
+   * Questa funzione restituisce una lista di MilkBatch a partire dal wallet del MilkHub che li possiede.
+   */
+  Future<List<Product>> getMilkBatchListAll(String walletCheeseProducer) async {
+
+    //TODO : Call to Address list of Milkhub to get all Address List 
+    String url = API.buildURL(API.CheeseProducerNodePort, API.MilkHubInventoryService, API.Query, "getGlobalMilkBatchIds");
+    final headers = API.getHeaders();
+    final body = jsonEncode(API.getCheeseProducerPayload(walletCheeseProducer)); // Prepare JSON body with wallet data
+
+    try {
+      final response = await http.post(Uri.parse(url), headers: headers, body: body);
+
+      if (response.statusCode == 200 || response.statusCode == 202) {
+
+        print(jsonEncode(response.body));
+
+        final jsonData = jsonDecode(response.body);
+
+        final List<String> idList = jsonData['output'].cast<String>();
+        List<Product> productList = [];
+        // TODO : For sulla lista degli address dei Milkhub 
+        // TODO : Mi recupero le liste degli elementi per ogni milkhub e metto nella lista dei prodotti 
+        for (int i = 0; i < idList.length; i++) {
+          Product product = await getMilkBatch(walletCheeseProducer, idList[i]);
           productList.add(product);
         }
 
@@ -44,7 +83,7 @@ class MilkHubInventoryService {
   /**
    * Questa funzione restituisce un MilkBatch a partire dal wallet che lo possiede e dall'identificativo.
    */
-  static Future<Product> getMilkBatch(String wallet, String id) async {
+  Future<Product> getMilkBatch(String wallet, String id) async {
     String url = API.buildURL(API.MilkHubNodePort, API.MilkHubInventoryService, API.Query, "getMilkBatch");
     final headers = API.getHeaders();
     final body = jsonEncode(API.getMilkBatchPayload(wallet, id));

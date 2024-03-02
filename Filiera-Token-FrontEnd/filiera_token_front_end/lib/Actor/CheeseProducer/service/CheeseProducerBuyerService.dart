@@ -15,7 +15,7 @@ class CheeseProducerBuyerService {
 
 
   Future<List<Product>> getMilkBatchList(String wallet) async {
-    String url = API.buildURL(API.CheeseProducerBuyerStorage, API.Query, _queryGetMilkBatchPurchase);
+    String url = API.buildURL(API.CheeseProducerNodePort,API.CheeseProducerBuyerStorage, API.Query, _queryGetMilkBatchPurchase);
 
     print(url);
 
@@ -58,7 +58,7 @@ class CheeseProducerBuyerService {
 
   Future<Product> getMilkBatch(String cheeseId, String walletRetailer) async {
     
-    String url = API.buildURL(API.CheeseProducerBuyerStorage, API.Query, _queryGetMilkBatch);
+    String url = API.buildURL(API.CheeseProducerNodePort,API.CheeseProducerBuyerStorage, API.Query, _queryGetMilkBatch);
     
     final body = jsonEncode(API.getMilkBatchForCheeseProducerBody(cheeseId, walletRetailer));
     final headers = API.getHeaders();

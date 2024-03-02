@@ -1,7 +1,5 @@
 
-import 'package:filiera_token_front_end/Actor/CheeseProducer/service/CheeseProducerBuyerService.dart';
 import 'package:filiera_token_front_end/Actor/CheeseProducer/service/CheeseProducerInventoryService.dart';
-import 'package:filiera_token_front_end/Actor/Consumer/service/ConsumerBuyerService.dart';
 import 'package:filiera_token_front_end/Actor/MilkHub/service/MilkHubInventoryService.dart';
 import 'package:filiera_token_front_end/Actor/Retailer/service/RetailerInventoryService.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_loading_bar.dart';
@@ -17,7 +15,6 @@ import 'package:flutter/material.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_nav_bar.dart';
 import 'package:get_it/get_it.dart';
 
-import 'package:filiera_token_front_end/Actor/MilkHub/service/MilkHubInventoryService.dart';
 
 class HomePageUser extends StatefulWidget {
   const HomePageUser({
@@ -36,11 +33,12 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
 
   late SecureStorageService secureStorageService;
 
-  ConsumerBuyerService consumerBuyerInventoryService = ConsumerBuyerService();
 
-  RetailerBuyerService retailerBuyerService = RetailerBuyerService();
+  MilkHubInventoryService milkHubInventoryService = MilkHubInventoryService();
+  
+  RetailerInventoryService retailerInventoryService = RetailerInventoryService();
 
-  CheeseProducerBuyerService cheeseProducerBuyerService = CheeseProducerBuyerService();
+  CheeseProducerInventoryService cheeseProducerInventoryService = CheeseProducerInventoryService();
 
   User? user;
 
@@ -118,17 +116,15 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
       print(wallet);
 
     switch(actor) {
-      case Actor.MilkHub:
-        productList = MilkHubInventoryService.getMilkBatchList(wallet);
-        break;
       case Actor.CheeseProducer:
-        productList = cheeseProducerBuyerService.getMilkBatchList(wallet);
+      // Milkhub List
+        productList = milkHubInventoryService.getMilkBatchList(wallet);
         break;
       case Actor.Retailer:
-        productList = retailerBuyerService.getCheeseBlockList(wallet);
+        productList = cheeseProducerInventoryService.getCheeseBlockList(wallet);
         break;
       case Actor.Consumer:
-        productList = ConsumerBuyerService.getCheesePieceList(wallet);
+        productList = retailerInventoryService.getCheesePieceList(wallet);
         break;  
       default:
         print("Errore nella selezione dell'attore in fase di build (home_user_page.dart)");

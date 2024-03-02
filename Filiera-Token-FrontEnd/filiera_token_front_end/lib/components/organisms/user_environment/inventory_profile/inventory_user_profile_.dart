@@ -32,6 +32,12 @@ class _UserProfileInventoryProductPageState extends State<UserProfileInventoryPr
 
   late SecureStorageService secureStorageService;
 
+    MilkHubInventoryService milkHubInventoryService = MilkHubInventoryService();
+  
+  RetailerInventoryService retailerInventoryService = RetailerInventoryService();
+
+  CheeseProducerInventoryService cheeseProducerInventoryService = CheeseProducerInventoryService();
+
   User? user;
 
   @override
@@ -109,19 +115,16 @@ class _UserProfileInventoryProductPageState extends State<UserProfileInventoryPr
 
       switch(actor) {
         case Actor.MilkHub:
-          productList = MilkHubInventoryService.getMilkBatchList(wallet);
+          productList = milkHubInventoryService.getMilkBatchList(wallet);
           break;
         case Actor.CheeseProducer:
-          productList = CheeseProducerInventoryService.getCheeseBlockList(wallet);
+          productList = cheeseProducerInventoryService.getCheeseBlockList(wallet);
           break;
         case Actor.Retailer:
-          productList = RetailerInventoryService.getCheesePieceList(wallet);
-          break;
-        case Actor.Consumer:
-          productList = ConsumerBuyerService.getCheesePieceList(wallet);
-          break;  
+          productList = retailerInventoryService.getCheesePieceList(wallet);
+          break; 
         default:
-          print("Errore nella selezione dell'attore in fase di build (home_user_page.dart)");
+          print("Errore nella selezione dell'attore in fase di build (inventory_user_page.dart)");
           break;
       }
 

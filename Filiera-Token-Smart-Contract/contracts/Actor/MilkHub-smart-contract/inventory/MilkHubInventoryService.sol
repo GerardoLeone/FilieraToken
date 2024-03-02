@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import "./MilkHubInventoryStorage.sol";
 import "../MilkHubService.sol";
 
-import "../../../Service/AccessControlProduct.sol";
+import "../../../Service/access-control-product/AccessControlProductMilkBatch.sol";
 
 
 contract MilkHubInventoryService {
@@ -19,7 +19,7 @@ contract MilkHubInventoryService {
     // Address Service of MilkHub Service 
     MilkHubService private milkhubService;
     // Address Access Control 
-    AccessControlProduct private accessControlProduct;
+    AccessControlProductMilkBatch private accessControlProduct;
 
 //----------------------------------------------------------------- Costructor Function ---------------------------------------------------------------------------//
 
@@ -28,7 +28,7 @@ contract MilkHubInventoryService {
         MilkHubOrg = msg.sender;
         milkhubInventoryStorage = MilkHubInventoryStorage(_milkhubInventoryStorage);
         milkhubService = MilkHubService(_milkhubService);
-        accessControlProduct = AccessControlProduct(_accessControlProduct);
+        accessControlProduct = AccessControlProductMilkBatch(_accessControlProduct);
     }
 
 

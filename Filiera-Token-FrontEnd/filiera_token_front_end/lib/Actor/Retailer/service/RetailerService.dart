@@ -9,7 +9,7 @@ class RetailerService {
   static const String _apiUrl = 'http://127.0.0.1:5002/api/v1';
 
 
-  static const String _APINameRetailer = "RetailerService";
+  static const String _APINameRetailer = "RetailerService-2";
 
   static const String _queryRetailerData = 'getRetailerData';
   

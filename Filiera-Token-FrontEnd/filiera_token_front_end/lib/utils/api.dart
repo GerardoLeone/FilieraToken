@@ -9,6 +9,7 @@ class API {
   static const String ConsumerNodePort = "5003";
   static const String IP = "http://127.0.0.1:";
   static const String URL = "/api/v1/namespaces/default/apis/";
+
   static const String Invoke = "invoke/";
   static const String Query = "query/";
 
@@ -24,17 +25,24 @@ class API {
   static const String CheeseProducerService = "CheeseProducerService";
   static const String CheeseProducerInventoryService = "CheeseProducerInventoryService";
 
+   static const String CheeseProducerBuyerService = "CheeseProducerBuyerService";
+  static const String CheeseProducerBuyerStorage = "CheeseProducerBuyerStorage";
+
   /**
    * Costanti Retailer
    */
   static const String RetailerService = "RetailerService";
   static const String RetailerInventoryService = "RetailerInventoryService";
+  
+    static const String RetailerBuyerService = "RetailerBuyerService";
+  static const String RetailerBuyerStorage = "RetailerBuyerStorage";
+
 
   /**
    * Costanti Consumer
    */
   static const String ConsumerService = "ConsumerService";
-  static const String ConsumerBuyerInventoryService = "ConsumerBuyerInventoryStorage"; //TODO: Change the Name 
+  static const String ConsumerBuyerInventoryService = "ConsumerBuyerStorage"; //TODO: Change the Name 
 
   /**
    * Questa funzione permette di costruire l'URL per la chiamata di un metodo dell'API utilizzando le costanti offerte dalla classe api.dart
@@ -66,7 +74,7 @@ class API {
   static Map<String, dynamic> getMilkBatchPayload(String wallet, String id){
     return {
       'input': {
-        '_id': id,
+        'id': id,
         'walletMilkHub': wallet
       }
     };
@@ -115,12 +123,12 @@ class API {
   }
 
   static Map<String, dynamic> getCheesePieceConsumerPayload(String wallet, String id){
-    return {
-      'input': {
-        '_id_CheesePieceAcquistato': id,
-        'walletConsumerBuyer': wallet
-      }
-    };
+      return {
+        "input": {
+      "idCheesePiece": id,
+      "walletConsumerBuyer": wallet
+        }
+      };
   }
 
   static Map<String, dynamic> getCheesePiecePayload(String wallet,String id){
@@ -177,6 +185,34 @@ class API {
         "idMilkBatch": idMilkBatch,
         "pricePerKg": pricePerKg,
         "quantityToTransform": quantityToTransform,
+
+//----------------------------------------------------------- Get Body Product for Buyer --------------------------------------------------------------------------
+
+
+
+  static Map<String,dynamic> getCheesePieceForConsumerBody(String cheeseId,String walletConsumerBuyer){
+    return {
+      'input': {
+        'idCheesePiece': cheeseId,
+        'walletConsumerBuyer': walletConsumerBuyer,
+      },
+    };
+  }
+
+    static Map<String,dynamic> getCheeseBlockForRetailerBody(String cheeseId,String _walletRetailer){
+    return {
+      'input': {
+        'idCheeseBlock': cheeseId,
+        'walletRetailer': _walletRetailer,
+      },
+    };
+  }
+
+  static Map<String,dynamic> getMilkBatchForCheeseProducerBody(String milkBatchId, String walletCheeseProducer) {
+    return 
+    {
+      "input": {
+        "idMilkBatch":milkBatchId,
         "walletCheeseProducer": walletCheeseProducer
       }
     };
@@ -191,5 +227,6 @@ class API {
       }
     };
   }
+  
 
 }

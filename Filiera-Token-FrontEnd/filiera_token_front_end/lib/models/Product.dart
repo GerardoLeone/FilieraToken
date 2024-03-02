@@ -84,10 +84,10 @@ class MilkBatch extends Product {
     String id = milkBatchData['output'];
     String name = "Partita di Latte";
     String description = "Silos contenente latte, disponibile all'acquisto immediato.";
-    String seller = "N.A."; //TODO: funzione che restituisce il nome del MilkHub dal MilkHubService
-    String expirationDate = milkBatchData['output1'];
-    String quantity = milkBatchData['output2'];
-    String pricePerLitre = milkBatchData['output3']; //TODO: gestire il double
+    String seller = milkBatchData["output1"];
+    String expirationDate = milkBatchData['output2'];
+    String quantity = milkBatchData['output3'];
+    double pricePerLitre = double.parse("0.2");
 
     return MilkBatch(
             id: id, 
@@ -96,7 +96,7 @@ class MilkBatch extends Product {
             seller: seller, 
             expirationDate: expirationDate, 
             quantity: int.parse(quantity), 
-            pricePerLitre: double.parse(pricePerLitre));
+            pricePerLitre: pricePerLitre);
   }
 }
 
@@ -142,16 +142,16 @@ class CheeseBlock extends Product {
   
   static Product fromJson(Map<String, dynamic> cheeseBlockData) {
     
-    print("JSON DATA -----------------------------------");
-    print(cheeseBlockData);
-
     String id = cheeseBlockData['output'];
+    print(id);
     String name = "Partita di Formaggio"; // Changed name
     String description = "Silos contenente formaggio, disponibile all'acquisto immediato."; // Changed description
-    String milkBatchId = "N.A."; // TODO: Replace with function that returns the name of the CheeseProducer from CheeseProducerServiceù
-    String dop = cheeseBlockData['output1'];
-    String price = cheeseBlockData['output2']; // Parsing price as double
-    String quantity = cheeseBlockData['output3']; // Parsing quantity as int
+    String milkBatchId = cheeseBlockData['output1']; // TODO: Replace with function that returns the name of the CheeseProducer from CheeseProducerServiceù
+    print(milkBatchId);
+    int quantity = int.parse(cheeseBlockData['output3']); // Parsing quantity as int
+    print(quantity);
+    double price = quantity as double; // Parsing price as double
+    String dop = cheeseBlockData['output2'];
 
     return CheeseBlock(
       id: id, 

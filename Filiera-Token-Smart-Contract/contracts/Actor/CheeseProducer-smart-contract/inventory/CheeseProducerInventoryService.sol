@@ -5,7 +5,7 @@ import "./CheeseProducerInventoryStorage.sol";
 import "../CheeseProducerService.sol";
 import "./CheeseProducerBuyerService.sol";
 
-import "../../../Service/AccessControlProduct.sol";
+import "../../../Service/access-control-product/AccessControlProductCheese.sol";
 
 
 // NOTA : implementare i controlli semplici e non di autorizzazione perchè i retailer possono vedere le varie info in merito ai prodotti dei CheeseProducer 
@@ -27,7 +27,7 @@ contract CheeseProducerInventoryService {
     CheeseProducerBuyerService private cheeseProducerBuyerService;
 
     // Address Access Control 
-    AccessControlProduct private accessControlProduct;
+    AccessControlProductCheese private accessControlProduct;
 
 //--------------------------------------------------------------------- Event of Service Contract -----------------------------------------------//
 
@@ -56,7 +56,7 @@ contract CheeseProducerInventoryService {
 
         cheeseProducerBuyerService = CheeseProducerBuyerService(_cheeseProducerBuyerService);
         
-        accessControlProduct = AccessControlProduct(_accessControlProduct);
+        accessControlProduct = AccessControlProductCheese(_accessControlProduct);
 
         cheeseProducerOrg = msg.sender;
     }

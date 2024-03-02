@@ -1,3 +1,4 @@
+
 import 'dart:convert';
 
 import 'package:filiera_token_front_end/models/Product.dart';
@@ -73,10 +74,6 @@ class RetailerBuyerService {
         throw Exception('Failed to fetch CheesePiece Id List: ${response.statusCode}');
     }
   }
-
-
-
-
 
 
 

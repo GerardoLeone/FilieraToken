@@ -159,8 +159,8 @@ class CheeseBlock extends Product {
       description: description, 
       seller: milkBatchId, 
       dop: dop, 
-      price: price, 
-      quantity: quantity);
+      price: double.parse(price), 
+      quantity: int.parse(quantity));
   }
 }
 

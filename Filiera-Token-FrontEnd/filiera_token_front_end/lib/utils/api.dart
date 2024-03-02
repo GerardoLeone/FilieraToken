@@ -3,12 +3,12 @@ class API {
   /**
    * URL API
    */
-  static const String URL = "http://127.0.0.1:5000/api/v1/namespaces/default/apis/";
-    static const String URLCheeseProducer = "http://127.0.0.1:5001/api/v1/namespaces/default/apis/";
-
-  static const String URLRetailer = "http://127.0.0.1:5002/api/v1/namespaces/default/apis/";
-
-  static const String URLConsumer = "http://127.0.0.1:5003/api/v1/namespaces/default/apis/";
+  static const String MilkHubNodePort = "5000";
+  static const String CheeseProducerNodePort = "5001";
+  static const String RetailerNodePort = "5002";
+  static const String ConsumerNodePort = "5003";
+  static const String IP = "http://127.0.0.1:";
+  static const String URL = "/api/v1/namespaces/default/apis/";
 
   static const String Invoke = "invoke/";
   static const String Query = "query/";
@@ -51,7 +51,7 @@ class API {
    * @param callType: per scrittura URL.Invoke, per lettura URL.Query.
    * @param methodName: nome del metodo all'interno dell'interfaccia.
    */
-  static String buildURL(String interface, String callType, String methodName) => (API.URL + interface + "/" + callType + methodName);
+  static String buildURL(String port, String interface, String callType, String methodName) => ("${API.IP}$port${API.URL}$interface/$callType$methodName");
 
   static Map<String, String> getHeaders() {
     return {
@@ -91,7 +91,7 @@ class API {
   static Map<String, dynamic> getCheeseBlockPayload(String wallet, String id){
     return {
       'input': {
-        'id': id,
+        'idCheeseBlock': id,
         'walletCheeseProducer': wallet
       }
     };
@@ -129,6 +129,15 @@ class API {
       "walletConsumerBuyer": wallet
         }
       };
+  }
+
+  static Map<String, dynamic> getCheesePiecePayload(String wallet,String id){
+    return {
+      'input': {
+        '_id_CheesePieceAcquistato': id,
+        'walletConsumerBuyer': wallet,
+      },
+    };
   }
   
 

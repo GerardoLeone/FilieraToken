@@ -7,7 +7,7 @@ import 'dart:convert';
 class RetailerInventoryService {
 
   static Future<List<Product>> getCheesePieceList(String wallet) async {
-    String url = API.buildURL(API.RetailerInventoryService, API.Query, "getListCheesePieceId");
+    String url = API.buildURL(API.RetailerNodePort, API.RetailerInventoryService, API.Query, "getUserCheesePieceIds");
 
     print(url);
 
@@ -46,8 +46,7 @@ class RetailerInventoryService {
   }
 
   static Future<Product> getCheesePiece(String wallet, String id) async {
-    String url = API.buildURL(API.RetailerInventoryService, API.Query, "getCheesePiece");
-
+    String url = API.buildURL(API.RetailerNodePort, API.RetailerInventoryService, API.Query, "getCheesePiece");
     final headers = API.getHeaders();
     
     final body = jsonEncode(API.getCheesePieceRetailerPayload(wallet, id));
@@ -85,7 +84,5 @@ class RetailerInventoryService {
       rethrow;
     }
   }
-
-
 
 }

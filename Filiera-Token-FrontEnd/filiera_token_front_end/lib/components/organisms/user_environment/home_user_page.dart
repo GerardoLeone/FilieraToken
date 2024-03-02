@@ -2,7 +2,7 @@
 import 'package:filiera_token_front_end/Actor/CheeseProducer/service/CheeseProducerBuyerService.dart';
 import 'package:filiera_token_front_end/Actor/CheeseProducer/service/CheeseProducerInventoryService.dart';
 import 'package:filiera_token_front_end/Actor/Consumer/service/ConsumerBuyerService.dart';
-import 'package:filiera_token_front_end/Actor/Retailer/service/RetailerBuyerService.dart';
+import 'package:filiera_token_front_end/Actor/MilkHub/service/MilkHubInventoryService.dart';
 import 'package:filiera_token_front_end/Actor/Retailer/service/RetailerInventoryService.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_loading_bar.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_product_list.dart';
@@ -41,8 +41,6 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
   RetailerBuyerService retailerBuyerService = RetailerBuyerService();
 
   CheeseProducerBuyerService cheeseProducerBuyerService = CheeseProducerBuyerService();
-
-
 
   User? user;
 
@@ -111,13 +109,13 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
       return CustomLoadingIndicator(progress: 4.5);
       } else {
 
-    print("Build!");
-    Actor actor = user!.type; //TODO: gettarsi con hive il valore dell'attore    
-    String wallet = user!.wallet; //TODO: gettarsi con hive il wallet
-    Future<List<Product>> productList = Future.value([]);
+      print("Build!");
+      Actor actor = user!.type; //TODO: gettarsi con hive il valore dell'attore    
+      String wallet = user!.wallet; //TODO: gettarsi con hive il wallet
+      Future<List<Product>> productList = Future.value([]);
 
-    print(actor);
-    print(wallet);
+      print(actor);
+      print(wallet);
 
     switch(actor) {
       case Actor.MilkHub:
@@ -130,43 +128,26 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
         productList = retailerBuyerService.getCheeseBlockList(wallet);
         break;
       case Actor.Consumer:
-        productList = consumerBuyerInventoryService.getCheesePieceList(wallet);
+        productList = ConsumerBuyerService.getCheesePieceList(wallet);
         break;  
       default:
         print("Errore nella selezione dell'attore in fase di build (home_user_page.dart)");
         break;
     }
 
-    return Scaffold(
-      appBar: _buildAppBar(),
-      body: Stack(
-        children: [
-          Padding(
-            padding: EdgeInsets.all(50.5),
-            child: FutureBuilder(
-              future: productList,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  // Se il futuro è ancora in attesa, mostra un indicatore di caricamento
-                  return CircularProgressIndicator();
-                } else if (snapshot.hasError) {
-                  // Se si è verificato un errore durante il recupero dei dati, mostra un messaggio di errore
-                  return Text('Errore: ${snapshot.error}');
-                } else {
-                  // Se il futuro è completato con successo, otterrai la lista di prodotti
-                  List<Product> products = snapshot.data as List<Product>;
-                  return SingleChildScrollView(
-                    child: CustomProductList(products: products, onProductTap: handleProductTap),
-                  );
-                }
-              },
+      return Scaffold(
+          appBar: _buildAppBar(),
+            body: Stack(
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(50.5),
+                  child: CustomProductList(productList: productList, onProductTap: handleProductTap),
+                ),
+                _buildDrawer(),
+              ],
             ),
-          ),
-          _buildDrawer(),
-        ],
-      ),
-    );
-  }
+          );
+    }
   }
 
   void handleProductTap(BuildContext context, Product product) {

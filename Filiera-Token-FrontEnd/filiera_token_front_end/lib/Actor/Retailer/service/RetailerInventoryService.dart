@@ -35,8 +35,12 @@ class RetailerInventoryService {
         List<Product> productList = [];
 
         for (int i = 0; i < idList.length; i++) {
+
+        if(idList[i].compareTo('0')!=0){
+
           Product product = await getCheesePiece(wallet, idList[i]);
           productList.add(product);
+        }
         }
 
         return productList;

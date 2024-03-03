@@ -15,7 +15,7 @@ import "../Actor/CheeseProducer-smart-contract/inventory/CheeseProducerBuyerServ
 
 
 
-contract TransactionManager {
+contract TransactionMilkBatchProductService {
 
     // **Main Services**
 

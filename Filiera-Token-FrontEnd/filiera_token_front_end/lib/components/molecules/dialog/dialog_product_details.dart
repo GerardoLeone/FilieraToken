@@ -95,7 +95,7 @@ class DialogProductDetails extends StatelessWidget {
   /// Right Column 
   Widget _buildRightColumn(BuildContext context){
     return IntrinsicWidth(
-              child: (dialogType == DialogType.DialogConversion) ? DialogConversionRight() : DialogPurchaseRight(), // Puoi fornire un widget vuoto o un altro widget di fallback
+              child: (dialogType == DialogType.DialogConversion) ? DialogConversionRight() : DialogPurchaseRight(wallet), // Puoi fornire un widget vuoto o un altro widget di fallback
             );
   }
 

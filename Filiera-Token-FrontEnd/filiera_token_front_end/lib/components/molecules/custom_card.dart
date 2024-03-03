@@ -86,14 +86,14 @@ class CustomCard extends StatelessWidget {
                           fontSize: 12,
                         ),
                       ),
-                    Text(
+                    /*Text(
                       seller,
                       style: const TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
                         fontStyle: FontStyle.italic,
-                      ),
-                    ),
+                      )
+                    ),*/
                   ],
                 ),
               ),

@@ -157,7 +157,7 @@ contract MilkHubInventoryStorage {
         for(uint256 i=0; ; i++){
             if(globalMilkBatchIds[i] == id ){
                 delete  globalMilkBatchIds[i];
-                return false;
+                return true;
             }
         }
         return false;   

@@ -152,7 +152,7 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
     // Esegui azioni diverse in base alla pagina
     DialogProductDetails.show(
       context, 
-      user!.wallet,
+      product.seller,
       product,
       DialogType.DialogPurchase);
   }

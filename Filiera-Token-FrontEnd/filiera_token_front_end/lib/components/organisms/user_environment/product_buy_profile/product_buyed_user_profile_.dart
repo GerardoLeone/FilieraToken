@@ -202,7 +202,8 @@ class _UserProfileProductBuyedState extends State<UserProfileProductBuyed> with 
     // Esegui azioni diverse in base alla pagina
 
     DialogProductDetails.show(
-      context, 
+      context,
+      user!.wallet, 
       product,
       DialogType.DialogConversion,
       );

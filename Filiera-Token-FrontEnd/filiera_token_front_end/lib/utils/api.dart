@@ -185,6 +185,10 @@ class API {
         "idMilkBatch": idMilkBatch,
         "pricePerKg": pricePerKg,
         "quantityToTransform": quantityToTransform,
+        "walletCheeseProducer": walletCheeseProducer
+      }
+    };
+  }
 
 //----------------------------------------------------------- Get Body Product for Buyer --------------------------------------------------------------------------
 

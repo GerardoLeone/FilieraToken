@@ -11,17 +11,19 @@ import 'package:flutter/material.dart';
 class DialogProductDetails extends StatelessWidget {
   final Product product;
   final DialogType dialogType; // Nuovo parametro
+  final String wallet;
 
   const DialogProductDetails({
     required this.product,
     required this.dialogType,
+    required this.wallet
   });
 
-  static void show(BuildContext context, Product product, DialogType dialogType) {
+  static void show(BuildContext context, String wallet, Product product, DialogType dialogType) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return DialogProductDetails(product: product, dialogType: dialogType);
+        return DialogProductDetails(product: product, dialogType: dialogType, wallet: wallet);
       },
     );
   }
@@ -80,7 +82,7 @@ class DialogProductDetails extends StatelessWidget {
                   SizedBox(height: 30),
                   if(dialogType == DialogType.DialogConversion)
 
-                    DialogConversionCenter(product: product)
+                    DialogConversionCenter(product: product, wallet: wallet)
                   else if(dialogType == DialogType.DialogPurchase)
                     
                     DialogPurchaseCenter(product: product)

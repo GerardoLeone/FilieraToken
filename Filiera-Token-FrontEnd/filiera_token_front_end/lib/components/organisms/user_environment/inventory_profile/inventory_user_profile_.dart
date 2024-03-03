@@ -5,6 +5,7 @@ import 'package:filiera_token_front_end/Actor/Retailer/service/RetailerInventory
 import 'package:filiera_token_front_end/components/molecules/custom_loading_bar.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_nav_bar.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_product_list.dart';
+import 'package:filiera_token_front_end/components/organisms/user_environment/inventory_profile/components/custom_floating_button_add.dart';
 import 'package:filiera_token_front_end/components/organisms/user_environment/inventory_profile/components/custom_menu_user_inventory.dart';
 import 'package:filiera_token_front_end/components/molecules/dialog/dialog_product_details.dart';
 import 'package:filiera_token_front_end/components/organisms/user_environment/services/secure_storage_service.dart';
@@ -32,7 +33,7 @@ class _UserProfileInventoryProductPageState extends State<UserProfileInventoryPr
 
   late SecureStorageService secureStorageService;
 
-    MilkHubInventoryService milkHubInventoryService = MilkHubInventoryService();
+  MilkHubInventoryService milkHubInventoryService = MilkHubInventoryService();
   
   RetailerInventoryService retailerInventoryService = RetailerInventoryService();
 
@@ -130,16 +131,23 @@ class _UserProfileInventoryProductPageState extends State<UserProfileInventoryPr
 
       return Scaffold(
         appBar: _buildAppBar(),
-          body: Stack(
-            children: [
-              Padding(
-                padding: EdgeInsets.all(50.5),
-                child: CustomProductList(productList: productList, onProductTap: handleProductTap),
-              ),
-              _buildDrawer(),
-            ],
-          ),
-        );
+        body: Stack(
+          children: [
+            Padding(
+              padding: EdgeInsets.all(50.5),
+              child: CustomProductList(productList: productList, onProductTap: handleProductTap),
+            ),
+            _buildDrawer(),
+          ],
+        ),
+        floatingActionButton: Visibility(
+          visible: user!.type == Actor.MilkHub,
+          child: CustomAddMilkBatchButton(wallet: user!.wallet), // Use your custom widget here
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      );
+
+
     }
   }
 
@@ -203,10 +211,12 @@ class _UserProfileInventoryProductPageState extends State<UserProfileInventoryPr
     print("Prodotto ${product.name} cliccato!");
     // Esegui azioni diverse in base alla pagina
 
+
     DialogProductDetails.show(
       context, 
+      user!.wallet,
       product,
-      DialogType.DialogConversion);
+      DialogType.Inventory);
   }
 
 

@@ -67,10 +67,14 @@ class CheeseProducerInventoryService {
     }
   }
 
-  static Future<bool> transformMilkBatch(String wallet, String idMilkBatch, String quantityToTransform, String pricePerKg, String dop) async {
+  Future<bool> transformMilkBatch(String wallet, String idMilkBatch, String quantityToTransform, String pricePerKg, String dop) async {
     String url = API.buildURL(API.CheeseProducerNodePort, API.CheeseProducerInventoryService, API.Invoke, "transformMilkBatch");
     final headers = API.getHeaders();
     final body = jsonEncode(API.getTransformCheeseProducerBody(dop, idMilkBatch, pricePerKg, quantityToTransform, wallet));
+
+    print(url);
+    print(headers);
+    print(body);
     try {
       final response = await http.post(Uri.parse(url), headers: headers, body: body);
 

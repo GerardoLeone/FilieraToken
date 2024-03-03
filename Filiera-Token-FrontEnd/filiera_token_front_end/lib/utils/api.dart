@@ -40,6 +40,9 @@ class API {
   static const String ConsumerService = "ConsumerService";
   static const String ConsumerBuyerInventoryService = "ConsumerBuyerService"; //TODO: Change the Name 
 
+
+  static const String TransactionBuyMilkBatchService = "TransactionBuyMilkBatchService";
+
   /**
    * Questa funzione permette di costruire l'URL per la chiamata di un metodo dell'API utilizzando le costanti offerte dalla classe api.dart
    * 
@@ -227,6 +230,23 @@ class API {
       }
     };
   }
+
+
+// -------------------------------------------------------------------------------------------- Buying Service ------------------------------------------------
+
+  static buyMilkBatchProductBody(String milkBatchId, String quantityToBuy, String buyer, String ownerMilkBatch, String totalPrice){
+
+    return {
+      "input": {
+      "_id_MilkBatch": milkBatchId,
+      "_quantityToBuy": quantityToBuy,
+      "buyer": buyer,
+      "ownerMilkBatch": ownerMilkBatch,
+      "totalPrice": totalPrice
+    }
+    };
+  }
+
   
 
 }

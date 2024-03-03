@@ -37,7 +37,7 @@
 - TransactionManager:
 
 * - TransactionBuyMilkBatch Address
-"address": "0x3e52a7cd211580a96feb2424313a3f18d3e90b18"
+"address": "0xe849d1623a05d57263f2422f0daebca00083ef3e"
 
 * - TransactionBuyCheese Address
 "address": "0x3e52a7cd211580a96feb2424313a3f18d3e90b18"

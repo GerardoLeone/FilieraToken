@@ -9,21 +9,26 @@ import 'package:filiera_token_front_end/utils/enums.dart';
 import 'package:flutter/material.dart';
 
 class DialogProductDetails extends StatelessWidget {
+
   final Product product;
   final DialogType dialogType; // Nuovo parametro
-  final String wallet;
+  final String wallet; // Seller 
+  final String buyer;
+  final String userType;
 
   const DialogProductDetails({
     required this.product,
     required this.dialogType,
-    required this.wallet
+    required this.wallet, 
+    required this.userType, 
+    required this.buyer
   });
 
-  static void show(BuildContext context, String wallet, Product product, DialogType dialogType) {
+  static void show(BuildContext context, String wallet, Product product, DialogType dialogType, String userType, String walletBuyer) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return DialogProductDetails(product: product, dialogType: dialogType, wallet: wallet);
+        return DialogProductDetails(product: product, dialogType: dialogType, wallet: wallet, userType: userType, buyer: walletBuyer);
       },
     );
   }
@@ -85,7 +90,7 @@ class DialogProductDetails extends StatelessWidget {
                     DialogConversionCenter(product: product, wallet: wallet)
                   else if(dialogType == DialogType.DialogPurchase)
                     
-                    DialogPurchaseCenter(product: product)
+                    DialogPurchaseCenter(product: product,userType: userType, buyer :buyer)
                 ],
               ),
             )

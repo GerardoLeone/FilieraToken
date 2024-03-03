@@ -565,11 +565,11 @@
 			]
 		},
 		"contracts/Actor/MilkHub-smart-contract/inventory/MilkHubInventoryStorage.sol": {
-			"keccak256": "0x6f91201d72b48ebfb6728af9e139af09807e866bd7aec832f7ad487f61994df5",
+			"keccak256": "0x85e157c7860924402e0b44b89ebb9ef0fb79b2fe2c17a025795702e7e3eaf805",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://85d77935c31a091a98fe199fc0f8ba0df04198bef6ad9c2a7c86e5a8652ab8b3",
-				"dweb:/ipfs/QmU5Qrk8a1tjL2pyRBELswtuEM1Bceh3v17yRSCcWtD8wg"
+				"bzz-raw://be258766ff0b7dff243c883e5f0a5790db0406a6caef2c05310af6aa646c5de6",
+				"dweb:/ipfs/QmTbzD1kaJdHMsT6mr6cMBEzg2fuHJWfFgB2BhxXt41XB4"
 			]
 		},
 		"contracts/Service/Filieratoken.sol": {

@@ -19,10 +19,10 @@
 -------------------------- Buyer ----------------------------------------
 
 * - CheeseProducerBuyerStorage Address
-"address": "0x9d2e0e760c1cea8f661b230587201e5de3b807b2"
+"address": "0x4453646cdc5c0c04124ed3409f9eb2444c7370ea" V 
 
 * - CheeseProducerBuyerService Address
-"address": "0xc982d64244475a411e54bd2483fa4535ed224812"
+"address": "0x5813e871e13496833fdc6de22d9eea96221fadd2" V -> active 
 
 
 

@@ -1,10 +1,14 @@
 import 'dart:async' show Future;
+import 'package:filiera_token_front_end/Actor/CheeseProducer/service/CheeseProducerService.dart';
 import 'package:filiera_token_front_end/models/Product.dart';
 import 'package:filiera_token_front_end/utils/api.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class CheeseProducerInventoryService {
+
+    CheeseProducerService cheeseProducerService = CheeseProducerService();
+
 
    Future<List<Product>> getCheeseBlockList(String wallet) async {
     String url = API.buildURL(API.CheeseProducerNodePort, API.CheeseProducerInventoryService, API.Query, "getUserCheeseBlockIds");
@@ -89,4 +93,33 @@ class CheeseProducerInventoryService {
       rethrow;
     }
   }
+  /**
+   * Questa funzione restituisce una lista di tutti gli elementi del CheesePiece che un Consumer può vedere.
+   */
+  Future<List<Product>> getCheeseBlockAll(String walletCheeseProducer) async {
+    try {
+    
+        List<String> addressCheeseProducerList = await cheeseProducerService.getListCheeseProducers();
+        List<Product> productList = [];
+
+        for (int i = 0; i < addressCheeseProducerList.length; i++) {
+        
+           if(addressCheeseProducerList[i].compareTo('0')!=0){
+        
+            List<Product> productListRetailer = await getCheeseBlockList(addressCheeseProducerList[i]);
+            productList.addAll(productListRetailer);
+        
+          }
+        }
+
+        return productList;
+        
+      } catch (error) {
+      print('Error fetching MilkBatch Id List: $error');
+      rethrow; // Re-throw to allow external handling of errors
+    }
+  }
+
+
+
 }

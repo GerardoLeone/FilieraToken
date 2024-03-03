@@ -1,10 +1,17 @@
 import 'dart:async' show Future;
-import 'package:filiera_token_front_end/models/Product.dart';
-import 'package:filiera_token_front_end/utils/api.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+
+import 'package:filiera_token_front_end/models/Product.dart';
+import 'package:filiera_token_front_end/utils/api.dart';
+import 'package:filiera_token_front_end/Actor/MilkHub/service/MilkHubService.dart';
+
+
+
 class MilkHubInventoryService {
+
+  MilkHubService milkhubService = MilkHubService();
 
   /**
    * Questa funzione restituisce una lista di MilkBatch a partire dal wallet del MilkHub che li possiede.
@@ -46,35 +53,26 @@ class MilkHubInventoryService {
    * Questa funzione restituisce una lista di MilkBatch a partire dal wallet del MilkHub che li possiede.
    */
   Future<List<Product>> getMilkBatchListAll(String walletCheeseProducer) async {
-
-    //TODO : Call to Address list of Milkhub to get all Address List 
-    String url = API.buildURL(API.CheeseProducerNodePort, API.MilkHubInventoryService, API.Query, "getGlobalMilkBatchIds");
-    final headers = API.getHeaders();
-    final body = jsonEncode(API.getCheeseProducerPayload(walletCheeseProducer)); // Prepare JSON body with wallet data
-
+    
+    
     try {
-      final response = await http.post(Uri.parse(url), headers: headers, body: body);
-
-      if (response.statusCode == 200 || response.statusCode == 202) {
-
-        print(jsonEncode(response.body));
-
-        final jsonData = jsonDecode(response.body);
-
-        final List<String> idList = jsonData['output'].cast<String>();
+    
+        List<String> addressMilkHubList = await milkhubService.getListMilkHubs();
         List<Product> productList = [];
-        // TODO : For sulla lista degli address dei Milkhub 
-        // TODO : Mi recupero le liste degli elementi per ogni milkhub e metto nella lista dei prodotti 
-        for (int i = 0; i < idList.length; i++) {
-          Product product = await getMilkBatch(walletCheeseProducer, idList[i]);
-          productList.add(product);
+
+        for (int i = 0; i < addressMilkHubList.length; i++) {
+        
+           if(addressMilkHubList[i].compareTo('0')!=0){
+        
+            List<Product> productListMilkHub = await getMilkBatchList(addressMilkHubList[i]);
+            productList.addAll(productListMilkHub);
+        
+          }
         }
 
         return productList;
-      } else {
-        throw Exception('Failed to fetch MilkBatch Id List: ${response.statusCode}');
-      }
-    } catch (error) {
+
+      } catch (error) {
       print('Error fetching MilkBatch Id List: $error');
       rethrow; // Re-throw to allow external handling of errors
     }

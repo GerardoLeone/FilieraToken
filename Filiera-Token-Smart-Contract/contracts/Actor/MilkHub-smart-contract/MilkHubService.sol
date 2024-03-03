@@ -102,12 +102,12 @@ contract MilkHubService {
      * - Solo l'owner può effettuare l'eliminazione 
      * - msg.sender dovrebbe essere solo quello dell'owner 
      */
-    function deleteMilkHub(address walletMilkHub, uint256 _id) external checkAddress(walletMilkHub)  {
+    function deleteMilkHub(address walletMilkHub, uint256 id) external checkAddress(walletMilkHub)  {
         
         // Verifico che l'utente è presente 
         require(this.isUserPresent(walletMilkHub), "Utente non e' presente!");
         // Restituisce l'id del MilkHub tramite il suo address wallet
-        require(milkhubStorage.getId(walletMilkHub) == _id , "Utente non Autorizzato!");
+        require(milkhubStorage.getId(walletMilkHub) == id , "Utente non Autorizzato!");
         // Effettuo la cancellazione dell'utente 
         require(milkhubStorage.deleteUser(walletMilkHub), "Errore durante la cancellazione");
         // Burn all token ( elimina i token che sono in circolazione, di un utente che non effettua transazioni ) 
@@ -139,25 +139,25 @@ contract MilkHubService {
     /**
         - Funzione getFullName() attraverso l'address del MilkHub riusciamo a recuperare il suo FullName
     */
-    function getMilkHubFullName(address walletMilkHub,uint256 _id) external view checkAddress(walletMilkHub) returns(string memory){
+    function getMilkHubFullName(address walletMilkHub,uint256 id) external view checkAddress(walletMilkHub) returns(string memory){
 
-        return milkhubStorage.getFullName(walletMilkHub,_id);
+        return milkhubStorage.getFullName(walletMilkHub,id);
     }
 
     /**
         - Funzione getEmail() attraverso l'address del MilkHub riusciamo a recuperare la sua Email 
     */
-    function getMilkHubEmail(address walletMilkHub, uint256 _id) external view checkAddress(walletMilkHub) returns(string memory){
+    function getMilkHubEmail(address walletMilkHub, uint256 id) external view checkAddress(walletMilkHub) returns(string memory){
         
-        return milkhubStorage.getEmail(walletMilkHub,_id);
+        return milkhubStorage.getEmail(walletMilkHub,id);
     }
 
     /**
         - Funzione getBalance() attraverso l'address del MilkHub riusciamo a recuperare il suo Balance
     */
-    function getMilkHubBalance(address walletMilkHub, uint256 _id) external view checkAddress(walletMilkHub)  returns(uint256){
+    function getMilkHubBalance(address walletMilkHub, uint256 id) external view checkAddress(walletMilkHub)  returns(uint256){
 
-        return milkhubStorage.getBalance(walletMilkHub,_id);
+        return milkhubStorage.getBalance(walletMilkHub,id);
     }
 
     /**
@@ -165,11 +165,11 @@ contract MilkHubService {
      * - tramite l'address del MilkHub riusciamo a visualizzare anche i suoi dati
      * - Dati sensibili e visibili solo dal MilkHub stesso 
      */
-    function getMilkHubData(address walletMilkHub, uint256 _id) external checkAddress(walletMilkHub) view returns (uint256, string memory, string memory, string memory, uint256) {
+    function getMilkHubData(address walletMilkHub, uint256 id) external checkAddress(walletMilkHub) view returns (uint256, string memory, string memory, string memory, uint256) {
         // Verifico che l'utente è presente 
         require(this.isUserPresent(walletMilkHub), "Utente non e' presente!");
         // Restituisce l'id del MilkHub tramite il suo address wallet
-        require(milkhubStorage.getId(walletMilkHub) == _id , "Utente non Autorizzato!");
+        require(milkhubStorage.getId(walletMilkHub) == id , "Utente non Autorizzato!");
         // Call function of Storage         
         return milkhubStorage.getUser(walletMilkHub);
     }
@@ -194,8 +194,8 @@ contract MilkHubService {
 // ------------------------------------------------------------ Change Address Contract of Service -----------------------------------------------------//
 
 
-    function changeMilkHubStorage(address _milkhubStorageNew)private {
-        milkhubStorage = MilkHubStorage(_milkhubStorageNew);
+    function changeMilkHubStorage(address milkhubStorageNew)private {
+        milkhubStorage = MilkHubStorage(milkhubStorageNew);
     }
 
 

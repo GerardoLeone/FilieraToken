@@ -32,23 +32,23 @@ contract RetailerStorage is IUserStorageInterface {
     /**
      * addUser() effettuiamo la registrazione dell'utente Retailer 
      */
-    function addUser(string memory _fullName, string memory _password,string memory _email, address walletRetailer) external {
+    function addUser(string memory fullName, string memory password,string memory email, address walletRetailer) external {
                 
         // Genera l'ID manualmente utilizzando keccak256
-        bytes32 idHash = ripemd160(abi.encodePacked(_fullName, _password, _email, walletRetailer)); // Produce un hash di 20 byte
+        bytes32 idHash = ripemd160(abi.encodePacked(fullName, password, email, walletRetailer)); // Produce un hash di 20 byte
         uint256 lastIdRetailer = uint256(idHash);
 
         require(retailers[walletRetailer].id == 0, "Retailer already registered");
-        require(bytes(_fullName).length > 0, "Full name cannot be empty");
-        require(bytes(_password).length > 0, "Password cannot be empty");
-        require(bytes(_email).length > 0, "Email cannot be empty");
+        require(bytes(fullName).length > 0, "Full name cannot be empty");
+        require(bytes(password).length > 0, "Password cannot be empty");
+        require(bytes(email).length > 0, "Email cannot be empty");
         
         // Crea un nuovo consumatore con l'ID univoco
         Retailer memory newRetailer = Retailer({
             id: lastIdRetailer,
-            fullName: _fullName,
-            password: _password,
-            email: _email,
+            fullName: fullName,
+            password: password,
+            email: email,
             balance: 100
         });
         // Inserisco l'address 
@@ -63,13 +63,13 @@ contract RetailerStorage is IUserStorageInterface {
      * La comparazione Hash tra (email e password) di input e quelli salvati
      * return true se la comparazione è vera, La comparazione è falsa se l'hashing non risulta valido
      */
-    function loginUser(address walletRetailer, string memory _email, string memory _password) external view returns(bool){
+    function loginUser(address walletRetailer, string memory email, string memory password) external view returns(bool){
 
         // Recupero il Retailer 
         Retailer storage retailer = retailers[walletRetailer];
         
         // Verifico che l'email e la password hashate sono uguali tra di loro 
-        return ripemd160(abi.encodePacked(retailer.email, retailer.password)) == ripemd160(abi.encodePacked(_email, _password));
+        return ripemd160(abi.encodePacked(retailer.email, retailer.password)) == ripemd160(abi.encodePacked(email, password));
     }
 
     // Funzione per eliminare il Consumer dato il suo indirizzo del wallet 
@@ -113,8 +113,8 @@ contract RetailerStorage is IUserStorageInterface {
     /**
         - Funzione getFullName() attraverso l'address del Retailer riusciamo a recuperare il suo FullName
     */
-    function getFullName(address walletRetailer, uint256 _id) external view  returns(string memory){
-        require(retailers[walletRetailer].id ==_id,"ID not Valid!");
+    function getFullName(address walletRetailer, uint256 id) external view  returns(string memory){
+        require(retailers[walletRetailer].id ==id,"ID not Valid!");
         
         Retailer memory retailer = retailers[walletRetailer];
         return retailer.fullName;
@@ -123,8 +123,8 @@ contract RetailerStorage is IUserStorageInterface {
     /**
         - Funzione getEmail() attraverso l'address del Retailer riusciamo a recuperare la sua Email 
     */
-    function getEmail(address walletRetailer, uint256 _id) external view  returns(string memory){
-        require(retailers[walletRetailer].id==_id,"ID not Valid!");
+    function getEmail(address walletRetailer, uint256 id) external view  returns(string memory){
+        require(retailers[walletRetailer].id==id,"ID not Valid!");
         Retailer memory retailer = retailers[walletRetailer];
         return retailer.email;
     }
@@ -132,8 +132,8 @@ contract RetailerStorage is IUserStorageInterface {
     /**
         - Funzione getBalance() attraverso l'address del Retailer riusciamo a recuperare il suo Balance
     */
-    function getBalance(address walletRetailer, uint256 _id) external view  returns(uint256){
-        require(retailers[walletRetailer].id == _id,"ID not Valid!");
+    function getBalance(address walletRetailer, uint256 id) external view  returns(uint256){
+        require(retailers[walletRetailer].id == id,"ID not Valid!");
 
         Retailer memory retailer = retailers[walletRetailer];
         return retailer.balance;

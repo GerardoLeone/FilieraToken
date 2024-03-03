@@ -12,7 +12,7 @@ contract MilkHubInventoryStorage {
 
     struct MilkBatch {
         uint256 id;
-        string scadenza;
+        string expirationDate;
         uint256 quantity; 
         uint256 price; // Prezzo di vendita per un Litro di  ( Partita di Latte )
     }
@@ -20,57 +20,57 @@ contract MilkHubInventoryStorage {
     /// MilkHub -> Lista Prodotti 
     mapping(address => mapping( uint256 => MilkBatch )) private milkBatches; // Map of All product 
     
-    mapping(address => uint256[] ) private milkBatchIdListForSingleMilkHub; // List of Id of Single User 
+    mapping(address => uint256[] ) private userMilkBatchIds; // List of Id of Single User 
 
-    uint256[] milkBatchIdList; // All MilkBatch to view for other user 
+    uint256[] globalMilkBatchIds; // All MilkBatch to view for other user 
 
 //----------------------------------------------------------------- Business Logic ------------------------------------------------------------------------------------------------//
 
 
     // Add function to add CheesePiece
-    function addMilkBatch(address walletMilkHub, string memory _scadenza, uint256 _quantity, uint256 _price) external returns (uint256,string memory, uint256, uint256) {
+    function addMilkBatch(address walletMilkHub, string memory expirationDate, uint256 quantity, uint256 price) external returns (uint256,string memory, uint256, uint256) {
         
         // Generazione dell'ID 
-        uint256 _id = uint256(keccak256(abi.encodePacked(
-            _scadenza,
-            _quantity,
-            _price,
+        uint256 id = uint256(keccak256(abi.encodePacked(
+            expirationDate,
+            quantity,
+            price,
             walletMilkHub,
             block.timestamp
         )));
 
         //Crea una nuova Partita di Latte
         MilkBatch memory milkBatch = MilkBatch({
-            id: _id,
-            scadenza: _scadenza,
-            quantity: _quantity,
-            price: _price
+            id: id,
+            expirationDate: expirationDate,
+            quantity: quantity,
+            price: price
         });
 
         // Inserisco L'id nell'Array relativo a tutti gli elementi 
-        milkBatchIdList.push(_id);
+        globalMilkBatchIds.push(id);
         // Inserisco l'id all'interno del mapping specifico per singolo autore
-        milkBatchIdListForSingleMilkHub[walletMilkHub].push(_id);
+        userMilkBatchIds[walletMilkHub].push(id);
 
         //Inserisce la nuova Partita di Latte nella lista milkBatches
-        milkBatches[walletMilkHub][_id] = milkBatch;
+        milkBatches[walletMilkHub][id] = milkBatch;
         
         return (
-                milkBatches[walletMilkHub][_id].id,
-                milkBatches[walletMilkHub][_id].scadenza,
-                milkBatches[walletMilkHub][_id].quantity,
-                milkBatches[walletMilkHub][_id].price
+                milkBatches[walletMilkHub][id].id,
+                milkBatches[walletMilkHub][id].expirationDate,
+                milkBatches[walletMilkHub][id].quantity,
+                milkBatches[walletMilkHub][id].price
               );
     }
 
     // Ritorna un MilkBatch 
-    function getMilkBatch(address walletMilkHub, uint256 _id) external view returns (uint256, string memory, uint256, uint256) {
+    function getMilkBatch(address walletMilkHub, uint256 id) external view returns (uint256, string memory, uint256, uint256) {
 
-        MilkBatch memory milkBatch = milkBatches[walletMilkHub][_id];
+        MilkBatch memory milkBatch = milkBatches[walletMilkHub][id];
 
         return (
             milkBatch.id,
-            milkBatch.scadenza,
+            milkBatch.expirationDate,
             milkBatch.quantity,
             milkBatch.price
             );
@@ -80,24 +80,24 @@ contract MilkHubInventoryStorage {
     /*
     * Restituisce la Lista di tutti gli ID dei prodotti di un determinato utente
     */
-    function getListMilkBatchIdByMilkHub(address walletMilkHub)external view returns (uint256[] memory){
-        return milkBatchIdListForSingleMilkHub[walletMilkHub];
+    function getUserMilkBatchIds(address walletMilkHub)external view returns (uint256[] memory){
+        return userMilkBatchIds[walletMilkHub];
     }
 
-    function getListMilkBatchAll()external view returns(uint256[]memory){
-        return milkBatchIdList;
+    function getGlobalMilkBatchIds()external view returns(uint256[]memory){
+        return globalMilkBatchIds;
     }
 
     // Delete Cheese piece 
     // We can delete a cheese piece with -> address of Consumer and id of CheesePiece
-    function deleteMilkBatch(address walletMilkHub, uint256 _id) external returns(bool value) {
+    function deleteMilkBatch(address walletMilkHub, uint256 id) external returns(bool value) {
 
         // Delete piece of Cheese
-        delete milkBatches[walletMilkHub][_id];
+        delete milkBatches[walletMilkHub][id];
 
         
         // Check CheesePiece in the mapping 
-        if(milkBatches[walletMilkHub][_id].id  == 0 && deleteMilkBatchIdFromList(_id) && deleteMilkBatchIdFromListSingleUser(_id,walletMilkHub) ){
+        if(milkBatches[walletMilkHub][id].id  == 0 && deleteMilkBatchIdFromList(id) && deleteMilkBatchIdFromListSingleUser(id,walletMilkHub) ){
             return true;
         }else {
             return false;
@@ -105,11 +105,11 @@ contract MilkHubInventoryStorage {
     }
 
     
-    function checkProduct(address ownerMilkBatch, uint256 _id_MilkBatch, uint256 quantityToBuy) external view  returns (bool){
+    function checkProduct(address ownerMilkBatch, uint256 idMilkBatch, uint256 quantityToBuy) external view  returns (bool){
 
-            require(milkBatches[ownerMilkBatch][_id_MilkBatch].id == _id_MilkBatch, "Product non presente!");
+            require(milkBatches[ownerMilkBatch][idMilkBatch].id == idMilkBatch, "Product non presente!");
 
-            MilkBatch storage milkBatchObj = milkBatches[ownerMilkBatch][_id_MilkBatch];
+            MilkBatch storage milkBatchObj = milkBatches[ownerMilkBatch][idMilkBatch];
             
             require(milkBatchObj.quantity >= quantityToBuy, "Quantity not Valid!");
             return true;
@@ -117,34 +117,34 @@ contract MilkHubInventoryStorage {
 
     /**
         - Funzione isMilkBatchPresent() funzione per verificare che il MilkBatch è presente 
-        - Verifica tramite _id e address del walletMilkHub se il Prodotto è presente 
+        - Verifica tramite id e address del walletMilkHub se il Prodotto è presente 
         - ritorna TRUE se il confronto è vero 
         - ritorna FALSE se non è presente 
     */
-    function isMilkBatchPresent(address walletMilkHub, uint256 _id)external view returns(bool){
-        require( _id !=0 && _id>0,"ID MilkBatch Not Valid!");
+    function isMilkBatchPresent(address walletMilkHub, uint256 id)external view returns(bool){
+        require( id !=0 && id>0,"ID MilkBatch Not Valid!");
 
-        return milkBatches[walletMilkHub][_id].id == _id;
+        return milkBatches[walletMilkHub][id].id == id;
     }
 
 //---------------------------------------------------------- Get Function ----------------------------------------------------------------------//   
 
-    function getScadenza(address walletMilkHub, uint256 _id) external view returns(string memory) {
+    function getExpirationDate(address walletMilkHub, uint256 id) external view returns(string memory) {
 
-        MilkBatch memory milkBatch = milkBatches[walletMilkHub][_id];
-        return milkBatch.scadenza;        
+        MilkBatch memory milkBatch = milkBatches[walletMilkHub][id];
+        return milkBatch.expirationDate;        
     }
 
-    function getQuantity(address walletMilkHub, uint256 _id) external view returns(uint256) {
+    function getQuantity(address walletMilkHub, uint256 id) external view returns(uint256) {
 
-        MilkBatch memory milkBatch = milkBatches[walletMilkHub][_id];
+        MilkBatch memory milkBatch = milkBatches[walletMilkHub][id];
 
         return milkBatch.quantity;        
     }
 
-    function getPrice(address walletMilkHub, uint256 _id) external view returns(uint256) {
+    function getPrice(address walletMilkHub, uint256 id) external view returns(uint256) {
 
-        MilkBatch memory milkBatch = milkBatches[walletMilkHub][_id];
+        MilkBatch memory milkBatch = milkBatches[walletMilkHub][id];
         
         return milkBatch.price;        
     }
@@ -153,21 +153,21 @@ contract MilkHubInventoryStorage {
 //---------------------------------------------------------- Delete Function ----------------------------------------------------------------------//   
 
 
-    function deleteMilkBatchIdFromList(uint256 _id ) internal returns (bool) {
+    function deleteMilkBatchIdFromList(uint256 id ) internal returns (bool) {
         for(uint256 i=0; ; i++){
-            if(milkBatchIdList[i] == _id ){
-                delete  milkBatchIdList[i];
+            if(globalMilkBatchIds[i] == id ){
+                delete  globalMilkBatchIds[i];
                 return false;
             }
         }
         return false;   
     }
 
-    function deleteMilkBatchIdFromListSingleUser(uint256 _id, address walletMilkHub)internal returns(bool){
+    function deleteMilkBatchIdFromListSingleUser(uint256 id, address walletMilkHub)internal returns(bool){
         bool flag = false;
         for(uint256 j=0; ;j++){
-            if(milkBatchIdListForSingleMilkHub[walletMilkHub][j] == _id){
-                delete milkBatchIdListForSingleMilkHub[walletMilkHub][j];
+            if(userMilkBatchIds[walletMilkHub][j] == id){
+                delete userMilkBatchIds[walletMilkHub][j];
                 flag = true;
                 return flag;
             }
@@ -178,9 +178,9 @@ contract MilkHubInventoryStorage {
 // ------------------------------------------------------------ Set Function ------------------------------------------------------------------//
 
     // - Funzione updateMilkBatchQuantity() aggiorna la quantità del MilkBatch 
-    function updateQuantity(address walletMilkHub, uint256 _id, uint256 _newQuantity) external  {
+    function updateQuantity(address walletMilkHub, uint256 id, uint256 newQuantity) external  {
         
-        milkBatches[walletMilkHub][_id].quantity = _newQuantity;
+        milkBatches[walletMilkHub][id].quantity = newQuantity;
     }
 
 }

@@ -6,9 +6,6 @@ import 'package:filiera_token_front_end/components/organisms/home_page/component
 
 
 import 'package:flutter/material.dart';
-import 'package:flutter_social_button/flutter_social_button.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 
 
 
@@ -72,97 +69,132 @@ class _HomePageAnimations extends State<MyHomePage> with SingleTickerProviderSta
   }
 
 
-      @override
-      Widget build(BuildContext context) {
-        MaterialApp homePage = MaterialApp(
-              title: 'FilieraToken-Shop',
-              home: Scaffold(
-              // AppBar comune a tutti 
-              appBar: _buildAppBar(),
-              body: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Expanded(
-                  child: Stack(
-                    children: [
-                      _buildHomePage(),
-                      _buildDrawer(),
-                    ],
-                  ),
-                  ),
-              ],
-            ),
-          ));
-          return homePage;
-        }
+@override
+Widget build(BuildContext context) {
+  return MaterialApp(
+    title: 'FilieraToken-Shop',
+    home: Scaffold(
+      // AppBar comune a tutti 
+      appBar: _buildAppBar(),
+      
+      body: Stack(
+        children: [
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: _buildFooter(),
+          ),
+          _buildHomePage(),
+          _buildDrawer(),
+        ],
+      ),
+    ),
+  );
+}
 
 
 
 
 
   Widget _buildHomePage(){
-    return Expanded(
-      child: ListView(
-        padding: EdgeInsets.all(16.0),
+    return ListView(
+    padding: EdgeInsets.all(16.0),
+    children: <Widget>[
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Image.asset(
-                '../assets/milk.png',
-                width: MediaQuery.of(context).size.width * 0.2,
-              ),
-              SizedBox(width: 16.0),
-              SlideInCard(
-                title: 'La Filiera del Latte',
-                description: firstRowDescription
-                ,beginOffset: Offset(1.5, 0),
-                    endOffset: Offset.zero,
-              ),
-            ],
+          Image.asset(
+            '../assets/milk.png',
+            width: MediaQuery.of(context).size.width * 0.2,
           ),
-          SizedBox(height: 16.0),
-          Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              SlideInCard(
-                title: 'La Filiera del Latte',
-                description:
-                    SecondRowDescription,
-                    beginOffset: Offset(-1.5,0),
-                    endOffset: Offset.zero,
-              ),
-              SizedBox(width: 16.0),
-              Image.asset(
-                '../assets/cheese_block.png',
-                width: MediaQuery.of(context).size.width * 0.2,
-              ),
-            ],
-          ),
-          SizedBox(height: 16.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Image.asset(
-                '../assets/cheese_piece.png',
-                width: MediaQuery.of(context).size.width * 0.2,
-              ),
-              SizedBox(width: 16.0),
-              SlideInCard(
-                title: 'La Filiera del Latte',
-                description:
-                thirdRowDescription,
-                    beginOffset: Offset(1.5, 0),
-                    endOffset: Offset.zero,
-              ),
-            ],
+          SizedBox(width: 16.0),
+          SlideInCard(
+            title: 'La Filiera del Latte',
+            description: firstRowDescription,
+            beginOffset: Offset(1.5, 0),
+            endOffset: Offset.zero,
           ),
         ],
-      )
-      );
-  }
+      ),
+      SizedBox(height: 16.0),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          SlideInCard(
+            title: 'La Filiera del Latte',
+            description: SecondRowDescription,
+            beginOffset: Offset(-1.5, 0),
+            endOffset: Offset.zero,
+          ),
+          SizedBox(width: 16.0),
+          Image.asset(
+            '../assets/cheese_block.png',
+            width: MediaQuery.of(context).size.width * 0.2,
+          ),
+        ],
+      ),
+      SizedBox(height: 16.0),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Image.asset(
+            '../assets/cheese_piece.png',
+            width: MediaQuery.of(context).size.width * 0.2,
+          ),
+          SizedBox(width: 16.0),
+          SlideInCard(
+            title: 'La Filiera del Latte',
+            description: thirdRowDescription,
+            beginOffset: Offset(1.5, 0),
+            endOffset: Offset.zero,
+          ),
+        ],
+      ),
+    ],
+  );
+}
 
 
+ Widget _buildFooter() {
+  return BottomAppBar( 
+    padding: EdgeInsets.all(10),
+    height: 55,
+    elevation: 0,
+    color: Color.fromARGB(255, 38, 105, 221), // Colore di sfondo del footer
+    child: Padding(
+      padding: EdgeInsets.all(10.0), // Ridotto il padding
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          IconButton(
+            iconSize: 20, // Impostato un'icona più piccola
+            icon: Icon(Icons.home),
+            onPressed: () {
+              // Azione quando si preme sull'icona della home
+            },
+          ),
+          IconButton(
+            iconSize: 20, // Impostato un'icona più piccola
+            icon: Icon(Icons.search),
+            onPressed: () {
+              // Azione quando si preme sull'icona di ricerca
+            },
+          ),
+          IconButton(
+            iconSize: 20, // Impostato un'icona più piccola
+            icon: Icon(Icons.settings),
+            onPressed: () {
+              // Azione quando si preme sull'icona delle impostazioni
+            },
+          ),
+          // Puoi aggiungere altre icone qui
+        ],
+      ),
+    ),
+
+  );
+}
 
 
 

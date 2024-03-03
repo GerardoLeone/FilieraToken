@@ -1,4 +1,5 @@
 import 'dart:async' show Future;
+import 'package:filiera_token_front_end/Actor/Retailer/service/RetailerService.dart';
 import 'package:filiera_token_front_end/models/Product.dart';
 import 'package:filiera_token_front_end/utils/api.dart';
 import 'package:http/http.dart' as http;
@@ -6,8 +7,11 @@ import 'dart:convert';
 
 class RetailerInventoryService {
 
-  static Future<List<Product>> getCheesePieceList(String wallet) async {
-    String url = API.buildURL(API.RetailerInventoryService, API.Query, "getListCheesePieceId");
+  RetailerService retailerService = RetailerService();
+
+
+  Future<List<Product>> getCheesePieceList(String wallet) async {
+    String url = API.buildURL(API.RetailerNodePort, API.RetailerInventoryService, API.Query, "getUserCheesePieceIds");
 
     print(url);
 
@@ -31,7 +35,7 @@ class RetailerInventoryService {
         List<Product> productList = [];
 
         for (int i = 0; i < idList.length; i++) {
-          Product product = await RetailerInventoryService.getCheesePiece(wallet, idList[i]);
+          Product product = await getCheesePiece(wallet, idList[i]);
           productList.add(product);
         }
 
@@ -45,9 +49,10 @@ class RetailerInventoryService {
     }
   }
 
-  static Future<Product> getCheesePiece(String wallet, String id) async {
-    String url = API.buildURL(API.RetailerInventoryService, API.Query, "getCheesePiece");
+   Future<Product> getCheesePiece(String wallet, String id) async {
+    String url = API.buildURL(API.RetailerNodePort, API.RetailerInventoryService, API.Query, "getCheesePiece");
     final headers = API.getHeaders();
+    
     final body = jsonEncode(API.getCheesePieceRetailerPayload(wallet, id));
 
     try {
@@ -66,10 +71,10 @@ class RetailerInventoryService {
     }
   }
 
-  static Future<bool> addCheesePiece(String wallet, double price, int quantity, String expirationDate) async {
-    String url = API.buildURL(API.RetailerInventoryService, API.Query, "getCheesePiece");
+  static Future<bool> transformMilkBatch(String wallet, double price, int quantity, String expirationDate) async {
+    String url = API.buildURL(API.RetailerNodePort,API.RetailerInventoryService, API.Query, "getCheesePiece");
     final headers = API.getHeaders();
-    final body = jsonEncode(API.getCheesePieceBody(wallet, price.toString(), quantity.toString(), expirationDate));
+    final body = jsonEncode(API.getCheesePieceBody(wallet,"", price.toString(), quantity.toString(), expirationDate));
     try {
       final response = await http.post(Uri.parse(url), headers: headers, body: body);
 
@@ -83,4 +88,37 @@ class RetailerInventoryService {
       rethrow;
     }
   }
+
+  /**
+   * Questa funzione restituisce una lista di tutti gli elementi del CheesePiece che un Consumer può vedere.
+   */
+  Future<List<Product>> getCheesePieceAll(String walletCheeseProducer) async {
+    
+    
+    try {
+    
+        List<String> addressRetailerList = await retailerService.getListRetailers();
+        List<Product> productList = [];
+
+        for (int i = 0; i < addressRetailerList.length; i++) {
+        
+           if(addressRetailerList[i].compareTo('0')!=0){
+        
+            List<Product> productListRetailer = await getCheesePieceList(addressRetailerList[i]);
+            productList.addAll(productListRetailer);
+        
+          }
+        }
+
+        return productList;
+        
+      } catch (error) {
+      print('Error fetching MilkBatch Id List: $error');
+      rethrow; // Re-throw to allow external handling of errors
+    }
+  }
+
+
+  
+
 }

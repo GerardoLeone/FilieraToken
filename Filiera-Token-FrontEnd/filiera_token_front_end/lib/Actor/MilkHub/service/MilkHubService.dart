@@ -1,4 +1,5 @@
 import 'package:filiera_token_front_end/models/User.dart';
+import 'package:filiera_token_front_end/utils/api.dart';
 import 'package:filiera_token_front_end/utils/enums.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -14,6 +15,9 @@ class MilkHubService{
   static const String _queryMilkHubData = 'getMilkHubData';
   
   static const String _queryMilkHubID = 'getMilkHubId';
+  
+  static const String _queryListMilkhubs = 'getListAddressMilkHub';
+
 
 
   Future<bool> registerMilkHub(String email, String fullName, String password, String walletMilkHub) async {
@@ -130,6 +134,7 @@ class MilkHubService{
   Future<User?> getMilkHubData(String id, String wallet) async {
   const url = '$_apiUrl/namespaces/default/apis/$_APINameMilkHub/query/$_queryMilkHubData';
 
+
     final body = jsonEncode({
       "input": {
         "_id": id,
@@ -177,9 +182,33 @@ class MilkHubService{
   }
 
 
+  Future<List<String>>getListMilkHubs() async {
+      String url = API.buildURL(API.CheeseProducerNodePort, API.MilkHubService, API.Query, _queryListMilkhubs);
+    
 
+    final headers = _getHeaders();
+
+    final response = await http.post(
+      Uri.parse(url),
+     headers: headers,
+    );
+
+    if (response.statusCode == 200) {
+      final jsonData = jsonDecode(response.body);
+
+      final List<String> milkhubsList = jsonData['output'].cast<String>();
+
+      return milkhubsList;
+    
+    } else {
+      throw Exception('Errore durante la chiamata API: ${response.statusCode}');
+    }
+  }
 
 
 
 
 }
+
+
+

@@ -106,27 +106,27 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "_walletCheeseProducer",
+						"name": "walletCheeseProducer",
 						"type": "address"
 					},
 					{
 						"internalType": "address",
-						"name": "_walletRetailer",
+						"name": "walletRetailer",
 						"type": "address"
 					},
 					{
 						"internalType": "uint256",
-						"name": "_id_CheeseBlock",
+						"name": "idCheeseBlock",
 						"type": "uint256"
 					},
 					{
 						"internalType": "string",
-						"name": "_dop",
+						"name": "dop",
 						"type": "string"
 					},
 					{
 						"internalType": "uint256",
-						"name": "_quantity",
+						"name": "quantity",
 						"type": "uint256"
 					}
 				],
@@ -165,7 +165,7 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
-						"name": "_id_CheeseBlockAcquistato",
+						"name": "idCheeseBlock",
 						"type": "uint256"
 					}
 				],
@@ -199,12 +199,12 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "_walletRetailer",
+						"name": "walletRetailer",
 						"type": "address"
 					},
 					{
 						"internalType": "uint256",
-						"name": "_id_CheeseBlockAcquistato",
+						"name": "idCheeseBlock",
 						"type": "uint256"
 					}
 				],
@@ -225,29 +225,10 @@
 						"internalType": "address",
 						"name": "walletRetailer",
 						"type": "address"
-					}
-				],
-				"name": "getPurchasedCheeseBlockByRetailer",
-				"outputs": [
-					{
-						"internalType": "uint256[]",
-						"name": "",
-						"type": "uint256[]"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "_walletRetailer",
-						"type": "address"
 					},
 					{
 						"internalType": "uint256",
-						"name": "_id_CheeseBlockAcquistato",
+						"name": "idCheeseBlock",
 						"type": "uint256"
 					}
 				],
@@ -266,12 +247,31 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "_walletRetailer",
+						"name": "walletRetailer",
+						"type": "address"
+					}
+				],
+				"name": "getUserCheeseBlockIds",
+				"outputs": [
+					{
+						"internalType": "uint256[]",
+						"name": "",
+						"type": "uint256[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "walletRetailer",
 						"type": "address"
 					},
 					{
 						"internalType": "uint256",
-						"name": "_id_CheeseBlockAcquistato",
+						"name": "idCheeseBlock",
 						"type": "uint256"
 					}
 				],
@@ -290,16 +290,16 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "_walletRetailer",
+						"name": "walletRetailer",
 						"type": "address"
 					},
 					{
 						"internalType": "uint256",
-						"name": "_id_CheeseBlockAcquistato",
+						"name": "idCheeseBlock",
 						"type": "uint256"
 					}
 				],
-				"name": "isCheeseBlockAcquistataPresent",
+				"name": "isCheeseBlockPresent",
 				"outputs": [
 					{
 						"internalType": "bool",
@@ -319,12 +319,12 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "_id_CheeseBlock",
+						"name": "idCheeseBlock",
 						"type": "uint256"
 					},
 					{
 						"internalType": "uint256",
-						"name": "_quantity",
+						"name": "quantity",
 						"type": "uint256"
 					}
 				],
@@ -345,7 +345,7 @@
 				"addCheeseBlock(address,address,uint256,string,uint256)": {
 					"notice": "Tale funzione viene chiamata dal TransactionManager per inserire il CheeseBlock venduto dal MilkHub al Retailer  I controlli vengono fatti tutti all'interno del TransactionManager per la verifica dell'esistenza dei due interessati  - Ammettiamo che i controlli sul prodotto vengono già fatti a monte  - verifichiamo che il Retailer e il MilkHub esistono  - verifichiamo che il CheeseBlock associato al MilkHub esiste  - Aggiungiamo questi dati all'interno del Inventory "
 				},
-				"isCheeseBlockAcquistataPresent(address,uint256)": {
+				"isCheeseBlockPresent(address,uint256)": {
 					"notice": "Verifica che il CheeseBlock è presente all'interno dell'inventario  - Verifica che l'id non sia nullo e che sia maggiore di 0 e che coincida con l'elemento "
 				},
 				"updateCheeseBlockQuantity(address,uint256,uint256)": {
@@ -412,51 +412,51 @@
 			]
 		},
 		"contracts/Actor/IUserStorageInterface.sol": {
-			"keccak256": "0xae0b245125f0e611e9ae29c1970d635b4a982787afafab5290759d9ef7d821c8",
+			"keccak256": "0xc4f5e58158b13ff68c4fe49d72a2e48c560818ddbfc965b0733932d540b50e09",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://793118144f90c043aa0cde1c1a65a0c2e7dd8657dc71ca869ac29492605fa108",
-				"dweb:/ipfs/QmRFZhVDtbAC27oFHQVDrzgM9FLLHgcK7peiYh4U4P4bL1"
+				"bzz-raw://f1884e9167a862d283cbfa84ea8fad1c65e344deb6e2699e6264852c257b1be8",
+				"dweb:/ipfs/QmWtfGJ23czQ2HSjg7buPSCsawgJ57ypcXQpZQsnZCDYu8"
 			]
 		},
 		"contracts/Actor/Retailer-smart-contract/RetailerService.sol": {
-			"keccak256": "0xa2d10bfddc01aa71b88c31d70929e984267a47280ebac0a42579398da8978b54",
+			"keccak256": "0x1dc12429251a9c1e0e85e391f2570e487178fc9fe110fcc4c0b4d568bbe28205",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://fb4cf6933261c976f205ff9b452b1da99a7a05f6006f3387b13ee2346b2740cd",
-				"dweb:/ipfs/QmUpro5Zu8KbBfdxEVVLGkNv5XvE1J9iYBadeVK8eAUieD"
+				"bzz-raw://3ca000ceec862f7e401e934fe0177607097a55d90bd5b68d6109752b6d676e89",
+				"dweb:/ipfs/QmTPzyjyLY9QhWLzVSZDM6A4koYoBF2dJ1HJjR5gjwzFdQ"
 			]
 		},
 		"contracts/Actor/Retailer-smart-contract/RetailerStorage.sol": {
-			"keccak256": "0x41a3692bb50d6c02362b8491a932564261b1ef2f9eea3f99e01c586a919e7f3c",
+			"keccak256": "0x77012a88cab4a6597861c18dc912c7eb0eb340c0a7f7d1bfa1680d91506068b2",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://15cdec361fff769f88e2a5fcda78f88c13be1003fea3bfb132721884676f9fe9",
-				"dweb:/ipfs/QmaBdkoNPBr5Q116dVtCYYgDD4hysVWKC9vvPJEei1yiPa"
+				"bzz-raw://24c29a15e44e5c52a2ce270da228f0a222c79ab84c200932937488657e7476c0",
+				"dweb:/ipfs/QmNuNgcrAyaTbJuodcSQRFLsjs2R86pRzJ6ysTi9JJC2kR"
 			]
 		},
 		"contracts/Actor/Retailer-smart-contract/inventory/RetailerBuyerService.sol": {
-			"keccak256": "0x9fa4ffb078df99d9983c778da147b9e044449ac96813773467a8234a5308f88b",
+			"keccak256": "0x2aed2595fc02d6b1d2f709874326b5f6a25985a09bd8971e9da7f9620e9117f9",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://4b4cc90f3fe62af201112abe5294e04d30acba8d72df66e07ece86f01415dd39",
-				"dweb:/ipfs/QmfBdHSFLDUbXQm4ZZxqeDWAGtb6aFZPPDwAJLqWw3cZ5T"
+				"bzz-raw://7ee17f042895d5b1ff6e50b95b31b37d765952a1a92f3849f4dc57b7c0140a21",
+				"dweb:/ipfs/QmaUMpEivpxWhqRfywhyaAQDfVLbYFBDdeczKC9EMtWhQL"
 			]
 		},
 		"contracts/Actor/Retailer-smart-contract/inventory/RetailerBuyerStorage.sol": {
-			"keccak256": "0x939f70054acd292a99e092366a874d59c9a71a1d33d9b8bece47573a739295b3",
+			"keccak256": "0x8388ba9c71ab2010013ed99f1bc56e4f7703c6b49705474e70aa78874793ff14",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://1dabdafa6e9965fe92ee4e7038c7abb63a47f420980b26306aac572d3a525504",
-				"dweb:/ipfs/Qmc9PGCSz4Wv8u21hJpVudnSaqzhBWeguMvF8Nngb6dBsS"
+				"bzz-raw://6bdb4eadd9204b447633203be8321ef8988e1bcc5e80e85ac5ad2a9b1398fd3b",
+				"dweb:/ipfs/QmZSgTDK1Rik3MrRCEnQCqDDPUVnqzCuYkBFEtki9VEXsw"
 			]
 		},
 		"contracts/Service/Filieratoken.sol": {
-			"keccak256": "0xcb2e21f42a384efcf6bf6e72bd5b5d5cd3b919a67b9d3afe7e4be79cbdd92fae",
+			"keccak256": "0x87e1f62675088493da458d348c0850df9e62fabe0193bc2cd1a715ca426afb05",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://ee169673c236b45853fed29f2be2e5b9e30db35dff8658900e7ec37be2a0155a",
-				"dweb:/ipfs/QmYWm26mnSaRmT2fYadXWYRtQw7rhtsw9pW9BwXr6aYFrQ"
+				"bzz-raw://708a7bdd92893f185d662105e47be097a316a15e5d26fc6dca922571e55ee938",
+				"dweb:/ipfs/QmVmNaj8dCM2ySmpwXk8hA5LPo6fSiDhCbxcSYojCECHkQ"
 			]
 		}
 	},

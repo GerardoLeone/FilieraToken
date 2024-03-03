@@ -17,32 +17,28 @@ class API {
    * Costanti MilkHub
    */
   static const String MilkHubService = "MilkHubService";
-  static const String MilkHubInventoryService = "MilkHubInventoryService";
+  static const String MilkHubInventoryService = "MilkHubInventoryService-2";
 
   /**
    * Costanti CheeseProducer
    */
   static const String CheeseProducerService = "CheeseProducerService";
   static const String CheeseProducerInventoryService = "CheeseProducerInventoryService";
-
-   static const String CheeseProducerBuyerService = "CheeseProducerBuyerService";
-  static const String CheeseProducerBuyerStorage = "CheeseProducerBuyerStorage";
+  static const String CheeseProducerBuyerService = "CheeseProducerBuyerService";
 
   /**
    * Costanti Retailer
    */
   static const String RetailerService = "RetailerService";
   static const String RetailerInventoryService = "RetailerInventoryService";
-  
-    static const String RetailerBuyerService = "RetailerBuyerService";
-  static const String RetailerBuyerStorage = "RetailerBuyerStorage";
+  static const String RetailerBuyerService = "RetailerBuyerService";
 
 
   /**
    * Costanti Consumer
    */
   static const String ConsumerService = "ConsumerService";
-  static const String ConsumerBuyerInventoryService = "ConsumerBuyerStorage"; //TODO: Change the Name 
+  static const String ConsumerBuyerInventoryService = "ConsumerBuyerService"; //TODO: Change the Name 
 
   /**
    * Questa funzione permette di costruire l'URL per la chiamata di un metodo dell'API utilizzando le costanti offerte dalla classe api.dart
@@ -148,7 +144,7 @@ class API {
       'input': {
         'price': price,
         'quantity': quantity,
-        'scadenza': expirationDate,
+        'expirationDate': expirationDate,
         'walletMilkHub': wallet
       }
     };

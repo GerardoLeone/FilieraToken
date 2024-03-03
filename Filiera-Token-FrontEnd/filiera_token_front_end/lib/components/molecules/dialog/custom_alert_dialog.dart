@@ -211,6 +211,9 @@ class CustomPopUpDialog  {
           );
     },
   );
+   Future.delayed(Duration(seconds: 3), () {
+      Navigator.of(context).pop();
+  });
   }
 
   static void showMilkBatchAddError(BuildContext context){
@@ -251,6 +254,10 @@ class CustomPopUpDialog  {
         );
       },
     );
+    // Chiudi automaticamente la finestra di pop-up dopo 3 secondi
+  Future.delayed(Duration(seconds: 3), () {
+      Navigator.of(context).pop();
+  });
   }
 
 

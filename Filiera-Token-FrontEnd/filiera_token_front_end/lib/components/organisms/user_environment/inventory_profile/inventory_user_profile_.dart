@@ -16,9 +16,12 @@ import 'package:get_it/get_it.dart';
 
 //Prodotti convertiti
 class UserProfileInventoryProductPage extends StatefulWidget {
+
+  final String userType;
+  final String idUser;
   const UserProfileInventoryProductPage({Key? key, 
-  required String userType,
-   required String idUser
+  required this.userType,
+   required  this.idUser
    }) : super(key: key);
 
   @override
@@ -31,6 +34,9 @@ class _UserProfileInventoryProductPageState extends State<UserProfileInventoryPr
   late AnimationController _drawerSlideController;
 
   late SecureStorageService secureStorageService;
+
+  late Future<List<Product>> productList = Future.value([]);
+
 
   MilkHubInventoryService milkHubInventoryService = MilkHubInventoryService();
   
@@ -141,14 +147,40 @@ class _UserProfileInventoryProductPageState extends State<UserProfileInventoryPr
         ),
         floatingActionButton: Visibility(
           visible: user!.type == Actor.MilkHub,
-          child: CustomAddMilkBatchButton(wallet: user!.wallet), // Use your custom widget here
+          child: CustomAddMilkBatchButton(wallet: user!.wallet,idUser: widget.idUser,userType: widget.userType, onProductAdded:(){
+            
+            updateProductList();
+          }), // Use your custom widget here
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       );
-
-
     }
   }
+
+
+void updateProductList() {
+  // Aggiungi un ritardo di 5 secondi prima di eseguire l'aggiornamento effettivo
+    setState(() {
+ // Aggiorna la lista dei prodotti utilizzando il tuo servizio appropriato per ottenere i dati aggiornati
+    switch(user!.type) {
+      case Actor.MilkHub:
+        productList = milkHubInventoryService.getMilkBatchList(user!.wallet);
+        break;
+      case Actor.CheeseProducer:
+        productList = cheeseProducerInventoryService.getCheeseBlockList(user!.wallet);
+        break;
+      case Actor.Retailer:
+        productList = retailerInventoryService.getCheesePieceList(user!.wallet);
+        break; 
+      default:
+        print("Errore nella selezione dell'attore in fase di build (inventory_user_page.dart)");
+        break;
+    
+    }    
+    
+  });
+}
+
 
 
 
@@ -213,7 +245,7 @@ class _UserProfileInventoryProductPageState extends State<UserProfileInventoryPr
 
     DialogProductDetails.show(
       context, 
-      user!.wallet,
+      product.seller,
       product,
       DialogType.Inventory);
   }

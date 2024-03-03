@@ -27,12 +27,10 @@ class CheeseProducerInventoryService {
 
         for (int i = 0; i < idList.length; i++) {
           
-          if(idList[i] == "0") {
-            continue;
-          }
-
+          if(idList[i].compareTo('0')!=0){
           Product product = await getCheeseBlock(wallet, idList[i]);
           productList.add(product);
+        }
         }
 
         return productList;
@@ -61,7 +59,7 @@ class CheeseProducerInventoryService {
       if (response.statusCode == 200 || response.statusCode == 202) {
         final jsonData = jsonDecode(response.body);
 
-        return CheeseBlock.fromJson(jsonData);
+        return CheeseBlock.fromJson(jsonData,wallet);
       } else {
         throw Exception('Failed to fetch CheeseBlock: ${response.statusCode}');
       }

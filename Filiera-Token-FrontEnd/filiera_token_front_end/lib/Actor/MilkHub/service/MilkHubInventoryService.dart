@@ -114,7 +114,7 @@ class MilkHubInventoryService {
    * Questa funzione permette di aggiungere un MilkBatch all'interno del sistema, restituendo true se va a buon fine, false altrimenti.
    */
   static Future<bool> addMilkBatch(String wallet, String price, String quantity, String expirationDate) async {
-    String url = API.buildURL(API.MilkHubNodePort, API.MilkHubInventoryService, API.Invoke, "getMilkBatch");
+    String url = API.buildURL(API.MilkHubNodePort, API.MilkHubInventoryService, API.Invoke, "addMilkBatch");
     final headers = API.getHeaders();
     final body = jsonEncode(API.getMilkBatchBody(wallet, price, quantity, expirationDate));
     try {

@@ -247,7 +247,10 @@ void updateProductList() {
       context, 
       product.seller,
       product,
-      DialogType.Inventory);
+      DialogType.Inventory,
+      widget.userType,
+      user!.wallet
+      );
   }
 
 

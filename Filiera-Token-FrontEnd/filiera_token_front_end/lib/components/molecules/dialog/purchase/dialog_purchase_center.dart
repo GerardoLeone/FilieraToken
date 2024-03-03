@@ -1,13 +1,18 @@
 import 'package:filiera_token_front_end/components/molecules/dialog/custom_alert_dialog.dart';
+import 'package:filiera_token_front_end/components/organisms/user_environment/services/transaction_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:filiera_token_front_end/models/Product.dart';
 
 class DialogPurchaseCenter extends StatefulWidget {
-  Product product;
+  final Product product;
+  final String userType;
+  final String buyer;
 
   DialogPurchaseCenter({
-    required this.product,
+    required this.product, 
+    required this.userType,
+    required this.buyer
   });
 
   @override
@@ -15,12 +20,15 @@ class DialogPurchaseCenter extends StatefulWidget {
 }
 
 class _DialogPurchaseCenterState extends State<DialogPurchaseCenter> {
+
+
+
+  TransactionService transactionService = TransactionService();
   
 
 
 
   TextEditingController ?_quantityToBuy;
-  late String quantityValue;
 
   @override
   void dispose() {
@@ -32,21 +40,42 @@ class _DialogPurchaseCenterState extends State<DialogPurchaseCenter> {
   void initState() {
     _quantityToBuy = TextEditingController();
     super.initState();
-    quantityValue = '';
   }
 
   
   Widget _buildBuyButton(){
     return ElevatedButton(
               onPressed: () {
-                /*if (_formKey.currentState!.validate()) {
-                  print('Valore nel form: $quantityValue');
+                Product productToBuy = widget.product;
+                // BuyLogic 
+                switch(widget.userType){
+                  case "Consumer":{
 
-                  //TODO: aggiungere convertedProduct alla lista Inventory (Service)
+                  }
+                  case "CheeseProducer":{
+                    // Converto e calcolo il prezzo totale 
+                    String quantityToBuy = _quantityToBuy!.text;
+                    print("Sono nel metodo di acquisto!");
+                    int totalPrice = int.parse(quantityToBuy) * int.parse(productToBuy.getUnitPrice().toString());
+                    print("Prezzo totale :"+totalPrice.toString());
+                    String priceToPay = totalPrice.toString();
 
-                  Navigator.of(context).pop();
-                  CustomPopUpDialog.showConversionSuccess(context, "La conversione è avvenuta con successo!");
-                }*/
+                    print("Product Seller : "+productToBuy.seller);
+                    print("Product buyer:"+widget!.buyer);
+                    if(transactionService.buyMilkBatchProduct( productToBuy.id, quantityToBuy,widget.buyer,productToBuy.seller,priceToPay )==true  && (int.parse(_quantityToBuy!.text)<= productToBuy.getQuantity()) ){
+                            // Show success Transaction 
+                            CustomPopUpDialog.showBuyMilkBatchSuccess(context, "Transazione avvenuta con successo!");
+
+                    }else{
+                      CustomPopUpDialog.showBuyMilkBatchError(context);
+                    }
+
+
+                  }
+                  case "Retailer":{
+
+                  }
+                }
               },
               child: Text('Buy'),
       );

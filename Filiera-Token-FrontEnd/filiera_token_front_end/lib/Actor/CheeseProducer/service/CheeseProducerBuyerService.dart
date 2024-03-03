@@ -15,7 +15,7 @@ class CheeseProducerBuyerService {
 
 
   Future<List<Product>> getMilkBatchList(String wallet) async {
-    String url = API.buildURL(API.CheeseProducerNodePort,API.CheeseProducerBuyerStorage, API.Query, _queryGetMilkBatchPurchase);
+    String url = API.buildURL(API.CheeseProducerNodePort,API.CheeseProducerBuyerService, API.Query, _queryGetMilkBatchPurchase);
 
     print(url);
 

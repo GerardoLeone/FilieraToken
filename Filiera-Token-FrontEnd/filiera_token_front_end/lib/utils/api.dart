@@ -178,6 +178,17 @@ class API {
     };
   }
 
+  static Map<String, dynamic> getTransformCheeseProducerBody(String dop, String idMilkBatch, String pricePerKg, String quantityToTransform, String walletCheeseProducer) {
+    return {
+      "input": {
+        "dop": dop,
+        "idMilkBatch": idMilkBatch,
+        "pricePerKg": pricePerKg,
+        "quantityToTransform": quantityToTransform,
+        "walletCheeseProducer": walletCheeseProducer
+      }
+    };
+  }
 
 //----------------------------------------------------------- Get Body Product for Buyer --------------------------------------------------------------------------
 
@@ -207,6 +218,16 @@ class API {
       "input": {
         "idMilkBatch":milkBatchId,
         "walletCheeseProducer": walletCheeseProducer
+      }
+    };
+  }
+  static Map<String, dynamic> getTransformRetailerBody(String idCheeseBlock, String price, String quantityToTransform, String walletRetailer) {
+    return {
+      "input": {
+        "idCheeseBlock": idCheeseBlock,
+        "price": price,
+        "quantityToTransform": quantityToTransform,
+        "walletRetailer": walletRetailer
       }
     };
   }

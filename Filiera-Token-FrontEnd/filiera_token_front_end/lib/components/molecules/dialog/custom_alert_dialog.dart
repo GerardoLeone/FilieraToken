@@ -214,7 +214,43 @@ class CustomPopUpDialog  {
   }
 
   static void showMilkBatchAddError(BuildContext context){
-    /// TODO : Error adding MilkBatch 
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Errore Aggiunta'),
+          content: Text("Problemi con l'aggiunta della partita di latte."),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
+          backgroundColor: Colors.red[50], // Colore rosso
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.0),
+          ),
+          contentTextStyle: TextStyle(
+            color: Colors.black,
+            fontSize: 16.0,
+          ),
+          titleTextStyle: TextStyle(
+            color: Colors.black,
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+          ),
+          actionsPadding: EdgeInsets.symmetric(horizontal: 16.0),
+          elevation: 4.0,
+          icon: Icon(
+            Icons.error,
+            color: Colors.red,
+            size: 32.0,
+          ),
+        );
+      },
+    );
   }
 
 
@@ -265,10 +301,44 @@ class CustomPopUpDialog  {
     );
   }
 
-  static void showConversionError(BuildContext context){
-    /// TODO : Error Conversion 
-  }
-
-
+  static void showConversionError(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Errore Conversione'),
+          content: Text('Problemi con la conversione.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
+          backgroundColor: Colors.red[50], // Colore rosso
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.0),
+          ),
+          contentTextStyle: TextStyle(
+            color: Colors.black,
+            fontSize: 16.0,
+          ),
+          titleTextStyle: TextStyle(
+            color: Colors.black,
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+          ),
+          actionsPadding: EdgeInsets.symmetric(horizontal: 16.0),
+          elevation: 4.0,
+          icon: Icon(
+            Icons.error,
+            color: Colors.red,
+            size: 32.0,
+          ),
+        );
+      },
+    );
+  } 
 
 }

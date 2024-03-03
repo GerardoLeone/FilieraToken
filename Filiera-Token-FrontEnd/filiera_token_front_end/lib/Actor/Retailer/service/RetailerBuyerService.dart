@@ -14,7 +14,7 @@ class RetailerBuyerService {
 
 
   Future<List<Product>> getCheeseBlockList(String wallet) async {
-    String url = API.buildURL(API.RetailerNodePort,API.RetailerBuyerStorage, API.Query, _queryGetCheeseBlockListIDPurchase);
+    String url = API.buildURL(API.RetailerNodePort,API.RetailerBuyerService, API.Query, _queryGetCheeseBlockListIDPurchase);
 
     print(url);
 

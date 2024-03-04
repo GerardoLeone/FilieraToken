@@ -15,7 +15,7 @@ class CheeseProducerBuyerService {
 
 
   Future<List<Product>> getMilkBatchList(String wallet) async {
-    String url = API.buildURL(API.CheeseProducerBuyerStorage, API.Query, _queryGetMilkBatchPurchase);
+    String url = API.buildURL(API.CheeseProducerNodePort,API.CheeseProducerBuyerService, API.Query, _queryGetMilkBatchPurchase);
 
     print(url);
 
@@ -50,17 +50,17 @@ class CheeseProducerBuyerService {
         throw Exception('Failed to fetch MilkBatch Id List: ${response.statusCode}');
       }
     } catch (error) {
-      print('Error fetching CheesePiece Id List: $error');
+      print('Error fetching MilkBatch Id List: $error');
       rethrow;
     }
   }
 
 
-  Future<Product> getMilkBatch(String cheeseId, String walletRetailer) async {
+  Future<Product> getMilkBatch(String cheeseId, String walletMilkHub) async {
     
-    String url = API.buildURL(API.CheeseProducerBuyerStorage, API.Query, _queryGetMilkBatch);
+    String url = API.buildURL(API.CheeseProducerNodePort,API.CheeseProducerBuyerService, API.Query, _queryGetMilkBatch);
     
-    final body = jsonEncode(API.getMilkBatchForCheeseProducerBody(cheeseId, walletRetailer));
+    final body = jsonEncode(API.getMilkBatchForCheeseProducerBody(cheeseId, walletMilkHub));
     final headers = API.getHeaders();
 
     final response = await http.post(Uri.parse(url), body: body, headers: headers);
@@ -72,7 +72,7 @@ class CheeseProducerBuyerService {
 
       print(jsonData);
 
-      return MilkBatch.fromJson(jsonData);
+      return MilkBatch.fromJson(jsonData,walletMilkHub);
     }else{
         throw Exception('Failed to fetch CheesePiece Id List: ${response.statusCode}');
     }

@@ -32,7 +32,7 @@ contract TransactionCheeseProductService {
     CheeseProducerInventoryService private cheeseProducerInventoryService;
 
     // Retailer - Contains CheeseBlock (product bought by Retailer).
-    RetailerBuyerService private retailerCheeseBlockService;
+    RetailerBuyerService private retailerBuyerService;
 
 
     /**
@@ -44,7 +44,7 @@ contract TransactionCheeseProductService {
      * 
      * 
      * @param _cheeseProducerInventoryService Indirizzo del contratto CheeseProducerInventoryService.
-     * @param _retailerCheeseBlockService Indirizzo del contratto RetailerBuyerService.
+     * @param _retailerBuyerService Indirizzo del contratto RetailerBuyerService.
      * 
      */
     constructor(
@@ -55,7 +55,7 @@ contract TransactionCheeseProductService {
 
 
         address _cheeseProducerInventoryService,
-        address _retailerCheeseBlockService
+        address _retailerBuyerService
         ){
         // Filiera Token Service 
         filieraTokenService = Filieratoken(_filieraToken);
@@ -70,7 +70,7 @@ contract TransactionCheeseProductService {
 
         // Inventory Service 
         cheeseProducerInventoryService = CheeseProducerInventoryService(_cheeseProducerInventoryService);
-        retailerCheeseBlockService = RetailerBuyerService(_retailerCheeseBlockService);
+        retailerBuyerService = RetailerBuyerService(_retailerBuyerService);
     }
 
 
@@ -116,7 +116,7 @@ contract TransactionCheeseProductService {
         cheeseProducerInventoryService.updateCheeseBlockQuantity(ownerCheese, _id_Cheese, currentQuantity - _quantityToBuy);
 
         // Aggiunta del MilkBatch nell'inventario del CheeseProducer
-        retailerCheeseBlockService.addCheeseBlock(
+        retailerBuyerService.addCheeseBlock(
             ownerCheese,
             buyer, 
             _id_Cheese,

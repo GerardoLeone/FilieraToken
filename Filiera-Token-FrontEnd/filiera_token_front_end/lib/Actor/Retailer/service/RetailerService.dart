@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:filiera_token_front_end/models/User.dart';
+import 'package:filiera_token_front_end/utils/api.dart';
 import 'package:filiera_token_front_end/utils/enums.dart';
 import 'package:http/http.dart' as http;
 
@@ -9,11 +10,13 @@ class RetailerService {
   static const String _apiUrl = 'http://127.0.0.1:5002/api/v1';
 
 
-  static const String _APINameRetailer = "RetailerService-2";
+  static const String _APINameRetailer = "RetailerService";
 
   static const String _queryRetailerData = 'getRetailerData';
   
   static const String _queryRetailerID = 'getRetailerId';
+
+  static const String _queryRetailerList = 'getListAddressRetailer';
 
   static const String queryLogin = 'login';
 
@@ -174,5 +177,28 @@ class RetailerService {
         }
       };
     }
+
+  Future<List<String>> getListRetailers() async {
+  String url = API.buildURL(API.ConsumerNodePort, API.RetailerService, API.Query, _queryRetailerList);
+    
+
+    final headers = _getHeaders();
+
+    final response = await http.post(
+      Uri.parse(url),
+     headers: headers,
+    );
+
+    if (response.statusCode == 200) {
+      final jsonData = jsonDecode(response.body);
+
+      final List<String> retailerList = jsonData['output'].cast<String>();
+
+      return retailerList;
+    
+    } else {
+      throw Exception('Errore durante la chiamata API: ${response.statusCode}');
+    }
+  }
 
 }

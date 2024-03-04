@@ -1,4 +1,5 @@
 import 'package:filiera_token_front_end/models/User.dart';
+import 'package:filiera_token_front_end/utils/api.dart';
 import 'package:filiera_token_front_end/utils/enums.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -15,6 +16,9 @@ class CheeseProducerService{
   static const String _queryCheeseProducerData = 'getCheeseProducerData';
   
   static const String _queryCheeseProducerID = 'getCheeseProducerId';
+
+  static const String _queryListCheeseProducers = 'getListAddressCheeseProducer';
+
 
 
 
@@ -101,7 +105,7 @@ class CheeseProducerService{
 
     final body = jsonEncode({
       "input": {
-        "_id": id,
+        "id": id,
         "walletCheeseProducer": wallet,
       }
     });
@@ -176,4 +180,27 @@ class CheeseProducerService{
       );
   }
 
+  Future<List<String>> getListCheeseProducers() async{
+    String url = API.buildURL(API.RetailerNodePort, API.CheeseProducerService, API.Query, _queryListCheeseProducers);
+    
+    final headers = _getHeaders();
+
+    final response = await http.post(
+      Uri.parse(url),
+     headers: headers,
+    );
+
+    if (response.statusCode == 200) {
+      final jsonData = jsonDecode(response.body);
+
+      final List<String> milkhubsList = jsonData['output'].cast<String>();
+
+      return milkhubsList;
+    
+    } else {
+      throw Exception('Errore durante la chiamata API: ${response.statusCode}');
+    }
+  }
+
+  
 }

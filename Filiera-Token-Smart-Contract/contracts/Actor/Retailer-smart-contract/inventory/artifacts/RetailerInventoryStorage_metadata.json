@@ -263,11 +263,11 @@
 	},
 	"sources": {
 		"contracts/Actor/Retailer-smart-contract/inventory/RetailerInventoryStorage.sol": {
-			"keccak256": "0x9d297df78592f0b232c1172886c3cec8983933f0447fd1f9048b3e4c30409eb4",
+			"keccak256": "0xc36da9f156a0c1b26e5f0e16c6543da4c9e187017dfe0a7ed2b5e3f420673d0e",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://6097c045afb4dbbd727bfd0262302a2a460fb9c4739b6269e0051f2ed878e7f9",
-				"dweb:/ipfs/QmV9umevUKX6PTsYGxzq93duwBZxQWWRJ9dMjaB3CUysrX"
+				"bzz-raw://55a55ca80aa8930a428c6ba0dae02797f40e3a1d27b87ceac152072f5dd58bb7",
+				"dweb:/ipfs/QmXNGM7bN35WakEQqiiBm7VFPpAQuqZ8SzhLjnCagmzjaP"
 			]
 		}
 	},

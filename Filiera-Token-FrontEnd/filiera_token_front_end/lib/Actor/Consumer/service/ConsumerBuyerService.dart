@@ -6,7 +6,7 @@ import 'dart:convert';
 
 class ConsumerBuyerService {
 
-  static Future<List<Product>> getCheesePieceList(String wallet) async {
+  Future<List<Product>> getCheesePieceList(String wallet) async {
     String url = API.buildURL(API.ConsumerNodePort, API.ConsumerBuyerInventoryService, API.Query, "getUserCheesePieceIds");
 
     print(url);

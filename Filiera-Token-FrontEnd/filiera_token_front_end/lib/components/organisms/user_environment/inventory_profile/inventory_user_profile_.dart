@@ -1,10 +1,10 @@
 import 'package:filiera_token_front_end/Actor/CheeseProducer/service/CheeseProducerInventoryService.dart';
+import 'package:filiera_token_front_end/Actor/Consumer/service/ConsumerBuyerService.dart';
 import 'package:filiera_token_front_end/Actor/MilkHub/service/MilkHubInventoryService.dart';
 import 'package:filiera_token_front_end/Actor/Retailer/service/RetailerInventoryService.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_loading_bar.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_nav_bar.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_product_list.dart';
-import 'package:filiera_token_front_end/components/organisms/user_environment/inventory_profile/components/custom_floating_button_add.dart';
 import 'package:filiera_token_front_end/components/organisms/user_environment/inventory_profile/components/custom_menu_user_inventory.dart';
 import 'package:filiera_token_front_end/components/molecules/dialog/dialog_product_details.dart';
 import 'package:filiera_token_front_end/components/organisms/user_environment/services/secure_storage_service.dart';
@@ -16,12 +16,9 @@ import 'package:get_it/get_it.dart';
 
 //Prodotti convertiti
 class UserProfileInventoryProductPage extends StatefulWidget {
-
-  final String userType;
-  final String idUser;
   const UserProfileInventoryProductPage({Key? key, 
-  required this.userType,
-   required  this.idUser
+  required String userType,
+   required String idUser
    }) : super(key: key);
 
   @override
@@ -35,10 +32,7 @@ class _UserProfileInventoryProductPageState extends State<UserProfileInventoryPr
 
   late SecureStorageService secureStorageService;
 
-  late Future<List<Product>> productList = Future.value([]);
-
-
-  MilkHubInventoryService milkHubInventoryService = MilkHubInventoryService();
+    MilkHubInventoryService milkHubInventoryService = MilkHubInventoryService();
   
   RetailerInventoryService retailerInventoryService = RetailerInventoryService();
 
@@ -136,51 +130,18 @@ class _UserProfileInventoryProductPageState extends State<UserProfileInventoryPr
 
       return Scaffold(
         appBar: _buildAppBar(),
-        body: Stack(
-          children: [
-            Padding(
-              padding: EdgeInsets.all(50.5),
-              child: CustomProductList(productList: productList, onProductTap: handleProductTap),
-            ),
-            _buildDrawer(),
-          ],
-        ),
-        floatingActionButton: Visibility(
-          visible: user!.type == Actor.MilkHub,
-          child: CustomAddMilkBatchButton(wallet: user!.wallet,idUser: widget.idUser,userType: widget.userType, onProductAdded:(){
-            
-            updateProductList();
-          }), // Use your custom widget here
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      );
+          body: Stack(
+            children: [
+              Padding(
+                padding: EdgeInsets.all(50.5),
+                child: CustomProductList(productList: productList, onProductTap: handleProductTap),
+              ),
+              _buildDrawer(),
+            ],
+          ),
+        );
     }
   }
-
-
-void updateProductList() {
-  // Aggiungi un ritardo di 5 secondi prima di eseguire l'aggiornamento effettivo
-    setState(() {
- // Aggiorna la lista dei prodotti utilizzando il tuo servizio appropriato per ottenere i dati aggiornati
-    switch(user!.type) {
-      case Actor.MilkHub:
-        productList = milkHubInventoryService.getMilkBatchList(user!.wallet);
-        break;
-      case Actor.CheeseProducer:
-        productList = cheeseProducerInventoryService.getCheeseBlockList(user!.wallet);
-        break;
-      case Actor.Retailer:
-        productList = retailerInventoryService.getCheesePieceList(user!.wallet);
-        break; 
-      default:
-        print("Errore nella selezione dell'attore in fase di build (inventory_user_page.dart)");
-        break;
-    
-    }    
-    
-  });
-}
-
 
 
 
@@ -242,15 +203,10 @@ void updateProductList() {
     print("Prodotto ${product.name} cliccato!");
     // Esegui azioni diverse in base alla pagina
 
-
     DialogProductDetails.show(
       context, 
-      product.seller,
       product,
-      DialogType.Inventory,
-      widget.userType,
-      user!.wallet
-      );
+      DialogType.DialogConversion);
   }
 
 

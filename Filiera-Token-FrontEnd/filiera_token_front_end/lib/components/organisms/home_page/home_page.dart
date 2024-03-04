@@ -79,6 +79,12 @@ Widget build(BuildContext context) {
       
       body: Stack(
         children: [
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: _buildFooter(),
+          ),
           _buildHomePage(),
           _buildDrawer(),
         ],
@@ -149,6 +155,46 @@ Widget build(BuildContext context) {
   );
 }
 
+
+ Widget _buildFooter() {
+  return BottomAppBar( 
+    padding: EdgeInsets.all(10),
+    height: 55,
+    elevation: 0,
+    color: Color.fromARGB(255, 38, 105, 221), // Colore di sfondo del footer
+    child: Padding(
+      padding: EdgeInsets.all(10.0), // Ridotto il padding
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          IconButton(
+            iconSize: 20, // Impostato un'icona più piccola
+            icon: Icon(Icons.home),
+            onPressed: () {
+              // Azione quando si preme sull'icona della home
+            },
+          ),
+          IconButton(
+            iconSize: 20, // Impostato un'icona più piccola
+            icon: Icon(Icons.search),
+            onPressed: () {
+              // Azione quando si preme sull'icona di ricerca
+            },
+          ),
+          IconButton(
+            iconSize: 20, // Impostato un'icona più piccola
+            icon: Icon(Icons.settings),
+            onPressed: () {
+              // Azione quando si preme sull'icona delle impostazioni
+            },
+          ),
+          // Puoi aggiungere altre icone qui
+        ],
+      ),
+    ),
+
+  );
+}
 
 
 

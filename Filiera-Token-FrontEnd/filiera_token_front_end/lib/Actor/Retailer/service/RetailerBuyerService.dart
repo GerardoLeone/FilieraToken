@@ -14,7 +14,7 @@ class RetailerBuyerService {
 
 
   Future<List<Product>> getCheeseBlockList(String wallet) async {
-    String url = API.buildURL(API.RetailerNodePort,API.RetailerBuyerService, API.Query, _queryGetCheeseBlockListIDPurchase);
+    String url = API.buildURL(API.RetailerNodePort,API.RetailerBuyerStorage, API.Query, _queryGetCheeseBlockListIDPurchase);
 
     print(url);
 
@@ -57,7 +57,7 @@ class RetailerBuyerService {
 
   Future<Product> getCheeseBlock(String cheeseId, String walletRetailer) async {
     
-    String url = API.buildURL(API.RetailerNodePort,API.RetailerBuyerService, API.Query, _queryGetCheeseBlock);
+    String url = API.buildURL(API.RetailerNodePort,API.RetailerBuyerStorage, API.Query, _queryGetCheeseBlock);
     
     final body = jsonEncode(API.getCheeseBlockForRetailerBody(cheeseId, walletRetailer));
     final headers = API.getHeaders();
@@ -69,7 +69,7 @@ class RetailerBuyerService {
       
       final jsonData = jsonDecode(response.body);
 
-      return CheeseBlock.fromJson(jsonData,walletRetailer);
+      return CheeseBlock.fromJson(jsonData);
     }else{
         throw Exception('Failed to fetch CheesePiece Id List: ${response.statusCode}');
     }

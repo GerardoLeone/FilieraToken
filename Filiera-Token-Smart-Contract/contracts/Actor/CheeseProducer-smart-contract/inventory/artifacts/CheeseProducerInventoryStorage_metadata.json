@@ -302,11 +302,11 @@
 	},
 	"sources": {
 		"contracts/Actor/CheeseProducer-smart-contract/inventory/CheeseProducerInventoryStorage.sol": {
-			"keccak256": "0x6cedf6c81f07ad4e273925a53d72dd4fa0b9c38cb6bbc0d87d50fae4ca11960a",
+			"keccak256": "0x81637ca2f0124bb2bb7a2cbd8f4258bda4a7e8ce9691d32b0d250fd235d3bf72",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://e05499e09ec745595c4261a220be6e5b6160283d462d12748ea77957f3a304aa",
-				"dweb:/ipfs/Qmf6WsuirV3XrDp8Dq5eVD6gcCwWKqE4pyXAYSPhV1TmAj"
+				"bzz-raw://0a13222be1051d6d55ffe1114dd977840559ad1706b5e24351c0fc7428d76099",
+				"dweb:/ipfs/QmUw4cwhKM4wvEMWPcE9U8ZR5icCndwZrRDgPnh3bDV6ae"
 			]
 		}
 	},

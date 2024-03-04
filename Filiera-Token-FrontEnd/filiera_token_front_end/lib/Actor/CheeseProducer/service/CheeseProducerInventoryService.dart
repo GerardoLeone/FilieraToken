@@ -27,10 +27,12 @@ class CheeseProducerInventoryService {
 
         for (int i = 0; i < idList.length; i++) {
           
-          if(idList[i].compareTo('0')!=0){
+          if(idList[i] == "0") {
+            continue;
+          }
+
           Product product = await getCheeseBlock(wallet, idList[i]);
           productList.add(product);
-        }
         }
 
         return productList;
@@ -59,7 +61,7 @@ class CheeseProducerInventoryService {
       if (response.statusCode == 200 || response.statusCode == 202) {
         final jsonData = jsonDecode(response.body);
 
-        return CheeseBlock.fromJson(jsonData,wallet);
+        return CheeseBlock.fromJson(jsonData);
       } else {
         throw Exception('Failed to fetch CheeseBlock: ${response.statusCode}');
       }
@@ -69,28 +71,6 @@ class CheeseProducerInventoryService {
     }
   }
 
-  Future<bool> transformMilkBatch(String wallet, String idMilkBatch, String quantityToTransform, String pricePerKg, String dop) async {
-    String url = API.buildURL(API.CheeseProducerNodePort, API.CheeseProducerInventoryService, API.Invoke, "transformMilkBatch");
-    final headers = API.getHeaders();
-    final body = jsonEncode(API.getTransformCheeseProducerBody(dop, idMilkBatch, pricePerKg, quantityToTransform, wallet));
-
-    print(url);
-    print(headers);
-    print(body);
-    try {
-      final response = await http.post(Uri.parse(url), headers: headers, body: body);
-
-      if (response.statusCode == 200 || response.statusCode == 202) {        
-        return true;
-      } else {
-          throw Exception('Failed to transform MilkBatch in CheeseBlock: ${response.statusCode}');
-      }
-
-    } catch (error) {
-      print('Error transforming MilkBatch in CheeseBlock: $error');
-      rethrow;
-    }
-  }
   /**
    * Questa funzione restituisce una lista di tutti gli elementi del CheesePiece che un Consumer può vedere.
    */

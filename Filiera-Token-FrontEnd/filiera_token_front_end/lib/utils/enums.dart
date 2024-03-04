@@ -4,7 +4,7 @@ enum Actor { MilkHub, CheeseProducer, Retailer, Consumer, unknown }
 
 enum Asset { MilkBatch, CheeseBlock, CheesePiece }
 
-enum DialogType { DialogConversion, DialogPurchase, Inventory }
+enum DialogType { DialogConversion, DialogPurchase }
 
 class Enums {
   

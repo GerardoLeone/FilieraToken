@@ -24,24 +24,25 @@ class API {
    */
   static const String CheeseProducerService = "CheeseProducerService";
   static const String CheeseProducerInventoryService = "CheeseProducerInventoryService";
-  static const String CheeseProducerBuyerService = "CheeseProducerBuyerService";
+
+   static const String CheeseProducerBuyerService = "CheeseProducerBuyerService";
+  static const String CheeseProducerBuyerStorage = "CheeseProducerBuyerStorage";
 
   /**
    * Costanti Retailer
    */
   static const String RetailerService = "RetailerService";
   static const String RetailerInventoryService = "RetailerInventoryService";
-  static const String RetailerBuyerService = "RetailerBuyerService";
+  
+    static const String RetailerBuyerService = "RetailerBuyerService";
+  static const String RetailerBuyerStorage = "RetailerBuyerStorage";
 
 
   /**
    * Costanti Consumer
    */
   static const String ConsumerService = "ConsumerService";
-  static const String ConsumerBuyerInventoryService = "ConsumerBuyerService"; //TODO: Change the Name 
-
-
-  static const String TransactionBuyMilkBatchService = "TransactionBuyMilkBatchService";
+  static const String ConsumerBuyerInventoryService = "ConsumerBuyerStorage"; //TODO: Change the Name 
 
   /**
    * Questa funzione permette di costruire l'URL per la chiamata di un metodo dell'API utilizzando le costanti offerte dalla classe api.dart
@@ -147,7 +148,7 @@ class API {
       'input': {
         'price': price,
         'quantity': quantity,
-        'expirationDate': expirationDate,
+        'scadenza': expirationDate,
         'walletMilkHub': wallet
       }
     };
@@ -177,17 +178,6 @@ class API {
     };
   }
 
-  static Map<String, dynamic> getTransformCheeseProducerBody(String dop, String idMilkBatch, String pricePerKg, String quantityToTransform, String walletCheeseProducer) {
-    return {
-      "input": {
-        "dop": dop,
-        "idMilkBatch": idMilkBatch,
-        "pricePerKg": pricePerKg,
-        "quantityToTransform": quantityToTransform,
-        "walletCheeseProducer": walletCheeseProducer
-      }
-    };
-  }
 
 //----------------------------------------------------------- Get Body Product for Buyer --------------------------------------------------------------------------
 
@@ -220,33 +210,6 @@ class API {
       }
     };
   }
-  static Map<String, dynamic> getTransformRetailerBody(String idCheeseBlock, String price, String quantityToTransform, String walletRetailer) {
-    return {
-      "input": {
-        "idCheeseBlock": idCheeseBlock,
-        "price": price,
-        "quantityToTransform": quantityToTransform,
-        "walletRetailer": walletRetailer
-      }
-    };
-  }
-
-
-// -------------------------------------------------------------------------------------------- Buying Service ------------------------------------------------
-
-  static buyMilkBatchProductBody(String milkBatchId, String quantityToBuy, String buyer, String ownerMilkBatch, String totalPrice){
-
-    return {
-      "input": {
-      "_id_MilkBatch": milkBatchId,
-      "_quantityToBuy": quantityToBuy,
-      "buyer": buyer,
-      "ownerMilkBatch": ownerMilkBatch,
-      "totalPrice": totalPrice
-    }
-    };
-  }
-
   
 
 }

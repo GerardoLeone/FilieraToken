@@ -9,26 +9,19 @@ import 'package:filiera_token_front_end/utils/enums.dart';
 import 'package:flutter/material.dart';
 
 class DialogProductDetails extends StatelessWidget {
-
   final Product product;
   final DialogType dialogType; // Nuovo parametro
-  final String wallet; // Seller 
-  final String buyer;
-  final String userType;
 
   const DialogProductDetails({
     required this.product,
     required this.dialogType,
-    required this.wallet, 
-    required this.userType, 
-    required this.buyer
   });
 
-  static void show(BuildContext context, String wallet, Product product, DialogType dialogType, String userType, String walletBuyer) {
+  static void show(BuildContext context, Product product, DialogType dialogType) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return DialogProductDetails(product: product, dialogType: dialogType, wallet: wallet, userType: userType, buyer: walletBuyer);
+        return DialogProductDetails(product: product, dialogType: dialogType);
       },
     );
   }
@@ -87,10 +80,10 @@ class DialogProductDetails extends StatelessWidget {
                   SizedBox(height: 30),
                   if(dialogType == DialogType.DialogConversion)
 
-                    DialogConversionCenter(product: product, wallet: wallet)
+                    DialogConversionCenter(product: product)
                   else if(dialogType == DialogType.DialogPurchase)
                     
-                    DialogPurchaseCenter(product: product,userType: userType, buyer :buyer)
+                    DialogPurchaseCenter(product: product)
                 ],
               ),
             )
@@ -100,7 +93,7 @@ class DialogProductDetails extends StatelessWidget {
   /// Right Column 
   Widget _buildRightColumn(BuildContext context){
     return IntrinsicWidth(
-              child: (dialogType == DialogType.DialogConversion) ? DialogConversionRight() : DialogPurchaseRight(wallet), // Puoi fornire un widget vuoto o un altro widget di fallback
+              child: (dialogType == DialogType.DialogConversion) ? DialogConversionRight() : DialogPurchaseRight(), // Puoi fornire un widget vuoto o un altro widget di fallback
             );
   }
 

@@ -1,18 +1,13 @@
-import 'package:filiera_token_front_end/components/molecules/custom_loading_bar.dart';
+import 'package:filiera_token_front_end/components/molecules/dialog/custom_alert_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:filiera_token_front_end/models/Product.dart';
-import 'package:filiera_token_front_end/Actor/CheeseProducer/service/CheeseProducerInventoryService.dart';
-import 'package:filiera_token_front_end/Actor/Retailer/service/RetailerInventoryService.dart';
-import 'package:filiera_token_front_end/components/molecules/dialog/custom_alert_dialog.dart';
 
 class DialogConversionCenter extends StatefulWidget {
   Product product;
-  String wallet;
 
   DialogConversionCenter({
     required this.product,
-    required this.wallet,
   });
 
   @override
@@ -20,9 +15,13 @@ class DialogConversionCenter extends StatefulWidget {
 }
 
 class _DialogConversionCenterState extends State<DialogConversionCenter> {
-  TextEditingController? _quantityToConvert;
+
+
+
+  TextEditingController ?_quantityToConvert;
+
+
   late String quantityValue;
-  bool _loading = false;
 
   @override
   void initState() {
@@ -33,67 +32,72 @@ class _DialogConversionCenterState extends State<DialogConversionCenter> {
 
   @override
   void dispose() {
+
     _quantityToConvert?.dispose();
     super.dispose();
     quantityValue = '';
   }
 
-  Future<void> _convertProduct() async {
-    setState(() {
-      _loading = true;
-    });
 
-    Product product = widget.product;
-    bool conversionSuccess = false;
-
-    try {
-      if (product is MilkBatch) {
-        CheeseProducerInventoryService cheeseProducerInventoryService =
-            CheeseProducerInventoryService();
-        conversionSuccess = await cheeseProducerInventoryService.transformMilkBatch(
-            widget.wallet, product.id, quantityValue, product.pricePerLitre.toString(), "DOP");
-      } else if (product is CheeseBlock) {
-        RetailerInventoryService retailerInventoryService =
-            RetailerInventoryService();
-        conversionSuccess = await retailerInventoryService.transformCheesePiece(
-            widget.wallet, product.price.toString(), quantityValue, product.getExpirationDate());
-      }
-    } catch (error) {
-      // Gestisci l'errore qui, mostra un alert dialog o esegui altre azioni necessarie
-      print("Errore durante la conversione: $error");
-      CustomPopUpDialog.showConversionError(context);
-    } finally {
-      // Assicurati che la barra di caricamento venga rimossa anche in caso di errore
-      setState(() {
-        _loading = false;
-      });
-    }
-
-    if (conversionSuccess) {
-      Navigator.of(context).pop();
-      CustomPopUpDialog.showConversionSuccess(
-          context, "La conversione è avvenuta con successo!");
-    }
-  }
-
-  Widget _buildConvertButton() {
+  Widget _buildConvertButton(){
     return ElevatedButton(
-      child: Text('Convert'),
-      onPressed: _loading ? () {} : _convertProduct,
-    );
+
+              child: Text('Convert'),
+              onPressed: () {
+                /*if (quantityToConvert!.text.validate()) {
+                  print('Valore nel form: $quantityValue');
+
+                  Product originalProduct = widget.product;
+                  Product convertedProduct;
+
+                  int newQuantity = int.parse(quantityValue) * 2;
+                  originalProduct.updateQuantity(int.parse(quantityValue));
+
+                  if (originalProduct is MilkBatch) {
+                    convertedProduct = CheeseBlock(
+                      id: originalProduct.id,
+                      name: originalProduct.name,
+                      description: originalProduct.description,
+                      seller: originalProduct.seller,
+                      dop: "dop",
+                      price: 500, //TODO: far inserire il prezzo manualmente
+                      quantity: newQuantity,
+                    );
+                  } else if (originalProduct is CheeseBlock) {
+
+                    for(int i = 0; i < int.parse(quantityValue); i++) {
+                      convertedProduct = CheesePiece(
+                        id: originalProduct.id,
+                        name: originalProduct.name,
+                        description: originalProduct.description,
+                        seller: originalProduct.seller,
+                        price: 10,
+                        weight: 1,
+                      );
+
+                      //TODO: iterazione aggiungere l'oggetto nella lista Inventory (Service)
+                    }
+                  }*/
+                  //TODO: aggiungere convertedProduct alla lista Inventory (Service)
+                  Navigator.of(context).pop();
+                  CustomPopUpDialog.showConversionSuccess(context, "La conversione è avvenuta con successo!");
+              }
+            );
   }
 
-  Widget _buildTextForm() {
+  Widget _buildTextForm(){
     return TextField(
-      decoration: InputDecoration(
-        labelText: 'Quantità da convertire:',
-        labelStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-      ),
-      controller: _quantityToConvert,
-      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-    );
+              decoration: 
+               InputDecoration(
+                labelText:'Quantità da convertire:',
+                labelStyle:TextStyle(color: Colors.white, fontWeight: FontWeight.bold )
+                ),
+              controller: _quantityToConvert,
+              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            );
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -103,16 +107,18 @@ class _DialogConversionCenterState extends State<DialogConversionCenter> {
         borderRadius: BorderRadius.circular(8.0),
       ),
       padding: EdgeInsets.all(8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildTextForm(),
-          SizedBox(height: 30),
-          _loading
-              ? CustomLoadingIndicator(progress: 0.5)
-              : _buildConvertButton(),
-        ],
-      ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildTextForm(),
+            SizedBox(height: 30),
+            _buildConvertButton()
+          ],
+        ),
     );
   }
+
+
+
+
 }

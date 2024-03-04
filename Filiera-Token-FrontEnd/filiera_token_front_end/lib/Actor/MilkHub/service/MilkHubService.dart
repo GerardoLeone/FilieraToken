@@ -47,7 +47,7 @@ class MilkHubService{
 
   
   Future<bool> loginMilkHub(String email, String password, String wallet) async {
-    const url = '$_apiUrl/namespaces/default/apis/$_APINameMilkHub/query/$queryLogin';
+    const url = '$_apiUrl/namespaces/default/apis/$_APINameMilkHub/invoke/$queryLogin';
     final headers = _getHeaders();
     final body = _getLoginPayload(email, password, wallet);
     final response = await http.post(
@@ -137,7 +137,7 @@ class MilkHubService{
 
     final body = jsonEncode({
       "input": {
-        "id": id,
+        "_id": id,
         "walletMilkHub": wallet,
       }
     });
@@ -183,31 +183,24 @@ class MilkHubService{
 
 
   Future<List<String>>getListMilkHubs() async {
-      String url = API.buildURL(API.MilkHubNodePort, API.MilkHubService, API.Query, _queryListMilkhubs);
-    print(" Sono nella funzione di getListMilkHubs! url : "+url);
+      String url = API.buildURL(API.CheeseProducerNodePort, API.MilkHubService, API.Query, _queryListMilkhubs);
+    
 
     final headers = _getHeaders();
 
     final response = await http.post(
       Uri.parse(url),
-      body: jsonEncode({}),
      headers: headers,
     );
 
-    print(response.body);
-
     if (response.statusCode == 200) {
-
       final jsonData = jsonDecode(response.body);
 
       final List<String> milkhubsList = jsonData['output'].cast<String>();
 
-      print(milkhubsList);
-
       return milkhubsList;
     
     } else {
-      print(response.body);
       throw Exception('Errore durante la chiamata API: ${response.statusCode}');
     }
   }

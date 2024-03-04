@@ -17,13 +17,10 @@ import 'package:get_it/get_it.dart';
 
 
 class HomePageUser extends StatefulWidget {
-
-  final String userType;
-  final String idUser;
   const HomePageUser({
     Key? key,
-    required this.userType,
-     required this.idUser, 
+    required String userType,
+    required String idUser, 
     }) : super(key: key);
 
   @override
@@ -155,12 +152,8 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
     // Esegui azioni diverse in base alla pagina
     DialogProductDetails.show(
       context, 
-      product.seller,
       product,
-      DialogType.DialogPurchase,
-      widget.userType,
-      user!.wallet
-      );
+      DialogType.DialogPurchase);
   }
 
 

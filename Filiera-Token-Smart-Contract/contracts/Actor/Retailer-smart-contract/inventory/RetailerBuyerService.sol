@@ -85,10 +85,8 @@ contract RetailerBuyerService {
 
     
     //TODO : Controllo sull'owner del CheeseBlock Acquistato 
-    function getCheeseBlock(uint256 idCheeseBlock) external view checkAddress(msg.sender) returns (uint256, address, string memory, uint256) {
+    function getCheeseBlock(address walletRetailer,uint256 idCheeseBlock) external view checkAddress(walletRetailer) returns (uint256, address, string memory, uint256) {
         
-        address walletRetailer = msg.sender;
-
         require(retailerService.isUserPresent(walletRetailer), "Utente non trovato!");
 
         require(this.isCheeseBlockPresent(walletRetailer,idCheeseBlock),"Prodotto non Presente!");

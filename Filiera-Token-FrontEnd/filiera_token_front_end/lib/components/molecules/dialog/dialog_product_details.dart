@@ -24,7 +24,7 @@ class DialogProductDetails extends StatelessWidget {
     required this.buyer
   });
 
-  static void show(BuildContext context, String wallet, Product product, DialogType dialogType, String userType, String walletBuyer) {
+  static void show(BuildContext context,String wallet,Product product, DialogType dialogType, String userType, String walletBuyer) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -129,6 +129,131 @@ class DialogProductDetails extends StatelessWidget {
     );
   }
 }
+
+
+class DialogProductDetailsPurchased extends StatelessWidget {
+
+  final ProductPurchased product;
+  final DialogType dialogType; // Nuovo parametro
+  final String wallet; // Seller 
+  final String buyer;
+  final String userType;
+
+  const DialogProductDetailsPurchased({
+    required this.product,
+    required this.dialogType,
+    required this.wallet, 
+    required this.userType, 
+    required this.buyer
+  });
+
+  
+
+   static void showObjectPurchased(BuildContext context,String wallet,ProductPurchased product, DialogType dialogType, String userType, String walletBuyer) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return DialogProductDetailsPurchased(product: product, dialogType: dialogType, wallet: wallet, userType: userType, buyer: walletBuyer);
+      },
+    );
+  }
+
+
+    Widget _buildLeftColumn(BuildContext context) {
+    return Expanded(
+      child: Container(
+        width: 100,
+        decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            height: 150.0,
+            width: 200.0,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8.0),
+              image: DecorationImage(
+                image: AssetImage(Enums.getAssetPath(product.getAsset())),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          SizedBox(height: 16.0), // Adjust spacing as needed
+          ElevatedButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text('Back'),
+            style: ElevatedButton.styleFrom(
+              minimumSize: Size(80, 40), // Adjust button size as needed
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+
+  /// Center Column 
+  Widget _buildCenterColumn(BuildContext context){
+    return Expanded(
+      child: Container(
+              width: 250,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  InfoTile('ID', ' ${product.id}'),
+                  if (product.getExpirationDate().isNotEmpty)
+                    InfoTile('Scadenza', ' ${product.getExpirationDate()}'),
+                  InfoTile('Quantità disponibile', ' ${product.getQuantity()}'),
+                  SizedBox(height: 30),
+                  if(dialogType == DialogType.DialogConversion)
+
+                    DialogConversionCenterPurchased(product: product, wallet: wallet)
+                ],
+              ),
+            )
+    );
+  }
+
+  /// Right Column 
+  Widget _buildRightColumn(BuildContext context){
+    return IntrinsicWidth(
+              child: (dialogType == DialogType.DialogConversion) ? DialogConversionRight() : DialogPurchaseRight(wallet), // Puoi fornire un widget vuoto o un altro widget di fallback
+            );
+  }
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      child: IntrinsicWidth(
+        stepHeight: 5.5,
+        child: Container(
+          child: Padding(
+            padding: EdgeInsets.all(30.5),
+            child: Row(
+              children: [
+                _buildLeftColumn(context),
+                SizedBox(width: 30.0),
+                _buildCenterColumn(context),
+                SizedBox(width: 30.0),
+                _buildRightColumn(context),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+
+
 
 //Crea un div per ogni info
 class InfoTile extends StatelessWidget {

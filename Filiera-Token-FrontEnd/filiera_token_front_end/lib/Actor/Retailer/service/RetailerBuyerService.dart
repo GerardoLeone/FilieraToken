@@ -13,7 +13,7 @@ class RetailerBuyerService {
   static const String _queryGetCheeseBlock ="getCheeseBlock";
 
 
-  Future<List<Product>> getCheeseBlockList(String wallet) async {
+  Future<List<ProductPurchased>> getCheeseBlockList(String wallet) async {
     String url = API.buildURL(API.RetailerNodePort,API.RetailerBuyerService, API.Query, _queryGetCheeseBlockListIDPurchase);
 
     print(url);
@@ -37,10 +37,10 @@ class RetailerBuyerService {
         final List<String> idList = jsonData['output'].cast<String>();
 
         print("List : "+idList.toString());
-        List<Product> productList = [];
+        List<ProductPurchased> productList = [];
 
         for (int i = 0; i < idList.length; i++) {
-          Product product = await getCheeseBlock(idList[i],wallet);
+          ProductPurchased product = await getCheeseBlock(idList[i],wallet);
           productList.add(product);
         }
 
@@ -55,7 +55,7 @@ class RetailerBuyerService {
   }
 
 
-  Future<Product> getCheeseBlock(String cheeseId, String walletRetailer) async {
+  Future<ProductPurchased> getCheeseBlock(String cheeseId, String walletRetailer) async {
     
     String url = API.buildURL(API.RetailerNodePort,API.RetailerBuyerService, API.Query, _queryGetCheeseBlock);
     
@@ -69,7 +69,7 @@ class RetailerBuyerService {
       
       final jsonData = jsonDecode(response.body);
 
-      return CheeseBlock.fromJson(jsonData,walletRetailer);
+      return CheeseBlockPurchased.fromJson(jsonData);
     }else{
         throw Exception('Failed to fetch CheesePiece Id List: ${response.statusCode}');
     }

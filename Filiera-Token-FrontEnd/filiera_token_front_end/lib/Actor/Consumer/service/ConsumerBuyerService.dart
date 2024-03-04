@@ -6,7 +6,7 @@ import 'dart:convert';
 
 class ConsumerBuyerService {
 
-  Future<List<Product>> getCheesePieceList(String wallet) async {
+  Future<List<ProductPurchased>> getCheesePieceList(String wallet) async {
     String url = API.buildURL(API.ConsumerNodePort, API.ConsumerBuyerInventoryService, API.Query, "getUserCheesePieceIds");
 
     print(url);
@@ -30,10 +30,10 @@ class ConsumerBuyerService {
         final List<String> idList = jsonData['output'].cast<String>();
 
         print("List : "+idList.toString());
-        List<Product> productList = [];
+        List<ProductPurchased> productList = [];
 
         for (int i = 0; i < idList.length; i++) {
-          Product product = await getCheesePiece(idList[i],wallet);
+          ProductPurchased product = await getCheesePiece(idList[i],wallet);
           productList.add(product);
         }
 
@@ -49,7 +49,7 @@ class ConsumerBuyerService {
 
   // Effettuo una chiamata di prova per cercare di aggiungere i prodotti 
 
-  Future<Product> addCheesePiece(String id, String price, String walletConsumerBuyer, String walletRetailer, String weight) async {
+  Future<ProductPurchased> addCheesePiece(String id, String price, String walletConsumerBuyer, String walletRetailer, String weight) async {
     final url = API.buildURL(API.ConsumerNodePort, API.ConsumerBuyerInventoryService, API.Invoke, "addCheesePiece");
     
     final body = jsonEncode({
@@ -70,7 +70,7 @@ class ConsumerBuyerService {
 
         print(jsonData);
 
-        return CheesePiece.fromJson(jsonData);
+        return CheesePiecePurchased.fromJson(jsonData);
       } else {
         throw Exception('Failed to fetch CheesePiece: ${response.statusCode}');
       }
@@ -80,7 +80,7 @@ class ConsumerBuyerService {
     }
   }
 
-  Future<Product> getCheesePiece(String cheeseId, String walletConsumerBuyer) async {
+  Future<ProductPurchased> getCheesePiece(String cheeseId, String walletConsumerBuyer) async {
     
     String url = API.buildURL(API.ConsumerNodePort, API.ConsumerBuyerInventoryService, API.Query, "getCheesePiece");
     
@@ -94,7 +94,7 @@ class ConsumerBuyerService {
       
       final jsonData = jsonDecode(response.body);
 
-      return CheesePiece.fromJson(jsonData);
+      return CheesePiecePurchased.fromJson(jsonData);
     }else{
         throw Exception('Failed to fetch CheesePiece Id List: ${response.statusCode}');
     }

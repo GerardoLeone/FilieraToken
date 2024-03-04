@@ -303,7 +303,7 @@ class CheeseBlockPurchased extends ProductPurchased {
     String description = "Silos contenente formaggio, disponibile all'acquisto immediato."; // Changed description
     
     String id = cheeseBlockData['output'];
-    String milkBatchId = cheeseBlockData['output1']; // TODO: Replace with function that returns the name of the CheeseProducer from CheeseProducerServiceù
+    String seller = cheeseBlockData['output1']; // TODO: Replace with function that returns the name of the CheeseProducer from CheeseProducerServiceù
     String dop = cheeseBlockData['output2'];
     int quantity = int.parse(cheeseBlockData['output3']); // Parsing quantity as int
 
@@ -311,7 +311,7 @@ class CheeseBlockPurchased extends ProductPurchased {
       id: id, 
       name: name, 
       description: description, 
-      seller: milkBatchId, 
+      seller: seller, 
       dop: dop, 
       quantity: quantity);
   }
@@ -419,10 +419,11 @@ class CheesePiecePurchased extends ProductPurchased {
   static ProductPurchased fromJson(Map<String, dynamic> cheesePiece) {
     String name = "Pezzo di Formaggio";
     String description = "Pezzo di formaggio di alta qualità.";
+
     String id = cheesePiece['output'];
     String seller = cheesePiece["output1"];
-    double price = double.parse(cheesePiece['output2'] as String); // Parsing price as double
-    double weight = double.parse(cheesePiece['output3'] as String);
+    double price = int.parse(cheesePiece['output2'] as String) as double; // Parsing price as double
+    double weight = int.parse(cheesePiece['output3'] as String) as double;
 
     return CheesePiecePurchased(
       id: id, 

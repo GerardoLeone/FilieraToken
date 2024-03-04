@@ -135,21 +135,20 @@ class DialogConversionCenterPurchased extends StatefulWidget {
 class _DialogConversionCenterStatePurchased extends State<DialogConversionCenterPurchased> {
   TextEditingController? _quantityToConvert;
   TextEditingController? _priceDecision;
-  late String quantityValue;
   bool _loading = false;
 
   @override
   void initState() {
     _quantityToConvert = TextEditingController();
+    _priceDecision = TextEditingController();
     super.initState();
-    quantityValue = '';
   }
 
   @override
   void dispose() {
     _quantityToConvert?.dispose();
+    _priceDecision?.dispose();
     super.dispose();
-    quantityValue = '';
   }
 
   Future<void> _convertProduct() async {
@@ -160,17 +159,24 @@ class _DialogConversionCenterStatePurchased extends State<DialogConversionCenter
     ProductPurchased product = widget.product;
     bool conversionSuccess = false;
 
+    print("Metodo di conversione prima del try");
+
     try {
       if (product is MilkBatchPurchased) {
         CheeseProducerInventoryService cheeseProducerInventoryService =
             CheeseProducerInventoryService();
+            print("Sono nel metodo di conversione (dentro il try)");
+        print(widget.wallet);
+        print(product.id);
+        print(_quantityToConvert!.text);
+        print(_priceDecision!.text);
         conversionSuccess = await cheeseProducerInventoryService.transformMilkBatch(
-            widget.wallet, product.id, quantityValue, product.getQuantity().toString(), "DOP");
+            widget.wallet, product.id, _quantityToConvert!.text, _priceDecision!.text, "DOP");
       } else if (product is CheeseBlockPurchased) {
         RetailerInventoryService retailerInventoryService =
             RetailerInventoryService();
         conversionSuccess = await retailerInventoryService.transformCheesePiece(
-            widget.wallet, _priceDecision!.text, quantityValue, product.getExpirationDate());
+            widget.wallet, _priceDecision!.text, _quantityToConvert!.text, product.getExpirationDate());
       }
     } catch (error) {
       // Gestisci l'errore qui, mostra un alert dialog o esegui altre azioni necessarie
@@ -233,6 +239,7 @@ class _DialogConversionCenterStatePurchased extends State<DialogConversionCenter
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildTextForm(),
+          _buildPriceForm(),
           SizedBox(height: 30),
           _loading
               ? CustomLoadingIndicator(progress: 0.5)

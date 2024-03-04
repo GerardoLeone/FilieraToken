@@ -220,7 +220,7 @@ class CheeseBlock extends Product {
   String getBarcode() => 'Cheese-$id';
 
   @override
-  double getUnitPrice() => price / quantity;
+  double getUnitPrice() => price;
 
   @override
   String toString() => 'Cheese(id: $id, dop: $dop, prezzo: $price, '

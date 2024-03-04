@@ -20,6 +20,8 @@ class MilkHubInventoryService {
     String url = API.buildURL(API.MilkHubNodePort, API.MilkHubInventoryService, API.Query, "getUserMilkBatchIds");
     final headers = API.getHeaders();
     final body = jsonEncode(API.getMilkHubPayload(walletMilkHub)); // Prepare JSON body with wallet data
+    print(url);
+    print(body);
 
     try {
       final response = await http.post(Uri.parse(url), headers: headers, body: body);
@@ -34,8 +36,12 @@ class MilkHubInventoryService {
         List<Product> productList = [];
 
         for (int i = 0; i < idList.length; i++) {
+          
+          if(idList[i].compareTo('0')!=0){
+
           Product product = await getMilkBatch(walletMilkHub, idList[i]);
           productList.add(product);
+        }
         }
 
         return productList;
@@ -56,7 +62,7 @@ class MilkHubInventoryService {
     
     
     try {
-    
+        print("Sono nella funzione di getMilkBatchAll");
         List<String> addressMilkHubList = await milkhubService.getListMilkHubs();
         List<Product> productList = [];
 
@@ -86,7 +92,7 @@ class MilkHubInventoryService {
     final headers = API.getHeaders();
     final body = jsonEncode(API.getMilkBatchPayload(wallet, id));
 
-      print(url);
+    print(url);
     print(headers);
     print(body);
 
@@ -96,7 +102,7 @@ class MilkHubInventoryService {
       if (response.statusCode == 200 || response.statusCode == 202) {
         final jsonData = jsonDecode(response.body);
 
-        return MilkBatch.fromJson(jsonData);
+        return MilkBatch.fromJson(jsonData,wallet);
       } else {
           throw Exception('Failed to fetch MilkBatch: ${response.statusCode}');
       }
@@ -111,12 +117,16 @@ class MilkHubInventoryService {
   /**
    * Questa funzione permette di aggiungere un MilkBatch all'interno del sistema, restituendo true se va a buon fine, false altrimenti.
    */
-  static Future<bool> addMilkBatch(String wallet, double price, int quantity, String expirationDate) async {
-    String url = API.buildURL(API.MilkHubNodePort, API.MilkHubInventoryService, API.Invoke, "getMilkBatch");
+  Future<bool> addMilkBatch(String wallet, String price, String quantity, String expirationDate) async {
+    String url = API.buildURL(API.MilkHubNodePort, API.MilkHubInventoryService, API.Invoke, "addMilkBatch");
     final headers = API.getHeaders();
-    final body = jsonEncode(API.getMilkBatchBody(wallet, price.toString(), quantity.toString(), expirationDate));
+    final body = jsonEncode(API.getMilkBatchBody(wallet, price, quantity, expirationDate));
+
+    print("Body of Calling Add Milkbatch : "+body.toString());
     try {
       final response = await http.post(Uri.parse(url), headers: headers, body: body);
+
+      print(response.body);
 
       if (response.statusCode == 200 || response.statusCode == 202) {        
         return true;

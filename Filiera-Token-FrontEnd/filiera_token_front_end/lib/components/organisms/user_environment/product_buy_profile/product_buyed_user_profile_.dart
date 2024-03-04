@@ -16,8 +16,12 @@ import 'package:get_it/get_it.dart';
 //Prodotti acquistati
 class UserProfileProductBuyed extends StatefulWidget {
 
-  
-  const UserProfileProductBuyed({Key? key, required String userType, required String idUser}) : super(key: key);
+  final String  userType;
+  final String idUser;
+  const UserProfileProductBuyed({Key? key, 
+  required this.userType,
+   required this.idUser
+   }) : super(key: key);
 
   @override
   State<UserProfileProductBuyed> createState() => _UserProfileProductBuyedState();
@@ -202,9 +206,12 @@ class _UserProfileProductBuyedState extends State<UserProfileProductBuyed> with 
     // Esegui azioni diverse in base alla pagina
 
     DialogProductDetails.show(
-      context, 
+      context,
+      user!.wallet, 
       product,
       DialogType.DialogConversion,
+      widget.userType,
+      product.seller
       );
   }
 

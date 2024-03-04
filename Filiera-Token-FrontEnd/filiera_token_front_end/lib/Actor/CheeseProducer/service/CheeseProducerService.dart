@@ -105,7 +105,7 @@ class CheeseProducerService{
 
     final body = jsonEncode({
       "input": {
-        "_id": id,
+        "id": id,
         "walletCheeseProducer": wallet,
       }
     });

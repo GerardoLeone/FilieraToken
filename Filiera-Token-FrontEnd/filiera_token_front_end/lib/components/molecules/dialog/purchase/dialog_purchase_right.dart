@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
 
 class DialogPurchaseRight extends StatelessWidget {
+  final String wallet;
+
+  DialogPurchaseRight(this.wallet);
+
+
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 200,
+      width: 300,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -40,7 +50,7 @@ class DialogPurchaseRight extends StatelessWidget {
                 ),
                 SizedBox(height: 8),
                 Text(
-                  '-email\n-address',
+                  '° Address :\n'+wallet,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 16,

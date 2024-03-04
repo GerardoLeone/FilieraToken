@@ -35,8 +35,12 @@ class RetailerInventoryService {
         List<Product> productList = [];
 
         for (int i = 0; i < idList.length; i++) {
+
+        if(idList[i].compareTo('0')!=0){
+
           Product product = await getCheesePiece(wallet, idList[i]);
           productList.add(product);
+        }
         }
 
         return productList;
@@ -71,7 +75,7 @@ class RetailerInventoryService {
     }
   }
 
-  static Future<bool> transformMilkBatch(String wallet, double price, int quantity, String expirationDate) async {
+Future<bool> transformCheesePiece(String wallet, String price, String quantity, String expirationDate) async {
     String url = API.buildURL(API.RetailerNodePort,API.RetailerInventoryService, API.Query, "getCheesePiece");
     final headers = API.getHeaders();
     final body = jsonEncode(API.getCheesePieceBody(wallet,"", price.toString(), quantity.toString(), expirationDate));

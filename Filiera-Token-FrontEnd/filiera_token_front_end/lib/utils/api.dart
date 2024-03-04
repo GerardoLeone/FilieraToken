@@ -42,6 +42,7 @@ class API {
 
 
   static const String TransactionBuyMilkBatchService = "TransactionBuyMilkBatchService";
+  static const String TransactionBuyCheeseService = "TransactionBuyCheeseService";
 
   /**
    * Questa funzione permette di costruire l'URL per la chiamata di un metodo dell'API utilizzando le costanti offerte dalla classe api.dart
@@ -189,6 +190,8 @@ class API {
     };
   }
 
+
+
 //----------------------------------------------------------- Get Body Product for Buyer --------------------------------------------------------------------------
 
 
@@ -247,6 +250,17 @@ class API {
     };
   }
 
-  
+  static buyCheeseBlockProductBody(String cheeseBlockId, String quantityToBuy, String buyer, String ownerCheese, String totalPrice)
+  {
+    return {
+        "input": {
+        "_id_Cheese": cheeseBlockId,
+        "_quantityToBuy": quantityToBuy,
+        "buyer": buyer,
+        "ownerCheese": ownerCheese,
+        "totalPrice": totalPrice
+      }
+    };
+  }
 
 }

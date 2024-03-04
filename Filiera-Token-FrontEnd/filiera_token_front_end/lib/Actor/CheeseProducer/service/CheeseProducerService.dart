@@ -187,6 +187,7 @@ class CheeseProducerService{
 
     final response = await http.post(
       Uri.parse(url),
+      body: jsonEncode({}),
      headers: headers,
     );
 

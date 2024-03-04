@@ -8,13 +8,9 @@ import 'package:http/http.dart' as http;
 
 class RetailerBuyerService {
 
-  static const String _queryGetCheeseBlockListIDPurchase="getUserCheeseBlockIds";
-
-  static const String _queryGetCheeseBlock ="getCheeseBlock";
-
 
   Future<List<ProductPurchased>> getCheeseBlockList(String wallet) async {
-    String url = API.buildURL(API.RetailerNodePort,API.RetailerBuyerService, API.Query, _queryGetCheeseBlockListIDPurchase);
+    String url = API.buildURL(API.RetailerNodePort,API.RetailerBuyerService, API.Query, "getUserCheeseBlockIds");
 
     print(url);
 
@@ -57,12 +53,18 @@ class RetailerBuyerService {
 
   Future<ProductPurchased> getCheeseBlock(String cheeseId, String walletRetailer) async {
     
-    String url = API.buildURL(API.RetailerNodePort,API.RetailerBuyerService, API.Query, _queryGetCheeseBlock);
+    String url = API.buildURL(API.RetailerNodePort,API.RetailerBuyerService, API.Query, "getCheeseBlock");
+    print("Sono nel Metodo di Getting del Retailer Buyer !");
     
     final body = jsonEncode(API.getCheeseBlockForRetailerBody(cheeseId, walletRetailer));
     final headers = API.getHeaders();
 
+    print("[BODY]: "+body);
+    print("[URL]:"+url);
+
     final response = await http.post(Uri.parse(url), body: body, headers: headers);
+
+    print(response.body);
 
     if(response.statusCode == 200){
       print(response.toString());

@@ -130,7 +130,7 @@ class _UserProfileProductBuyedState extends State<UserProfileProductBuyed> with 
           productList = retailerBuyerService.getCheeseBlockList(wallet);
           break; 
         default:
-          print("Errore nella selezione dell'attore in fase di build (home_user_page.dart)");
+          print("Errore nella selezione dell'attore in fase di build (product_buyed_page.dart)");
           break;
       }
 

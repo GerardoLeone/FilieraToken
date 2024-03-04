@@ -124,10 +124,10 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
         productList = milkHubInventoryService.getMilkBatchListAll(wallet);
         break;
       case Actor.Retailer:
-        productList = cheeseProducerInventoryService.getCheeseBlockList(wallet);
+        productList = cheeseProducerInventoryService.getCheeseBlockAll(wallet);
         break;
       case Actor.Consumer:
-        productList = retailerInventoryService.getCheesePieceList(wallet);
+        productList = retailerInventoryService.getCheesePieceAll(wallet);
         break;  
       default:
         print("Errore nella selezione dell'attore in fase di build (home_user_page.dart)");

@@ -17,7 +17,7 @@ class API {
    * Costanti MilkHub
    */
   static const String MilkHubService = "MilkHubService";
-  static const String MilkHubInventoryService = "MilkHubInventoryService-2";
+  static const String MilkHubInventoryService = "MilkHubInventoryService";
 
   /**
    * Costanti CheeseProducer

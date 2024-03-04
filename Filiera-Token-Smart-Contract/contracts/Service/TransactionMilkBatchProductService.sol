@@ -33,7 +33,7 @@ contract TransactionMilkBatchProductService {
     MilkHubInventoryService private milkhubInventoryService;
 
     // CheeseProducer - Contains MilkBatch (product bought by CheeseProducer).
-    CheeseProducerBuyerService private cheeseProducerMilkBatchService;
+    CheeseProducerBuyerService private cheeseProducerBuyerService;
 
 
         /**
@@ -44,7 +44,7 @@ contract TransactionMilkBatchProductService {
      * @param _cheeseProducerService Indirizzo del contratto CheeseProducerService.
      * 
      * @param _milkhubInventoryServiceAddress Indirizzo del contratto MilkHubInventoryService.
-     * @param _cheeseProducerMilkBatchServiceAddress Indirizzo del contratto CheeseProducerBuyerService.
+     * @param _cheeseProducerBuyerServiceAddress Indirizzo del contratto CheeseProducerBuyerService.
      * 
      * 
      */
@@ -55,7 +55,7 @@ contract TransactionMilkBatchProductService {
         address _cheeseProducerService,
 
         address _milkhubInventoryServiceAddress,
-        address _cheeseProducerMilkBatchServiceAddress
+        address _cheeseProducerBuyerServiceAddress
         ){
         // Filiera Token Service 
         filieraTokenService = Filieratoken(_filieraToken);
@@ -69,7 +69,7 @@ contract TransactionMilkBatchProductService {
         
         // Inventory Service 
         milkhubInventoryService = MilkHubInventoryService(_milkhubInventoryServiceAddress);
-        cheeseProducerMilkBatchService = CheeseProducerBuyerService(_cheeseProducerMilkBatchServiceAddress);
+        cheeseProducerBuyerService = CheeseProducerBuyerService(_cheeseProducerBuyerServiceAddress);
     }
 
     /**
@@ -114,7 +114,7 @@ contract TransactionMilkBatchProductService {
         milkhubInventoryService.updateMilkBatchQuantity(ownerMilkBatch, _id_MilkBatch, currentQuantity - _quantityToBuy);
 
         // Aggiunta del MilkBatch nell'inventario del CheeseProducer
-        cheeseProducerMilkBatchService.addMilkBatch(
+        cheeseProducerBuyerService.addMilkBatch(
             ownerMilkBatch,
             buyer, 
             _id_MilkBatch,

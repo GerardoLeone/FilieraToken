@@ -20,6 +20,8 @@ class MilkHubInventoryService {
     String url = API.buildURL(API.MilkHubNodePort, API.MilkHubInventoryService, API.Query, "getUserMilkBatchIds");
     final headers = API.getHeaders();
     final body = jsonEncode(API.getMilkHubPayload(walletMilkHub)); // Prepare JSON body with wallet data
+    print(url);
+    print(body);
 
     try {
       final response = await http.post(Uri.parse(url), headers: headers, body: body);

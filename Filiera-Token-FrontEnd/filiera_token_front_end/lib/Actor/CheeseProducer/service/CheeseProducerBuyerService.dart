@@ -50,7 +50,7 @@ class CheeseProducerBuyerService {
         throw Exception('Failed to fetch MilkBatch Id List: ${response.statusCode}');
       }
     } catch (error) {
-      print('Error fetching CheesePiece Id List: $error');
+      print('Error fetching MilkBatch Id List: $error');
       rethrow;
     }
   }

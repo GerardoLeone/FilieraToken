@@ -15,7 +15,7 @@
 "address": "0x0b2eb708b87f50d821f25055308528f191c4cadd"
 
 * - MilkHubInventoryService Address
-"address": "0x698d3cb5b567240c6988326189ec44e938819759"
+"address": "0x61b476f1b8bec604e9a067d43e410ababc2e4b14"
 
 ---------------------------------------------------------------
 
@@ -36,7 +36,7 @@
 "address": "0x41b02bd600b93ba9f860982100e3c844558d3e5c"
 
 * - RetailerBuyerService Address
-"address": "0xe690d40fdce492c7eabddbe94fb87ba1cfc40754"
+"address": "0x666cad5031d4472bad47df2996fab9b0bd3cd0c7"
 
 ---------------------------------------------------------------
 
@@ -51,7 +51,7 @@
 "address": "0xdfd65896df9fa146f65090e88b10fedb820dcf3e"
 
 * - ConsumerBuyerService Address
-"address": "0x354cd469310e22149f036c7c2783b642c9d090ba"
+"address": "0x698d3cb5b567240c6988326189ec44e938819759"
 
 ---------------------------------------------------------------
 
@@ -72,13 +72,13 @@
 "address": "0x3e52a7cd211580a96feb2424313a3f18d3e90b18"
 
 * - CheeseProducerBuyerService Address
-"address": "0x61b476f1b8bec604e9a067d43e410ababc2e4b14"
+"address": "0xe690d40fdce492c7eabddbe94fb87ba1cfc40754"
 
 ---------------------------------------------------------------
 
 - AccessControlProduct:
 * - AccessControlProduct Address
-"address": "0x666cad5031d4472bad47df2996fab9b0bd3cd0c7"
+"address": "0x354cd469310e22149f036c7c2783b642c9d090ba"
 
 ---------------------------------------------------------------
 

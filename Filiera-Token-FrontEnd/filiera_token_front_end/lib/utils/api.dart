@@ -108,7 +108,7 @@ class API {
   static Map<String, dynamic> getCheesePieceRetailerPayload(String wallet, String id){
     return {
       'input': {
-        'id': id,
+        'idCheesePiece': id,
         'walletRetailer': wallet
       }
     };
@@ -223,6 +223,7 @@ class API {
       }
     };
   }
+
   static Map<String, dynamic> getTransformRetailerBody(String idCheeseBlock, String price, String quantityToTransform, String walletRetailer) {
     return {
       "input": {

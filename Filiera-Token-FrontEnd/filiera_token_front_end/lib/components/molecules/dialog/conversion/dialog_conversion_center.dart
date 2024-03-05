@@ -56,7 +56,7 @@ class _DialogConversionCenterState extends State<DialogConversionCenter> {
         RetailerInventoryService retailerInventoryService =
             RetailerInventoryService();
         conversionSuccess = await retailerInventoryService.transformCheesePiece(
-            widget.wallet, product.price.toString(), quantityValue, product.getExpirationDate());
+            widget.wallet, product.id, quantityValue, product.price.toString());
       }
     } catch (error) {
       // Gestisci l'errore qui, mostra un alert dialog o esegui altre azioni necessarie
@@ -176,7 +176,7 @@ class _DialogConversionCenterStatePurchased extends State<DialogConversionCenter
         RetailerInventoryService retailerInventoryService =
             RetailerInventoryService();
         conversionSuccess = await retailerInventoryService.transformCheesePiece(
-            widget.wallet, _priceDecision!.text, _quantityToConvert!.text, product.getExpirationDate());
+            widget.wallet, product.id, _quantityToConvert!.text, _priceDecision!.text);
       }
     } catch (error) {
       // Gestisci l'errore qui, mostra un alert dialog o esegui altre azioni necessarie

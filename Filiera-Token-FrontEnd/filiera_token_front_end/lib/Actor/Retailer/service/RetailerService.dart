@@ -186,13 +186,17 @@ class RetailerService {
 
     final response = await http.post(
       Uri.parse(url),
+      body: jsonEncode({}),
      headers: headers,
     );
 
     if (response.statusCode == 200) {
+
       final jsonData = jsonDecode(response.body);
 
+
       final List<String> retailerList = jsonData['output'].cast<String>();
+
 
       return retailerList;
     

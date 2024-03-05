@@ -85,10 +85,8 @@ contract RetailerBuyerService {
 
     
     //TODO : Controllo sull'owner del CheeseBlock Acquistato 
-    function getCheeseBlock(uint256 idCheeseBlock) external view checkAddress(msg.sender) returns (uint256, address, string memory, uint256) {
+    function getCheeseBlock(address walletRetailer,uint256 idCheeseBlock) external view checkAddress(walletRetailer) returns (uint256, address, string memory, uint256) {
         
-        address walletRetailer = msg.sender;
-
         require(retailerService.isUserPresent(walletRetailer), "Utente non trovato!");
 
         require(this.isCheeseBlockPresent(walletRetailer,idCheeseBlock),"Prodotto non Presente!");
@@ -98,7 +96,7 @@ contract RetailerBuyerService {
 
 
     
-    function getDop(address walletRetailer, uint256 idCheeseBlock) external view checkAddress(msg.sender) returns(string memory) {
+    function getDop(address walletRetailer, uint256 idCheeseBlock) external view checkAddress(walletRetailer) returns(string memory) {
         
         require(retailerService.isUserPresent(walletRetailer), "Utente non trovato!");
 
@@ -108,7 +106,7 @@ contract RetailerBuyerService {
     }
 
     
-    function getQuantity(address walletRetailer, uint256 idCheeseBlock) external view checkAddress(msg.sender) returns(uint256) {
+    function getQuantity(address walletRetailer, uint256 idCheeseBlock) external view checkAddress(walletRetailer) returns(uint256) {
         
         require(retailerService.isUserPresent(walletRetailer), "Utente non trovato!");
 
@@ -118,7 +116,7 @@ contract RetailerBuyerService {
     }
 
     
-    function getWalletCheeseProducer(address walletRetailer, uint256 idCheeseBlock) external view checkAddress(msg.sender) returns(address) {
+    function getWalletCheeseProducer(address walletRetailer, uint256 idCheeseBlock) external view checkAddress(walletRetailer) returns(address) {
         
         require(retailerService.isUserPresent(walletRetailer), "Utente non trovato!");
 

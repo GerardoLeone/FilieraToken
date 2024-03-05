@@ -13,11 +13,9 @@ class RetailerInventoryService {
   Future<List<Product>> getCheesePieceList(String wallet) async {
     String url = API.buildURL(API.RetailerNodePort, API.RetailerInventoryService, API.Query, "getUserCheesePieceIds");
 
-    print(url);
 
     final headers = API.getHeaders();
 
-    print(headers);
 
     final body = jsonEncode(API.getRetailerPayload(wallet));
 
@@ -59,13 +57,14 @@ class RetailerInventoryService {
     
     final body = jsonEncode(API.getCheesePieceRetailerPayload(wallet, id));
 
+    print(body);
     try {
       final response = await http.post(Uri.parse(url), headers: headers, body: body);
 
       if (response.statusCode == 200 || response.statusCode == 202) {
         final jsonData = jsonDecode(response.body);
 
-        return CheesePiece.fromJson(jsonData);
+        return CheesePiece.fromJson(jsonData, wallet);
       } else {
         throw Exception('Failed to fetch CheesePiece: ${response.statusCode}');
       }
@@ -75,20 +74,25 @@ class RetailerInventoryService {
     }
   }
 
-Future<bool> transformCheesePiece(String wallet, String price, String quantity, String expirationDate) async {
-    String url = API.buildURL(API.RetailerNodePort,API.RetailerInventoryService, API.Query, "getCheesePiece");
+  Future<bool> transformCheesePiece(String wallet, String idCheeseBlock, String quantityToTransform, String price) async {
+    String url = API.buildURL(API.RetailerNodePort, API.RetailerInventoryService, API.Invoke, "transformCheeseBlock");
     final headers = API.getHeaders();
-    final body = jsonEncode(API.getCheesePieceBody(wallet,"", price.toString(), quantity.toString(), expirationDate));
+    final body = jsonEncode(API.getTransformRetailerBody(idCheeseBlock, price, quantityToTransform, wallet));
+
+    print(url);
+    print(headers);
+    print(body);
     try {
       final response = await http.post(Uri.parse(url), headers: headers, body: body);
 
-      if (response.statusCode == 200 || response.statusCode == 202) {
+      if (response.statusCode == 200 || response.statusCode == 202) {        
         return true;
       } else {
-        throw Exception('Failed to add CheesePiece: ${response.statusCode}');
+          throw Exception('Failed to transform CheeseBlock in CheesePiece: ${response.statusCode}');
       }
+
     } catch (error) {
-      print('Error adding CheesePiece: $error');
+      print('Error transforming CheeseBlock in CheesePiece: $error');
       rethrow;
     }
   }
@@ -100,9 +104,11 @@ Future<bool> transformCheesePiece(String wallet, String price, String quantity, 
     
     
     try {
+
     
         List<String> addressRetailerList = await retailerService.getListRetailers();
         List<Product> productList = [];
+
 
         for (int i = 0; i < addressRetailerList.length; i++) {
         

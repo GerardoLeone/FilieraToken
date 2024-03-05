@@ -30,8 +30,8 @@ contract CheeseProducerInventoryStorage {
     function addCheeseBlock(
             address walletCheeseProducer,
             string memory dop,
-            uint256 price,
-            uint256 quantity
+            uint256 quantity,
+            uint256 price
         ) external returns (uint256 , string memory , uint256 , uint256 ){
 
         uint256 id = uint256(keccak256(abi.encodePacked(

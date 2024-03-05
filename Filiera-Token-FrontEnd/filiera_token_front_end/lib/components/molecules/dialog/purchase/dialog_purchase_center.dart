@@ -43,43 +43,138 @@ class _DialogPurchaseCenterState extends State<DialogPurchaseCenter> {
   }
 
   
-  Widget _buildBuyButton(){
+  Widget _buildBuyButton() {
     return ElevatedButton(
-              onPressed: () {
-                Product productToBuy = widget.product;
-                // BuyLogic 
-                switch(widget.userType){
-                  case "Consumer":{
+      onPressed: () async {
+        Product productToBuy = widget.product;
+        // BuyLogic 
+        switch (widget.userType) {
+          case "Consumer": {
+              // Converto e calcolo il prezzo totale 
+            String quantityToBuy = _quantityToBuy!.text;
+            print("Sono nel metodo di acquisto!");
+            int totalPrice = int.parse(quantityToBuy) * int.parse(productToBuy.getUnitPrice().toString());
+            print("Prezzo totale: " + totalPrice.toString());
+            String priceToPay = totalPrice.toString();
 
-                  }
-                  case "CheeseProducer":{
-                    // Converto e calcolo il prezzo totale 
-                    String quantityToBuy = _quantityToBuy!.text;
-                    print("Sono nel metodo di acquisto!");
-                    int totalPrice = int.parse(quantityToBuy) * int.parse(productToBuy.getUnitPrice().toString());
-                    print("Prezzo totale :"+totalPrice.toString());
-                    String priceToPay = totalPrice.toString();
+            print("Product Seller : " + productToBuy.seller);
+            print("Product buyer:" + widget!.buyer);
 
-                    print("Product Seller : "+productToBuy.seller);
-                    print("Product buyer:"+widget!.buyer);
-                    if(transactionService.buyMilkBatchProduct( productToBuy.id, quantityToBuy,widget.buyer,productToBuy.seller,priceToPay )==true  && (int.parse(_quantityToBuy!.text)<= productToBuy.getQuantity()) ){
-                            // Show success Transaction 
-                            CustomPopUpDialog.showBuyMilkBatchSuccess(context, "Transazione avvenuta con successo!");
+            // Verifica se la quantità desiderata è disponibile
+            if (int.parse(quantityToBuy) <= productToBuy.getQuantity()) {
+              try {
+                bool success = await transactionService.buyCheesePieceProduct(
+                  productToBuy.id,
+                  quantityToBuy,
+                  widget.buyer,
+                  productToBuy.seller,
+                  priceToPay,
+                );
 
-                    }else{
-                      CustomPopUpDialog.showBuyMilkBatchError(context);
-                    }
-
-
-                  }
-                  case "Retailer":{
-
-                  }
+                if (success) {
+                  // Mostra la transazione di successo
+                  CustomPopUpDialog.showBuyMilkBatchSuccess(context, "Transazione avvenuta con successo!");
+                } else {
+                  CustomPopUpDialog.showBuyMilkBatchError(context);
                 }
-              },
-              child: Text('Buy'),
-      );
+              } catch (error) {
+                // Gestione degli errori, se necessario
+                print("Errore durante l'acquisto: $error");
+                CustomPopUpDialog.showBuyMilkBatchError(context);
+              }
+            } else {
+              // Mostra un messaggio che la quantità desiderata non è disponibile
+              CustomPopUpDialog.showBuyMilkBatchErrorMsg(context, "Transazione Errata! Quantità richiesta non disponibile.");
+            }
+
+            break;
+
+          }
+          case "CheeseProducer": {
+            // Converto e calcolo il prezzo totale 
+            String quantityToBuy = _quantityToBuy!.text;
+            print("Sono nel metodo di acquisto!");
+            int totalPrice = int.parse(quantityToBuy) * int.parse(productToBuy.getUnitPrice().toString());
+            print("Prezzo totale: " + totalPrice.toString());
+            String priceToPay = totalPrice.toString();
+
+            print("Product Seller : " + productToBuy.seller);
+            print("Product buyer:" + widget!.buyer);
+
+            // Verifica se la quantità desiderata è disponibile
+            if (int.parse(quantityToBuy) <= productToBuy.getQuantity()) {
+              try {
+                bool success = await transactionService.buyMilkBatchProduct(
+                  productToBuy.id,
+                  quantityToBuy,
+                  widget.buyer,
+                  productToBuy.seller,
+                  priceToPay,
+                );
+
+                if (success) {
+                  // Mostra la transazione di successo
+                  CustomPopUpDialog.showBuyMilkBatchSuccess(context, "Transazione avvenuta con successo!");
+                } else {
+                  CustomPopUpDialog.showBuyMilkBatchError(context);
+                }
+              } catch (error) {
+                // Gestione degli errori, se necessario
+                print("Errore durante l'acquisto: $error");
+                CustomPopUpDialog.showBuyMilkBatchError(context);
+              }
+            } else {
+              // Mostra un messaggio che la quantità desiderata non è disponibile
+              CustomPopUpDialog.showBuyMilkBatchErrorMsg(context, "Transazione Errata! Quantità richiesta non disponibile.");
+            }
+
+            break;
+          }
+          case "Retailer": {
+            String quantityToBuy = _quantityToBuy!.text;
+            print("Sono nel metodo di acquisto del Retailer!");
+            int totalPrice = int.parse(quantityToBuy) * int.parse(productToBuy.getUnitPrice().toString());
+            print("Prezzo totale: " + totalPrice.toString());
+            String priceToPay = totalPrice.toString();
+
+            print("Product Seller : " + productToBuy.seller);
+            print("Product buyer:" + widget!.buyer);
+
+            // Verifica se la quantità desiderata è disponibile
+            if (int.parse(quantityToBuy) <= productToBuy.getQuantity()) {
+              try {
+                bool success = await transactionService.buyCheeseBlockProduct(
+                  productToBuy.id,
+                  quantityToBuy,
+                  widget.buyer,
+                  productToBuy.seller,
+                  priceToPay,
+                );
+
+                if (success) {
+                  // Mostra la transazione di successo
+                  CustomPopUpDialog.showBuyMilkBatchSuccess(context, "Transazione avvenuta con successo!");
+                } else {
+                  CustomPopUpDialog.showBuyMilkBatchError(context);
+                }
+              } catch (error) {
+                // Gestione degli errori, se necessario
+                print("Errore durante l'acquisto: $error");
+                CustomPopUpDialog.showBuyMilkBatchError(context);
+              }
+            } else {
+              // Mostra un messaggio che la quantità desiderata non è disponibile
+              CustomPopUpDialog.showBuyMilkBatchErrorMsg(context, "Transazione Errata! Quantità richiesta non disponibile.");
+            }
+            
+          }
+        }
+      },
+      child: Text('Buy'),
+    );
   }
+
+
 
   Widget _buidlTextForm(){
     return TextField(

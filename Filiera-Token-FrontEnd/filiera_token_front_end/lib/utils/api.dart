@@ -38,10 +38,13 @@ class API {
    * Costanti Consumer
    */
   static const String ConsumerService = "ConsumerService";
-  static const String ConsumerBuyerInventoryService = "ConsumerBuyerService"; //TODO: Change the Name 
+  static const String ConsumerBuyerInventoryService = "ConsumerBuyerService2"; //TODO: Change the Name 
 
 
   static const String TransactionBuyMilkBatchService = "TransactionBuyMilkBatchService";
+  static const String TransactionBuyCheeseService = "TransactionBuyCheeseService";
+    static const String TransactionBuyCheesePieceService = "TransactionBuyCheesePieceService-3";
+
 
   /**
    * Questa funzione permette di costruire l'URL per la chiamata di un metodo dell'API utilizzando le costanti offerte dalla classe api.dart
@@ -107,7 +110,7 @@ class API {
   static Map<String, dynamic> getCheesePieceRetailerPayload(String wallet, String id){
     return {
       'input': {
-        'id': id,
+        'idCheesePiece': id,
         'walletRetailer': wallet
       }
     };
@@ -189,15 +192,17 @@ class API {
     };
   }
 
+
+
 //----------------------------------------------------------- Get Body Product for Buyer --------------------------------------------------------------------------
 
 
 
   static Map<String,dynamic> getCheesePieceForConsumerBody(String cheeseId,String walletConsumerBuyer){
     return {
-      'input': {
-        'idCheesePiece': cheeseId,
-        'walletConsumerBuyer': walletConsumerBuyer,
+          "input": {
+        "idCheesePiece": cheeseId,
+        "walletConsumer": walletConsumerBuyer
       },
     };
   }
@@ -220,6 +225,7 @@ class API {
       }
     };
   }
+
   static Map<String, dynamic> getTransformRetailerBody(String idCheeseBlock, String price, String quantityToTransform, String walletRetailer) {
     return {
       "input": {
@@ -247,6 +253,17 @@ class API {
     };
   }
 
-  
+  static buyCheeseBlockProductBody(String cheeseBlockId, String quantityToBuy, String buyer, String ownerCheese, String totalPrice)
+  {
+    return {
+        "input": {
+        "_id_Cheese": cheeseBlockId,
+        "_quantityToBuy": quantityToBuy,
+        "buyer": buyer,
+        "ownerCheese": ownerCheese,
+        "totalPrice": totalPrice
+      }
+    };
+  }
 
 }

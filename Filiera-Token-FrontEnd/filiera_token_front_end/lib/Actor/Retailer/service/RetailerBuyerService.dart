@@ -8,13 +8,9 @@ import 'package:http/http.dart' as http;
 
 class RetailerBuyerService {
 
-  static const String _queryGetCheeseBlockListIDPurchase="getUserCheeseBlockIds";
 
-  static const String _queryGetCheeseBlock ="getCheeseBlock";
-
-
-  Future<List<Product>> getCheeseBlockList(String wallet) async {
-    String url = API.buildURL(API.RetailerNodePort,API.RetailerBuyerService, API.Query, _queryGetCheeseBlockListIDPurchase);
+  Future<List<ProductPurchased>> getCheeseBlockList(String wallet) async {
+    String url = API.buildURL(API.RetailerNodePort,API.RetailerBuyerService, API.Query, "getUserCheeseBlockIds");
 
     print(url);
 
@@ -37,10 +33,10 @@ class RetailerBuyerService {
         final List<String> idList = jsonData['output'].cast<String>();
 
         print("List : "+idList.toString());
-        List<Product> productList = [];
+        List<ProductPurchased> productList = [];
 
         for (int i = 0; i < idList.length; i++) {
-          Product product = await getCheeseBlock(idList[i],wallet);
+          ProductPurchased product = await getCheeseBlock(idList[i],wallet);
           productList.add(product);
         }
 
@@ -55,21 +51,27 @@ class RetailerBuyerService {
   }
 
 
-  Future<Product> getCheeseBlock(String cheeseId, String walletRetailer) async {
+  Future<ProductPurchased> getCheeseBlock(String cheeseId, String walletRetailer) async {
     
-    String url = API.buildURL(API.RetailerNodePort,API.RetailerBuyerService, API.Query, _queryGetCheeseBlock);
+    String url = API.buildURL(API.RetailerNodePort,API.RetailerBuyerService, API.Query, "getCheeseBlock");
+    print("Sono nel Metodo di Getting del Retailer Buyer !");
     
     final body = jsonEncode(API.getCheeseBlockForRetailerBody(cheeseId, walletRetailer));
     final headers = API.getHeaders();
 
+    print("[BODY]: "+body);
+    print("[URL]:"+url);
+
     final response = await http.post(Uri.parse(url), body: body, headers: headers);
+
+    print(response.body);
 
     if(response.statusCode == 200){
       print(response.toString());
       
       final jsonData = jsonDecode(response.body);
 
-      return CheeseBlock.fromJson(jsonData,walletRetailer);
+      return CheeseBlockPurchased.fromJson(jsonData);
     }else{
         throw Exception('Failed to fetch CheesePiece Id List: ${response.statusCode}');
     }

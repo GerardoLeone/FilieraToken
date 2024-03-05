@@ -87,7 +87,7 @@ contract TransactionCheesePieceProductService {
         // Verifica della quantità da acquistare rispetto alla quantità totale 
         require(_quantityToBuy <= retailerInventoryService.getWeight(ownerCheesePiece, _id_CheesePiece), "Invalid quantity");
         // Verifica del saldo dell'acquirente 
-        require(filieraTokenService.balanceOf(msg.sender) >= totalPrice, "Insufficient balance");
+        require(filieraTokenService.balanceOf(buyer) >= totalPrice, "Insufficient balance");
 
         // Acquisto 
         require(filieraTokenService.transferTokenBuyProduct(buyer, ownerCheesePiece, totalPrice),"Acquisto non andato a buon fine!");
@@ -96,7 +96,7 @@ contract TransactionCheesePieceProductService {
         uint256 newRetailerBalance = filieraTokenService.balanceOf(ownerCheesePiece);
         retailerService.updateRetailerBalance(ownerCheesePiece, newRetailerBalance);
         // Aggiornamento del saldo del Consumer 
-        uint256 newConsumerBalance = filieraTokenService.balanceOf(msg.sender);
+        uint256 newConsumerBalance = filieraTokenService.balanceOf(buyer);
         consumerService.updateConsumerBalance(buyer, newConsumerBalance);
 
         // Riduzione della quantità nel MilkHubInventory

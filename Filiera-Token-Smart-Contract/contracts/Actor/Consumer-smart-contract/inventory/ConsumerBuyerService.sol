@@ -76,9 +76,7 @@ contract ConsumerBuyerService {
     }
 
     //TODO : Controllo sull'owner del CheesePiece Acquistato 
-    function getCheesePiece(uint256 idCheesePiece) external view checkAddress(msg.sender) returns (uint256, address, uint256, uint256) {
-
-        address walletConsumer = msg.sender;
+    function getCheesePiece(address walletConsumer, uint256 idCheesePiece) external view checkAddress(walletConsumer) returns (uint256, address, uint256, uint256) {
 
         require(consumerService.isUserPresent(walletConsumer), "Utente non trovato!");
 
@@ -87,7 +85,7 @@ contract ConsumerBuyerService {
         return consumerBuyerStorage.getCheesePiece(walletConsumer, idCheesePiece);
     }
 
-    function getPrice(address walletConsumer, uint256 idCheesePiece) external view checkAddress(msg.sender) returns (uint256) {
+    function getPrice(address walletConsumer, uint256 idCheesePiece) external view checkAddress(walletConsumer) returns (uint256) {
 
         require(consumerService.isUserPresent(walletConsumer), "Utente non trovato!");
 
@@ -96,7 +94,7 @@ contract ConsumerBuyerService {
         return consumerBuyerStorage.getPrice(walletConsumer, idCheesePiece);
     }
 
-    function getWeight(address walletConsumer, uint256 idCheesePiece) external view checkAddress(msg.sender) returns (uint256) {
+    function getWeight(address walletConsumer, uint256 idCheesePiece) external view checkAddress(walletConsumer) returns (uint256) {
 
         require(consumerService.isUserPresent(walletConsumer), "Utente non trovato!");
 
@@ -105,7 +103,7 @@ contract ConsumerBuyerService {
         return consumerBuyerStorage.getWeight(walletConsumer, idCheesePiece);
     }
 
-    function getWalletRetailer(address walletConsumer, uint256 idCheesePiece) external view checkAddress(msg.sender) returns (address) {
+    function getWalletRetailer(address walletConsumer, uint256 idCheesePiece) external view checkAddress(walletConsumer) returns (address) {
 
         require(consumerService.isUserPresent(walletConsumer), "Utente non trovato!");
 

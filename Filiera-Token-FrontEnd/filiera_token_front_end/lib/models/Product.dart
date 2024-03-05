@@ -32,7 +32,7 @@ abstract class Product {
    *  Metodi necessari per frontend
    */
   String getExpirationDate();
-  int getQuantity();
+  double getQuantity();
 
   @override
   String toString() => 'Prodotto(id: $id)';
@@ -70,7 +70,7 @@ abstract class ProductPurchased {
    *  Metodi necessari per frontend
    */
   String getExpirationDate();
-  int getQuantity();
+  double getQuantity();
 
   @override
   String toString() => 'Prodotto(id: $id)';
@@ -112,7 +112,7 @@ class MilkBatch extends Product {
   String getExpirationDate() => expirationDate;
 
   @override
-  int getQuantity() => quantity;
+  double getQuantity() => quantity.toDouble();
   
   @override
   void updateQuantity(int quantityChange) {
@@ -169,7 +169,7 @@ class MilkBatchPurchased extends ProductPurchased {
   String getExpirationDate() => expirationDate;
 
   @override
-  int getQuantity() => quantity;
+  double getQuantity() => quantity.toDouble();
   
   @override
   void updateQuantity(int quantityChange) {
@@ -220,7 +220,7 @@ class CheeseBlock extends Product {
   String getBarcode() => 'Cheese-$id';
 
   @override
-  double getUnitPrice() => price / quantity;
+  double getUnitPrice() => price;
 
   @override
   String toString() => 'Cheese(id: $id, dop: $dop, prezzo: $price, '
@@ -233,7 +233,7 @@ class CheeseBlock extends Product {
   String getExpirationDate() => '';
 
   @override
-  int getQuantity() => quantity;
+  double getQuantity() => quantity.toDouble();
   
   @override
   void updateQuantity(int quantityChange) {
@@ -291,7 +291,7 @@ class CheeseBlockPurchased extends ProductPurchased {
   String getExpirationDate() => '';
 
   @override
-  int getQuantity() => quantity;
+  double getQuantity() => quantity.toDouble();
   
   @override
   void updateQuantity(int quantityChange) {
@@ -303,7 +303,7 @@ class CheeseBlockPurchased extends ProductPurchased {
     String description = "Silos contenente formaggio, disponibile all'acquisto immediato."; // Changed description
     
     String id = cheeseBlockData['output'];
-    String milkBatchId = cheeseBlockData['output1']; // TODO: Replace with function that returns the name of the CheeseProducer from CheeseProducerServiceù
+    String seller = cheeseBlockData['output1']; // TODO: Replace with function that returns the name of the CheeseProducer from CheeseProducerServiceù
     String dop = cheeseBlockData['output2'];
     int quantity = int.parse(cheeseBlockData['output3']); // Parsing quantity as int
 
@@ -311,7 +311,7 @@ class CheeseBlockPurchased extends ProductPurchased {
       id: id, 
       name: name, 
       description: description, 
-      seller: milkBatchId, 
+      seller: seller, 
       dop: dop, 
       quantity: quantity);
   }
@@ -342,7 +342,7 @@ class CheesePiece extends Product {
   String getBarcode() => 'CheesePiece-$id';
 
   @override
-  double getUnitPrice() => price / weight;
+  double getUnitPrice() => price;
 
   @override
   String toString() => 'CheesePiece(id: $id, prezzo: $price, peso: $weight)';
@@ -354,25 +354,24 @@ class CheesePiece extends Product {
   String getExpirationDate() => '';
 
   @override
-  int getQuantity() => 1;
+  double getQuantity() => weight;
   
   @override
   void updateQuantity(int quantityChange) {}
   
-  static Product fromJson(Map<String, dynamic> cheesePiece) {
+  static Product fromJson(Map<String, dynamic> cheesePiece, String wallet) {
 
     String id = cheesePiece['output'];
     String name = "Pezzo di Formaggio";
     String description = "Pezzo di formaggio di alta qualità.";
-    String cheeseBlockId = cheesePiece["output1"];
-    double price = double.parse(cheesePiece['output2'] as String); // Parsing price as double
-    double weight = double.parse(cheesePiece['output3'] as String);
+    double price = double.parse(cheesePiece['output1'] as String); // Parsing price as double
+    double weight = double.parse(cheesePiece['output2'] as String);
 
     return CheesePiece(
       id: id, 
       name: name, 
       description: description, 
-      seller: cheeseBlockId, 
+      seller: wallet, 
       price: price, 
       weight: weight);
 
@@ -411,7 +410,7 @@ class CheesePiecePurchased extends ProductPurchased {
   String getExpirationDate() => '';
 
   @override
-  int getQuantity() => 1;
+  double getQuantity() => weight;
   
   @override
   void updateQuantity(int quantityChange) {}
@@ -419,10 +418,11 @@ class CheesePiecePurchased extends ProductPurchased {
   static ProductPurchased fromJson(Map<String, dynamic> cheesePiece) {
     String name = "Pezzo di Formaggio";
     String description = "Pezzo di formaggio di alta qualità.";
+
     String id = cheesePiece['output'];
     String seller = cheesePiece["output1"];
-    double price = double.parse(cheesePiece['output2'] as String); // Parsing price as double
-    double weight = double.parse(cheesePiece['output3'] as String);
+    double price = int.parse(cheesePiece['output2'] as String) as double; // Parsing price as double
+    double weight = int.parse(cheesePiece['output3'] as String) as double;
 
     return CheesePiecePurchased(
       id: id, 

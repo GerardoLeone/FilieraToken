@@ -114,24 +114,25 @@ class _UserProfileProductBuyedState extends State<UserProfileProductBuyed> with 
       print("Build!");
       Actor actor = user!.type; //TODO: gettarsi con hive il valore dell'attore    
       String wallet = user!.wallet; //TODO: gettarsi con hive il wallet
-      Future<List<Product>> productList = Future.value([]);
+      Future<List<ProductPurchased>> productList = Future.value([]);
 
       print(actor);
       print(wallet);
 
       switch(actor) {
-        case Actor.Consumer:
+        case Actor.Consumer:{
           productList = consumerBuyerService.getCheesePieceList(wallet);
-          break;
-        case Actor.CheeseProducer:
+          break;}
+        case Actor.CheeseProducer:{
           productList = cheeseProducerBuyerService.getMilkBatchList(wallet);
-          break;
-        case Actor.Retailer:
+          break;}
+        case Actor.Retailer:{
           productList = retailerBuyerService.getCheeseBlockList(wallet);
-          break; 
-        default:
-          print("Errore nella selezione dell'attore in fase di build (home_user_page.dart)");
+          break; }
+        default:{
+          print("Errore nella selezione dell'attore in fase di build (product_buyed_page.dart)");
           break;
+        }
       }
 
       return Scaffold(
@@ -140,7 +141,8 @@ class _UserProfileProductBuyedState extends State<UserProfileProductBuyed> with 
             children: [
               Padding(
                 padding: EdgeInsets.all(50.5),
-                child: CustomProductList(productList: productList, onProductTap: handleProductTap),
+                child: CustomProductListPurchased(productList: productList,
+                 onProductTap: handleProductTap),
               ),
               _buildDrawer(),
             ],
@@ -200,12 +202,12 @@ class _UserProfileProductBuyedState extends State<UserProfileProductBuyed> with 
     );
   }
 
-  void handleProductTap(BuildContext context, Product product) {
+  void handleProductTap(BuildContext context, ProductPurchased product) {
     // Fai qualcosa in base alla pagina in cui ti trovi
     print("Prodotto ${product.name} cliccato!");
     // Esegui azioni diverse in base alla pagina
 
-    DialogProductDetails.show(
+    DialogProductDetailsPurchased.showObjectPurchased(
       context,
       user!.wallet, 
       product,

@@ -14,7 +14,7 @@ class CheeseProducerBuyerService {
   static const String _queryGetMilkBatch ="getMilkBatch";
 
 
-  Future<List<Product>> getMilkBatchList(String wallet) async {
+  Future<List<ProductPurchased>> getMilkBatchList(String wallet) async {
     String url = API.buildURL(API.CheeseProducerNodePort,API.CheeseProducerBuyerService, API.Query, _queryGetMilkBatchPurchase);
 
     print(url);
@@ -38,10 +38,10 @@ class CheeseProducerBuyerService {
         final List<String> idList = jsonData['output'].cast<String>();
 
         print("List : "+idList.toString());
-        List<Product> productList = [];
+        List<ProductPurchased> productList = [];
 
         for (int i = 0; i < idList.length; i++) {
-          Product product = await getMilkBatch(idList[i],wallet);
+          ProductPurchased product = await getMilkBatch(idList[i],wallet);
           productList.add(product);
         }
 
@@ -56,7 +56,7 @@ class CheeseProducerBuyerService {
   }
 
 
-  Future<Product> getMilkBatch(String cheeseId, String walletMilkHub) async {
+  Future<ProductPurchased> getMilkBatch(String cheeseId, String walletMilkHub) async {
     
     String url = API.buildURL(API.CheeseProducerNodePort,API.CheeseProducerBuyerService, API.Query, _queryGetMilkBatch);
     
@@ -72,7 +72,7 @@ class CheeseProducerBuyerService {
 
       print(jsonData);
 
-      return MilkBatch.fromJson(jsonData,walletMilkHub);
+      return MilkBatchPurchased.fromJson(jsonData);
     }else{
         throw Exception('Failed to fetch CheesePiece Id List: ${response.statusCode}');
     }

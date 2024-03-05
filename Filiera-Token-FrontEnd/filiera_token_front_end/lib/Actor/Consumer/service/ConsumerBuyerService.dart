@@ -6,21 +6,24 @@ import 'dart:convert';
 
 class ConsumerBuyerService {
 
-  Future<List<Product>> getCheesePieceList(String wallet) async {
+  Future<List<ProductPurchased>> getCheesePieceList(String wallet) async {
+
     String url = API.buildURL(API.ConsumerNodePort, API.ConsumerBuyerInventoryService, API.Query, "getUserCheesePieceIds");
 
-    print(url);
 
     final headers = API.getHeaders();
 
-    print(headers);
 
     final body = jsonEncode(API.getConsumerPayload(wallet));
 
-    print(body);
+    print("Sono qui  --------------------");
+
+    print("[URL]:"+url);
+
 
     try {
       final response = await http.post(Uri.parse(url), headers: headers, body: body);
+      print("Erorre : "+response.body);
 
       if (response.statusCode == 200 || response.statusCode == 202) {
         print(jsonEncode(response.body));
@@ -30,10 +33,10 @@ class ConsumerBuyerService {
         final List<String> idList = jsonData['output'].cast<String>();
 
         print("List : "+idList.toString());
-        List<Product> productList = [];
+        List<ProductPurchased> productList = [];
 
         for (int i = 0; i < idList.length; i++) {
-          Product product = await getCheesePiece(idList[i],wallet);
+          ProductPurchased product = await getCheesePiece(idList[i],wallet);
           productList.add(product);
         }
 
@@ -49,7 +52,7 @@ class ConsumerBuyerService {
 
   // Effettuo una chiamata di prova per cercare di aggiungere i prodotti 
 
-  Future<Product> addCheesePiece(String id, String price, String walletConsumerBuyer, String walletRetailer, String weight) async {
+  Future<ProductPurchased> addCheesePiece(String id, String price, String walletConsumerBuyer, String walletRetailer, String weight) async {
     final url = API.buildURL(API.ConsumerNodePort, API.ConsumerBuyerInventoryService, API.Invoke, "addCheesePiece");
     
     final body = jsonEncode({
@@ -70,7 +73,7 @@ class ConsumerBuyerService {
 
         print(jsonData);
 
-        return CheesePiece.fromJson(jsonData);
+        return CheesePiecePurchased.fromJson(jsonData);
       } else {
         throw Exception('Failed to fetch CheesePiece: ${response.statusCode}');
       }
@@ -80,21 +83,24 @@ class ConsumerBuyerService {
     }
   }
 
-  Future<Product> getCheesePiece(String cheeseId, String walletConsumerBuyer) async {
+  Future<ProductPurchased> getCheesePiece(String cheeseId, String walletConsumerBuyer) async {
+
     
     String url = API.buildURL(API.ConsumerNodePort, API.ConsumerBuyerInventoryService, API.Query, "getCheesePiece");
     
     final body = jsonEncode(API.getCheesePieceForConsumerBody(cheeseId, walletConsumerBuyer));
     final headers = API.getHeaders();
 
+    print("[BODY]:"+body);
+
     final response = await http.post(Uri.parse(url), body: body, headers: headers);
 
+
     if(response.statusCode == 200){
-      print(response.toString());
       
       final jsonData = jsonDecode(response.body);
 
-      return CheesePiece.fromJson(jsonData);
+      return CheesePiecePurchased.fromJson(jsonData);
     }else{
         throw Exception('Failed to fetch CheesePiece Id List: ${response.statusCode}');
     }

@@ -118,21 +118,27 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
       print(actor);
       print(wallet);
 
+      String emptyMsg = "";
+
     switch(actor) {
       case Actor.CheeseProducer:{
       // Milkhub List
         productList = milkHubInventoryService.getMilkBatchListAll(wallet);
+        emptyMsg = "Partite di Latte da acquistare";
         break;
       }
       case Actor.Retailer:{
         productList = cheeseProducerInventoryService.getCheeseBlockAll(wallet);
+        emptyMsg = "Blocchi di Formaggio da acquistare";
         break;
       }
       case Actor.Consumer:{
         productList = retailerInventoryService.getCheesePieceAll(wallet);
+        emptyMsg = "Pezzi di Formaggio da acquistare";
         break; 
       } 
       default:
+        emptyMsg = "prodotti da acquistare";
         print("Errore nella selezione dell'attore in fase di build (home_user_page.dart)");
         break;
     }
@@ -143,7 +149,8 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
               children: [
                 Padding(
                   padding: EdgeInsets.all(50.5),
-                  child: CustomProductList(productList: productList, onProductTap: handleProductTap),
+                  child: 
+                    CustomProductList(productList: productList, onProductTap: handleProductTap, emptyMsg: emptyMsg),
                 ),
                 _buildDrawer(),
               ],

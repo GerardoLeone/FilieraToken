@@ -12,7 +12,7 @@
         - Update della lista dei prodotti
 7 - Popup login errata FATTO
 8 - Bloccare il click quando deve caricare prodotti (refresh, add, ecc..)
-9 - Usare elementi custom per estetica
+9 - Usare elementi custom per estetica FATTO
 10 - Bottone + deve sottostare al menu hambueger
 11 - Se la lista prodotti è vuota, dire che è vuota
 12 - se clicco su una pagina del menu, deve chiudersi il menu (NON SI PUO PER NATURA DELLO STACK)

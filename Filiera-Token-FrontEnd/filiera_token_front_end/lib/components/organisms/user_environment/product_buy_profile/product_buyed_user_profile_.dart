@@ -196,7 +196,7 @@ class _UserProfileProductBuyedState extends State<UserProfileProductBuyed> with 
       builder: (context, child) {
         return FractionalTranslation(
           translation: Offset(1.0 - _drawerSlideController.value, 0.0),
-          child: _isDrawerClosed() ? const SizedBox() :  CustomMenuUserProductBuyed(userData: user! ,),
+          child: _isDrawerClosed() ? const SizedBox() :  CustomMenuUserProductBuyed(userData: user! ,secureStorageService: secureStorageService,),
         );
       },
     );

@@ -228,7 +228,7 @@ void updateProductList() {
       builder: (context, child) {
         return FractionalTranslation(
           translation: Offset(1.0 - _drawerSlideController.value, 0.0),
-          child: _isDrawerClosed() ? const SizedBox() :  CustomMenuUserInventory(userData: user!,),
+          child: _isDrawerClosed() ? const SizedBox() :  CustomMenuUserInventory(userData: user!,secureStorageService: secureStorageService),
         );
       },
     );

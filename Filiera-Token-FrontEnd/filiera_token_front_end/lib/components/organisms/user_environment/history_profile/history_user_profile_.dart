@@ -171,7 +171,7 @@ final GlobalKey<EventListState> _eventListKey = GlobalKey<EventListState>();
       builder: (context, child) {
         return FractionalTranslation(
           translation: Offset(1.0 - _drawerSlideController.value, 0.0),
-          child: _isDrawerClosed() ? const SizedBox() :  CustomMenuHistory(userData: user!,),
+          child: _isDrawerClosed() ? const SizedBox() :  CustomMenuHistory(userData: user!,secureStorageService: secureStorageService),
         );
       },
     );

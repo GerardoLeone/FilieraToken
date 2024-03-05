@@ -1,3 +1,5 @@
+import 'package:filiera_token_front_end/components/organisms/user_environment/services/logout_service.dart';
+import 'package:filiera_token_front_end/components/organisms/user_environment/services/secure_storage_service.dart';
 import 'package:filiera_token_front_end/models/User.dart';
 import 'package:filiera_token_front_end/utils/enums.dart';
 import 'package:flutter/material.dart';
@@ -5,19 +7,24 @@ import 'package:go_router/go_router.dart';
 
 class CustomMenuHistory extends StatefulWidget {
   final User userData;
-  const CustomMenuHistory({super.key, required this.userData});
+  final SecureStorageService secureStorageService;
+  const CustomMenuHistory({super.key, required this.userData, required this.secureStorageService});
 
   @override
   State<CustomMenuHistory> createState() => _MenuState();
 }
 
 class _MenuState extends State<CustomMenuHistory> with SingleTickerProviderStateMixin {
+
+  final LogoutService logoutService = LogoutService();
+
+
   static const _menuTitles = [
     'Setting', // Go to profile setting 
     'Inventory', // Inventory
     'Product Buyed', // Transaction or Event of this User 
-    'Logout', // Logout Routing 
-    'Shop' // Go to Shop routing 
+    'Shop', // Go to Shop routing 
+    'Logout' // Logout Routing 
   ];
 
   static const _initialDelayTime = Duration(milliseconds: 50);
@@ -127,14 +134,13 @@ class _MenuState extends State<CustomMenuHistory> with SingleTickerProviderState
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 16),
             child: ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 String idUser = userData.id;
                   String type = Enums.getActorText(userData.type);
 
                   if(_menuTitles[i].compareTo('Logout')==0){
                     // Logout Routing
-                    /// Logout Service  
-                    context.go('/');
+                    await _logoutUser();
 
                   }else if(_menuTitles[i].compareTo('Product Buyed')==0){
                     // Product Buyed Routing 
@@ -167,5 +173,13 @@ class _MenuState extends State<CustomMenuHistory> with SingleTickerProviderState
           );
       }
     return listItems;
+  }
+
+  Future<void> _logoutUser() async {
+    String? token = await widget.secureStorageService.getJWT();
+    
+    if(logoutService.deleteUserData(widget.secureStorageService, token!) == true){
+      context.go('/');
+    }
   }
 }

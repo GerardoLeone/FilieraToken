@@ -3,7 +3,6 @@ import 'package:filiera_token_front_end/components/organisms/sign_in_page/compon
 import 'package:filiera_token_front_end/components/organisms/sign_in_page/service/sign_in_service.dart';
 import 'package:filiera_token_front_end/components/organisms/user_environment/services/secure_storage_service.dart';
 import 'package:filiera_token_front_end/models/User.dart';
-import 'package:filiera_token_front_end/utils/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
@@ -190,13 +189,13 @@ class _MySignInPageAnimations extends State<MySignInPage> with SingleTickerProvi
                       if(await signinService.checkLogin(emailInput, passwordInput, walletInput, selectedValueUserType) ){
                         // Inserisce i dati se questo ha avuto successo nel login 
                         User? userLogged = await signinService.onLoginSuccess(selectedValueUserType, walletInput,secureStorageService);
-                        User? userDataStored = await secureStorageService.get();
-                        if(userDataStored!=null){
+                        if(userLogged!=null){
                         // Naviga alla rotta home-page-user con parametri
                           context.go('/home-page-user/$selectedValueUserType/'+userLogged!.getId);
                         }
                       }else{
                           /// Login Errata 
+                          /// TODO: PopUp Login Errata 
                       } 
                      
                     },

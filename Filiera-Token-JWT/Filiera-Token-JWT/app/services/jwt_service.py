@@ -28,6 +28,7 @@ def generate_token(user):
 
 
 def validate_token(token):
+    print("Sono nell'invalidazione del Service ")
     try:
         # Decodifica il token per ottenere il ruolo dell'utente
         payload = jwt.decode(token, SECRET_KEY, algorithms=['HS256'])

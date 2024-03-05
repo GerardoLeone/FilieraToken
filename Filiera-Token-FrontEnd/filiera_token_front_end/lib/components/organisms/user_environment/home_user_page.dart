@@ -210,7 +210,7 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
       builder: (context, child) {
         return FractionalTranslation(
           translation: Offset(1.0 - _drawerSlideController.value, 0.0),
-          child: _isDrawerClosed() ? const SizedBox() :  CustomMenuHomeUserPageEnv(userData: user!),
+          child: _isDrawerClosed() ? const SizedBox() :  CustomMenuHomeUserPageEnv(userData: user!, secureStorageService: secureStorageService),
         );
       },
     );

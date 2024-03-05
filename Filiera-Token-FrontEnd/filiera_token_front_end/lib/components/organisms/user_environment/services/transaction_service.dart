@@ -85,28 +85,16 @@ Future<bool> buyCheesePieceProduct(
    String ownerCheesePiece,
    String totalPrice,
 ) async {
-  var url = Uri.parse('http://127.0.0.1:5000/api/v1/namespaces/default/apis/'+API.TransactionBuyCheesePieceService+'/invoke/BuyCheesePieceProduct');
-  
-  print(url);
+  var url = Uri.parse(API.buildURL(API.ConsumerNodePort,API.TransactionBuyCheesePieceService , API.Invoke, "BuyCheesePieceProduct"));
+  var body = jsonEncode(API.buyCheesePieceProductBody(cheesePieceId, quantityToBuy, buyer, ownerCheesePiece, totalPrice));
+  var header = API.getHeaders();
 
-  var body = jsonEncode({
-    "input": {
-       "_id_CheesePiece": cheesePieceId,
-    "_quantityToBuy": quantityToBuy,
-    "buyer": buyer,
-    "ownerCheesePiece": ownerCheesePiece,
-    "totalPrice": totalPrice
-    },
-  });
+  print(url);
 
   try {
     var response = await http.post(
       url,
-      headers: {
-        'accept': 'application/json',
-        'Request-Timeout': '2m0s',
-        'Content-Type': 'application/json',
-      },
+      headers: header,
       body: body,
     );
 

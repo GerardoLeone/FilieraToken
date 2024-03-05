@@ -1,0 +1,20 @@
+1 - Alert dialog con messaggio d'errore
+2 - logo
+3 - togliere conversione da card di consumer
+4 - Cambiare bottoni in base al ruolo nel menu hamburger
+5 - History (sviluppi futuri)
+6.1 - Funzione di callback prodotto acquistato:
+        - Ricarica dei prodotti presenti sulla piattaforma
+        - Ricarica dei parametri dell'Utente con chiamata API a getUserData
+        - Salvataggio, dopo la ricarica, dei dati dentro il secure storage service
+6.2 - Funzione di callback prodotto convertito:
+        - Ricarica dei prodotti
+        - Update della lista dei prodotti
+7 - Popup login errata
+8 - Bloccare il click quando deve caricare prodotti (refresh, add, ecc..)
+9 - Usare elementi custom per estetica
+10 - Bottone + deve sottostare al menu hambueger
+11 - Se la lista prodotti è vuota, dire che è vuota
+12 - se clicco su una pagina del menu, deve chiudersi il menu (NON SI PUO PER NATURA DELLO STACK)
+13 - Modificare il titolo della pagina quando navigo
+14 - Conferma Password tramite validator

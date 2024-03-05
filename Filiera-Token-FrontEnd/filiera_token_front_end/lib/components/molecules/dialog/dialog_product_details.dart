@@ -1,3 +1,4 @@
+import 'package:filiera_token_front_end/components/atoms/custom_button.dart';
 import 'package:filiera_token_front_end/components/molecules/dialog/purchase/dialog_purchase_center.dart';
 import 'package:filiera_token_front_end/components/molecules/dialog/purchase/dialog_purchase_right.dart';
 
@@ -57,12 +58,10 @@ class DialogProductDetails extends StatelessWidget {
             ),
           ),
           SizedBox(height: 16.0), // Adjust spacing as needed
-          ElevatedButton(
+          CustomButton(
+            text: "Back",
+            type: CustomType.neutral,
             onPressed: () => Navigator.of(context).pop(),
-            child: Text('Back'),
-            style: ElevatedButton.styleFrom(
-              minimumSize: Size(80, 40), // Adjust button size as needed
-            ),
           ),
         ],
       ),
@@ -182,12 +181,10 @@ class DialogProductDetailsPurchased extends StatelessWidget {
             ),
           ),
           SizedBox(height: 16.0), // Adjust spacing as needed
-          ElevatedButton(
+          CustomButton(
+            text: "Back",
+            type: CustomType.neutral,
             onPressed: () => Navigator.of(context).pop(),
-            child: Text('Back'),
-            style: ElevatedButton.styleFrom(
-              minimumSize: Size(80, 40), // Adjust button size as needed
-            ),
           ),
         ],
       ),

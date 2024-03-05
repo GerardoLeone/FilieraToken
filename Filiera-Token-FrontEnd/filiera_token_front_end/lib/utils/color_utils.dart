@@ -10,6 +10,8 @@ class ColorUtils {
       switch (type) {
         case CustomType.neutral:
           return Colors.blue;
+        case CustomType.neutralShade:
+          return Colors.blue.shade50;
         case CustomType.danger:
           return Colors.red;
         case CustomType.warning:
@@ -18,4 +20,6 @@ class ColorUtils {
           return Colors.green;
       }
     }
+
+  static const Color labelColor = Color.fromARGB(255, 101, 133, 170);
 }

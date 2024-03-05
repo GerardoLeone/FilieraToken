@@ -1,4 +1,4 @@
-enum CustomType { neutral, danger, warning, success }
+enum CustomType { neutral, neutralShade, danger, warning, success }
 
 enum Actor { MilkHub, CheeseProducer, Retailer, Consumer, unknown }
 
@@ -53,7 +53,7 @@ class Enums {
    */
   static String getDefaultText(CustomType type) {
     switch (type) {
-      case CustomType.neutral:
+      case CustomType.neutral: case CustomType.neutralShade:
         return "Conferma";
       case CustomType.danger:
         return "Cancella";

@@ -1,5 +1,7 @@
+import 'package:filiera_token_front_end/components/atoms/custom_button.dart';
 import 'package:filiera_token_front_end/components/molecules/dialog/custom_alert_dialog.dart';
 import 'package:filiera_token_front_end/components/organisms/user_environment/services/transaction_service.dart';
+import 'package:filiera_token_front_end/utils/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:filiera_token_front_end/models/Product.dart';
@@ -44,8 +46,10 @@ class _DialogPurchaseCenterState extends State<DialogPurchaseCenter> {
 
   
   Widget _buildBuyButton() {
-    return ElevatedButton(
-      onPressed: () async {
+    return CustomButton(
+        text: "Buy", 
+        type: CustomType.neutralShade, 
+        onPressed: () async {
         Product productToBuy = widget.product;
         // BuyLogic 
         switch (widget.userType) {
@@ -169,8 +173,7 @@ class _DialogPurchaseCenterState extends State<DialogPurchaseCenter> {
             
           }
         }
-      },
-      child: Text('Buy'),
+      }
     );
   }
 

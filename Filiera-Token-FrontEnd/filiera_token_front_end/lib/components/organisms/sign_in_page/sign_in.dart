@@ -1,8 +1,11 @@
+import 'package:filiera_token_front_end/components/atoms/custom_button.dart';
 import 'package:filiera_token_front_end/components/atoms/custom_dropdown.dart';
+import 'package:filiera_token_front_end/components/atoms/custom_input_validator.dart';
 import 'package:filiera_token_front_end/components/organisms/sign_in_page/components/custom_menu_singin.dart';
 import 'package:filiera_token_front_end/components/organisms/sign_in_page/service/sign_in_service.dart';
 import 'package:filiera_token_front_end/components/organisms/user_environment/services/secure_storage_service.dart';
 import 'package:filiera_token_front_end/models/User.dart';
+import 'package:filiera_token_front_end/utils/color_utils.dart';
 import 'package:filiera_token_front_end/utils/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -131,83 +134,101 @@ class _MySignInPageAnimations extends State<MySignInPage> with SingleTickerProvi
    * Build Login Form 
    */
 
-  Widget _buildFormLogin(BuildContext context){
-    
-    return Padding(
-
-              padding: const EdgeInsets.all(120.0),
-              child: Column(
-                children: <Widget>[
-                  // Email
-                   TextField(
-                    decoration: InputDecoration(labelText: 'Email'),
-                    controller: _emailController,
-                  ),
-
-                  // Password
-                   TextField(
-                    decoration: InputDecoration(labelText: 'Password'),
-                    obscureText: true,
-                    controller: _passwordController,
-                  ),
-
-                  // Wallet
-                   TextField(
-                    decoration: InputDecoration(labelText: 'Wallet'),
-                    controller: _walletController,
-                  ),
-
-                  const SizedBox(height: 20,width: 20),
-
-                  // Select value of DropDown
-                CustomDropdown<String>(
-                    // Pass the item list
-                    items: dropdownItems,
-
-                    // Optionally set an initial value or use the first item as default
-                    value: "MilkHub", // Adjust as needed
-
-                    // Handle changes in the selection
-                    onChanged: (value) {
-                      setState(() {
-                        // Update selected value here, possibly triggering additional actions
-                        selectedValueUserType = value!;
-                      });
-                    },
-                  ),
-
-                /// Spazio tra i vari field e il Button   
-                const SizedBox(height: 20,width: 20),
-                // Pulsante di iscrizione
-                ElevatedButton(
-                    child: const Text('Login'),
-                    onPressed: () async {
-                      /// do Login ()
-                      emailInput = _emailController!.text;
-                      passwordInput = _passwordController!.text;
-                      walletInput = _walletController!.text;
-
-                      if(await signinService.checkLogin(emailInput, passwordInput, walletInput, selectedValueUserType) ){
-                        // Inserisce i dati se questo ha avuto successo nel login 
-                        User? userLogged = await signinService.onLoginSuccess(selectedValueUserType, walletInput,secureStorageService);
-                        User? userDataStored = await secureStorageService.get();
-                        if(userDataStored!=null){
-                        // Naviga alla rotta home-page-user con parametri
-                          context.go('/home-page-user/$selectedValueUserType/'+userLogged!.getId);
-                        }
-                      }else{
-                          /// Login Errata 
-                      } 
-                     
-                    },
-                  ),
-                  const SizedBox(height: 20,width: 20),
-                  /// Button to go to Register 
-                  _buildRegisterButton(context),
-                ],
+  Widget _buildFormLogin(BuildContext context) {
+  return Center(
+    child: IntrinsicHeight(
+      child: Container(
+        width: MediaQuery.of(context).size.width * 0.4,
+        padding: const EdgeInsets.all(40.0),
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: ColorUtils.getColor(CustomType.neutral),
+          ),
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start, // Allineato a sinistra
+          children: <Widget>[
+            Text(
+              'Login', // Titolo "Login"
+              style: TextStyle(
+                fontSize: 24.0, // Dimensione del testo
+                fontWeight: FontWeight.bold, // Grassetto
+                color: ColorUtils.getColor(CustomType.neutral), // Colore neutral
               ),
-            );
-  }
+            ),
+            const SizedBox(height: 20),
+            CustomInputValidator(
+              inputType: TextInputType.emailAddress,
+              labelText: 'Email',
+              controller: _emailController!,
+            ),
+            const SizedBox(height: 20),
+            CustomInputValidator(
+              inputType: TextInputType.visiblePassword,
+              labelText: 'Password',
+              controller: _passwordController!,
+            ),
+            const SizedBox(height: 20),
+            CustomInputValidator(
+              inputType: TextInputType.text,
+              labelText: 'Wallet',
+              controller: _walletController!,
+            ),
+            const SizedBox(height: 20),
+            CustomDropdown<String>(
+              items: dropdownItems,
+              value: "MilkHub",
+              onChanged: (value) {
+                setState(() {
+                  selectedValueUserType = value!;
+                });
+              },
+            ),
+            const SizedBox(height: 20),
+            CustomButton(
+              expandWidth: true,
+              text: "Login",
+              type: CustomType.neutral,
+              onPressed: () async {
+                emailInput = _emailController!.text;
+                passwordInput = _passwordController!.text;
+                walletInput = _walletController!.text;
+
+                if (await signinService.checkLogin(
+                    emailInput, passwordInput, walletInput, selectedValueUserType)) {
+                  User? userLogged = await signinService.onLoginSuccess(
+                      selectedValueUserType, walletInput, secureStorageService);
+                  User? userDataStored = await secureStorageService.get();
+                  if (userDataStored != null) {
+                    context.go('/home-page-user/$selectedValueUserType/' + userLogged!.getId);
+                  }
+                } else {
+                  /// Login Errata
+                }
+              },
+            ),
+            const SizedBox(height: 20),
+            Center(
+              child: Text(
+                'Non sei ancora registrato ?',
+                style: TextStyle(
+                  color: ColorUtils.labelColor,
+                ),
+              ),
+            ),
+            CustomButton(
+                expandWidth: true,
+                text: "Registrati",
+                type: CustomType.neutral,
+                onPressed: () => context.go('/signup')),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
 
 
   

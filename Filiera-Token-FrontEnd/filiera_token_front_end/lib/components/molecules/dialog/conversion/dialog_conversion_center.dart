@@ -1,4 +1,6 @@
+import 'package:filiera_token_front_end/components/atoms/custom_button.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_loading_bar.dart';
+import 'package:filiera_token_front_end/utils/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:filiera_token_front_end/models/Product.dart';
@@ -77,10 +79,10 @@ class _DialogConversionCenterState extends State<DialogConversionCenter> {
   }
 
   Widget _buildConvertButton() {
-    return ElevatedButton(
-      child: Text('Convert'),
-      onPressed: _loading ? () {} : _convertProduct,
-    );
+    return CustomButton(
+      text: "Convert", 
+      type: CustomType.neutralShade, 
+      onPressed: _loading ? () {} : _convertProduct);
   }
 
   Widget _buildTextForm() {
@@ -197,10 +199,10 @@ class _DialogConversionCenterStatePurchased extends State<DialogConversionCenter
   }
 
   Widget _buildConvertButton() {
-    return ElevatedButton(
-      child: Text('Convert'),
-      onPressed: _loading ? () {} : _convertProduct,
-    );
+    return CustomButton(
+      text: "Convert", 
+      type: CustomType.neutralShade, 
+      onPressed: _loading ? () {} : _convertProduct);
   }
 
   Widget _buildTextForm() {

@@ -1,4 +1,6 @@
+import 'package:filiera_token_front_end/components/atoms/custom_button.dart';
 import 'package:filiera_token_front_end/models/User.dart';
+import 'package:filiera_token_front_end/utils/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -77,11 +79,12 @@ class _CustomViewProfile extends State<CustomViewProfile> {
                   style: const TextStyle(fontSize: 16.0),
                 ),
                 const SizedBox(width: 8.0),
-                ElevatedButton(
+                CustomButton(
+                  text: "Ricarica",
+                  type: CustomType.neutral,
                   onPressed: () {
                     // TODO: Implementare la ricarica del conto
-                  },
-                  child: const Text("Ricarica"),
+                  }
                 ),
               ],
             );

@@ -44,11 +44,10 @@ class CustomPopUpDialog  {
         ),
       );
     },
-  );
-  // Chiudi automaticamente la finestra di pop-up dopo 3 secondi
-  Future.delayed(Duration(seconds: 5), () {
-              context.go('/signin');
-  });
+  ).then((value) {
+      // Questo blocco di codice verrà eseguito dopo la chiusura dell'AlertDialog
+      context.go('/signin');
+    });
   }
   
   void  showErrorPopupRegistration(BuildContext context, String error) {
@@ -82,28 +81,23 @@ class CustomPopUpDialog  {
           );
     },
   );
-
-  // Chiudi automaticamente la finestra di pop-up dopo 3 secondi
-  Future.delayed(Duration(seconds: 5), () {
-      Navigator.of(context).pop();
-  });
   }
   
   /// --------------------------------------------------------------------- Login Dialog ----------------------------------------------------------------------
 
 
-  void showSuccessPopupLogin(BuildContext context) {
+  void showSuccessPopupLogin(BuildContext context, String path) {
   showDialog(
     context: context,
     builder: (context) {
       return AlertDialog(
         title: Text('Login avvenuto con successo!'),
-        content: Text("Ecco la tua area utente"),
+        content: Text("Premi Ok per essere indirizzato nell'area utente"),
         actions: [
           TextButton(
             onPressed: () {
-              context.go('/signin');
-              // Invia l'utente alla pagina di login
+              context.go(path);
+              // Invia l'utente alla pagina di homepageuser
             },
             child: Text('OK'),
           ),
@@ -131,11 +125,10 @@ class CustomPopUpDialog  {
         ),
       );
     },
-  );
-  // Chiudi automaticamente la finestra di pop-up dopo 3 secondi
-  Future.delayed(Duration(seconds: 5), () {
-              context.go('/signin');
-  });
+  ).then((value) {
+      // Questo blocco di codice verrà eseguito dopo la chiusura dell'AlertDialog
+      context.go(path);
+    });
   }
   
   void  showErrorPopupLogin(BuildContext context, String error) {
@@ -143,7 +136,7 @@ class CustomPopUpDialog  {
     context: context,
     builder: (context) {
       return AlertDialog(
-        title: Text('Registrazione non completata'),
+        title: Text('Login non completata'),
         content: Text(error),
         actions: [
         ],
@@ -169,11 +162,6 @@ class CustomPopUpDialog  {
           );
     },
   );
-
-  // Chiudi automaticamente la finestra di pop-up dopo 3 secondi
-  Future.delayed(Duration(seconds: 5), () {
-      Navigator.of(context).pop();
-  });
   }
 
 
@@ -211,9 +199,6 @@ class CustomPopUpDialog  {
           );
     },
   );
-   Future.delayed(Duration(seconds: 3), () {
-      Navigator.of(context).pop();
-  });
   }
 
   static void showMilkBatchAddError(BuildContext context){
@@ -254,10 +239,6 @@ class CustomPopUpDialog  {
         );
       },
     );
-    // Chiudi automaticamente la finestra di pop-up dopo 3 secondi
-  Future.delayed(Duration(seconds: 3), () {
-      Navigator.of(context).pop();
-  });
   }
 
 
@@ -382,9 +363,6 @@ class CustomPopUpDialog  {
           );
     },
   );
-   Future.delayed(Duration(seconds: 3), () {
-      Navigator.of(context).pop();
-  });
   }
 
   static void showBuyMilkBatchError(BuildContext context){
@@ -425,10 +403,6 @@ class CustomPopUpDialog  {
         );
       },
     );
-    // Chiudi automaticamente la finestra di pop-up dopo 3 secondi
-  Future.delayed(Duration(seconds: 3), () {
-      Navigator.of(context).pop();
-  });
   }  
 
   static void showBuyMilkBatchErrorMsg(BuildContext context, String msg){
@@ -469,10 +443,6 @@ class CustomPopUpDialog  {
         );
       },
     );
-    // Chiudi automaticamente la finestra di pop-up dopo 3 secondi
-  Future.delayed(Duration(seconds: 3), () {
-      Navigator.of(context).pop();
-  });
   }  
 
   static void  showBuyCheeseBlockSuccess(BuildContext context, String msg) {
@@ -506,9 +476,6 @@ class CustomPopUpDialog  {
           );
     },
   );
-   Future.delayed(Duration(seconds: 3), () {
-      Navigator.of(context).pop();
-  });
   }
 
   static void showBuyCheeseBlockError(BuildContext context){
@@ -549,10 +516,6 @@ class CustomPopUpDialog  {
         );
       },
     );
-    // Chiudi automaticamente la finestra di pop-up dopo 3 secondi
-  Future.delayed(Duration(seconds: 3), () {
-      Navigator.of(context).pop();
-  });
   }  
 
   static void showBuyCheeseBlockErrorMsg(BuildContext context, String msg){
@@ -593,10 +556,6 @@ class CustomPopUpDialog  {
         );
       },
     );
-    // Chiudi automaticamente la finestra di pop-up dopo 3 secondi
-  Future.delayed(Duration(seconds: 3), () {
-      Navigator.of(context).pop();
-  });
   }  
 
   

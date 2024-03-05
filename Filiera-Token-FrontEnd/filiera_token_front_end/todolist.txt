@@ -1,5 +1,5 @@
 1 - Alert dialog con messaggio d'errore
-2 - logo
+2 - logo FATTO
 3 - togliere conversione da card di consumer
 4 - Cambiare bottoni in base al ruolo nel menu hamburger
 5 - History (sviluppi futuri)
@@ -10,7 +10,7 @@
 6.2 - Funzione di callback prodotto convertito:
         - Ricarica dei prodotti
         - Update della lista dei prodotti
-7 - Popup login errata
+7 - Popup login errata FATTO
 8 - Bloccare il click quando deve caricare prodotti (refresh, add, ecc..)
 9 - Usare elementi custom per estetica
 10 - Bottone + deve sottostare al menu hambueger

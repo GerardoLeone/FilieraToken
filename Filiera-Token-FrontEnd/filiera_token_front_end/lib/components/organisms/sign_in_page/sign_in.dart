@@ -1,6 +1,7 @@
 import 'package:filiera_token_front_end/components/atoms/custom_button.dart';
 import 'package:filiera_token_front_end/components/atoms/custom_dropdown.dart';
 import 'package:filiera_token_front_end/components/atoms/custom_input_validator.dart';
+import 'package:filiera_token_front_end/components/molecules/dialog/custom_alert_dialog.dart';
 import 'package:filiera_token_front_end/components/organisms/sign_in_page/components/custom_menu_singin.dart';
 import 'package:filiera_token_front_end/components/organisms/sign_in_page/service/sign_in_service.dart';
 import 'package:filiera_token_front_end/components/organisms/user_environment/services/secure_storage_service.dart';
@@ -195,16 +196,18 @@ class _MySignInPageAnimations extends State<MySignInPage> with SingleTickerProvi
                 passwordInput = _passwordController!.text;
                 walletInput = _walletController!.text;
 
+                final customPopUpDialog = CustomPopUpDialog();
                 if (await signinService.checkLogin(
                     emailInput, passwordInput, walletInput, selectedValueUserType)) {
                   User? userLogged = await signinService.onLoginSuccess(
                       selectedValueUserType, walletInput, secureStorageService);
                   User? userDataStored = await secureStorageService.get();
+
                   if (userDataStored != null) {
-                    context.go('/home-page-user/$selectedValueUserType/' + userLogged!.getId);
+                    customPopUpDialog.showSuccessPopupLogin(context, '/home-page-user/$selectedValueUserType/' + userLogged!.getId);
                   }
                 } else {
-                  /// Login Errata
+                  customPopUpDialog.showErrorPopupLogin(context, "Login non avvenuta!");
                 }
               },
             ),

@@ -77,18 +77,18 @@ class _DialogPurchaseCenterState extends State<DialogPurchaseCenter> {
 
                 if (success) {
                   // Mostra la transazione di successo
-                  CustomPopUpDialog.showBuyMilkBatchSuccess(context, "Transazione avvenuta con successo!");
+                  CustomPopUpDialog.showBuyCheesePieceSuccess(context, "Transazione avvenuta con successo!");
                 } else {
-                  CustomPopUpDialog.showBuyMilkBatchError(context);
+                  CustomPopUpDialog.showBuyCheesePieceError(context);
                 }
               } catch (error) {
                 // Gestione degli errori, se necessario
                 print("Errore durante l'acquisto: $error");
-                CustomPopUpDialog.showBuyMilkBatchError(context);
+                CustomPopUpDialog.showBuyCheesePieceError(context);
               }
             } else {
               // Mostra un messaggio che la quantità desiderata non è disponibile
-              CustomPopUpDialog.showBuyMilkBatchErrorMsg(context, "Transazione Errata! Quantità richiesta non disponibile.");
+              CustomPopUpDialog.showBuyCheesePieceErrorMsg(context, "Transazione Errata! Quantità richiesta non disponibile.");
             }
 
             break;
@@ -157,18 +157,18 @@ class _DialogPurchaseCenterState extends State<DialogPurchaseCenter> {
 
                 if (success) {
                   // Mostra la transazione di successo
-                  CustomPopUpDialog.showBuyMilkBatchSuccess(context, "Transazione avvenuta con successo!");
+                  CustomPopUpDialog.showBuyCheeseBlockSuccess(context, "Transazione avvenuta con successo!");
                 } else {
-                  CustomPopUpDialog.showBuyMilkBatchError(context);
+                  CustomPopUpDialog.showBuyCheeseBlockError(context);
                 }
               } catch (error) {
                 // Gestione degli errori, se necessario
                 print("Errore durante l'acquisto: $error");
-                CustomPopUpDialog.showBuyMilkBatchError(context);
+                CustomPopUpDialog.showBuyCheeseBlockError(context);
               }
             } else {
               // Mostra un messaggio che la quantità desiderata non è disponibile
-              CustomPopUpDialog.showBuyMilkBatchErrorMsg(context, "Transazione Errata! Quantità richiesta non disponibile.");
+              CustomPopUpDialog.showBuyCheeseBlockErrorMsg(context, "Transazione Errata! Quantità richiesta non disponibile.");
             }
             
           }

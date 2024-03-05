@@ -84,11 +84,13 @@ class CustomProductList extends StatelessWidget {
 class CustomProductListPurchased extends StatelessWidget {
   final Future<List<ProductPurchased>> productList;
   final void Function(BuildContext, ProductPurchased) onProductTap; // Callback per gestire il tap del prodotto
+  final String emptyMsg;
 
   const CustomProductListPurchased({
     Key? key,
     required this.productList,
-    required this.onProductTap}) : super(key: key);
+    required this.onProductTap,
+    required this.emptyMsg}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -104,6 +106,11 @@ class CustomProductListPurchased extends StatelessWidget {
         } else {
           // Se il futuro è completato con successo, otterrai la lista di prodotti
           List<ProductPurchased> products = snapshot.data as List<ProductPurchased>;
+
+          //Lista vuota -> errore
+          if(products.isEmpty) {
+            return CustomEmptyList(product: emptyMsg);
+          }
           return SingleChildScrollView(
             child: LayoutBuilder(
               builder: (context, constraints) {

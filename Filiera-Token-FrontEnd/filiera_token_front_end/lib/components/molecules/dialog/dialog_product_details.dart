@@ -84,7 +84,7 @@ class DialogProductDetails extends StatelessWidget {
                   InfoTile('Quantità disponibile', ' ${product.getQuantity()}'),
                   InfoTile('Prezzo', ' \$${product.getUnitPrice()}'),
                   SizedBox(height: 30),
-                  if(dialogType == DialogType.DialogConversion)
+                  if(dialogType == DialogType.DialogConversion) //Il consumer non può convertire
 
                     DialogConversionCenter(product: product, wallet: wallet)
                   else if(dialogType == DialogType.DialogPurchase)
@@ -206,7 +206,7 @@ class DialogProductDetailsPurchased extends StatelessWidget {
                     InfoTile('Scadenza', ' ${product.getExpirationDate()}'),
                   InfoTile('Quantità disponibile', ' ${product.getQuantity()}'),
                   SizedBox(height: 30),
-                  if(dialogType == DialogType.DialogConversion)
+                  if(dialogType == DialogType.DialogConversion && Enums.getActor(userType) != Actor.Consumer) //Il consumer non può convertire)
 
                     DialogConversionCenterPurchased(product: product, wallet: wallet)
                 ],

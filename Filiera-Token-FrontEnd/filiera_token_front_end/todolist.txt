@@ -1,6 +1,6 @@
-1 - Alert dialog con messaggio d'errore
+1 - Alert dialog con messaggio d'errore (DA COMPLETARE)
 2 - logo FATTO
-3 - togliere conversione da card di consumer
+3 - togliere conversione da card di consumer FATTO
 4 - Cambiare bottoni in base al ruolo nel menu hamburger
 5 - History (sviluppi futuri)
 6.1 - Funzione di callback prodotto acquistato:
@@ -14,7 +14,7 @@
 8 - Bloccare il click quando deve caricare prodotti (refresh, add, ecc..)
 9 - Usare elementi custom per estetica FATTO
 10 - Bottone + deve sottostare al menu hambueger
-11 - Se la lista prodotti è vuota, dire che è vuota
+11 - Se la lista prodotti è vuota, dire che è vuota FATTO
 12 - se clicco su una pagina del menu, deve chiudersi il menu (NON SI PUO PER NATURA DELLO STACK)
 13 - Modificare il titolo della pagina quando navigo
 14 - Conferma Password tramite validator

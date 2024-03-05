@@ -118,18 +118,24 @@ class _UserProfileProductBuyedState extends State<UserProfileProductBuyed> with 
 
       print(actor);
       print(wallet);
+      String emptyMsg = "";
+
 
       switch(actor) {
         case Actor.Consumer:{
           productList = consumerBuyerService.getCheesePieceList(wallet);
+          emptyMsg = "Pezzi di Formaggio acquistati";
           break;}
         case Actor.CheeseProducer:{
           productList = cheeseProducerBuyerService.getMilkBatchList(wallet);
+          emptyMsg = "Partite di Latte acquistate";
           break;}
         case Actor.Retailer:{
           productList = retailerBuyerService.getCheeseBlockList(wallet);
+          emptyMsg = "Blocchi di Formaggio acquistati";
           break; }
         default:{
+          emptyMsg = "prodotti";
           print("Errore nella selezione dell'attore in fase di build (product_buyed_page.dart)");
           break;
         }
@@ -141,8 +147,7 @@ class _UserProfileProductBuyedState extends State<UserProfileProductBuyed> with 
             children: [
               Padding(
                 padding: EdgeInsets.all(50.5),
-                child: CustomProductListPurchased(productList: productList,
-                 onProductTap: handleProductTap),
+                child: CustomProductListPurchased(productList: productList,onProductTap: handleProductTap, emptyMsg: emptyMsg),
               ),
               _buildDrawer(),
             ],

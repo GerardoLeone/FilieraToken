@@ -50,8 +50,45 @@ class _DialogPurchaseCenterState extends State<DialogPurchaseCenter> {
         // BuyLogic 
         switch (widget.userType) {
           case "Consumer": {
-            // Logica del consumatore
+              // Converto e calcolo il prezzo totale 
+            String quantityToBuy = _quantityToBuy!.text;
+            print("Sono nel metodo di acquisto!");
+            int totalPrice = int.parse(quantityToBuy) * int.parse(productToBuy.getUnitPrice().toString());
+            print("Prezzo totale: " + totalPrice.toString());
+            String priceToPay = totalPrice.toString();
+
+            print("Product Seller : " + productToBuy.seller);
+            print("Product buyer:" + widget!.buyer);
+
+            // Verifica se la quantità desiderata è disponibile
+            if (int.parse(quantityToBuy) <= productToBuy.getQuantity()) {
+              try {
+                bool success = await transactionService.buyCheesePieceProduct(
+                  productToBuy.id,
+                  quantityToBuy,
+                  widget.buyer,
+                  productToBuy.seller,
+                  priceToPay,
+                );
+
+                if (success) {
+                  // Mostra la transazione di successo
+                  CustomPopUpDialog.showBuyMilkBatchSuccess(context, "Transazione avvenuta con successo!");
+                } else {
+                  CustomPopUpDialog.showBuyMilkBatchError(context);
+                }
+              } catch (error) {
+                // Gestione degli errori, se necessario
+                print("Errore durante l'acquisto: $error");
+                CustomPopUpDialog.showBuyMilkBatchError(context);
+              }
+            } else {
+              // Mostra un messaggio che la quantità desiderata non è disponibile
+              CustomPopUpDialog.showBuyMilkBatchErrorMsg(context, "Transazione Errata! Quantità richiesta non disponibile.");
+            }
+
             break;
+
           }
           case "CheeseProducer": {
             // Converto e calcolo il prezzo totale 

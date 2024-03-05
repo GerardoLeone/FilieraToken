@@ -120,18 +120,19 @@ class _UserProfileProductBuyedState extends State<UserProfileProductBuyed> with 
       print(wallet);
 
       switch(actor) {
-        case Actor.Consumer:
+        case Actor.Consumer:{
           productList = consumerBuyerService.getCheesePieceList(wallet);
-          break;
-        case Actor.CheeseProducer:
+          break;}
+        case Actor.CheeseProducer:{
           productList = cheeseProducerBuyerService.getMilkBatchList(wallet);
-          break;
-        case Actor.Retailer:
+          break;}
+        case Actor.Retailer:{
           productList = retailerBuyerService.getCheeseBlockList(wallet);
-          break; 
-        default:
+          break; }
+        default:{
           print("Errore nella selezione dell'attore in fase di build (product_buyed_page.dart)");
           break;
+        }
       }
 
       return Scaffold(

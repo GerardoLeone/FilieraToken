@@ -78,22 +78,24 @@ Future<bool> buyCheeseBlockProduct(
 
 
 
-void buyCheesePieceProduct({
-  required String milkBatchId,
-  required String quantityToBuy,
-  required String buyer,
-  required String ownerMilkBatch,
-  required String totalPrice,
-}) async {
-  var url = Uri.parse('http://127.0.0.1:5000/api/v1/namespaces/default/apis/TransactionBuyMilkBatchService/invoke/BuyMilkBatchProduct');
+Future<bool> buyCheesePieceProduct(
+  String cheesePieceId,
+   String quantityToBuy,
+   String buyer,
+   String ownerCheesePiece,
+   String totalPrice,
+) async {
+  var url = Uri.parse('http://127.0.0.1:5000/api/v1/namespaces/default/apis/'+API.TransactionBuyCheesePieceService+'/invoke/BuyCheesePieceProduct');
+  
+  print(url);
 
   var body = jsonEncode({
     "input": {
-      "_id_MilkBatch": milkBatchId,
-      "_quantityToBuy": quantityToBuy,
-      "buyer": buyer,
-      "ownerMilkBatch": ownerMilkBatch,
-      "totalPrice": totalPrice
+       "_id_CheesePiece": cheesePieceId,
+    "_quantityToBuy": quantityToBuy,
+    "buyer": buyer,
+    "ownerCheesePiece": ownerCheesePiece,
+    "totalPrice": totalPrice
     },
   });
 
@@ -108,14 +110,17 @@ void buyCheesePieceProduct({
       body: body,
     );
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 200 || response.statusCode == 202) {
       print('Risposta: ${response.body}');
+      return true;
     } else {
       print('Errore: ${response.statusCode}');
       print('Messaggio di errore: ${response.body}');
+      return false;
     }
   } catch (e) {
     print('Errore durante la richiesta: $e');
+    return false;
   }
 }
 

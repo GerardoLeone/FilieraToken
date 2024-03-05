@@ -7,20 +7,23 @@ import 'dart:convert';
 class ConsumerBuyerService {
 
   Future<List<ProductPurchased>> getCheesePieceList(String wallet) async {
+
     String url = API.buildURL(API.ConsumerNodePort, API.ConsumerBuyerInventoryService, API.Query, "getUserCheesePieceIds");
 
-    print(url);
 
     final headers = API.getHeaders();
 
-    print(headers);
 
     final body = jsonEncode(API.getConsumerPayload(wallet));
 
-    print(body);
+    print("Sono qui  --------------------");
+
+    print("[URL]:"+url);
+
 
     try {
       final response = await http.post(Uri.parse(url), headers: headers, body: body);
+      print("Erorre : "+response.body);
 
       if (response.statusCode == 200 || response.statusCode == 202) {
         print(jsonEncode(response.body));
@@ -81,16 +84,19 @@ class ConsumerBuyerService {
   }
 
   Future<ProductPurchased> getCheesePiece(String cheeseId, String walletConsumerBuyer) async {
+
     
     String url = API.buildURL(API.ConsumerNodePort, API.ConsumerBuyerInventoryService, API.Query, "getCheesePiece");
     
     final body = jsonEncode(API.getCheesePieceForConsumerBody(cheeseId, walletConsumerBuyer));
     final headers = API.getHeaders();
 
+    print("[BODY]:"+body);
+
     final response = await http.post(Uri.parse(url), body: body, headers: headers);
 
+
     if(response.statusCode == 200){
-      print(response.toString());
       
       final jsonData = jsonDecode(response.body);
 

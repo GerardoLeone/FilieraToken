@@ -13,11 +13,9 @@ class RetailerInventoryService {
   Future<List<Product>> getCheesePieceList(String wallet) async {
     String url = API.buildURL(API.RetailerNodePort, API.RetailerInventoryService, API.Query, "getUserCheesePieceIds");
 
-    print(url);
 
     final headers = API.getHeaders();
 
-    print(headers);
 
     final body = jsonEncode(API.getRetailerPayload(wallet));
 
@@ -106,9 +104,11 @@ class RetailerInventoryService {
     
     
     try {
+
     
         List<String> addressRetailerList = await retailerService.getListRetailers();
         List<Product> productList = [];
+
 
         for (int i = 0; i < addressRetailerList.length; i++) {
         

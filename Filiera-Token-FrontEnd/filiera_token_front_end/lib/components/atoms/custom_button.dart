@@ -27,7 +27,9 @@ class CustomButton extends StatelessWidget {
             ),
             padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20), // Spazio interno
             textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold), // Testo più grande e bold
-            foregroundColor: Colors.white
+            foregroundColor: type == CustomType.neutralShade
+              ? ColorUtils.getColor(CustomType.neutral)
+              : Colors.white
           ),
           child: Text(text.isEmpty ? Enums.getDefaultText(type) : text),
         );

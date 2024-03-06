@@ -1,3 +1,4 @@
+import 'package:bcrypt/bcrypt.dart';
 import 'package:filiera_token_front_end/components/atoms/custom_button.dart';
 import 'package:filiera_token_front_end/components/atoms/custom_dropdown.dart';
 import 'package:filiera_token_front_end/components/atoms/custom_input_validator.dart';
@@ -196,7 +197,6 @@ class _MySignInPageAnimations extends State<MySignInPage> with SingleTickerProvi
                 passwordInput = _passwordController!.text;
                 walletInput = _walletController!.text;
 
-                final customPopUpDialog = CustomPopUpDialog();
                 if (await signinService.checkLogin(
                     emailInput, passwordInput, walletInput, selectedValueUserType)) {
                   User? userLogged = await signinService.onLoginSuccess(
@@ -204,10 +204,10 @@ class _MySignInPageAnimations extends State<MySignInPage> with SingleTickerProvi
                   User? userDataStored = await secureStorageService.get();
 
                   if (userDataStored != null) {
-                    customPopUpDialog.showSuccessPopupLogin(context, '/home-page-user/$selectedValueUserType/' + userLogged!.getId);
+                    CustomPopUpDialog.show(context, AlertDialogType.Signin, CustomType.success, path: '/home-page-user/$selectedValueUserType/' + userLogged!.getId);
                   }
                 } else {
-                  customPopUpDialog.showErrorPopupLogin(context, "Login non avvenuta!");
+                  CustomPopUpDialog.show(context, AlertDialogType.Signin, CustomType.error);
                 }
               },
             ),
@@ -304,6 +304,4 @@ class _MySignInPageAnimations extends State<MySignInPage> with SingleTickerProvi
       },
     );
   }
-
-
 }

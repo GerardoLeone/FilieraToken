@@ -1,3 +1,4 @@
+import 'package:bcrypt/bcrypt.dart';
 import 'package:filiera_token_front_end/components/organisms/user_environment/services/secure_storage_service.dart';
 import 'package:filiera_token_front_end/components/organisms/user_environment/services/user_service.dart';
 import 'package:filiera_token_front_end/models/User.dart';
@@ -47,6 +48,4 @@ class SigninService {
         user.type
       );
   }
-
-
 }

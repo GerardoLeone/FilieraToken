@@ -1,3 +1,4 @@
+import 'package:bcrypt/bcrypt.dart';
 import 'package:filiera_token_front_end/components/atoms/custom_button.dart';
 import 'package:filiera_token_front_end/components/atoms/custom_input_validator.dart';
 import 'package:filiera_token_front_end/components/molecules/dialog/custom_alert_dialog.dart';
@@ -207,10 +208,10 @@ class _MySignUpPageAnimations extends State<MySignUpPage> with SingleTickerProvi
                   if (await userService.registrationUser(
                       emailInput, fullName, confermaPasswordInput, walletInput, selectedValueUserType)) {
                     /// TRUE Registration
-                    customPopUpDialog.showSuccessPopupRegistration(context);
+                    CustomPopUpDialog.show(context, AlertDialogType.Signup, CustomType.success, path: "/signin");
                   } else {
                     /// FALSE Registration
-                    customPopUpDialog.showErrorPopupRegistration(context, "Registrazione Non Avvenuta!");
+                    CustomPopUpDialog.show(context, AlertDialogType.Signup, CustomType.error);
                   }
                 },
               ),
@@ -323,13 +324,4 @@ class _MySignUpPageAnimations extends State<MySignUpPage> with SingleTickerProvi
       },
     );
   }
-
-
-
-
-
-
-
-
-
 }

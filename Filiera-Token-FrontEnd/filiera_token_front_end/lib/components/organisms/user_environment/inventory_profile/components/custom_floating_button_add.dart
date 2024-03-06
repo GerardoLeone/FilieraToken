@@ -28,7 +28,7 @@ class CustomAddMilkBatchButton extends StatelessWidget {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
-      child: const Icon(Icons.add),
+      child: const Icon(Icons.add, color: Colors.white),
       onPressed: () {
         showModalBottomSheet(
           context: context,

@@ -1,6 +1,7 @@
 import 'package:filiera_token_front_end/utils/color_utils.dart';
 import 'package:filiera_token_front_end/utils/enums.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CustomInputValidator extends StatefulWidget {
   final TextInputType inputType;
@@ -8,6 +9,7 @@ class CustomInputValidator extends StatefulWidget {
   final Function(String)? onChanged;
   final TextEditingController controller; // Pass the controller as a parameter
   final InputDecoration decoration;
+  final Color? labelColor; // New parameter for custom label color
 
   const CustomInputValidator({
     Key? key,
@@ -16,6 +18,7 @@ class CustomInputValidator extends StatefulWidget {
     required this.controller, // Add the controller parameter
     this.onChanged,
     this.decoration = const InputDecoration(),
+    this.labelColor, // Add the new parameter
   }) : super(key: key);
 
   @override
@@ -29,24 +32,25 @@ class _CustomInputValidatorState extends State<CustomInputValidator> {
   Widget build(BuildContext context) {
     return TextFormField(
       obscureText: (widget.inputType == TextInputType.visiblePassword) ? true : false,
+      inputFormatters: (widget.inputType == TextInputType.number) ? [FilteringTextInputFormatter.digitsOnly] : null,
       controller: widget.controller, // Use the provided controller
       keyboardType: widget.inputType,
       decoration: widget.decoration.copyWith(
         labelText: widget.labelText,
         labelStyle: TextStyle(
-          color: ColorUtils.labelColor, // Colore neutral
+          color: widget.labelColor ?? ColorUtils.labelColor, // Use custom label color if provided, otherwise use default
         ),
         errorText: _getErrorMessage(),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
           borderSide: BorderSide(
-            color: ColorUtils.labelColor,
+            color: widget.labelColor ?? ColorUtils.labelColor,
           ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
           borderSide: BorderSide(
-            color: ColorUtils.labelColor,
+            color: widget.labelColor ?? ColorUtils.labelColor,
           ),
         ),
         errorBorder: OutlineInputBorder(
@@ -71,6 +75,22 @@ class _CustomInputValidatorState extends State<CustomInputValidator> {
 
   String? _getErrorMessage() {
     switch (widget.inputType) {
+      case TextInputType.number:
+        if (widget.controller.text.length == 0) {
+          isValid = false;
+          return 'Inserisci un valore.';
+        } else {
+          isValid = true;
+        }
+        break;
+      case TextInputType.datetime:
+        if (widget.controller.text.length == 0) {
+          isValid = false;
+          return 'Inserisci un valore.';
+        } else {
+          isValid = true;
+        }
+        break;
       case TextInputType.text:
         if (widget.controller.text.length < 8) {
           isValid = false;

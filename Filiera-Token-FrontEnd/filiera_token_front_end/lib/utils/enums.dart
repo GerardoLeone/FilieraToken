@@ -1,10 +1,12 @@
-enum CustomType { neutral, neutralShade, danger, warning, success }
+enum CustomType { neutral, neutralShade, error, warning, success }
 
 enum Actor { MilkHub, CheeseProducer, Retailer, Consumer, unknown }
 
 enum Asset { MilkBatch, CheeseBlock, CheesePiece }
 
 enum DialogType { DialogConversion, DialogPurchase, Inventory }
+
+enum AlertDialogType { Signup, Signin, Buy, Conversion, Add }
 
 class Enums {
   
@@ -55,7 +57,7 @@ class Enums {
     switch (type) {
       case CustomType.neutral: case CustomType.neutralShade:
         return "Conferma";
-      case CustomType.danger:
+      case CustomType.error:
         return "Cancella";
       case CustomType.warning:
         return "Annulla";

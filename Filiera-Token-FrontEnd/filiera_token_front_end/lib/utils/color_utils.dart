@@ -12,7 +12,7 @@ class ColorUtils {
           return Colors.blue;
         case CustomType.neutralShade:
           return Colors.blue.shade50;
-        case CustomType.danger:
+        case CustomType.error:
           return Colors.red;
         case CustomType.warning:
           return Colors.amber;

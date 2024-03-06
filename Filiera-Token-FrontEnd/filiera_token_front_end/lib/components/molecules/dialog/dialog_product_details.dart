@@ -81,8 +81,8 @@ class DialogProductDetails extends StatelessWidget {
                   InfoTile('ID', ' ${product.id}'),
                   if (product.getExpirationDate().isNotEmpty)
                     InfoTile('Scadenza', ' ${product.getExpirationDate()}'),
-                  InfoTile('Quantità disponibile', ' ${product.getQuantity()}'),
-                  InfoTile('Prezzo', ' \$${product.getUnitPrice()}'),
+                  InfoTile('Quantità disponibile', ' ${product.getQuantity()}' + ((product is! MilkBatch) ? "Kg" : "L")),
+                  InfoTile('Prezzo', ' ${product.getUnitPrice()}FTL'),
                   SizedBox(height: 30),
                   if(dialogType == DialogType.DialogConversion) //Il consumer non può convertire
 
@@ -204,7 +204,7 @@ class DialogProductDetailsPurchased extends StatelessWidget {
                   InfoTile('ID', ' ${product.id}'),
                   if (product.getExpirationDate().isNotEmpty)
                     InfoTile('Scadenza', ' ${product.getExpirationDate()}'),
-                  InfoTile('Quantità disponibile', ' ${product.getQuantity()}'),
+                    InfoTile('Quantità disponibile', ' ${product.getQuantity()}' + ((product is! MilkBatchPurchased) ? "Kg" : "L")),
                   SizedBox(height: 30),
                   if(dialogType == DialogType.DialogConversion && Enums.getActor(userType) != Actor.Consumer) //Il consumer non può convertire)
 

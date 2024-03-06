@@ -1,6 +1,10 @@
 import 'package:filiera_token_front_end/Actor/MilkHub/service/MilkHubInventoryService.dart';
+import 'package:filiera_token_front_end/components/atoms/custom_button.dart';
+import 'package:filiera_token_front_end/components/atoms/custom_input_validator.dart';
 import 'package:filiera_token_front_end/components/molecules/dialog/custom_alert_dialog.dart';
 import 'package:filiera_token_front_end/models/Product.dart';
+import 'package:filiera_token_front_end/utils/color_utils.dart';
+import 'package:filiera_token_front_end/utils/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -36,16 +40,16 @@ class _MilkBatchFormState extends State<MilkBatchForm> {
       bool success = await milkHubInventoryService.addMilkBatch(widget.wallet, _priceController.text, _quantityController.text, _expirationDateController.text);
 
       if (success) {
-          CustomPopUpDialog.showMilkBatchAddSuccess(context,"Inserimento della Partita di Latte avvenuto con successo!");
+          CustomPopUpDialog.show(context, AlertDialogType.Add, CustomType.success);
           widget.onProductAdded!();
       } else {
-        CustomPopUpDialog.showMilkBatchAddError(context);
+          CustomPopUpDialog.show(context, AlertDialogType.Add, CustomType.error);
         _addCompleteProductAdded();
         
       }
     } catch (error) {
       print("Errore durante l'aggiunta della Partita di Latte: $error");
-      CustomPopUpDialog.showMilkBatchAddError(context);
+      CustomPopUpDialog.show(context, AlertDialogType.Add, CustomType.error);
     } finally {
       setState(() {
         _loading = false;
@@ -64,51 +68,30 @@ class _MilkBatchFormState extends State<MilkBatchForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          TextFormField(
-            controller: _quantityController,
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(labelText: 'Quantità'),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Inserisci la quantità';
-              }
-              return null;
-            },
-          ),
+          CustomInputValidator(inputType: TextInputType.number, labelText: "Quantità (L)", controller: _quantityController),
           SizedBox(height: 8.0), // Aggiunto uno spazio tra i campi
-          TextFormField(
-            controller: _expirationDateController,
-            decoration: InputDecoration(labelText: 'Scadenza'),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Inserisci la data di scadenza';
-              }
-              return null;
-            },
-          ),
+          CustomInputValidator(inputType: TextInputType.datetime, labelText: "Data di Scadenza", controller: _expirationDateController),
           SizedBox(height: 8.0), // Aggiunto uno spazio tra i campi
-          TextFormField(
-            controller: _priceController,
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(labelText: 'Prezzo'),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Inserisci il prezzo';
-              }
-              return null;
-            },
-          ),
+          CustomInputValidator(inputType: TextInputType.number, labelText: "Prezzo (FTL)", controller: _priceController),
           SizedBox(height: 16.0), // Aumentato lo spazio tra i campi e il pulsante
           ElevatedButton(
             onPressed: _loading ? null : () async {
-                    if (_formKey.currentState?.validate() ?? false) {
-                      await _addMilkBatch();
-                    }
-                  },
+              if (_formKey.currentState?.validate() ?? false) {
+                await _addMilkBatch();
+              }
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: ColorUtils.getColor(CustomType.success), // Imposta il colore di sfondo su verde
+            ),
             child: _loading
                 ? CircularProgressIndicator()
-                : Text('Invia'),
+                : Text(
+                    'Invia',
+                    style: TextStyle(color: Colors.white), // Imposta il colore del testo su bianco
+                  ),
           ),
+
+
         ],
       ),
     );

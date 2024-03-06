@@ -66,7 +66,7 @@ class CustomCard extends StatelessWidget {
                         ),
                         const SizedBox(width: 8),
                         Text(
-                          '$price€',
+                          '$price'+'FTL',
                           style: const TextStyle(
                             fontSize: 16,
                           ),
@@ -169,7 +169,7 @@ class CustomCardPurchased extends StatelessWidget {
                         ),
                         const SizedBox(width: 8),
                         /*Text(
-                          '$price€',
+                          '$price'+'FTL',
                           style: const TextStyle(
                             fontSize: 16,
                           ),

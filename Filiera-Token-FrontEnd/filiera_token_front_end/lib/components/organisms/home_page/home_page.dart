@@ -7,10 +7,6 @@ import 'package:filiera_token_front_end/components/organisms/home_page/component
 
 import 'package:flutter/material.dart';
 
-
-
-
-
 class MyHomePage extends StatefulWidget {
   
   const MyHomePage({super.key});
@@ -88,65 +84,37 @@ Widget build(BuildContext context) {
   );
 }
 
-
-
-
-
-  Widget _buildHomePage(){
-    return ListView(
-    padding: EdgeInsets.all(16.0),
-    children: <Widget>[
-      Row(
+  Widget _buildHomePage() {
+  return Center(
+    child: Container(
+      width: MediaQuery.of(context).size.width * 0.4, // Larghezza al 40% della larghezza dello schermo
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Image.asset(
-            '../assets/milk.png',
-            width: MediaQuery.of(context).size.width * 0.2,
-          ),
-          SizedBox(width: 16.0),
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
           SlideInCard(
-            title: 'La Filiera del Latte',
-            description: firstRowDescription,
-            beginOffset: Offset(1.5, 0),
-            endOffset: Offset.zero,
+            imagePosition: ImagePosition.left,
+            title: 'Partita di Latte',
+            description: 'Il nostro latte è estratto da allevamenti selezionati, garantendo la massima freschezza e qualità. Grazie alla nostra filiera token, puoi tracciare ogni passo del percorso del latte, assicurandoti che provenga da fonti affidabili e sostenibili. Goditi il gusto puro e cremoso del nostro latte, arricchendo la tua giornata con una sana dose di nutrienti.',
+            image: const AssetImage('../assets/milk.png'), // Sostituisci con il percorso dell'immagine 1
+          ),
+          const SizedBox(height: 16.0),
+          SlideInCard(
+            imagePosition: ImagePosition.right,
+            title: 'Blocco di Formaggio',
+            description: "Il nostro blocco di formaggio artigianale è il risultato di una cura meticolosa e di una produzione attenta. Ottenuto da latte di alta qualità, ogni blocco rappresenta un'opera d'arte culinaria. La sua consistenza cremosa e il sapore ricco rendono questo formaggio perfetto per una varietà di piatti. Scegli il nostro blocco di formaggio per elevare il gusto delle tue creazioni culinarie.",
+            image: const AssetImage('../assets/cheese_block.png'), // Sostituisci con il percorso dell'immagine 2
+          ),
+          const SizedBox(height: 16.0),
+          SlideInCard(
+            imagePosition: ImagePosition.left,
+            title: 'Pezzo di Formaggio',
+            description: "Il nostro pezzo di formaggio è un'esperienza di degustazione unica nel suo genere. Prodotto in quantità limitate e con ingredienti pregiati, questo formaggio offre un equilibrio perfetto di sapori intensi. Ogni pezzo è confezionato con cura, garantendo che tu possa gustare il meglio della tradizione casearia. Aggiungi un tocco di raffinatezza ai tuoi aperitivi o alle tue ricette preferite con il nostro pezzo di formaggio esclusivo.",
+            image: const AssetImage('../assets/cheese_piece.png'), // Sostituisci con il percorso dell'immagine 3
           ),
         ],
       ),
-      SizedBox(height: 16.0),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          SlideInCard(
-            title: 'La Filiera del Latte',
-            description: SecondRowDescription,
-            beginOffset: Offset(-1.5, 0),
-            endOffset: Offset.zero,
-          ),
-          SizedBox(width: 16.0),
-          Image.asset(
-            '../assets/cheese_block.png',
-            width: MediaQuery.of(context).size.width * 0.2,
-          ),
-        ],
-      ),
-      SizedBox(height: 16.0),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Image.asset(
-            '../assets/cheese_piece.png',
-            width: MediaQuery.of(context).size.width * 0.2,
-          ),
-          SizedBox(width: 16.0),
-          SlideInCard(
-            title: 'La Filiera del Latte',
-            description: thirdRowDescription,
-            beginOffset: Offset(1.5, 0),
-            endOffset: Offset.zero,
-          ),
-        ],
-      ),
-    ],
+    ),
   );
 }
 
@@ -174,11 +142,11 @@ Widget build(BuildContext context) {
               icon: _isDrawerOpen() || _isDrawerOpening()
                   ? const Icon(
                       Icons.clear,
-                      color: Colors.black,
+                      color: Colors.blue,
                     )
                   : const Icon(
                       Icons.menu,
-                      color: Colors.black,
+                      color: Colors.blue,
                     ),
             );
           },

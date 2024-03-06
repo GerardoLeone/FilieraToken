@@ -2,6 +2,7 @@
 import 'package:filiera_token_front_end/Actor/CheeseProducer/service/CheeseProducerInventoryService.dart';
 import 'package:filiera_token_front_end/Actor/MilkHub/service/MilkHubInventoryService.dart';
 import 'package:filiera_token_front_end/Actor/Retailer/service/RetailerInventoryService.dart';
+import 'package:filiera_token_front_end/components/atoms/custom_balance.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_loading_bar.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_product_list.dart';
 import 'package:filiera_token_front_end/components/molecules/dialog/dialog_product_details.dart';
@@ -118,21 +119,28 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
       print(actor);
       print(wallet);
 
+      String emptyMsg = "";
+
     switch(actor) {
       case Actor.CheeseProducer:{
       // Milkhub List
         productList = milkHubInventoryService.getMilkBatchListAll(wallet);
+        emptyMsg = "Partite di Latte da acquistare";
         break;
       }
       case Actor.Retailer:{
         productList = cheeseProducerInventoryService.getCheeseBlockAll(wallet);
+        emptyMsg = "Blocchi di Formaggio da acquistare";
         break;
       }
       case Actor.Consumer:{
         productList = retailerInventoryService.getCheesePieceAll(wallet);
+        emptyMsg = "Pezzi di Formaggio da acquistare";
         break; 
       } 
+
       default:{
+        emptyMsg = "prodotti da acquistare";
         print("Errore nella selezione dell'attore in fase di build (home_user_page.dart)");
         break;
     }
@@ -144,11 +152,14 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
               children: [
                 Padding(
                   padding: EdgeInsets.all(50.5),
-                  child: CustomProductList(productList: productList, onProductTap: handleProductTap),
+                  child: 
+                    CustomProductList(productList: productList, onProductTap: handleProductTap, emptyMsg: emptyMsg),
                 ),
-                _buildDrawer(),
+                _buildDrawer(),  
               ],
             ),
+            floatingActionButton: CustomBalance(user: user!),
+            floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
           );
     }
   }
@@ -178,7 +189,7 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
     return CustomAppBar(
       leading: Image.asset('../assets/filiera-token-logo.png',width: 1000, height: 1000, fit: BoxFit.fill),
       centerTitle: true,
-      title: 'Filiera-Token-Shop',
+      title: 'Filiera-Token-Homepage',
       backgroundColor: Colors.transparent,
       elevation: 0.0,
       automaticallyImplyLeading: false,

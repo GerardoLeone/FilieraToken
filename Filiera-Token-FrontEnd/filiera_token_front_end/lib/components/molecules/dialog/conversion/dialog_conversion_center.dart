@@ -1,4 +1,7 @@
+import 'package:filiera_token_front_end/components/atoms/custom_button.dart';
+import 'package:filiera_token_front_end/components/atoms/custom_input_validator.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_loading_bar.dart';
+import 'package:filiera_token_front_end/utils/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:filiera_token_front_end/models/Product.dart';
@@ -45,14 +48,17 @@ class _DialogConversionCenterState extends State<DialogConversionCenter> {
 
     Product product = widget.product;
     bool conversionSuccess = false;
+    String productName = "";
 
     try {
       if (product is MilkBatch) {
+        productName = "Blocco di Formaggio";
         CheeseProducerInventoryService cheeseProducerInventoryService =
             CheeseProducerInventoryService();
         conversionSuccess = await cheeseProducerInventoryService.transformMilkBatch(
             widget.wallet, product.id, quantityValue, product.pricePerLitre.toString(), "DOP");
       } else if (product is CheeseBlock) {
+        productName = "Pezzo di Formaggio";
         RetailerInventoryService retailerInventoryService =
             RetailerInventoryService();
         conversionSuccess = await retailerInventoryService.transformCheesePiece(
@@ -61,7 +67,7 @@ class _DialogConversionCenterState extends State<DialogConversionCenter> {
     } catch (error) {
       // Gestisci l'errore qui, mostra un alert dialog o esegui altre azioni necessarie
       print("Errore durante la conversione: $error");
-      CustomPopUpDialog.showConversionError(context);
+      CustomPopUpDialog.show(context, AlertDialogType.Conversion, CustomType.error, productName: productName);
     } finally {
       // Assicurati che la barra di caricamento venga rimossa anche in caso di errore
       setState(() {
@@ -71,27 +77,23 @@ class _DialogConversionCenterState extends State<DialogConversionCenter> {
 
     if (conversionSuccess) {
       Navigator.of(context).pop();
-      CustomPopUpDialog.showConversionSuccess(
-          context, "La conversione è avvenuta con successo!");
+      CustomPopUpDialog.show(context, AlertDialogType.Conversion, CustomType.success, productName: productName);
     }
   }
 
   Widget _buildConvertButton() {
-    return ElevatedButton(
-      child: Text('Convert'),
-      onPressed: _loading ? () {} : _convertProduct,
-    );
+    return CustomButton(
+      text: "Convert", 
+      type: CustomType.neutralShade, 
+      onPressed: _loading ? () {} : _convertProduct);
   }
 
   Widget _buildTextForm() {
-    return TextField(
-      decoration: InputDecoration(
-        labelText: 'Quantità da convertire:',
-        labelStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-      ),
-      controller: _quantityToConvert,
-      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+    return CustomInputValidator(
+      inputType: TextInputType.number,
+      labelText: 'Quantità richiesta (Kg)',
+      controller: _quantityToConvert!,
+      labelColor: Colors.white,
     );
   }
 
@@ -158,11 +160,13 @@ class _DialogConversionCenterStatePurchased extends State<DialogConversionCenter
 
     ProductPurchased product = widget.product;
     bool conversionSuccess = false;
+    String productName = "";
 
     print("Metodo di conversione prima del try");
 
     try {
       if (product is MilkBatchPurchased) {
+        productName = "Partita di Latte";
         CheeseProducerInventoryService cheeseProducerInventoryService =
             CheeseProducerInventoryService();
             print("Sono nel metodo di conversione (dentro il try)");
@@ -173,6 +177,7 @@ class _DialogConversionCenterStatePurchased extends State<DialogConversionCenter
         conversionSuccess = await cheeseProducerInventoryService.transformMilkBatch(
             widget.wallet, product.id, _quantityToConvert!.text, _priceDecision!.text, "DOP");
       } else if (product is CheeseBlockPurchased) {
+        productName = "Blocco di Formaggio";
         RetailerInventoryService retailerInventoryService =
             RetailerInventoryService();
         conversionSuccess = await retailerInventoryService.transformCheesePiece(
@@ -181,7 +186,7 @@ class _DialogConversionCenterStatePurchased extends State<DialogConversionCenter
     } catch (error) {
       // Gestisci l'errore qui, mostra un alert dialog o esegui altre azioni necessarie
       print("Errore durante la conversione: $error");
-      CustomPopUpDialog.showConversionError(context);
+      CustomPopUpDialog.show(context, AlertDialogType.Conversion, CustomType.error, productName: productName);
     } finally {
       // Assicurati che la barra di caricamento venga rimossa anche in caso di errore
       setState(() {
@@ -191,40 +196,34 @@ class _DialogConversionCenterStatePurchased extends State<DialogConversionCenter
 
     if (conversionSuccess) {
       Navigator.of(context).pop();
-      CustomPopUpDialog.showConversionSuccess(
-          context, "La conversione è avvenuta con successo!");
+      CustomPopUpDialog.show(context, AlertDialogType.Conversion, CustomType.success, productName: productName);
+
     }
   }
 
   Widget _buildConvertButton() {
-    return ElevatedButton(
-      child: Text('Convert'),
-      onPressed: _loading ? () {} : _convertProduct,
-    );
+    return CustomButton(
+      text: "Convert", 
+      type: CustomType.neutralShade, 
+      onPressed: _loading ? () {} : _convertProduct);
   }
 
   Widget _buildTextForm() {
-    return TextField(
-      decoration: InputDecoration(
-        labelText: 'Quantità da convertire:',
-        labelStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-      ),
-      controller: _quantityToConvert,
-      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+    return CustomInputValidator(
+      inputType: TextInputType.number,
+      labelText: 'Quantità richiesta (Kg)',
+      controller: _quantityToConvert!,
+      labelColor: Colors.white,
     );
   }
 
   Widget _buildPriceForm() {
-    return TextField(
-      decoration: InputDecoration(
-        labelText: 'Inserisci il prezzo del singolo CheesePiece :',
-        labelStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-      ),
-      controller: _priceDecision,
-      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-    );
+    return CustomInputValidator(
+    inputType: TextInputType.number,
+    labelText: 'Prezzo per unità (FTL)',
+    controller: _priceDecision!,
+    labelColor: Colors.white,
+  );
   }
 
   @override
@@ -239,6 +238,7 @@ class _DialogConversionCenterStatePurchased extends State<DialogConversionCenter
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildTextForm(),
+          const SizedBox(height: 5.0),
           _buildPriceForm(),
           SizedBox(height: 30),
           _loading

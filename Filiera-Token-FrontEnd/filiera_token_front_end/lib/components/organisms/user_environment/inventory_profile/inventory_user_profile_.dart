@@ -1,6 +1,7 @@
 import 'package:filiera_token_front_end/Actor/CheeseProducer/service/CheeseProducerInventoryService.dart';
 import 'package:filiera_token_front_end/Actor/MilkHub/service/MilkHubInventoryService.dart';
 import 'package:filiera_token_front_end/Actor/Retailer/service/RetailerInventoryService.dart';
+import 'package:filiera_token_front_end/components/atoms/custom_balance.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_loading_bar.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_nav_bar.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_product_list.dart';
@@ -119,17 +120,23 @@ class _UserProfileInventoryProductPageState extends State<UserProfileInventoryPr
       print(actor);
       print(wallet);
 
+      String emptyMsg = "";
+
       switch(actor) {
         case Actor.MilkHub:
           productList = milkHubInventoryService.getMilkBatchList(wallet);
+          emptyMsg = "Partite di Latte possedute";
           break;
         case Actor.CheeseProducer:
           productList = cheeseProducerInventoryService.getCheeseBlockList(wallet);
+          emptyMsg = "Blocchi di Formaggio posseduti";
           break;
         case Actor.Retailer:
           productList = retailerInventoryService.getCheesePieceList(wallet);
+          emptyMsg = "Pezzi di Formaggio posseduti";
           break; 
         default:
+          emptyMsg = "prodotti";
           print("Errore nella selezione dell'attore in fase di build (inventory_user_page.dart)");
           break;
       }
@@ -140,9 +147,9 @@ class _UserProfileInventoryProductPageState extends State<UserProfileInventoryPr
           children: [
             Padding(
               padding: EdgeInsets.all(50.5),
-              child: CustomProductList(productList: productList, onProductTap: handleProductTap),
+              child: CustomProductList(productList: productList, onProductTap: handleProductTap, emptyMsg: emptyMsg),
             ),
-            _buildDrawer(),
+            _buildDrawer()
           ],
         ),
         floatingActionButton: Visibility(

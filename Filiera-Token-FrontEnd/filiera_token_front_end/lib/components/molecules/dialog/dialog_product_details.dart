@@ -1,3 +1,4 @@
+import 'package:filiera_token_front_end/components/atoms/custom_button.dart';
 import 'package:filiera_token_front_end/components/molecules/dialog/purchase/dialog_purchase_center.dart';
 import 'package:filiera_token_front_end/components/molecules/dialog/purchase/dialog_purchase_right.dart';
 
@@ -57,12 +58,10 @@ class DialogProductDetails extends StatelessWidget {
             ),
           ),
           SizedBox(height: 16.0), // Adjust spacing as needed
-          ElevatedButton(
+          CustomButton(
+            text: "Back",
+            type: CustomType.neutral,
             onPressed: () => Navigator.of(context).pop(),
-            child: Text('Back'),
-            style: ElevatedButton.styleFrom(
-              minimumSize: Size(80, 40), // Adjust button size as needed
-            ),
           ),
         ],
       ),
@@ -82,10 +81,10 @@ class DialogProductDetails extends StatelessWidget {
                   InfoTile('ID', ' ${product.id}'),
                   if (product.getExpirationDate().isNotEmpty)
                     InfoTile('Scadenza', ' ${product.getExpirationDate()}'),
-                  InfoTile('Quantità disponibile', ' ${product.getQuantity()}'),
-                  InfoTile('Prezzo', ' \$${product.getUnitPrice()}'),
+                  InfoTile('Quantità disponibile', ' ${product.getQuantity()}' + ((product is! MilkBatch) ? "Kg" : "L")),
+                  InfoTile('Prezzo', ' ${product.getUnitPrice()}FTL'),
                   SizedBox(height: 30),
-                  if(dialogType == DialogType.DialogConversion)
+                  if(dialogType == DialogType.DialogConversion) //Il consumer non può convertire
 
                     DialogConversionCenter(product: product, wallet: wallet)
                   else if(dialogType == DialogType.DialogPurchase)
@@ -182,12 +181,10 @@ class DialogProductDetailsPurchased extends StatelessWidget {
             ),
           ),
           SizedBox(height: 16.0), // Adjust spacing as needed
-          ElevatedButton(
+          CustomButton(
+            text: "Back",
+            type: CustomType.neutral,
             onPressed: () => Navigator.of(context).pop(),
-            child: Text('Back'),
-            style: ElevatedButton.styleFrom(
-              minimumSize: Size(80, 40), // Adjust button size as needed
-            ),
           ),
         ],
       ),
@@ -207,9 +204,9 @@ class DialogProductDetailsPurchased extends StatelessWidget {
                   InfoTile('ID', ' ${product.id}'),
                   if (product.getExpirationDate().isNotEmpty)
                     InfoTile('Scadenza', ' ${product.getExpirationDate()}'),
-                  InfoTile('Quantità disponibile', ' ${product.getQuantity()}'),
+                    InfoTile('Quantità disponibile', ' ${product.getQuantity()}' + ((product is! MilkBatchPurchased) ? "Kg" : "L")),
                   SizedBox(height: 30),
-                  if(dialogType == DialogType.DialogConversion)
+                  if(dialogType == DialogType.DialogConversion && Enums.getActor(userType) != Actor.Consumer) //Il consumer non può convertire)
 
                     DialogConversionCenterPurchased(product: product, wallet: wallet)
                 ],

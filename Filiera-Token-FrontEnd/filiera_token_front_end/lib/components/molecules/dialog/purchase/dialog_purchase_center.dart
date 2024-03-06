@@ -1,5 +1,8 @@
+import 'package:filiera_token_front_end/components/atoms/custom_button.dart';
+import 'package:filiera_token_front_end/components/atoms/custom_input_validator.dart';
 import 'package:filiera_token_front_end/components/molecules/dialog/custom_alert_dialog.dart';
 import 'package:filiera_token_front_end/components/organisms/user_environment/services/transaction_service.dart';
+import 'package:filiera_token_front_end/utils/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:filiera_token_front_end/models/Product.dart';
@@ -44,8 +47,10 @@ class _DialogPurchaseCenterState extends State<DialogPurchaseCenter> {
 
   
   Widget _buildBuyButton() {
-    return ElevatedButton(
-      onPressed: () async {
+    return CustomButton(
+        text: "Buy", 
+        type: CustomType.neutralShade, 
+        onPressed: () async {
         Product productToBuy = widget.product;
         // BuyLogic 
         switch (widget.userType) {
@@ -73,18 +78,18 @@ class _DialogPurchaseCenterState extends State<DialogPurchaseCenter> {
 
                 if (success) {
                   // Mostra la transazione di successo
-                  CustomPopUpDialog.showBuyMilkBatchSuccess(context, "Transazione avvenuta con successo!");
+                  CustomPopUpDialog.show(context, AlertDialogType.Buy, CustomType.success, productName: "Pezzo di Formaggio");
                 } else {
-                  CustomPopUpDialog.showBuyMilkBatchError(context);
+                  CustomPopUpDialog.show(context, AlertDialogType.Buy, CustomType.error, productName: "Pezzo di Formaggio");
                 }
               } catch (error) {
                 // Gestione degli errori, se necessario
                 print("Errore durante l'acquisto: $error");
-                CustomPopUpDialog.showBuyMilkBatchError(context);
+                CustomPopUpDialog.show(context, AlertDialogType.Buy, CustomType.error, productName: "Pezzo di Formaggio");
               }
             } else {
               // Mostra un messaggio che la quantità desiderata non è disponibile
-              CustomPopUpDialog.showBuyMilkBatchErrorMsg(context, "Transazione Errata! Quantità richiesta non disponibile.");
+              CustomPopUpDialog.show(context, AlertDialogType.Buy, CustomType.error, productName: "Pezzo di Formaggio", errorDetail: "Quantità desiderata non disponibile.");
             }
 
             break;
@@ -114,18 +119,18 @@ class _DialogPurchaseCenterState extends State<DialogPurchaseCenter> {
 
                 if (success) {
                   // Mostra la transazione di successo
-                  CustomPopUpDialog.showBuyMilkBatchSuccess(context, "Transazione avvenuta con successo!");
+                  CustomPopUpDialog.show(context, AlertDialogType.Buy, CustomType.success, productName: "Partita di Latte");
                 } else {
-                  CustomPopUpDialog.showBuyMilkBatchError(context);
+                  CustomPopUpDialog.show(context, AlertDialogType.Buy, CustomType.error, productName: "Partita di Latte");
                 }
               } catch (error) {
                 // Gestione degli errori, se necessario
                 print("Errore durante l'acquisto: $error");
-                CustomPopUpDialog.showBuyMilkBatchError(context);
+                CustomPopUpDialog.show(context, AlertDialogType.Buy, CustomType.error, productName: "Partita di Latte");
               }
             } else {
               // Mostra un messaggio che la quantità desiderata non è disponibile
-              CustomPopUpDialog.showBuyMilkBatchErrorMsg(context, "Transazione Errata! Quantità richiesta non disponibile.");
+              CustomPopUpDialog.show(context, AlertDialogType.Buy, CustomType.error, productName: "Partita di Latte", errorDetail: "Quantità desiderata non disponibile.");
             }
 
             break;
@@ -153,68 +158,35 @@ class _DialogPurchaseCenterState extends State<DialogPurchaseCenter> {
 
                 if (success) {
                   // Mostra la transazione di successo
-                  CustomPopUpDialog.showBuyMilkBatchSuccess(context, "Transazione avvenuta con successo!");
+                  CustomPopUpDialog.show(context, AlertDialogType.Buy, CustomType.success, productName: "Blocco di Formaggio");
                 } else {
-                  CustomPopUpDialog.showBuyMilkBatchError(context);
+                  CustomPopUpDialog.show(context, AlertDialogType.Buy, CustomType.error, productName: "Blocco di Formaggio");
                 }
               } catch (error) {
                 // Gestione degli errori, se necessario
                 print("Errore durante l'acquisto: $error");
-                CustomPopUpDialog.showBuyMilkBatchError(context);
+                CustomPopUpDialog.show(context, AlertDialogType.Buy, CustomType.error, productName: "Blocco di Formaggio");
               }
             } else {
               // Mostra un messaggio che la quantità desiderata non è disponibile
-              CustomPopUpDialog.showBuyMilkBatchErrorMsg(context, "Transazione Errata! Quantità richiesta non disponibile.");
+              CustomPopUpDialog.show(context, AlertDialogType.Buy, CustomType.error, productName: "Blocco di Formaggio", errorDetail: "Quantità desiderata non disponibile.");
             }
             
           }
         }
-      },
-      child: Text('Buy'),
+      }
     );
   }
 
+  Widget _buidlTextForm() {
+    String kg = (widget.userType == "Consumer" || widget.userType == "Retailer") ? " (Kg)" : " (L)";
 
-
-  Widget _buidlTextForm(){
-    return TextField(
-              decoration: 
-               InputDecoration(
-                labelText:'Quantità richiesta:',
-                labelStyle:TextStyle(color: Colors.white, fontWeight: FontWeight.bold )
-                ),
-              controller: _quantityToBuy,
-              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-            );
-    /*Text(
-              'Quantità richiesta:',
-              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-            ),
-            TextFormField(
-              keyboardType: TextInputType.number,
-              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-              style: TextStyle(color: Colors.white),
-              onChanged: (value) {
-                setState(() {
-                  quantityValue = value;
-                });
-              },
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Inserisci una quantità';
-                }
-
-                int enteredQuantity = int.parse(value);
-                int originalQuantity = widget.product.getQuantity();
-
-                if (enteredQuantity > originalQuantity) {
-                  return 'Quantità invalida.';
-                }
-
-                return null;
-              },
-            );*/
+    return CustomInputValidator(
+      inputType: TextInputType.number,
+      labelText: 'Quantità richiesta$kg',
+      controller: _quantityToBuy!,
+      labelColor: Colors.white,
+    );
   }
 
 

@@ -138,7 +138,7 @@ final GlobalKey<EventListState> _eventListKey = GlobalKey<EventListState>();
     return CustomAppBar(
       leading: Image.asset('../assets/filiera-token-logo.png',width: 1000, height: 1000, fit: BoxFit.fill),
       centerTitle: true,
-      title: 'Filiera-Token-Shop-History',
+      title: 'Filiera-Token-History',
       backgroundColor: Colors.transparent,
       elevation: 0.0,
       automaticallyImplyLeading: false,

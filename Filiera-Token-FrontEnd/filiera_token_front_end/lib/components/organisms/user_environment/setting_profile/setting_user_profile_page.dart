@@ -1,7 +1,10 @@
+import 'package:filiera_token_front_end/components/atoms/custom_balance.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_loading_bar.dart';
 import 'package:filiera_token_front_end/components/organisms/user_environment/services/logout_service.dart';
 import 'package:filiera_token_front_end/components/organisms/user_environment/services/secure_storage_service.dart';
 import 'package:filiera_token_front_end/models/User.dart';
+import 'package:filiera_token_front_end/utils/color_utils.dart';
+import 'package:filiera_token_front_end/utils/enums.dart';
 import 'package:flutter/material.dart';
 
 // Components Page 
@@ -93,25 +96,40 @@ class _UserProfilePageAnimations extends State<UserProfilePage> with SingleTicke
 
 
   @override
-Widget build(BuildContext context) {
-  if (user == null) {
-    // Se user non è ancora stato inizializzato, visualizza un indicatore di caricamento o un altro widget di fallback
-    return CustomLoadingIndicator(progress: 4.5);
-  } else {
-    // Se user è stato inizializzato, costruisci il widget CustomViewProfile
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: _buildAppBar(),
-      body: Stack(
-        children: [
-          CustomViewProfile(userData: user!),
-          CustomDeleteUserButton(),
-          _buildDrawer(),
-        ],
-      ),
-    );
+  Widget build(BuildContext context) {
+    if (user == null) {
+      // Se user non è ancora stato inizializzato, visualizza un indicatore di caricamento o un altro widget di fallback
+      return CustomLoadingIndicator(progress: 4.5);
+    } else {
+      // Se user è stato inizializzato, costruisci il widget CustomViewProfile
+      return Scaffold(
+            appBar: _buildAppBar(),
+            body: Stack(
+              children: [
+                  Center(
+                    child: IntrinsicHeight(
+                      child: IntrinsicWidth(child: 
+                        Container(
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        padding: const EdgeInsets.all(40.0),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: ColorUtils.getColor(CustomType.neutral),
+                          ),
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                        child: CustomViewProfile(userData: user!),
+                      ),
+                    ),
+                  ),
+                ),
+                CustomDeleteUserButton(),
+                _buildDrawer(),
+              ],
+            ),
+          );
+    }
   }
-}
 
 
   /**

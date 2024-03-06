@@ -38,12 +38,12 @@ class API {
    * Costanti Consumer
    */
   static const String ConsumerService = "ConsumerService";
-  static const String ConsumerBuyerInventoryService = "ConsumerBuyerService2"; //TODO: Change the Name 
+  static const String ConsumerBuyerInventoryService = "ConsumerBuyerService"; 
 
 
   static const String TransactionBuyMilkBatchService = "TransactionBuyMilkBatchService";
   static const String TransactionBuyCheeseService = "TransactionBuyCheeseService";
-    static const String TransactionBuyCheesePieceService = "TransactionBuyCheesePieceService-3";
+    static const String TransactionBuyCheesePieceService = "TransactionBuyCheesePieceService";
 
 
   /**

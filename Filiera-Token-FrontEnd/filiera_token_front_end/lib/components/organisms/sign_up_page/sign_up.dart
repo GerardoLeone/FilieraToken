@@ -1,5 +1,10 @@
+import 'package:bcrypt/bcrypt.dart';
+import 'package:filiera_token_front_end/components/atoms/custom_button.dart';
+import 'package:filiera_token_front_end/components/atoms/custom_input_validator.dart';
 import 'package:filiera_token_front_end/components/molecules/dialog/custom_alert_dialog.dart';
 import 'package:filiera_token_front_end/components/organisms/sign_up_page/components/custom_menu_singup.dart';
+import 'package:filiera_token_front_end/utils/color_utils.dart';
+import 'package:filiera_token_front_end/utils/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -114,103 +119,127 @@ class _MySignUpPageAnimations extends State<MySignUpPage> with SingleTickerProvi
   /**
    * Build Form di Registrazione 
    */
-  Widget buildFormRegistrazione(BuildContext context){
-            // Form di iscrizione
-           return  Padding(
-              padding: const EdgeInsets.all(55.5),
-              child: Column(
-                children: <Widget>[
-                  // Nome
-                   TextField(
-                    decoration: InputDecoration(labelText: 'Nome'),
-                    controller: _nameController,
-                  ),
-
-                  // Cognome
-                   TextField(
-                    decoration: InputDecoration(labelText: 'Cognome'),
-                    controller: _lastNameController,
-                  ),
-
-                  // Email
-                   TextField(
-                    decoration: InputDecoration(labelText: 'Email'),
-                    controller: _emailController,
-                  ),
-
-                  // Password
-                   TextField(
-                    decoration: InputDecoration(labelText: 'Password'),
-                    obscureText: true,
-                    controller: _passwordController,
-                  ),
-
-                  // Conferma password
-                   TextField(
-                    decoration: InputDecoration(labelText: 'Conferma password'),
-                    obscureText: true,
-                    controller: _confirmPasswordController,
-
-                  ),
-
-                  // Wallet
-                   TextField(
-                    decoration: InputDecoration(labelText: 'Wallet'),
-                    controller: _walletController,
-                  ),
-
-                // Padding   
-                const SizedBox(height: 20,width: 20),
-                
-                // Select value of DropDown
-                CustomDropdown<String>(
-                    // Pass the item list
-                    items: dropdownItems,
-
-                    // Optionally set an initial value or use the first item as default
-                    value: "MilkHub", // Adjust as needed
-
-                    // Handle changes in the selection
-                    onChanged: (value) {
-                      setState(() {
-                        // Update selected value here, possibly triggering additional actions
-                        selectedValueUserType = value!;
-                      });
-                    },
-                  ),
-                const SizedBox(height: 5,width: 20),
-
-                // Pulsante di iscrizione
-                ElevatedButton(
-                    child: const Text('Registrati'),
-                    onPressed: ()  async  {
-                        // Recupera i valori dai controller
-                        nameInput = _nameController!.text;
-                        cognomeInput = _lastNameController!.text;
-                        emailInput = _emailController!.text;
-                        passwordInput = _passwordController!.text;
-                        confermaPasswordInput = _confirmPasswordController!.text;
-                        walletInput = _walletController!.text;
-
-                        fullName = nameInput+cognomeInput;
-                        
-                        if(await userService.registrationUser(emailInput,fullName,confermaPasswordInput,walletInput,selectedValueUserType)){
-                          /// TRUE Registration
-                          customPopUpDialog.showSuccessPopupRegistration(context);
-                          
-                        }else{
-
-                          /// FALSE Registration
-                          customPopUpDialog.showErrorPopupRegistration(context, "Registrazione Non Avvenuta!");
-                        }
-                    }
-                  ),
-                  const SizedBox(height: 20,width: 20),
-                  buildIsRegistered(context),
-                ],
+  Widget buildFormRegistrazione(BuildContext context) {
+    // Form di iscrizione
+    return Center(
+      child: IntrinsicHeight(
+        child: Container(
+          width: MediaQuery.of(context).size.width * 0.4,
+          padding: const EdgeInsets.all(40.0),
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: ColorUtils.getColor(CustomType.neutral),
+            ),
+            borderRadius: BorderRadius.circular(30.0),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                'Registrazione', // Titolo "Login"
+                style: TextStyle(
+                  fontSize: 24.0, // Dimensione del testo
+                  fontWeight: FontWeight.bold, // Grassetto
+                  color: ColorUtils.getColor(CustomType.neutral), // Colore neutral
+                ),
               ),
-            );
+              const SizedBox(height: 20),
+              CustomInputValidator(
+                inputType: TextInputType.name,
+                labelText: 'Nome',
+                controller: _nameController!,
+              ),
+              const SizedBox(height: 20),
+              CustomInputValidator(
+                inputType: TextInputType.name,
+                labelText: 'Cognome',
+                controller: _lastNameController!,
+              ),
+              const SizedBox(height: 20),
+              CustomInputValidator(
+                inputType: TextInputType.emailAddress,
+                labelText: 'Email',
+                controller: _emailController!,
+              ),
+              const SizedBox(height: 20),
+              CustomInputValidator(
+                inputType: TextInputType.visiblePassword,
+                labelText: 'Password',
+                controller: _passwordController!,
+              ),
+              const SizedBox(height: 20),
+              CustomInputValidator(
+                inputType: TextInputType.visiblePassword,
+                labelText: 'Conferma password',
+                controller: _confirmPasswordController!,
+              ),
+              const SizedBox(height: 20),
+              CustomInputValidator(
+                inputType: TextInputType.text,
+                labelText: 'Wallet',
+                controller: _walletController!,
+              ),
+              const SizedBox(height: 20),
+              CustomDropdown<String>(
+                items: dropdownItems,
+                value: "MilkHub",
+                onChanged: (value) {
+                  setState(() {
+                    selectedValueUserType = value!;
+                  });
+                },
+              ),
+              const SizedBox(height: 20),
+              CustomButton(
+                expandWidth: true,
+                text: "Registrati",
+                type: CustomType.neutral,
+                onPressed: () async {
+                  // Recupera i valori dai controller
+                  nameInput = _nameController!.text;
+                  cognomeInput = _lastNameController!.text;
+                  emailInput = _emailController!.text;
+                  passwordInput = _passwordController!.text;
+                  confermaPasswordInput = _confirmPasswordController!.text;
+                  walletInput = _walletController!.text;
+
+                  fullName = nameInput + cognomeInput;
+
+                  if(passwordInput != confermaPasswordInput) {
+                      CustomPopUpDialog.show(context, AlertDialogType.Signup, CustomType.error, errorDetail: "Le password non corrispondono.");
+                  } else {
+                    if (await userService.registrationUser(
+                        emailInput, fullName, confermaPasswordInput, walletInput, selectedValueUserType)) {
+                      /// TRUE Registration
+                      CustomPopUpDialog.show(context, AlertDialogType.Signup, CustomType.success, path: "/signin");
+                    } else {
+                      /// FALSE Registration
+                      CustomPopUpDialog.show(context, AlertDialogType.Signup, CustomType.error);
+                    }
+                  }
+                },
+              ),
+              const SizedBox(height: 20),
+              Center(
+                child: Text(
+                  'Hai già un account?',
+                  style: TextStyle(
+                    color: ColorUtils.labelColor,
+                  ),
+                ),
+              ),
+              CustomButton(
+                expandWidth: true,
+                text: "Login",
+                type: CustomType.neutral,
+                onPressed: () => context.go('/signin')),
+            ],
+          ),
+        ),
+      ),
+    );
   }
+
 
 
 
@@ -224,11 +253,10 @@ class _MySignUpPageAnimations extends State<MySignUpPage> with SingleTickerProvi
                 const Text('Hai già un account?'),
                 SizedBox(width: 20,height: 0),
                 
-                ElevatedButton(
-                  child: const Text('Login'),
-
+                CustomButton(
+                  text: "Login",
+                  type: CustomType.neutral,
                   onPressed: () => context.go('/signin'),
-                
                 ),
               ],
             );
@@ -240,18 +268,17 @@ class _MySignUpPageAnimations extends State<MySignUpPage> with SingleTickerProvi
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       appBar: _buildAppBar(),
-      
       body: Stack(
           children: <Widget>[
             /// Registration Form 
             buildFormRegistrazione(context),
-            _buildDrawer()
+            _buildDrawer(),
           ],
         ),
-      );
+    );
   }
+
 
      /**
    * Construisce la NavBar Custom
@@ -263,7 +290,7 @@ class _MySignUpPageAnimations extends State<MySignUpPage> with SingleTickerProvi
     return CustomAppBar(
       leading: Image.asset('../assets/filiera-token-logo.png',width: 1000, height: 1000, fit: BoxFit.fill),
       centerTitle: true,
-      title: 'Filiera-Token-Shop',
+      title: 'Filiera-Token-Registrazione',
       backgroundColor: Colors.transparent,
       elevation: 0.0,
       automaticallyImplyLeading: false,
@@ -301,13 +328,4 @@ class _MySignUpPageAnimations extends State<MySignUpPage> with SingleTickerProvi
       },
     );
   }
-
-
-
-
-
-
-
-
-
 }

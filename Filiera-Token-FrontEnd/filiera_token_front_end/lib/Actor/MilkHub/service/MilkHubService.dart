@@ -57,7 +57,7 @@ class MilkHubService{
     );
 
     // Controllo del codice di stato
-    if (response.statusCode == 200 || response.statusCode == 202) {
+    if ((response.statusCode == 200 || response.statusCode == 202)) {
       // Richiesta avvenuta con successo
       print('Login avvenuto con successo');
       return true;

@@ -1,6 +1,7 @@
 import 'package:filiera_token_front_end/Actor/CheeseProducer/service/CheeseProducerBuyerService.dart';
 import 'package:filiera_token_front_end/Actor/Consumer/service/ConsumerBuyerService.dart';
 import 'package:filiera_token_front_end/Actor/Retailer/service/RetailerBuyerService.dart';
+import 'package:filiera_token_front_end/components/atoms/custom_balance.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_loading_bar.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_nav_bar.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_product_list.dart';
@@ -149,7 +150,7 @@ class _UserProfileProductBuyedState extends State<UserProfileProductBuyed> with 
                 padding: EdgeInsets.all(50.5),
                 child: CustomProductListPurchased(productList: productList,onProductTap: handleProductTap, emptyMsg: emptyMsg),
               ),
-              _buildDrawer(),
+              _buildDrawer()
             ],
           ),
         );

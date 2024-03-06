@@ -25,25 +25,23 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       title: Container(
-  padding: EdgeInsets.all(8.0),
-  decoration: BoxDecoration(
-    color: Colors.white,
-    borderRadius: BorderRadius.circular(10.0),
-    border: Border.all(
-      color: ColorUtils.getColor(CustomType.neutral),
-    ),
-  ),
-  child: Text(
-    title,
-    style: TextStyle(
-      fontSize: 24.0,
-      color: ColorUtils.getColor(CustomType.neutral), // Colore del testo neutrale
-      fontWeight: FontWeight.bold,
-    ),
-  ),
-)
-
-,
+        padding: EdgeInsets.all(8.0),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10.0),
+          border: Border.all(
+            color: ColorUtils.getColor(CustomType.neutral),
+          ),
+        ),
+        child: Text(
+          title,
+          style: TextStyle(
+            fontSize: 24.0,
+            color: ColorUtils.getColor(CustomType.neutral), // Colore del testo neutrale
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
       centerTitle: centerTitle,
       leading: leading,
       actions: actions,

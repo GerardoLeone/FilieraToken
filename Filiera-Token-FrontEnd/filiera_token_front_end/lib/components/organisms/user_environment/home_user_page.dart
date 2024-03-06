@@ -2,6 +2,7 @@
 import 'package:filiera_token_front_end/Actor/CheeseProducer/service/CheeseProducerInventoryService.dart';
 import 'package:filiera_token_front_end/Actor/MilkHub/service/MilkHubInventoryService.dart';
 import 'package:filiera_token_front_end/Actor/Retailer/service/RetailerInventoryService.dart';
+import 'package:filiera_token_front_end/components/atoms/custom_balance.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_loading_bar.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_product_list.dart';
 import 'package:filiera_token_front_end/components/molecules/dialog/dialog_product_details.dart';
@@ -152,9 +153,11 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
                   child: 
                     CustomProductList(productList: productList, onProductTap: handleProductTap, emptyMsg: emptyMsg),
                 ),
-                _buildDrawer(),
+                _buildDrawer(),  
               ],
             ),
+            floatingActionButton: CustomBalance(user: user!),
+            floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
           );
     }
   }

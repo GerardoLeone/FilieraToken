@@ -167,7 +167,7 @@ class _UserProfileProductBuyedState extends State<UserProfileProductBuyed> with 
    */
   PreferredSizeWidget _buildAppBar() {
     return CustomAppBar(
-      leading: Image.asset('../assets/favicon.png'),
+      leading: Image.asset('../assets/filiera-token-logo.png',width: 1000, height: 1000, fit: BoxFit.fill),
       centerTitle: true,
       title: 'Filiera-Token-Product-Buyed',
       backgroundColor: Colors.transparent,
@@ -202,7 +202,7 @@ class _UserProfileProductBuyedState extends State<UserProfileProductBuyed> with 
       builder: (context, child) {
         return FractionalTranslation(
           translation: Offset(1.0 - _drawerSlideController.value, 0.0),
-          child: _isDrawerClosed() ? const SizedBox() :  CustomMenuUserProductBuyed(userData: user! ,),
+          child: _isDrawerClosed() ? const SizedBox() :  CustomMenuUserProductBuyed(userData: user! ,secureStorageService: secureStorageService,),
         );
       },
     );

@@ -1,3 +1,5 @@
+import 'package:filiera_token_front_end/components/organisms/user_environment/services/logout_service.dart';
+import 'package:filiera_token_front_end/components/organisms/user_environment/services/secure_storage_service.dart';
 import 'package:filiera_token_front_end/components/atoms/custom_button.dart';
 import 'package:filiera_token_front_end/models/User.dart';
 import 'package:filiera_token_front_end/utils/enums.dart';
@@ -7,13 +9,17 @@ import 'package:go_router/go_router.dart';
 class CustomMenuHomeUserPageEnv extends StatefulWidget {
 
   final User userData;
-  const CustomMenuHomeUserPageEnv({super.key, required this.userData});
+  final SecureStorageService secureStorageService;
+  const CustomMenuHomeUserPageEnv({super.key, required this.userData, required this.secureStorageService});
 
   @override
   State<CustomMenuHomeUserPageEnv> createState() => _MenuState();
 }
 
 class _MenuState extends State<CustomMenuHomeUserPageEnv> with SingleTickerProviderStateMixin {
+
+
+  final LogoutService logoutService = LogoutService();
 
 
   static const _menuTitles = [
@@ -40,6 +46,7 @@ class _MenuState extends State<CustomMenuHomeUserPageEnv> with SingleTickerProvi
   @override
   void initState() {
     super.initState();
+
 
     _createAnimationIntervals();
 
@@ -133,7 +140,7 @@ class _MenuState extends State<CustomMenuHomeUserPageEnv> with SingleTickerProvi
             child: CustomButton(
               text: _menuTitles[i],
               type: CustomType.neutral,
-              onPressed: () {
+              onPressed: () async {
                 print("Ho premuto il bottone dal menù principale!");
                 String type = Enums.getActorText(userData.type);
                 print(type);
@@ -141,7 +148,9 @@ class _MenuState extends State<CustomMenuHomeUserPageEnv> with SingleTickerProvi
 
                 if(_menuTitles[i].compareTo('Logout') == 0){
                   // Logout Routing 
+                 await _logoutUser();
                   context.go('/');
+
 
                 }else if(_menuTitles[i].compareTo('Inventory') == 0){
                   // Product Buyed Routing 
@@ -166,6 +175,14 @@ class _MenuState extends State<CustomMenuHomeUserPageEnv> with SingleTickerProvi
           );
       }
     return listItems;
+  }
+
+  Future<void> _logoutUser() async {
+    String? token = await widget.secureStorageService.getJWT();
+    
+    if(logoutService.deleteUserData(widget.secureStorageService, token!) == true){
+      print("Ho invalidato il token");
+    }
   }
 
 

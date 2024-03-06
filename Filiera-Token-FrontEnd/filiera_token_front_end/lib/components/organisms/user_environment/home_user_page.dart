@@ -138,10 +138,12 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
         emptyMsg = "Pezzi di Formaggio da acquistare";
         break; 
       } 
-      default:
+
+      default:{
         emptyMsg = "prodotti da acquistare";
         print("Errore nella selezione dell'attore in fase di build (home_user_page.dart)");
         break;
+    }
     }
 
       return Scaffold(
@@ -185,7 +187,7 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
    */
   PreferredSizeWidget _buildAppBar() {
     return CustomAppBar(
-      leading: Image.asset('../assets/favicon.png'),
+      leading: Image.asset('../assets/filiera-token-logo.png',width: 1000, height: 1000, fit: BoxFit.fill),
       centerTitle: true,
       title: 'Filiera-Token-Homepage',
       backgroundColor: Colors.transparent,
@@ -220,7 +222,7 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
       builder: (context, child) {
         return FractionalTranslation(
           translation: Offset(1.0 - _drawerSlideController.value, 0.0),
-          child: _isDrawerClosed() ? const SizedBox() :  CustomMenuHomeUserPageEnv(userData: user!),
+          child: _isDrawerClosed() ? const SizedBox() :  CustomMenuHomeUserPageEnv(userData: user!, secureStorageService: secureStorageService),
         );
       },
     );

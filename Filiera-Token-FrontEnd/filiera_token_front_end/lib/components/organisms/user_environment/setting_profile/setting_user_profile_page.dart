@@ -1,5 +1,6 @@
 import 'package:filiera_token_front_end/components/atoms/custom_balance.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_loading_bar.dart';
+import 'package:filiera_token_front_end/components/organisms/user_environment/services/logout_service.dart';
 import 'package:filiera_token_front_end/components/organisms/user_environment/services/secure_storage_service.dart';
 import 'package:filiera_token_front_end/models/User.dart';
 import 'package:filiera_token_front_end/utils/color_utils.dart';
@@ -36,6 +37,7 @@ class _UserProfilePageAnimations extends State<UserProfilePage> with SingleTicke
   User? user;
 
   late SecureStorageService secureStorageService;
+
 
 
 
@@ -138,7 +140,7 @@ class _UserProfilePageAnimations extends State<UserProfilePage> with SingleTicke
    */
   PreferredSizeWidget _buildAppBar() {
     return CustomAppBar(
-      leading: Image.asset('../assets/favicon.png'),
+      leading: Image.asset('../assets/filiera-token-logo.png',width: 1000, height: 1000, fit: BoxFit.fill),
       centerTitle: true,
       title: 'Filiera-Token-Setting',
       backgroundColor: Colors.transparent,
@@ -173,11 +175,13 @@ class _UserProfilePageAnimations extends State<UserProfilePage> with SingleTicke
       builder: (context, child) {
         return FractionalTranslation(
           translation: Offset(1.0 - _drawerSlideController.value, 0.0),
-          child: _isDrawerClosed() ? const SizedBox() : CustomMenu(userData: user!),
+          child: _isDrawerClosed() ? const SizedBox() : CustomMenu(userData: user!,secureStorageService: secureStorageService,),
         );
       },
     );
   }
+
+  
 
 
 

@@ -135,7 +135,6 @@ class _MySignInPageAnimations extends State<MySignInPage> with SingleTickerProvi
   /**
    * Build Login Form 
    */
-
   Widget _buildFormLogin(BuildContext context) {
   return Center(
     child: IntrinsicHeight(
@@ -264,7 +263,7 @@ class _MySignInPageAnimations extends State<MySignInPage> with SingleTickerProvi
    */
   PreferredSizeWidget _buildAppBar() {
     return CustomAppBar(
-      leading: Image.asset('../assets/favicon.png'),
+      leading: Image.asset('../assets/filiera-token-logo.png',width: 1000, height: 1000, fit: BoxFit.fill),
       centerTitle: true,
       title: 'Filiera-Token-Login',
       backgroundColor: Colors.transparent,

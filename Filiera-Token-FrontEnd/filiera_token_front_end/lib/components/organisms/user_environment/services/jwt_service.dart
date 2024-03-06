@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:html';
 import 'package:http/http.dart' as http;
 
 class JwtService {
@@ -7,15 +8,23 @@ class JwtService {
   static const String _apiProtected = '/protected';
   static const String _apiInvalidateToken = '/invalidate-token';
 
-  Future<String> generateJwtToken(Map<String, dynamic> data) async {
+  Future<String> generateJwtToken(String email, String password,String wallet,String typeUser) async {
     print("Sono nel generate!");
     final response = await http.post(
       Uri.parse('$_apiUrl$_apiGenerateJWT'),
       headers: <String, String>{
         'Content-Type': 'application/json',
       },
-      body: jsonEncode(data),
+      body: jsonEncode({
+        "email":email,
+        "password":password,
+        "wallet":wallet,
+        "user_type":typeUser
+      }),
     );
+
+    print("[BODY]:"+response.body);
+    print("[Headers]:"+response.headers.toString());
 
     if (response.statusCode == 200) {
       final jsonResponse = jsonDecode(response.body);
@@ -41,20 +50,23 @@ class JwtService {
     }
   }
 
-  Future<void> invalidateToken(String token) async {
+  Future<bool> invalidateToken(String token) async {
         print("Sono nel invalidate!");
     final response = await http.post(
       Uri.parse('$_apiUrl$_apiInvalidateToken'),
       headers: <String, String>{
         'Content-Type': 'application/json',
+        'Authorization': token,
       },
-      body: jsonEncode({'token': token}),
+      body: jsonEncode({"token": token})
     );
 
     if (response.statusCode == 200) {
       final jsonResponse = jsonDecode(response.body);
       print(jsonResponse['message']);
+      return true;
     } else {
+      print(response.body);
       throw Exception('Failed to invalidate token');
     }
   }

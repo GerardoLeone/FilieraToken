@@ -1,3 +1,5 @@
+import 'package:filiera_token_front_end/components/organisms/user_environment/services/logout_service.dart';
+import 'package:filiera_token_front_end/components/organisms/user_environment/services/secure_storage_service.dart';
 import 'package:filiera_token_front_end/components/atoms/custom_button.dart';
 import 'package:filiera_token_front_end/models/User.dart';
 import 'package:filiera_token_front_end/utils/enums.dart';
@@ -6,7 +8,8 @@ import 'package:go_router/go_router.dart';
 
 class CustomMenuUserInventory extends StatefulWidget {
   final User userData;
-  const CustomMenuUserInventory({super.key, required this.userData});
+  final SecureStorageService secureStorageService;
+  const CustomMenuUserInventory({super.key, required this.userData, required this.secureStorageService});
 
   @override
   State<CustomMenuUserInventory> createState() => _MenuState();
@@ -14,6 +17,7 @@ class CustomMenuUserInventory extends StatefulWidget {
 
 class _MenuState extends State<CustomMenuUserInventory> with SingleTickerProviderStateMixin {
 
+  final LogoutService logoutService = LogoutService();
   
   static const _menuTitles = [
     'Setting', // Go to profile setting 
@@ -132,15 +136,16 @@ class _MenuState extends State<CustomMenuUserInventory> with SingleTickerProvide
             child: CustomButton(
               text: _menuTitles[i],
               type: CustomType.neutral,
-              onPressed: () {
+              onPressed: () async{
                 
                 String idUser = userData.id;
                   String type = Enums.getActorText(userData.type);
 
                   if(_menuTitles[i].compareTo('Logout')==0){
                     // Logout Routing
-                    /// Logout Service  
+                    await _logoutUser();
                     context.go('/');
+
 
                   }else if(_menuTitles[i].compareTo('Product Buyed')==0){
                     // Product Buyed Routing 
@@ -164,5 +169,13 @@ class _MenuState extends State<CustomMenuUserInventory> with SingleTickerProvide
           );
       }
     return listItems;
+  }
+
+  Future<void> _logoutUser() async {
+    String? token = await widget.secureStorageService.getJWT();
+    
+    if(logoutService.deleteUserData(widget.secureStorageService, token!) == true){
+        print("Ho invalidato il token!");
+    }
   }
 }

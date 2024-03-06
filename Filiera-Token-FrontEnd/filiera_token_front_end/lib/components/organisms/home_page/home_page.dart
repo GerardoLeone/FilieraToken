@@ -127,11 +127,11 @@ Widget build(BuildContext context) {
    /// - Inserimento del Menù 
   PreferredSizeWidget _buildAppBar() {
     return CustomAppBar(
-      leading: Image.asset('../assets/favicon.png'),
+      leading: Image.asset('../assets/filiera-token-logo.png',width: 1000, height: 1000, fit: BoxFit.fill),
       centerTitle: true,
       title: 'Filiera-Token-Shop',
       backgroundColor: Colors.transparent,
-      elevation: 0.0,
+      elevation: 2.0,
       automaticallyImplyLeading: false,
       actions: [
         AnimatedBuilder(

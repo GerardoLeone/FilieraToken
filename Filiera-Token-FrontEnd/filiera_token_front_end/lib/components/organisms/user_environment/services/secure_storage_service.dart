@@ -96,7 +96,7 @@ class SecureStorageService{
   }
 
   // **Delete User data:**
-  Future<void> delete() async {
+  Future<bool> delete() async {
     try {
       await storage.delete(key: 'user_id');
       await storage.delete(key: 'full_name');
@@ -105,9 +105,49 @@ class SecureStorageService{
       await storage.delete(key: 'balance');
       await storage.delete(key: 'wallet');
       await storage.delete(key: 'type');
+      await storage.delete(key: 'token');
+      return true;
     } catch (e) {
       // Handle errors appropriately (e.g., logging, user feedback)
       print('Error deleting user data: $e');
+      return false;
     }
+  }
+
+
+
+
+
+  /// Metodo : Salvataggio del Token JWT
+  Future<void> saveJWT(String tokenJWT) async {
+
+      try {
+
+    print("Sono nel metodo di Save del jwt -------------------------");
+
+      await storage.write(key: 'token', value: tokenJWT); 
+      // Assuming Actor has a toString() method
+    } catch (e) {
+      // Handle errors appropriately (e.g., logging, user feedback)
+      print('Error saving user data: $e');
+    }
+
+  }
+
+
+    // **Get User TOKEN:**
+  Future<String?> getJWT() async {
+    try {
+
+      final token = await storage.read(key: 'token');
+
+      if (token!=null) {
+        return token;
+      }
+    } catch (e) {
+      // Handle errors appropriately (e.g., logging, user feedback)
+      print('Error getting user data: $e');
+    }
+    return null;
   }
 }

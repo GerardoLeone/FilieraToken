@@ -285,7 +285,7 @@ class _MySignUpPageAnimations extends State<MySignUpPage> with SingleTickerProvi
     return CustomAppBar(
       leading: Image.asset('../assets/favicon.png'),
       centerTitle: true,
-      title: 'Filiera-Token-Shop',
+      title: 'Filiera-Token-Registrazione',
       backgroundColor: Colors.transparent,
       elevation: 0.0,
       automaticallyImplyLeading: false,

@@ -1,3 +1,4 @@
+import 'package:filiera_token_front_end/components/atoms/custom_button.dart';
 import 'package:filiera_token_front_end/models/User.dart';
 import 'package:filiera_token_front_end/utils/enums.dart';
 import 'package:flutter/material.dart';
@@ -128,7 +129,10 @@ class _MenuState extends State<CustomMenu> with SingleTickerProviderStateMixin {
           },
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 16),
-            child: ElevatedButton(
+            child: 
+            CustomButton(
+              text: _menuTitles[i],
+              type: CustomType.neutral,
               onPressed: () {
 
                   String idUser = user.id;
@@ -153,17 +157,7 @@ class _MenuState extends State<CustomMenu> with SingleTickerProviderStateMixin {
                     // Inventory Routing 
                     context.go('/home-page-user/$_type/$idUser/profile/inventory');
                   }
-                },
-              child: 
-              Text(
-                _menuTitles[i],
-                 textAlign: TextAlign.left,
-                  style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w500,
-                  )
-                  ),
-                ),
+                })
               ),
             ),
           );

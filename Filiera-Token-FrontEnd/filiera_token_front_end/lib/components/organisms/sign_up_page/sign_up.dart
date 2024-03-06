@@ -205,13 +205,17 @@ class _MySignUpPageAnimations extends State<MySignUpPage> with SingleTickerProvi
 
                   fullName = nameInput + cognomeInput;
 
-                  if (await userService.registrationUser(
-                      emailInput, fullName, confermaPasswordInput, walletInput, selectedValueUserType)) {
-                    /// TRUE Registration
-                    CustomPopUpDialog.show(context, AlertDialogType.Signup, CustomType.success, path: "/signin");
+                  if(passwordInput != confermaPasswordInput) {
+                      CustomPopUpDialog.show(context, AlertDialogType.Signup, CustomType.error, errorDetail: "Le password non corrispondono.");
                   } else {
-                    /// FALSE Registration
-                    CustomPopUpDialog.show(context, AlertDialogType.Signup, CustomType.error);
+                    if (await userService.registrationUser(
+                        emailInput, fullName, confermaPasswordInput, walletInput, selectedValueUserType)) {
+                      /// TRUE Registration
+                      CustomPopUpDialog.show(context, AlertDialogType.Signup, CustomType.success, path: "/signin");
+                    } else {
+                      /// FALSE Registration
+                      CustomPopUpDialog.show(context, AlertDialogType.Signup, CustomType.error);
+                    }
                   }
                 },
               ),

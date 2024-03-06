@@ -1,4 +1,5 @@
 import 'package:filiera_token_front_end/components/molecules/custom_loading_bar.dart';
+import 'package:filiera_token_front_end/components/organisms/user_environment/services/logout_service.dart';
 import 'package:filiera_token_front_end/components/organisms/user_environment/services/secure_storage_service.dart';
 import 'package:filiera_token_front_end/models/User.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +34,7 @@ class _UserProfilePageAnimations extends State<UserProfilePage> with SingleTicke
   User? user;
 
   late SecureStorageService secureStorageService;
+
 
 
 
@@ -120,7 +122,7 @@ Widget build(BuildContext context) {
    */
   PreferredSizeWidget _buildAppBar() {
     return CustomAppBar(
-      leading: Image.asset('../assets/favicon.png'),
+      leading: Image.asset('../assets/filiera-token-logo.png',width: 1000, height: 1000, fit: BoxFit.fill),
       centerTitle: true,
       title: 'Filiera-Token-Setting',
       backgroundColor: Colors.transparent,
@@ -155,11 +157,13 @@ Widget build(BuildContext context) {
       builder: (context, child) {
         return FractionalTranslation(
           translation: Offset(1.0 - _drawerSlideController.value, 0.0),
-          child: _isDrawerClosed() ? const SizedBox() : CustomMenu(userData: user!),
+          child: _isDrawerClosed() ? const SizedBox() : CustomMenu(userData: user!,secureStorageService: secureStorageService,),
         );
       },
     );
   }
+
+  
 
 
 

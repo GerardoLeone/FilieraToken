@@ -172,9 +172,10 @@ void updateProductList() {
       case Actor.Retailer:
         productList = retailerInventoryService.getCheesePieceList(user!.wallet);
         break; 
-      default:
+      default:{
         print("Errore nella selezione dell'attore in fase di build (inventory_user_page.dart)");
         break;
+      }
     
     }    
     
@@ -193,7 +194,7 @@ void updateProductList() {
    */
   PreferredSizeWidget _buildAppBar() {
     return CustomAppBar(
-      leading: Image.asset('../assets/favicon.png'),
+      leading: Image.asset('../assets/filiera-token-logo.png',width: 1000, height: 1000, fit: BoxFit.fill),
       centerTitle: true,
       title: 'Filiera-Token-Inventory',
       backgroundColor: Colors.transparent,

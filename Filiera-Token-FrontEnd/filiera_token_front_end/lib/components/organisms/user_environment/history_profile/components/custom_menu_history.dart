@@ -141,6 +141,7 @@ class _MenuState extends State<CustomMenuHistory> with SingleTickerProviderState
                   if(_menuTitles[i].compareTo('Logout')==0){
                     // Logout Routing
                     await _logoutUser();
+                    context.go("/");
 
                   }else if(_menuTitles[i].compareTo('Product Buyed')==0){
                     // Product Buyed Routing 
@@ -179,7 +180,7 @@ class _MenuState extends State<CustomMenuHistory> with SingleTickerProviderState
     String? token = await widget.secureStorageService.getJWT();
     
     if(logoutService.deleteUserData(widget.secureStorageService, token!) == true){
-      context.go('/');
+      print("Ho invalidato il token!");
     }
   }
 }

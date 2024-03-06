@@ -7,7 +7,7 @@ class LogoutService {
 
   Future<bool> deleteUserData(SecureStorageService secureStorageService, String token)async {
     if(await jwtService.invalidateToken(token)){
-     return secureStorageService.delete();
+     return await secureStorageService.delete();
     }else{
       return false;
     }

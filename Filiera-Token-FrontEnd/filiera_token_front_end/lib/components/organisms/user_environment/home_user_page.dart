@@ -132,9 +132,10 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
         productList = retailerInventoryService.getCheesePieceAll(wallet);
         break; 
       } 
-      default:
+      default:{
         print("Errore nella selezione dell'attore in fase di build (home_user_page.dart)");
         break;
+    }
     }
 
       return Scaffold(
@@ -175,7 +176,7 @@ class _HomePageState extends State<HomePageUser> with SingleTickerProviderStateM
    */
   PreferredSizeWidget _buildAppBar() {
     return CustomAppBar(
-      leading: Image.asset('../assets/favicon.png'),
+      leading: Image.asset('../assets/filiera-token-logo.png',width: 1000, height: 1000, fit: BoxFit.fill),
       centerTitle: true,
       title: 'Filiera-Token-Shop',
       backgroundColor: Colors.transparent,

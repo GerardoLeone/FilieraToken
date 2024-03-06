@@ -136,7 +136,7 @@ final GlobalKey<EventListState> _eventListKey = GlobalKey<EventListState>();
    */
   PreferredSizeWidget _buildAppBar() {
     return CustomAppBar(
-      leading: Image.asset('../assets/favicon.png'),
+      leading: Image.asset('../assets/filiera-token-logo.png',width: 1000, height: 1000, fit: BoxFit.fill),
       centerTitle: true,
       title: 'Filiera-Token-Shop-History',
       backgroundColor: Colors.transparent,

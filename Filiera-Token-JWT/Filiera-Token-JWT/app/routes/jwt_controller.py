@@ -1,6 +1,9 @@
+import jwt
 from flask import request, jsonify
 from app import app
 from app.services import jwt_service
+from app.services.jwt_service import SECRET_KEY
+
 
 @app.route('/generate-jwt-token', methods=['POST'])
 def generate_jwt_token():
@@ -32,7 +35,7 @@ def protected():
         return jsonify({'error': 'Token missing'}), 401
 
     # Validazione del token
-    valid, decoded_token = validate_token(token)
+    valid, decoded_token = jwt_service.validate_token(token)
     if not valid:
         return jsonify({'error': 'Invalid token'}), 401
 
@@ -52,7 +55,12 @@ def invalidate_token():
     token = data['token']
     print("TOKEN: "+token)
 
+    # Decodifica il token per ottenere il ruolo dell'utente
+    payload = jwt.decode(token, SECRET_KEY, algorithms=['HS256'])
+    user_role = payload.get('user').get('user_type')
+
     # Invalida il token
-    jwt_service.invalidate_token(token)
+    jwt_service.invalidate_token(token,user_role)
+    print("Ho invalidato il token!")
 
     return jsonify({'message': 'Token invalidated successfully'}), 200

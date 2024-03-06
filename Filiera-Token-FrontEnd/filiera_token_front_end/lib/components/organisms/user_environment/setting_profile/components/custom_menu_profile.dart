@@ -1,3 +1,5 @@
+import 'package:filiera_token_front_end/components/organisms/user_environment/services/logout_service.dart';
+import 'package:filiera_token_front_end/components/organisms/user_environment/services/secure_storage_service.dart';
 import 'package:filiera_token_front_end/models/User.dart';
 import 'package:filiera_token_front_end/utils/enums.dart';
 import 'package:flutter/material.dart';
@@ -6,13 +8,17 @@ import 'package:go_router/go_router.dart';
 class CustomMenu extends StatefulWidget {
 
   final User userData;
-  const CustomMenu({super.key, required this.userData});
+  final SecureStorageService secureStorageService;
+  const CustomMenu({super.key, required this.userData, required this.secureStorageService});
 
   @override
   State<CustomMenu> createState() => _MenuState();
 }
 
 class _MenuState extends State<CustomMenu> with SingleTickerProviderStateMixin {
+
+  final LogoutService logoutService = LogoutService();
+
   
   static const _menuTitles = [
     'Product Buyed', // Product Buyed
@@ -129,13 +135,12 @@ class _MenuState extends State<CustomMenu> with SingleTickerProviderStateMixin {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 16),
             child: ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
 
                   String idUser = user.id;
                   String _type = Enums.getActorText(user.type);
                   if(_menuTitles[i].compareTo('Logout')==0){
-                    // Logout Routing
-                    /// Logout Service  
+                    await _logoutUser();
                     context.go('/');
 
                   }else if(_menuTitles[i].compareTo('Product Buyed')==0){
@@ -169,5 +174,15 @@ class _MenuState extends State<CustomMenu> with SingleTickerProviderStateMixin {
           );
       }
     return listItems;
+  }
+
+
+    Future<void> _logoutUser() async {
+    String? token = await widget.secureStorageService.getJWT();
+    
+    if(logoutService.deleteUserData(widget.secureStorageService, token!) == true){
+      print("Ho invalidato il token");
+      return;
+    }
   }
 }

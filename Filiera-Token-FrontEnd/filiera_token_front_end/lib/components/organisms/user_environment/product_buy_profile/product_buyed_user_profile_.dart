@@ -161,7 +161,7 @@ class _UserProfileProductBuyedState extends State<UserProfileProductBuyed> with 
    */
   PreferredSizeWidget _buildAppBar() {
     return CustomAppBar(
-      leading: Image.asset('../assets/favicon.png'),
+      leading: Image.asset('../assets/filiera-token-logo.png',width: 1000, height: 1000, fit: BoxFit.fill),
       centerTitle: true,
       title: 'Filiera-Token-Product-Buyed',
       backgroundColor: Colors.transparent,

@@ -1,4 +1,3 @@
-import 'package:bcrypt/bcrypt.dart';
 import 'package:filiera_token_front_end/components/atoms/custom_button.dart';
 import 'package:filiera_token_front_end/components/atoms/custom_dropdown.dart';
 import 'package:filiera_token_front_end/components/atoms/custom_input_validator.dart';

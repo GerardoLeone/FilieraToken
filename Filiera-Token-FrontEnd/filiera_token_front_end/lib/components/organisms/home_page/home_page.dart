@@ -19,14 +19,6 @@ class MyHomePage extends StatefulWidget {
 
 class _HomePageAnimations extends State<MyHomePage> with SingleTickerProviderStateMixin {
 
-
-
-  static String firstRowDescription = "Benvenuti nel mondo del latte fresco,dove la natura incontra la perfezione.\nImmagina un paesaggio idilliaco, circondato da lussureggianti pascoli e dolci colline,\n dove mucche felici pascolano serenamente sotto un cielo azzurro.\n È qui che inizia il viaggio di ogni goccia di latte che arriva sulle tue labbra";
-
-  static String SecondRowDescription = "Benvenuti nel mondo del latte fresco,dove la natura incontra la perfezione.\nImmagina un paesaggio idilliaco, circondato da lussureggianti pascoli e dolci colline,\n dove mucche felici pascolano serenamente sotto un cielo azzurro.\n È qui che inizia il viaggio di ogni goccia di latte che arriva sulle tue labbra";
-  
-  static String thirdRowDescription = "Benvenuti nel mondo del latte fresco,dove la natura incontra la perfezione.\nImmagina un paesaggio idilliaco, circondato da lussureggianti pascoli e dolci colline,\n dove mucche felici pascolano serenamente sotto un cielo azzurro.\n È qui che inizia il viaggio di ogni goccia di latte che arriva sulle tue labbra";
-
   late AnimationController _drawerSlideController;
   
   @override
@@ -167,9 +159,6 @@ Widget build(BuildContext context) {
       },
     );
   }
-
-
-
 
 }
 

@@ -40,6 +40,9 @@ class _MySignUpPageAnimations extends State<MySignUpPage> with SingleTickerProvi
   late String cognomeInput;
   late String fullName;
 
+  String salt = "\$2a\$10\$Gs.PmaGJQtm0ThQF3VkX2u";
+
+
 
   late String emailInput;
   late String passwordInput;
@@ -115,14 +118,13 @@ class _MySignUpPageAnimations extends State<MySignUpPage> with SingleTickerProvi
   }
 
 
-
   /**
    * Build Form di Registrazione 
    */
   Widget buildFormRegistrazione(BuildContext context) {
     // Form di iscrizione
     return Center(
-      child: IntrinsicHeight(
+      child: Expanded(
         child: Container(
           width: MediaQuery.of(context).size.width * 0.4,
           padding: const EdgeInsets.all(40.0),
@@ -143,43 +145,43 @@ class _MySignUpPageAnimations extends State<MySignUpPage> with SingleTickerProvi
                   color: ColorUtils.getColor(CustomType.neutral), // Colore neutral
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
               CustomInputValidator(
                 inputType: TextInputType.name,
                 labelText: 'Nome',
                 controller: _nameController!,
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
               CustomInputValidator(
                 inputType: TextInputType.name,
                 labelText: 'Cognome',
                 controller: _lastNameController!,
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
               CustomInputValidator(
                 inputType: TextInputType.emailAddress,
                 labelText: 'Email',
                 controller: _emailController!,
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
               CustomInputValidator(
                 inputType: TextInputType.visiblePassword,
                 labelText: 'Password',
                 controller: _passwordController!,
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
               CustomInputValidator(
                 inputType: TextInputType.visiblePassword,
                 labelText: 'Conferma password',
                 controller: _confirmPasswordController!,
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
               CustomInputValidator(
                 inputType: TextInputType.text,
                 labelText: 'Wallet',
                 controller: _walletController!,
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
               CustomDropdown<String>(
                 items: dropdownItems,
                 value: "MilkHub",
@@ -189,7 +191,7 @@ class _MySignUpPageAnimations extends State<MySignUpPage> with SingleTickerProvi
                   });
                 },
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
               CustomButton(
                 expandWidth: true,
                 text: "Registrati",
@@ -203,13 +205,14 @@ class _MySignUpPageAnimations extends State<MySignUpPage> with SingleTickerProvi
                   confermaPasswordInput = _confirmPasswordController!.text;
                   walletInput = _walletController!.text;
 
-                  fullName = nameInput + cognomeInput;
+                  fullName = nameInput + " " + cognomeInput;
 
                   if(passwordInput != confermaPasswordInput) {
                       CustomPopUpDialog.show(context, AlertDialogType.Signup, CustomType.error, errorDetail: "Le password non corrispondono.");
                   } else {
+                    String passwordHashed = _hashPassword(confermaPasswordInput);
                     if (await userService.registrationUser(
-                        emailInput, fullName, confermaPasswordInput, walletInput, selectedValueUserType)) {
+                        emailInput, fullName, passwordHashed, walletInput, selectedValueUserType)) {
                       /// TRUE Registration
                       CustomPopUpDialog.show(context, AlertDialogType.Signup, CustomType.success, path: "/signin");
                     } else {
@@ -219,7 +222,7 @@ class _MySignUpPageAnimations extends State<MySignUpPage> with SingleTickerProvi
                   }
                 },
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
               Center(
                 child: Text(
                   'Hai già un account?',
@@ -238,6 +241,12 @@ class _MySignUpPageAnimations extends State<MySignUpPage> with SingleTickerProvi
         ),
       ),
     );
+  }
+
+
+  String _hashPassword(String password) {
+    final hashedPassword = BCrypt.hashpw(password, salt);
+    return hashedPassword;
   }
 
 

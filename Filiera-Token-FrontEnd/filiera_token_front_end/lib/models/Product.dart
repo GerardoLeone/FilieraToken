@@ -1,11 +1,8 @@
-import 'dart:convert';
 
 import 'package:filiera_token_front_end/utils/enums.dart';
 
-/**
- * Classe astratta per i Prodotti.
- * il parametro seller è da impostare solo per i valori restituiti dal Buyer, per il resto delle chiamate rimane inutilizzato.
- */
+/// Classe astratta per i Prodotti.
+/// il parametro seller è da impostare solo per i valori restituiti dal Buyer, per il resto delle chiamate rimane inutilizzato.
 
 // Product Inventory 
 abstract class Product {
@@ -43,10 +40,8 @@ abstract class Product {
 
 
 
-/**
- * Classe astratta per i Prodotti.
- * il parametro seller è da impostare solo per i valori restituiti dal Buyer, per il resto delle chiamate rimane inutilizzato.
- */
+/// Classe astratta per i Prodotti.
+/// il parametro seller è da impostare solo per i valori restituiti dal Buyer, per il resto delle chiamate rimane inutilizzato.
 // Product Purchased 
 abstract class ProductPurchased {
 

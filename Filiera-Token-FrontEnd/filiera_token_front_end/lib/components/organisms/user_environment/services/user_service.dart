@@ -1,5 +1,4 @@
 import 'dart:async' show Future;
-import 'package:bcrypt/bcrypt.dart';
 import 'package:filiera_token_front_end/Actor/CheeseProducer/service/CheeseProducerService.dart';
 import 'package:filiera_token_front_end/Actor/MilkHub/service/MilkHubService.dart';
 import 'package:filiera_token_front_end/Actor/Retailer/service/RetailerService.dart';
@@ -20,7 +19,7 @@ class UserSerivce {
 
 
   Future<bool> registrationUser(String email, String fullName, String password, String walletMilkHub, String typeUser) async {
-
+    
     switch(typeUser){
       
       case "MilkHub":{

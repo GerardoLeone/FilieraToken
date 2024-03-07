@@ -65,7 +65,6 @@ Widget build(BuildContext context) {
     home: Scaffold(
       // AppBar comune a tutti 
       appBar: _buildAppBar(),
-      
       body: Stack(
         children: [
           _buildHomePage(),
@@ -90,14 +89,14 @@ Widget build(BuildContext context) {
             description: 'Il nostro latte è estratto da allevamenti selezionati, garantendo la massima freschezza e qualità. Grazie alla nostra filiera token, puoi tracciare ogni passo del percorso del latte, assicurandoti che provenga da fonti affidabili e sostenibili. Goditi il gusto puro e cremoso del nostro latte, arricchendo la tua giornata con una sana dose di nutrienti.',
             image: const AssetImage('../assets/milk.png'), // Sostituisci con il percorso dell'immagine 1
           ),
-          const SizedBox(height: 16.0),
+          const SizedBox(height: 5.0),
           SlideInCard(
             imagePosition: ImagePosition.right,
             title: 'Blocco di Formaggio',
             description: "Il nostro blocco di formaggio artigianale è il risultato di una cura meticolosa e di una produzione attenta. Ottenuto da latte di alta qualità, ogni blocco rappresenta un'opera d'arte culinaria. La sua consistenza cremosa e il sapore ricco rendono questo formaggio perfetto per una varietà di piatti. Scegli il nostro blocco di formaggio per elevare il gusto delle tue creazioni culinarie.",
             image: const AssetImage('../assets/cheese_block.png'), // Sostituisci con il percorso dell'immagine 2
           ),
-          const SizedBox(height: 16.0),
+          const SizedBox(height: 5.0),
           SlideInCard(
             imagePosition: ImagePosition.left,
             title: 'Pezzo di Formaggio',

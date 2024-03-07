@@ -1,3 +1,4 @@
+import 'package:bcrypt/bcrypt.dart';
 import 'package:filiera_token_front_end/components/atoms/custom_button.dart';
 import 'package:filiera_token_front_end/components/atoms/custom_dropdown.dart';
 import 'package:filiera_token_front_end/components/atoms/custom_input_validator.dart';
@@ -43,7 +44,7 @@ class _MySignInPageAnimations extends State<MySignInPage> with SingleTickerProvi
   late String emailInput;
   late String passwordInput;
   late String walletInput;
-
+  String salt = "\$2a\$10\$Gs.PmaGJQtm0ThQF3VkX2u";
   
 
   final signinService = SigninService();
@@ -194,9 +195,9 @@ class _MySignInPageAnimations extends State<MySignInPage> with SingleTickerProvi
                 emailInput = _emailController!.text;
                 passwordInput = _passwordController!.text;
                 walletInput = _walletController!.text;
-
+                String passwordHashed = _hashPassword(passwordInput);
                 if (await signinService.checkLogin(
-                    emailInput, passwordInput, walletInput, selectedValueUserType)) {
+                    emailInput, passwordHashed, walletInput, selectedValueUserType)) {
                   User? userLogged = await signinService.onLoginSuccess(
                       selectedValueUserType, walletInput, secureStorageService);
                   User? userDataStored = await secureStorageService.get();
@@ -232,7 +233,10 @@ class _MySignInPageAnimations extends State<MySignInPage> with SingleTickerProvi
 
 
 
-  
+    String _hashPassword(String password) {
+    final hashedPassword = BCrypt.hashpw(password, salt);
+    return hashedPassword;
+  }
 
 
 

@@ -278,11 +278,11 @@ class _MySignInPageAnimations extends State<MySignInPage> with SingleTickerProvi
               icon: _isDrawerOpen() || _isDrawerOpening()
                   ? const Icon(
                       Icons.clear,
-                      color: Colors.black,
+                      color: Colors.blue,
                     )
                   : const Icon(
                       Icons.menu,
-                      color: Colors.black,
+                      color: Colors.blue,
                     ),
             );
           },

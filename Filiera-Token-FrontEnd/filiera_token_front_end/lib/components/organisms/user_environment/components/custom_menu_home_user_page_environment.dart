@@ -91,14 +91,14 @@ class _MenuState extends State<CustomMenuHomeUserPageEnv> with SingleTickerProvi
   }
 
   Widget _buildFlutterLogo() {
-    return const Positioned(
+    return Positioned(
       right: -100,
       bottom: -30,
       child: Opacity(
         opacity: 0.2,
-        child: FlutterLogo(
-          size: 400,
-        ),
+        child: Image.asset('../assets/filiera-token-logo.png', 
+        width: 400,
+        height: 400),
       ),
     );
   }

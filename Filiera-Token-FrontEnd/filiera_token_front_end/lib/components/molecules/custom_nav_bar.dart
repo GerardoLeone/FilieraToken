@@ -53,7 +53,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   static buildSimpleNavBar(){
     return CustomAppBar(
             title: 'FilieraToken-Shop',
-            leading: Image.asset('../assets/favicon.png'),
+            leading: Image.asset('../assets/filiera-token-logo.png'),
             automaticallyImplyLeading: false,
       );
   }

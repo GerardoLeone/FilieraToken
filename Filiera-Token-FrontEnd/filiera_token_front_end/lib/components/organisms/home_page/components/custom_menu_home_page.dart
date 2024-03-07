@@ -16,7 +16,6 @@ class _MenuState extends State<CustomMenuHomePage> with SingleTickerProviderStat
   static const _menuTitles = [
     'SignUp', /// Registrazione 
     'SignIn', /// Login  
-    'User-Home-Page' /// Home Page for All Product 
   ];
 
   static const _initialDelayTime = Duration(milliseconds: 50);
@@ -79,14 +78,14 @@ class _MenuState extends State<CustomMenuHomePage> with SingleTickerProviderStat
   }
 
   Widget _buildFlutterLogo() {
-    return const Positioned(
+    return Positioned(
       right: -100,
       bottom: -30,
       child: Opacity(
         opacity: 0.2,
-        child: FlutterLogo(
-          size: 400,
-        ),
+        child: Image.asset('../assets/filiera-token-logo.png', 
+        width: 400,
+        height: 400),
       ),
     );
   }
@@ -137,9 +136,6 @@ class _MenuState extends State<CustomMenuHomePage> with SingleTickerProviderStat
                 }else if(_menuTitles[i].compareTo('SignIn')==0){
                   // Product Buyed Routing 
                   context.go('/signin');
-                }else if(_menuTitles[i].compareTo('User-Home-Page') == 0){
-                  context.go('/home-page-user');
-
                 }
 
               },

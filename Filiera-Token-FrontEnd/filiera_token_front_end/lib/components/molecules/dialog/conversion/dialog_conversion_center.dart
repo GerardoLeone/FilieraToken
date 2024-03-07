@@ -41,43 +41,55 @@ class _DialogConversionCenterState extends State<DialogConversionCenter> {
     quantityValue = '';
   }
 
+  bool _checkConversionForm() {
+    return _quantityToConvert!.text.isNotEmpty;
+  }
+
   Future<void> _convertProduct() async {
     setState(() {
       _loading = true;
     });
 
-    Product product = widget.product;
-    bool conversionSuccess = false;
-    String productName = "";
+      if(_checkConversionForm()) {
 
-    try {
-      if (product is MilkBatch) {
-        productName = "Blocco di Formaggio";
-        CheeseProducerInventoryService cheeseProducerInventoryService =
-            CheeseProducerInventoryService();
-        conversionSuccess = await cheeseProducerInventoryService.transformMilkBatch(
-            widget.wallet, product.id, quantityValue, product.pricePerLitre.toString(), "DOP");
-      } else if (product is CheeseBlock) {
-        productName = "Pezzo di Formaggio";
-        RetailerInventoryService retailerInventoryService =
-            RetailerInventoryService();
-        conversionSuccess = await retailerInventoryService.transformCheesePiece(
-            widget.wallet, product.id, quantityValue, product.price.toString());
+      Product product = widget.product;
+      bool conversionSuccess = false;
+      String productName = "";
+
+      try {
+        if (product is MilkBatch) {
+          productName = "Partita di Latte";
+          CheeseProducerInventoryService cheeseProducerInventoryService =
+              CheeseProducerInventoryService();
+          conversionSuccess = await cheeseProducerInventoryService.transformMilkBatch(
+              widget.wallet, product.id, quantityValue, product.pricePerLitre.toString(), "DOP");
+        } else if (product is CheeseBlock) {
+          productName = "Blocco di Formaggio";
+          RetailerInventoryService retailerInventoryService =
+              RetailerInventoryService();
+          conversionSuccess = await retailerInventoryService.transformCheesePiece(
+              widget.wallet, product.id, quantityValue, product.price.toString());
+        }
+      } catch (error) {
+        // Gestisci l'errore qui, mostra un alert dialog o esegui altre azioni necessarie
+        print("Errore durante la conversione: $error");
+        CustomPopUpDialog.show(context, AlertDialogType.Conversion, CustomType.error, productName: productName);
+      } finally {
+        // Assicurati che la barra di caricamento venga rimossa anche in caso di errore
+        setState(() {
+          _loading = false;
+        });
       }
-    } catch (error) {
-      // Gestisci l'errore qui, mostra un alert dialog o esegui altre azioni necessarie
-      print("Errore durante la conversione: $error");
-      CustomPopUpDialog.show(context, AlertDialogType.Conversion, CustomType.error, productName: productName);
-    } finally {
-      // Assicurati che la barra di caricamento venga rimossa anche in caso di errore
-      setState(() {
-        _loading = false;
-      });
-    }
 
-    if (conversionSuccess) {
-      Navigator.of(context).pop();
-      CustomPopUpDialog.show(context, AlertDialogType.Conversion, CustomType.success, productName: productName);
+      if (conversionSuccess) {
+        Navigator.of(context).pop();
+        CustomPopUpDialog.show(context, AlertDialogType.Conversion, CustomType.success, productName: productName);
+      }
+    } else {
+        CustomPopUpDialog.show(context, AlertDialogType.Conversion, CustomType.error, productName: "selezionato", errorDetail: "Inserisci la quantità desiderata.");
+        setState(() {
+          _loading = false;
+        });
     }
   }
 
@@ -89,9 +101,10 @@ class _DialogConversionCenterState extends State<DialogConversionCenter> {
   }
 
   Widget _buildTextForm() {
+    String kg = (widget.product is MilkBatchPurchased) ? " (L, 1L = 5Kg)" : " (Kg)";
     return CustomInputValidator(
       inputType: TextInputType.number,
-      labelText: 'Quantità richiesta (Kg)',
+      labelText: 'Quantità richiesta '+kg+":",
       controller: _quantityToConvert!,
       labelColor: Colors.white,
     );
@@ -153,51 +166,63 @@ class _DialogConversionCenterStatePurchased extends State<DialogConversionCenter
     super.dispose();
   }
 
+  bool _checkConversionForm() {
+    return _quantityToConvert!.text.isNotEmpty && _priceDecision!.text.isNotEmpty;
+  }
+
   Future<void> _convertProduct() async {
     setState(() {
       _loading = true;
     });
 
-    ProductPurchased product = widget.product;
-    bool conversionSuccess = false;
-    String productName = "";
+    if(_checkConversionForm()) {
 
-    print("Metodo di conversione prima del try");
+      ProductPurchased product = widget.product;
+      bool conversionSuccess = false;
+      String productName = "";
 
-    try {
-      if (product is MilkBatchPurchased) {
-        productName = "Partita di Latte";
-        CheeseProducerInventoryService cheeseProducerInventoryService =
-            CheeseProducerInventoryService();
-            print("Sono nel metodo di conversione (dentro il try)");
-        print(widget.wallet);
-        print(product.id);
-        print(_quantityToConvert!.text);
-        print(_priceDecision!.text);
-        conversionSuccess = await cheeseProducerInventoryService.transformMilkBatch(
-            widget.wallet, product.id, _quantityToConvert!.text, _priceDecision!.text, "DOP");
-      } else if (product is CheeseBlockPurchased) {
-        productName = "Blocco di Formaggio";
-        RetailerInventoryService retailerInventoryService =
-            RetailerInventoryService();
-        conversionSuccess = await retailerInventoryService.transformCheesePiece(
-            widget.wallet, product.id, _quantityToConvert!.text, _priceDecision!.text);
+      print("Metodo di conversione prima del try");
+
+      try {
+        if (product is MilkBatchPurchased) {
+          productName = "Partita di Latte";
+          CheeseProducerInventoryService cheeseProducerInventoryService =
+              CheeseProducerInventoryService();
+              print("Sono nel metodo di conversione (dentro il try)");
+          print(widget.wallet);
+          print(product.id);
+          print(_quantityToConvert!.text);
+          print(_priceDecision!.text);
+          conversionSuccess = await cheeseProducerInventoryService.transformMilkBatch(
+              widget.wallet, product.id, _quantityToConvert!.text, _priceDecision!.text, "DOP");
+        } else if (product is CheeseBlockPurchased) {
+          productName = "Blocco di Formaggio";
+          RetailerInventoryService retailerInventoryService =
+              RetailerInventoryService();
+          conversionSuccess = await retailerInventoryService.transformCheesePiece(
+              widget.wallet, product.id, _quantityToConvert!.text, _priceDecision!.text);
+        }
+      } catch (error) {
+        // Gestisci l'errore qui, mostra un alert dialog o esegui altre azioni necessarie
+        print("Errore durante la conversione: $error");
+        CustomPopUpDialog.show(context, AlertDialogType.Conversion, CustomType.error, productName: productName);
+      } finally {
+        // Assicurati che la barra di caricamento venga rimossa anche in caso di errore
+        setState(() {
+          _loading = false;
+        });
       }
-    } catch (error) {
-      // Gestisci l'errore qui, mostra un alert dialog o esegui altre azioni necessarie
-      print("Errore durante la conversione: $error");
-      CustomPopUpDialog.show(context, AlertDialogType.Conversion, CustomType.error, productName: productName);
-    } finally {
-      // Assicurati che la barra di caricamento venga rimossa anche in caso di errore
-      setState(() {
-        _loading = false;
-      });
-    }
 
-    if (conversionSuccess) {
-      Navigator.of(context).pop();
-      CustomPopUpDialog.show(context, AlertDialogType.Conversion, CustomType.success, productName: productName);
+      if (conversionSuccess) {
+        Navigator.of(context).pop();
+        CustomPopUpDialog.show(context, AlertDialogType.Conversion, CustomType.success, productName: productName);
 
+      }
+    } else {
+        CustomPopUpDialog.show(context, AlertDialogType.Conversion, CustomType.error, productName: "selezionato", errorDetail: "Inserisci la quantità desiderata o il prezzo.");
+        setState(() {
+          _loading = false;
+        });
     }
   }
 
@@ -209,9 +234,10 @@ class _DialogConversionCenterStatePurchased extends State<DialogConversionCenter
   }
 
   Widget _buildTextForm() {
+    String kg = (widget.product is MilkBatchPurchased) ? " (L, 1L = 5Kg)" : " (Kg)";
     return CustomInputValidator(
       inputType: TextInputType.number,
-      labelText: 'Quantità richiesta (Kg)',
+      labelText: 'Quantità richiesta '+kg+":",
       controller: _quantityToConvert!,
       labelColor: Colors.white,
     );
@@ -238,7 +264,7 @@ class _DialogConversionCenterStatePurchased extends State<DialogConversionCenter
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildTextForm(),
-          const SizedBox(height: 5.0),
+          const SizedBox(height: 10.0),
           _buildPriceForm(),
           SizedBox(height: 30),
           _loading

@@ -7,18 +7,18 @@ class CustomDropdown<T> extends StatefulWidget {
   final T? value;
   final void Function(T?) onChanged;
 
-  const CustomDropdown({super.key, 
+  const CustomDropdown({
+    Key? key,
     required this.items,
     required this.value,
     required this.onChanged,
-  });
+  }) : super(key: key);
 
   @override
   _CustomDropdownState<T> createState() => _CustomDropdownState<T>();
 }
 
 class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
-  
   late T selectedValue;
   CustomType type = CustomType.neutral;
 
@@ -31,9 +31,10 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.0),
-        color: Colors.grey[200], // Grigio di sfondo
+        color: Colors.grey[200],
         border: Border.all(color: ColorUtils.getColor(type)),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 12.0),
@@ -45,19 +46,26 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
           });
           widget.onChanged(value);
         },
+        isExpanded: true,
         underline: Container(),
-        icon: Icon(Icons.arrow_drop_down, color: ColorUtils.getColor(type)),
         items: widget.items.map((item) {
           return DropdownMenuItem<T>(
             value: item,
-            child: Text(
-              item.toString(),
-              style: TextStyle(
-                color: ColorUtils.getColor(type),
-              ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  item.toString(),
+                  style: TextStyle(
+                    color: ColorUtils.getColor(type),
+                  ),
+                ),
+                Container(), // Un contenitore vuoto al posto dell'icona negli items
+              ],
             ),
           );
         }).toList(),
+        icon: Icon(Icons.arrow_drop_down, color: ColorUtils.getColor(type)),
       ),
     );
   }

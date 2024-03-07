@@ -1,3 +1,5 @@
+import 'package:filiera_token_front_end/components/atoms/custom_button.dart';
+import 'package:filiera_token_front_end/utils/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -76,14 +78,14 @@ class _MenuState extends State<CustomMenuSignup> with SingleTickerProviderStateM
   }
 
   Widget _buildFlutterLogo() {
-    return const Positioned(
+    return Positioned(
       right: -100,
       bottom: -30,
       child: Opacity(
         opacity: 0.2,
-        child: FlutterLogo(
-          size: 400,
-        ),
+        child: Image.asset('../assets/filiera-token-logo.png', 
+        width: 400,
+        height: 400),
       ),
     );
   }
@@ -122,7 +124,9 @@ class _MenuState extends State<CustomMenuSignup> with SingleTickerProviderStateM
           },
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 16),
-            child: ElevatedButton(
+            child: CustomButton(
+              text: _menuTitles[i],
+              type: CustomType.neutral,
               onPressed: () {
                 /// TODO : Switch Case 
                 if(_menuTitles[i].compareTo('HomePage')==0){
@@ -135,15 +139,6 @@ class _MenuState extends State<CustomMenuSignup> with SingleTickerProviderStateM
                 }
 
               },
-              child: 
-              Text(
-                _menuTitles[i],
-                 textAlign: TextAlign.left,
-                  style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w500,
-                  )
-                  ),
                 ),
               ),
             ),

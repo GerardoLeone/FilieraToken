@@ -1,6 +1,7 @@
 import 'package:filiera_token_front_end/Actor/CheeseProducer/service/CheeseProducerInventoryService.dart';
 import 'package:filiera_token_front_end/Actor/MilkHub/service/MilkHubInventoryService.dart';
 import 'package:filiera_token_front_end/Actor/Retailer/service/RetailerInventoryService.dart';
+import 'package:filiera_token_front_end/components/atoms/custom_balance.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_loading_bar.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_nav_bar.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_product_list.dart';
@@ -119,17 +120,23 @@ class _UserProfileInventoryProductPageState extends State<UserProfileInventoryPr
       print(actor);
       print(wallet);
 
+      String emptyMsg = "";
+
       switch(actor) {
         case Actor.MilkHub:
           productList = milkHubInventoryService.getMilkBatchList(wallet);
+          emptyMsg = "Partite di Latte possedute";
           break;
         case Actor.CheeseProducer:
           productList = cheeseProducerInventoryService.getCheeseBlockList(wallet);
+          emptyMsg = "Blocchi di Formaggio posseduti";
           break;
         case Actor.Retailer:
           productList = retailerInventoryService.getCheesePieceList(wallet);
+          emptyMsg = "Pezzi di Formaggio posseduti";
           break; 
         default:
+          emptyMsg = "prodotti";
           print("Errore nella selezione dell'attore in fase di build (inventory_user_page.dart)");
           break;
       }
@@ -140,9 +147,9 @@ class _UserProfileInventoryProductPageState extends State<UserProfileInventoryPr
           children: [
             Padding(
               padding: EdgeInsets.all(50.5),
-              child: CustomProductList(productList: productList, onProductTap: handleProductTap),
+              child: CustomProductList(productList: productList, onProductTap: handleProductTap, emptyMsg: emptyMsg),
             ),
-            _buildDrawer(),
+            _buildDrawer()
           ],
         ),
         floatingActionButton: Visibility(
@@ -172,9 +179,10 @@ void updateProductList() {
       case Actor.Retailer:
         productList = retailerInventoryService.getCheesePieceList(user!.wallet);
         break; 
-      default:
+      default:{
         print("Errore nella selezione dell'attore in fase di build (inventory_user_page.dart)");
         break;
+      }
     
     }    
     
@@ -193,7 +201,7 @@ void updateProductList() {
    */
   PreferredSizeWidget _buildAppBar() {
     return CustomAppBar(
-      leading: Image.asset('../assets/favicon.png'),
+      leading: Image.asset('../assets/filiera-token-logo.png',width: 1000, height: 1000, fit: BoxFit.fill),
       centerTitle: true,
       title: 'Filiera-Token-Inventory',
       backgroundColor: Colors.transparent,
@@ -208,11 +216,11 @@ void updateProductList() {
               icon: _isDrawerOpen() || _isDrawerOpening()
                   ? const Icon(
                       Icons.clear,
-                      color: Colors.black,
+                      color: Colors.blue,
                     )
                   : const Icon(
                       Icons.menu,
-                      color: Colors.black,
+                      color: Colors.blue,
                     ),
             );
           },
@@ -228,7 +236,7 @@ void updateProductList() {
       builder: (context, child) {
         return FractionalTranslation(
           translation: Offset(1.0 - _drawerSlideController.value, 0.0),
-          child: _isDrawerClosed() ? const SizedBox() :  CustomMenuUserInventory(userData: user!,),
+          child: _isDrawerClosed() ? const SizedBox() :  CustomMenuUserInventory(userData: user!,secureStorageService: secureStorageService),
         );
       },
     );

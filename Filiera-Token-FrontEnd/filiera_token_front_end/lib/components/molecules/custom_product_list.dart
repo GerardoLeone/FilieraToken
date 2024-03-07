@@ -1,3 +1,4 @@
+import 'package:filiera_token_front_end/components/atoms/custom_empty_list.dart';
 import 'package:flutter/material.dart';
 import 'package:filiera_token_front_end/models/Product.dart';
 import 'package:filiera_token_front_end/components/molecules/custom_card.dart';
@@ -6,11 +7,13 @@ import 'package:filiera_token_front_end/components/molecules/custom_loading_bar.
 class CustomProductList extends StatelessWidget {
   final Future<List<Product>> productList;
   final void Function(BuildContext, Product) onProductTap; // Callback per gestire il tap del prodotto
+  final String emptyMsg;
 
   const CustomProductList({
     Key? key,
     required this.productList,
-    required this.onProductTap}) : super(key: key);
+    required this.onProductTap,
+    required this.emptyMsg}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +29,12 @@ class CustomProductList extends StatelessWidget {
         } else {
           // Se il futuro è completato con successo, otterrai la lista di prodotti
           List<Product> products = snapshot.data as List<Product>;
+
+          //Lista vuota -> errore
+          if(products.isEmpty) {
+            return CustomEmptyList(product: emptyMsg);
+          }
+
           return SingleChildScrollView(
             child: LayoutBuilder(
               builder: (context, constraints) {
@@ -75,11 +84,13 @@ class CustomProductList extends StatelessWidget {
 class CustomProductListPurchased extends StatelessWidget {
   final Future<List<ProductPurchased>> productList;
   final void Function(BuildContext, ProductPurchased) onProductTap; // Callback per gestire il tap del prodotto
+  final String emptyMsg;
 
   const CustomProductListPurchased({
     Key? key,
     required this.productList,
-    required this.onProductTap}) : super(key: key);
+    required this.onProductTap,
+    required this.emptyMsg}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -95,6 +106,11 @@ class CustomProductListPurchased extends StatelessWidget {
         } else {
           // Se il futuro è completato con successo, otterrai la lista di prodotti
           List<ProductPurchased> products = snapshot.data as List<ProductPurchased>;
+
+          //Lista vuota -> errore
+          if(products.isEmpty) {
+            return CustomEmptyList(product: emptyMsg);
+          }
           return SingleChildScrollView(
             child: LayoutBuilder(
               builder: (context, constraints) {

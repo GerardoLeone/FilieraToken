@@ -48,7 +48,7 @@ class RetailerService {
 
   Future<bool> loginRetailer(String email, String password, String wallet) async {
 
-    const url = '$_apiUrl/namespaces/default/apis/$_APINameRetailer/invoke/$queryLogin';
+    const url = '$_apiUrl/namespaces/default/apis/$_APINameRetailer/query/$queryLogin';
     final headers = _getHeaders();
     final body = _getLoginPayload(email, password, wallet);
     final response = await http.post(
@@ -56,9 +56,13 @@ class RetailerService {
       headers: headers,
       body: jsonEncode(body),
     );
+    var responseLogin = jsonDecode(response.body);
+    print(password);
+    print(response);
+    print("Response Login :"+responseLogin.toString());
 
     // Controllo del codice di stato
-    if (response.statusCode == 200 || response.statusCode == 202) {
+    if ((response.statusCode == 200 || response.statusCode == 202) && responseLogin['output'] == true ) {
       // Richiesta avvenuta con successo
       print('Login avvenuto con successo');
       return true;

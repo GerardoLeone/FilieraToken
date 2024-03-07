@@ -136,9 +136,9 @@ final GlobalKey<EventListState> _eventListKey = GlobalKey<EventListState>();
    */
   PreferredSizeWidget _buildAppBar() {
     return CustomAppBar(
-      leading: Image.asset('../assets/favicon.png'),
+      leading: Image.asset('../assets/filiera-token-logo.png',width: 1000, height: 1000, fit: BoxFit.fill),
       centerTitle: true,
-      title: 'Filiera-Token-Shop-History',
+      title: 'Filiera-Token-History',
       backgroundColor: Colors.transparent,
       elevation: 0.0,
       automaticallyImplyLeading: false,
@@ -151,11 +151,11 @@ final GlobalKey<EventListState> _eventListKey = GlobalKey<EventListState>();
               icon: _isDrawerOpen() || _isDrawerOpening()
                   ? const Icon(
                       Icons.clear,
-                      color: Colors.black,
+                      color: Colors.blue,
                     )
                   : const Icon(
                       Icons.menu,
-                      color: Colors.black,
+                      color: Colors.blue,
                     ),
             );
           },
@@ -171,7 +171,7 @@ final GlobalKey<EventListState> _eventListKey = GlobalKey<EventListState>();
       builder: (context, child) {
         return FractionalTranslation(
           translation: Offset(1.0 - _drawerSlideController.value, 0.0),
-          child: _isDrawerClosed() ? const SizedBox() :  CustomMenuHistory(userData: user!,),
+          child: _isDrawerClosed() ? const SizedBox() :  CustomMenuHistory(userData: user!,secureStorageService: secureStorageService),
         );
       },
     );

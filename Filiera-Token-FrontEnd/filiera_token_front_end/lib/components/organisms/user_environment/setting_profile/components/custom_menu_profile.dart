@@ -1,3 +1,6 @@
+import 'package:filiera_token_front_end/components/organisms/user_environment/services/logout_service.dart';
+import 'package:filiera_token_front_end/components/organisms/user_environment/services/secure_storage_service.dart';
+import 'package:filiera_token_front_end/components/atoms/custom_button.dart';
 import 'package:filiera_token_front_end/models/User.dart';
 import 'package:filiera_token_front_end/utils/enums.dart';
 import 'package:flutter/material.dart';
@@ -6,31 +9,31 @@ import 'package:go_router/go_router.dart';
 class CustomMenu extends StatefulWidget {
 
   final User userData;
-  const CustomMenu({super.key, required this.userData});
+  final SecureStorageService secureStorageService;
+  const CustomMenu({super.key, required this.userData, required this.secureStorageService});
 
   @override
   State<CustomMenu> createState() => _MenuState();
 }
 
 class _MenuState extends State<CustomMenu> with SingleTickerProviderStateMixin {
-  
-  static const _menuTitles = [
-    'Product Buyed', // Product Buyed
-    'Inventory',// Inventory
-    'History', // Transaction or Event of this User 
-    'Logout', // Logout Routing 
-    'Shop' // Go to Shop routing 
-  ];
+
+  final LogoutService logoutService = LogoutService();
+
+  final List<String> _menuTitles = [];
 
   static const _initialDelayTime = Duration(milliseconds: 50);
   static const _itemSlideTime = Duration(milliseconds: 250);
   static const _staggerTime = Duration(milliseconds: 50);
   static const _buttonDelayTime = Duration(milliseconds: 150);
   static const _buttonTime = Duration(milliseconds: 500);
-  final _animationDuration = _initialDelayTime +
+
+  Duration getAnimationDuration(List<String> _menuTitles) {
+    return _initialDelayTime +
       (_staggerTime * _menuTitles.length) +
       _buttonDelayTime +
       _buttonTime;
+  }
 
   late AnimationController _staggeredController;
   final List<Interval> _itemSlideIntervals = [];
@@ -39,11 +42,32 @@ class _MenuState extends State<CustomMenu> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
 
+    User user = widget.userData;
+
+    switch(user.getType) {
+      case Actor.MilkHub: {
+        _menuTitles.add("Inventory");
+        break;
+      }
+      case Actor.Consumer: {
+        _menuTitles.add("Product Buyed");
+        break;
+      }
+      default: {
+        _menuTitles.add("Inventory");
+        _menuTitles.add("Product Buyed");
+        break;
+      }
+    }
+
+    _menuTitles.add("Shop");
+    _menuTitles.add("Logout");
+
     _createAnimationIntervals();
 
     _staggeredController = AnimationController(
       vsync: this,
-      duration: _animationDuration,
+      duration: getAnimationDuration(_menuTitles),
     )..forward();
   }
 
@@ -53,8 +77,8 @@ class _MenuState extends State<CustomMenu> with SingleTickerProviderStateMixin {
       final endTime = startTime + _itemSlideTime;
       _itemSlideIntervals.add(
         Interval(
-          startTime.inMilliseconds / _animationDuration.inMilliseconds,
-          endTime.inMilliseconds / _animationDuration.inMilliseconds,
+          startTime.inMilliseconds / getAnimationDuration(_menuTitles).inMilliseconds,
+          endTime.inMilliseconds / getAnimationDuration(_menuTitles).inMilliseconds,
         ),
       );
     }
@@ -82,14 +106,14 @@ class _MenuState extends State<CustomMenu> with SingleTickerProviderStateMixin {
   }
 
   Widget _buildFlutterLogo() {
-    return const Positioned(
+    return Positioned(
       right: -100,
       bottom: -30,
       child: Opacity(
         opacity: 0.2,
-        child: FlutterLogo(
-          size: 400,
-        ),
+        child: Image.asset('../assets/filiera-token-logo.png', 
+        width: 400,
+        height: 400),
       ),
     );
   }
@@ -128,14 +152,15 @@ class _MenuState extends State<CustomMenu> with SingleTickerProviderStateMixin {
           },
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 16),
-            child: ElevatedButton(
-              onPressed: () {
-
+            child: 
+            CustomButton(
+              text: _menuTitles[i],
+              type: CustomType.neutral,
+              onPressed: () async{
                   String idUser = user.id;
                   String _type = Enums.getActorText(user.type);
                   if(_menuTitles[i].compareTo('Logout')==0){
-                    // Logout Routing
-                    /// Logout Service  
+                    await _logoutUser();
                     context.go('/');
 
                   }else if(_menuTitles[i].compareTo('Product Buyed')==0){
@@ -153,21 +178,21 @@ class _MenuState extends State<CustomMenu> with SingleTickerProviderStateMixin {
                     // Inventory Routing 
                     context.go('/home-page-user/$_type/$idUser/profile/inventory');
                   }
-                },
-              child: 
-              Text(
-                _menuTitles[i],
-                 textAlign: TextAlign.left,
-                  style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w500,
-                  )
-                  ),
-                ),
+                })
               ),
             ),
           );
       }
     return listItems;
+  }
+
+
+    Future<void> _logoutUser() async {
+    String? token = await widget.secureStorageService.getJWT();
+    
+    if(logoutService.deleteUserData(widget.secureStorageService, token!) == true){
+      print("Ho invalidato il token");
+      return;
+    }
   }
 }

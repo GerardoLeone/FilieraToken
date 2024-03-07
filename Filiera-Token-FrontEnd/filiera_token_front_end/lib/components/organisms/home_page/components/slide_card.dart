@@ -1,107 +1,94 @@
+import 'package:filiera_token_front_end/utils/color_utils.dart';
+import 'package:filiera_token_front_end/utils/enums.dart';
 import 'package:flutter/material.dart';
 
-class SlideInCard extends StatefulWidget {
+enum ImagePosition {
+  left,
+  right,
+}
+
+class SlideInCard extends StatelessWidget {
+  final ImagePosition imagePosition;
   final String title;
   final String description;
-  final Offset beginOffset;
-  final Offset endOffset;
+  final ImageProvider? image;
 
   SlideInCard({
+    required this.imagePosition,
     required this.title,
     required this.description,
-    required this.beginOffset,
-    required this.endOffset
+    this.image,
   });
 
   @override
-  _SlideInCardState createState() => _SlideInCardState();
-}
-
-
-
-
-class _SlideInCardState extends State<SlideInCard> with SingleTickerProviderStateMixin {
-  late AnimationController _animationController;
-  late Animation<Offset> _offsetAnimation;
-  bool _isHovered = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _animationController = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 500),
-    );
-    _offsetAnimation = Tween<Offset>(
-      begin: Offset(1.5, 0),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.easeInOut,
-    ));
-    _animationController.forward();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      onEnter: (_) {
-        setState(() {
-          _isHovered = true;
-        });
-      },
-      onExit: (_) {
-        setState(() {
-          _isHovered = false;
-        });
-      },
-      child: AnimatedBuilder(
-        animation: _animationController,
-        builder: (context, child) {
-          return Transform.translate(
-            offset: _offsetAnimation.value,
-            child: Card(
-              elevation: _isHovered ? 8.0 : 4.0, // Aumenta l'ombra al passaggio del mouse
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0), // Bordi arrotondati
-                side: BorderSide(color: Colors.grey[200]!, width: 1.0), // Aggiunge un bordo
-              ),
-              child: InkWell(
-                onTap: () {
-                  // Azione da eseguire quando la card viene premuta
-                },
-                child: Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        widget.title,
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
-                        ),
+    return Card(
+      margin: const EdgeInsets.all(50.0),
+      elevation: 10.0, // Modifica il valore di elevation come desiderato
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+      child: Container(
+        padding: const EdgeInsets.all(16.0),
+        decoration: BoxDecoration(
+          border: Border.all(color: ColorUtils.getColor(CustomType.neutral), width: 2.0),
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            if (imagePosition == ImagePosition.left)
+              _buildImageWidget(),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: imagePosition == ImagePosition.left
+                      ? CrossAxisAlignment.start
+                      : CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      textAlign: (imagePosition == ImagePosition.right) ? TextAlign.right : TextAlign.left,
+                      title,
+                      style: TextStyle(
+                        color: ColorUtils.getColor(CustomType.neutral),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20.0
                       ),
-                      SizedBox(height: 8.0),
-                      Text(
-                        widget.description,
-                        style: TextStyle(fontSize: 16.0),
+                    ),
+                    const SizedBox(height: 8.0),
+                    Text(
+                      textAlign: (imagePosition == ImagePosition.right) ? TextAlign.right : TextAlign.left,
+                      description,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontStyle: FontStyle.italic,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-              color: _isHovered ? Colors.blue[50] : Colors.white, // Cambia il colore della card se il mouse è sopra
             ),
-          );
-        },
+            if (imagePosition == ImagePosition.right) _buildImageWidget(),
+          ],
+        ),
       ),
     );
   }
 
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
+  Widget _buildImageWidget() {
+    return Container(
+      width: 200.0,
+      height: 150.0,
+      decoration: BoxDecoration(
+        image: image != null
+            ? DecorationImage(
+                image: image!,
+                fit: BoxFit.cover,
+              )
+            : null,
+        borderRadius: BorderRadius.all(Radius.circular(20)),
+      ),
+    );
   }
 }

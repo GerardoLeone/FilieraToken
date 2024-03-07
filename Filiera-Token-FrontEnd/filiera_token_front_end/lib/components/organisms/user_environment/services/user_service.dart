@@ -19,7 +19,7 @@ class UserSerivce {
 
 
   Future<bool> registrationUser(String email, String fullName, String password, String walletMilkHub, String typeUser) async {
-
+    
     switch(typeUser){
       
       case "MilkHub":{

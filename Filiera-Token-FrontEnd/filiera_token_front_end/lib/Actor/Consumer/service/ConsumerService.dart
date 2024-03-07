@@ -57,9 +57,13 @@ class ConsumerService {
       headers: headers,
       body: jsonEncode(body),
     );
+    var responseLogin = jsonDecode(response.body);
+    print(password);
+    print(response);
+    print("Response Login :"+responseLogin.toString());
 
     // Controllo del codice di stato
-    if (response.statusCode == 200) {
+    if ((response.statusCode == 200 || response.statusCode == 202) && responseLogin['output'] == true ) {
       // Richiesta avvenuta con successo
       print('Login avvenuto con successo');
       return true;

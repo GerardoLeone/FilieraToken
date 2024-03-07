@@ -1,11 +1,8 @@
-import 'dart:convert';
 
 import 'package:filiera_token_front_end/utils/enums.dart';
 
-/**
- * Classe astratta per i Prodotti.
- * il parametro seller è da impostare solo per i valori restituiti dal Buyer, per il resto delle chiamate rimane inutilizzato.
- */
+/// Classe astratta per i Prodotti.
+/// il parametro seller è da impostare solo per i valori restituiti dal Buyer, per il resto delle chiamate rimane inutilizzato.
 
 // Product Inventory 
 abstract class Product {
@@ -43,10 +40,8 @@ abstract class Product {
 
 
 
-/**
- * Classe astratta per i Prodotti.
- * il parametro seller è da impostare solo per i valori restituiti dal Buyer, per il resto delle chiamate rimane inutilizzato.
- */
+/// Classe astratta per i Prodotti.
+/// il parametro seller è da impostare solo per i valori restituiti dal Buyer, per il resto delle chiamate rimane inutilizzato.
 // Product Purchased 
 abstract class ProductPurchased {
 
@@ -242,8 +237,8 @@ class CheeseBlock extends Product {
   
   static Product fromJson(Map<String, dynamic> cheeseBlockData,String wallet) {
     
-    String name = "Partita di Formaggio"; // Changed name
-    String description = "Silos contenente formaggio, disponibile all'acquisto immediato."; // Changed description
+    String name = "Blocco di Formaggio"; // Changed name
+    String description = "Blocco di Formaggio intero di qualità certificata DOP."; // Changed description
     String id = cheeseBlockData['output'];
     String dop = cheeseBlockData['output1'];
     double price = double.parse(cheeseBlockData['output2']); // Parsing price as double
@@ -299,8 +294,8 @@ class CheeseBlockPurchased extends ProductPurchased {
   }
   
   static ProductPurchased fromJson(Map<String, dynamic> cheeseBlockData) {
-    String name = "Partita di Formaggio"; // Changed name
-    String description = "Silos contenente formaggio, disponibile all'acquisto immediato."; // Changed description
+    String name = "Blocco di Formaggio"; // Changed name
+    String description = "Blocco di Formaggio intero di qualità certificata DOP."; // Changed description
     
     String id = cheeseBlockData['output'];
     String seller = cheeseBlockData['output1']; // TODO: Replace with function that returns the name of the CheeseProducer from CheeseProducerServiceù

@@ -18,37 +18,45 @@ class CustomMenuUserInventory extends StatefulWidget {
 class _MenuState extends State<CustomMenuUserInventory> with SingleTickerProviderStateMixin {
 
   final LogoutService logoutService = LogoutService();
-  
-  static const _menuTitles = [
-    'Setting', // Go to profile setting 
-    'Product Buyed', // Product Buyed
-    'History', // Transaction or Event of this User 
-    'Logout', // Logout Routing 
-    'Shop' // Go to Shop routing 
-  ];
+
+  final List<String> _menuTitles = [];
 
   static const _initialDelayTime = Duration(milliseconds: 50);
   static const _itemSlideTime = Duration(milliseconds: 250);
   static const _staggerTime = Duration(milliseconds: 50);
   static const _buttonDelayTime = Duration(milliseconds: 150);
   static const _buttonTime = Duration(milliseconds: 500);
-  final _animationDuration = _initialDelayTime +
-      (_staggerTime * _menuTitles.length) +
-      _buttonDelayTime +
-      _buttonTime;
 
   late AnimationController _staggeredController;
   final List<Interval> _itemSlideIntervals = [];
+
+  Duration getAnimationDuration(List<String> _menuTitles) {
+    return _initialDelayTime +
+      (_staggerTime * _menuTitles.length) +
+      _buttonDelayTime +
+      _buttonTime;
+  }
 
   @override
   void initState() {
     super.initState();
 
+    User user = widget.userData;
+
+    _menuTitles.add("Setting");
+
+    if(user.getType != Actor.MilkHub) {
+      _menuTitles.add("Product Buyed");
+    }
+
+    _menuTitles.add("Shop");
+    _menuTitles.add("Logout");
+
     _createAnimationIntervals();
 
     _staggeredController = AnimationController(
       vsync: this,
-      duration: _animationDuration,
+      duration: getAnimationDuration(_menuTitles),
     )..forward();
   }
 
@@ -58,8 +66,8 @@ class _MenuState extends State<CustomMenuUserInventory> with SingleTickerProvide
       final endTime = startTime + _itemSlideTime;
       _itemSlideIntervals.add(
         Interval(
-          startTime.inMilliseconds / _animationDuration.inMilliseconds,
-          endTime.inMilliseconds / _animationDuration.inMilliseconds,
+          startTime.inMilliseconds / getAnimationDuration(_menuTitles).inMilliseconds,
+          endTime.inMilliseconds / getAnimationDuration(_menuTitles).inMilliseconds,
         ),
       );
     }

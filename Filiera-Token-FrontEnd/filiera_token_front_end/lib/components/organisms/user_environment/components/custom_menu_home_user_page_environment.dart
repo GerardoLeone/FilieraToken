@@ -18,41 +18,58 @@ class CustomMenuHomeUserPageEnv extends StatefulWidget {
 
 class _MenuState extends State<CustomMenuHomeUserPageEnv> with SingleTickerProviderStateMixin {
 
-
   final LogoutService logoutService = LogoutService();
 
-
-  static const _menuTitles = [
-    'Setting', // Go to Profile routing 
-    'Inventory', // Go to Inventory
-    'Product Buyed', // Go to Product Buyed 
-    'History', // Transaction or Event of this User 
-    'Logout', // Logout Routing 
-  ];
+  final List<String> _menuTitles = [];
 
   static const _initialDelayTime = Duration(milliseconds: 50);
   static const _itemSlideTime = Duration(milliseconds: 250);
   static const _staggerTime = Duration(milliseconds: 50);
   static const _buttonDelayTime = Duration(milliseconds: 150);
   static const _buttonTime = Duration(milliseconds: 500);
-  final _animationDuration = _initialDelayTime +
-      (_staggerTime * _menuTitles.length) +
-      _buttonDelayTime +
-      _buttonTime;
 
   late AnimationController _staggeredController;
   final List<Interval> _itemSlideIntervals = [];
+
+  Duration getAnimationDuration(List<String> _menuTitles) {
+    return _initialDelayTime +
+      (_staggerTime * _menuTitles.length) +
+      _buttonDelayTime +
+      _buttonTime;
+  }
 
   @override
   void initState() {
     super.initState();
 
+    User user = widget.userData;
+
+    _menuTitles.add("Setting");
+
+    switch(user.getType) {
+      case Actor.MilkHub: {
+        _menuTitles.add("Inventory");
+        break;
+      }
+      case Actor.Consumer: {
+        _menuTitles.add("Product Buyed");
+        break;
+      }
+      default: {
+        _menuTitles.add("Inventory");
+        _menuTitles.add("Product Buyed");
+        break;
+      }
+    }
+
+    _menuTitles.add("Shop");
+    _menuTitles.add("Logout");
 
     _createAnimationIntervals();
 
     _staggeredController = AnimationController(
       vsync: this,
-      duration: _animationDuration,
+      duration: getAnimationDuration(_menuTitles),
     )..forward();
   }
 
@@ -62,8 +79,8 @@ class _MenuState extends State<CustomMenuHomeUserPageEnv> with SingleTickerProvi
       final endTime = startTime + _itemSlideTime;
       _itemSlideIntervals.add(
         Interval(
-          startTime.inMilliseconds / _animationDuration.inMilliseconds,
-          endTime.inMilliseconds / _animationDuration.inMilliseconds,
+          startTime.inMilliseconds / getAnimationDuration(_menuTitles).inMilliseconds,
+          endTime.inMilliseconds / getAnimationDuration(_menuTitles).inMilliseconds,
         ),
       );
     }
@@ -155,11 +172,6 @@ class _MenuState extends State<CustomMenuHomeUserPageEnv> with SingleTickerProvi
                 }else if(_menuTitles[i].compareTo('Inventory') == 0){
                   // Product Buyed Routing 
                   context.go('/home-page-user/'+type+'/'+userId+'/profile/inventory');
-
-                }else if(_menuTitles[i].compareTo('History') == 0){
-                  // History
-                  /// TODO: Rendere dinamica questa Route
-                  context.go('/home-page-user/'+type+'/'+userId+'/profile/history');
 
                 }else if(_menuTitles[i].compareTo('Setting') ==0){
 

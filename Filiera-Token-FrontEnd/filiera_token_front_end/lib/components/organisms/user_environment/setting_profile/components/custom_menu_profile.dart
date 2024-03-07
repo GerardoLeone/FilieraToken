@@ -20,24 +20,20 @@ class _MenuState extends State<CustomMenu> with SingleTickerProviderStateMixin {
 
   final LogoutService logoutService = LogoutService();
 
-  
-  static const _menuTitles = [
-    'Product Buyed', // Product Buyed
-    'Inventory',// Inventory
-    'History', // Transaction or Event of this User 
-    'Logout', // Logout Routing 
-    'Shop' // Go to Shop routing 
-  ];
+  final List<String> _menuTitles = [];
 
   static const _initialDelayTime = Duration(milliseconds: 50);
   static const _itemSlideTime = Duration(milliseconds: 250);
   static const _staggerTime = Duration(milliseconds: 50);
   static const _buttonDelayTime = Duration(milliseconds: 150);
   static const _buttonTime = Duration(milliseconds: 500);
-  final _animationDuration = _initialDelayTime +
+
+  Duration getAnimationDuration(List<String> _menuTitles) {
+    return _initialDelayTime +
       (_staggerTime * _menuTitles.length) +
       _buttonDelayTime +
       _buttonTime;
+  }
 
   late AnimationController _staggeredController;
   final List<Interval> _itemSlideIntervals = [];
@@ -46,11 +42,32 @@ class _MenuState extends State<CustomMenu> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
 
+    User user = widget.userData;
+
+    switch(user.getType) {
+      case Actor.MilkHub: {
+        _menuTitles.add("Inventory");
+        break;
+      }
+      case Actor.Consumer: {
+        _menuTitles.add("Product Buyed");
+        break;
+      }
+      default: {
+        _menuTitles.add("Inventory");
+        _menuTitles.add("Product Buyed");
+        break;
+      }
+    }
+
+    _menuTitles.add("Shop");
+    _menuTitles.add("Logout");
+
     _createAnimationIntervals();
 
     _staggeredController = AnimationController(
       vsync: this,
-      duration: _animationDuration,
+      duration: getAnimationDuration(_menuTitles),
     )..forward();
   }
 
@@ -60,8 +77,8 @@ class _MenuState extends State<CustomMenu> with SingleTickerProviderStateMixin {
       final endTime = startTime + _itemSlideTime;
       _itemSlideIntervals.add(
         Interval(
-          startTime.inMilliseconds / _animationDuration.inMilliseconds,
-          endTime.inMilliseconds / _animationDuration.inMilliseconds,
+          startTime.inMilliseconds / getAnimationDuration(_menuTitles).inMilliseconds,
+          endTime.inMilliseconds / getAnimationDuration(_menuTitles).inMilliseconds,
         ),
       );
     }

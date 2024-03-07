@@ -16,7 +16,7 @@ class CustomBalance extends StatelessWidget {
         borderRadius: BorderRadius.circular(20.0),
       ),
       child: Text(
-        'Saldo: '+user.balance+"FTL",
+        'Saldo: '+user.balance+"FLT",
         style: TextStyle(
           color: Colors.white,
           fontSize: 16.0,

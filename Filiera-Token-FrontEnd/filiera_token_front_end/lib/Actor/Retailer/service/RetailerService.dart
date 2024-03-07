@@ -48,7 +48,7 @@ class RetailerService {
 
   Future<bool> loginRetailer(String email, String password, String wallet) async {
 
-    const url = '$_apiUrl/namespaces/default/apis/$_APINameRetailer/invoke/$queryLogin';
+    const url = '$_apiUrl/namespaces/default/apis/$_APINameRetailer/query/$queryLogin';
     final headers = _getHeaders();
     final body = _getLoginPayload(email, password, wallet);
     final response = await http.post(

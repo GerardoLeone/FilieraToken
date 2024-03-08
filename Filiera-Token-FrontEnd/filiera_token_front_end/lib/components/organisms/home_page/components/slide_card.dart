@@ -23,7 +23,6 @@ class SlideInCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.all(50.0),
       elevation: 10.0, // Modifica il valore di elevation come desiderato
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20.0),

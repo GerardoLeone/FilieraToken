@@ -58,7 +58,6 @@ class _CustomViewProfile extends State<CustomViewProfile> {
     String wallet = userDataStored.wallet;
     String balance = userDataStored.balance;
     String email = userDataStored.email;
-    String password = userDataStored.password;
     String fullName = userDataStored.fullName;
     String actorType = Enums.getActorText(userDataStored.getType);
 
@@ -130,7 +129,7 @@ class _CustomViewProfile extends State<CustomViewProfile> {
           const SizedBox(height: 10),
           _buildInfoContainer("Nome", fullName),
           const SizedBox(height: 10),
-          _buildInfoContainer("Password", password),
+          _buildInfoContainer("Password", "*******"),
         ],
       ),
     );

@@ -6,9 +6,6 @@ Benvenuti nel progetto FilieraToken!
 
 Il sistema proposto si concentra sulla gestione della filiera lattiero-casearia attraverso un'applicazione distribuita (DApp) basata su tecnologia blockchain. Questa soluzione innovativa, chiamata FilieraToken, mira a garantire la trasparenza, l'efficienza e la tracciabilità lungo l'intera catena di produzione e distribuzione del formaggio.
 
-![Conclusione](./docs/introduzione.png)
-
-
 ### Attori della Filiera:
 
 | Ruolo Attore | Descrizione | Immagine |
@@ -56,7 +53,7 @@ L'architettura del sistema è composta dalle seguenti componenti e tecnologie:
 | Flutter | Flutter è un framework open-source sviluppato da Google per la creazione di app mobili multi-piattaforma. Utilizza il linguaggio di programmazione Dart e offre un'ampia gamma di widget personalizzabili e un sistema di rendering veloce. <sup>[3]</sup> | ![Flutter](./docs/fluttericon.png) |
 | JWT (JSON Web Token) | JWT è uno standard aperto (RFC 7519) che definisce un modo compatto e autonomo per trasmettere informazioni in sicurezza tra due parti come un oggetto JSON. È comunemente utilizzato per autenticare e autorizzare gli utenti in applicazioni web e API RESTful. <sup>[4]</sup> | ![JWT](./docs/jwt.png) |
 | Metamask | Metamask è un'estensione del browser che consente agli utenti di gestire facilmente il proprio portafoglio Ethereum e interagire con le DApp (Decentralized Applications) sulla blockchain Ethereum direttamente dal browser. <sup>[5]</sup> | ![Metamask](./docs/metamask.jpg) |
-| Ganache | Ganache è un ambiente di sviluppo personale Ethereum che consente di eseguire test, eseguire debug e realizzare contratti, oltre ad avere una blockchain Ethereum privata per lo sviluppo. <sup>[6]</sup> | ![Ganache](./docs/ganache.png) |
+| Ganache | Ganache è un ambiente di sviluppo personale Ethereum che consente di eseguire test, eseguire debug e realizzare contratti, oltre ad avere una blockchain Ethereum privata per lo sviluppo. <sup>[6]</sup> | ![Ganache](./docs/ganache-logo.png) |
 
 ### Riferimenti:
 
@@ -129,8 +126,8 @@ L'utente che avrà completato l'acquisto del prodotto, ha la possibilità di and
 
 | | | |
 | --- | --- | --- |
-| ![Step 2 - Conversione del Prodotto](./docs/conversione/conversione2.png) | ![Step 2 - Conversione del Prodotto](./docs/acquisto/conversione3.png) | ![Step 2 - Acquisto del Prodotto](./docs/acquisto/conversione_fine.png) |
-| ![Step 2 - Conversione del Prodotto](./docs/acquisto/conversione_api.png) | | |
+| ![Step 2 - Conversione del Prodotto](./docs/conversione/conversione2.png) | ![Step 2 - Conversione del Prodotto](./docs/conversione/conversione3.png) | ![Step 2 - Acquisto del Prodotto](./docs/conversione/conversione_fine.png) |
+| ![Step 2 - Conversione del Prodotto](./docs/conversione/conversione_api.png) | | |
 
 
 ## Conclusioni
@@ -145,10 +142,7 @@ Infine, abbiamo analizzato alcuni casi d'uso cruciali, come la selezione e l'acq
 
 In conclusione, il sistema proposto offre un approccio innovativo e trasparente alla gestione della filiera lattiero-casearia, sfruttando le potenzialità della tecnologia blockchain per garantire tracciabilità, sicurezza e efficienza lungo l'intera catena di distribuzione.
 
-![Conclusioni e Sviluppi Futuri](./docs/acquisto/sviluppi.png)
-
-
-![Conclusione](./docs/fine.png)
+![Conclusioni e Sviluppi Futuri](./docs/sviluppi.png)
 
 
 ## Author

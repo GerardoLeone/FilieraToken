@@ -94,7 +94,7 @@ Gli utenti hanno accesso alle seguenti pagine in base al loro ruolo:
 | SignUp | Pagina di registrazione per i nuovi utenti. Qui gli utenti possono creare un nuovo account fornendo le informazioni richieste. | ![SignUp](./docs/singup.png) |
 | Shop | Pagina principale del negozio, dove gli utenti possono visualizzare e acquistare i prodotti disponibili. | ![Shop](./docs/acquisto/selezione_acquisto.png) |
 | Product Buyed | Pagina dove gli utenti possono visualizzare i prodotti che hanno acquistato in passato. | ![Product Buyed](./docs/conversione/conversione1.png) |
-| Inventory | Pagina dove gli utenti possono gestire i propri prodotti e metterli in vendita nel negozio. | ![Inventory](./docs/inventory.png.png) |
+| Inventory | Pagina dove gli utenti possono gestire i propri prodotti e metterli in vendita nel negozio. | ![Inventory](./docs/inventory.png) |
 | Setting | Pagina delle impostazioni, dove gli utenti possono visualizzare e modificare le proprie informazioni personali e le preferenze del sistema. | ![Setting](./docs/setting.png) |
 
 ## Dapp : 

@@ -1,8 +1,9 @@
 # Filiera-Token
 
 <p align="center">
-  <img width="150" src="./docs/filiera-token-logo.svg">
+  <img width="150" src="./docs/filiera-token-logo.png" style="border-radius: 10px;">
 </p>
+
 
 <p align="center" dir="auto">
   Un progetto sviluppato per il corso di Sicurezza dei Dati<br> 

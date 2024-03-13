@@ -6,6 +6,9 @@ Benvenuti nel progetto FilieraToken!
 
 Il sistema proposto si concentra sulla gestione della filiera lattiero-casearia attraverso un'applicazione distribuita (DApp) basata su tecnologia blockchain. Questa soluzione innovativa, chiamata FilieraToken, mira a garantire la trasparenza, l'efficienza e la tracciabilità lungo l'intera catena di produzione e distribuzione del formaggio.
 
+![Conclusione](./docs/introduzione.png)
+
+
 ### Attori della Filiera:
 
 | Ruolo Attore | Descrizione | Immagine |
@@ -104,7 +107,7 @@ Gli utenti hanno accesso alle seguenti pagine in base al loro ruolo:
 
 L'utente che può acquistare i prodotti, andrà a cliccare sulla card del prodotto e si aprirà una finestra di Dialog dove si dovrà inserire la quantità che si vuole acquistare.
 
-![Step 1 - Selezione del Prodotto](./docs/acquisto/selezione_acquisto.png) ![Step 3 - Conversione del Prodotto](inserisci-il-tuo-link-all-immagine-conversione-prodotto.png) 
+![Step 1 - Selezione del Prodotto](./docs/acquisto/selezione_acquisto.png) ![Step 3 - Conversione del Prodotto](./docs/conversione/conversione1.png) 
 ## Acquisto del Prodotto
 
 L'utente una volta selezionato il prodotto e una volta inserita la quantità riceverà una notifica di avvenuta conferma dell'applicazione oppure di errore.
@@ -121,13 +124,70 @@ L'utente che avrà completato l'acquisto del prodotto, ha la possibilità di and
 
 | | | |
 | --- | --- | --- |
-| ![Step 2 - Acquisto del Prodotto](./docs/acquisto/acquisto1.png) | ![Step 2 - Acquisto del Prodotto](./docs/acquisto/acquisto2.png) | ![Step 2 - Acquisto del Prodotto](./docs/acquisto/acquisto3.png) |
-| ![Step 2 - Acquisto del Prodotto](./docs/acquisto/acquisto_api.png) | | |
+| ![Step 2 - Conversione del Prodotto](./docs/conversione/conversione2.png) | ![Step 2 - Conversione del Prodotto](./docs/acquisto/conversione3.png) | ![Step 2 - Acquisto del Prodotto](./docs/acquisto/conversione_fine.png) |
+| ![Step 2 - Conversione del Prodotto](./docs/acquisto/conversione_api.png) | | |
 
 
 ## Conclusioni
-Sintesi delle principali conclusioni tratte dal documento.
 
-## Riferimenti
-Eventuali riferimenti o fonti utilizzate.
+In questo documento abbiamo esaminato diverse componenti e funzionalità del sistema, concentrandoci sulla gestione della filiera lattiero-casearia tramite l'utilizzo di tecnologie blockchain. Abbiamo introdotto i principali attori coinvolti nella filiera, come il MilkHub, il CheeseProducer, il Retailer e il Consumer, delineando le loro specifiche responsabilità e privilegi all'interno del sistema.
+
+Abbiamo esaminato l'architettura del sistema, composta da diversi microservizi come MilkHub Microservice, CheeseProducer Microservice, Retailer Microservice e Consumer Microservice, ognuno dei quali svolge un ruolo fondamentale nella gestione e nel funzionamento della filiera.
+
+Inoltre, abbiamo esplorato le tecnologie utilizzate nel sistema, tra cui Docker, Firefly, Hyperledger Besu, Truffle e Hardhat, ognuna delle quali contribuisce alla creazione e alla gestione di una solida infrastruttura blockchain.
+
+Infine, abbiamo analizzato alcuni casi d'uso cruciali, come la selezione e l'acquisto dei prodotti, nonché la conversione dei prodotti acquistati. Questi casi d'uso illustrano il flusso di interazione degli utenti con il sistema e evidenziano le funzionalità chiave offerte.
+
+In conclusione, il sistema proposto offre un approccio innovativo e trasparente alla gestione della filiera lattiero-casearia, sfruttando le potenzialità della tecnologia blockchain per garantire tracciabilità, sicurezza e efficienza lungo l'intera catena di distribuzione.
+
+![Conclusioni e Sviluppi Futuri](./docs/acquisto/sviluppi.png)
+
+
+![Conclusione](./docs/fine.png)
+
+
+## Author
+- Gerardo Leone
+- Umberto Della Monica
+
+## Tutor
+- Pasquale P. Perillo 
+- Pietro Catalano
+- Salvatore Moscariello 
+
+
+## Riferimenti e Citazioni 
+
+1. **Docker**: 
+   - [Sito Ufficiale](https://www.docker.com/)
+   - [Documentazione](https://docs.docker.com/)
+
+2. **Firefly**: 
+   - [Repository GitHub](https://github.com/hyperledger-labs/firefly)
+   - [Documentazione](https://docs.firefly.mikaku.ca/)
+
+3. **Hyperledger Besu**: 
+   - [Repository GitHub](https://github.com/hyperledger/besu)
+   - [Documentazione](https://besu.hyperledger.org/en/stable/)
+
+4. **Truffle**: 
+   - [Sito Ufficiale](https://www.trufflesuite.com/truffle)
+   - [Documentazione](https://www.trufflesuite.com/docs/truffle/overview)
+
+5. **HardHat**: 
+   - [Repository GitHub](https://github.com/nomiclabs/hardhat)
+   - [Documentazione](https://hardhat.org/getting-started/)
+
+## Altre Risorse:
+
+- **ERC20 - Standard di Token Ethereum**: 
+   - [Specifiche ERC20](https://ethereum.org/en/developers/docs/standards/tokens/erc-20/)
+   - [Documentazione](https://eips.ethereum.org/EIPS/eip-20)
+
+- **LinearIT**:
+   - [Sito Web](https://www.linearit.it/)
+
+
+## Azienda 
+![Logo Azienda ](./docs/Logo_LinearIT_h68.png)
 

@@ -1,5 +1,6 @@
+# Filiera-Token
 <p align="center">
-  <img width="300" src="./docs/filiera-token-logo.png">
+  <img width="150" src="./docs/filiera-token-logo.png">
 </p>
 
 <p align="center" dir="auto">

@@ -90,11 +90,11 @@ Gli utenti hanno accesso alle seguenti pagine in base al loro ruolo:
 
 | Nome della Pagina | Descrizione | Immagine |
 | ----------------- | ----------- | -------- |
-| Login | Pagina di accesso per gli utenti registrati. Qui gli utenti possono inserire le proprie credenziali per accedere al sistema. | ![Login](inserisci-il-tuo-link-all-immagine-login.png) |
-| SignUp | Pagina di registrazione per i nuovi utenti. Qui gli utenti possono creare un nuovo account fornendo le informazioni richieste. | ![SignUp](inserisci-il-tuo-link-all-immagine-signup.png) |
-| Shop | Pagina principale del negozio, dove gli utenti possono visualizzare e acquistare i prodotti disponibili. | ![Shop](inserisci-il-tuo-link-all-immagine-shop.png) |
-| Product Buyed | Pagina dove gli utenti possono visualizzare i prodotti che hanno acquistato in passato. | ![Product Buyed](inserisci-il-tuo-link-all-immagine-product-buyed.png) |
-| Inventory | Pagina dove gli utenti possono gestire i propri prodotti e metterli in vendita nel negozio. | ![Inventory](inserisci-il-tuo-link-all-immagine-inventory.png) |
+| Login | Pagina di accesso per gli utenti registrati. Qui gli utenti possono inserire le proprie credenziali per accedere al sistema. | ![Login](./docs/login.png) |
+| SignUp | Pagina di registrazione per i nuovi utenti. Qui gli utenti possono creare un nuovo account fornendo le informazioni richieste. | ![SignUp](./docs/singup.png) |
+| Shop | Pagina principale del negozio, dove gli utenti possono visualizzare e acquistare i prodotti disponibili. | ![Shop](./docs/acquisto/selezione_acquisto.png) |
+| Product Buyed | Pagina dove gli utenti possono visualizzare i prodotti che hanno acquistato in passato. | ![Product Buyed](./docs/conversione/conversione1.png.png) |
+| Inventory | Pagina dove gli utenti possono gestire i propri prodotti e metterli in vendita nel negozio. | ![Inventory](./docs/inventory.png.png) |
 | Setting | Pagina delle impostazioni, dove gli utenti possono visualizzare e modificare le proprie informazioni personali e le preferenze del sistema. | ![Setting](inserisci-il-tuo-link-all-immagine-setting.png) |
 
 ## Dapp : 

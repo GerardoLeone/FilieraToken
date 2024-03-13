@@ -11,7 +11,7 @@ Il sistema proposto si concentra sulla gestione della filiera lattiero-casearia 
 | Ruolo Attore | Descrizione | Immagine |
 | ------------ | ----------- | -------- |
 | Centro di Raccolta e Trasformazione del Latte | Il Centro di Raccolta e Trasformazione del Latte svolge un ruolo cruciale nel processo di produzione. È responsabile della raccolta del latte dalle aziende agricole, della sua trasformazione in formaggio e della distribuzione ai successivi attori della filiera. | ![Centro di Raccolta](./docs/milk_farm.jpg) |
-| Produttore di Formaggio | Il Produttore di Formaggio riceve il latte trasformato dal Centro di Raccolta e Trasformazione del Latte e lo utilizza per creare i prodotti caseari. Utilizzando la tecnologia blockchain, ogni passaggio nella produzione del formaggio viene registrato in modo sicuro e immutabile. | ![Produttore di Formaggio](./docs/) |
+| Produttore di Formaggio | Il Produttore di Formaggio riceve il latte trasformato dal Centro di Raccolta e Trasformazione del Latte e lo utilizza per creare i prodotti caseari. Utilizzando la tecnologia blockchain, ogni passaggio nella produzione del formaggio viene registrato in modo sicuro e immutabile. | ![Produttore di Formaggio](./docs/cheeseProducer.jpg) |
 | Retailer | Il Retailer è l'ultimo anello della catena di distribuzione prima che il formaggio raggiunga il consumatore finale. Grazie a CheeseChain, il Retailer può garantire ai propri clienti la provenienza e la qualità del formaggio offerto. | ![Retailer](./docs/retailer.jpg) |
 | Consumatore | Il Consumatore rappresenta il destinatario finale del formaggio. Grazie alla tracciabilità garantita dalla tecnologia blockchain, il Consumatore può avere fiducia nell'origine e nella qualità del prodotto che sta acquistando. | ![Consumatore](./docs/consumer.jpg) |
 
@@ -93,6 +93,20 @@ Gli utenti hanno accesso alle seguenti pagine in base al loro ruolo:
 | Inventory | Pagina dove gli utenti possono gestire i propri prodotti e metterli in vendita nel negozio. | ![Inventory](inserisci-il-tuo-link-all-immagine-inventory.png) |
 | Setting | Pagina delle impostazioni, dove gli utenti possono visualizzare e modificare le proprie informazioni personali e le preferenze del sistema. | ![Setting](inserisci-il-tuo-link-all-immagine-setting.png) |
 
+## Dapp : 
+- ![Immagine Architettura](./docs/dapp.png)
+
+## MilkHub Microservice: 
+- ![Immagine Architettura](./docs/milkhub_micro.png)
+
+## CheeseProducer Microservice: 
+- ![Immagine Architettura](./docs/cheese_producer_micro.png)
+
+## Retailer Microservice: 
+- ![Immagine Architettura](./docs/retailer_micro.png)
+
+## Consumer Microservice: 
+- ![Immagine Architettura](./docs/consumer_micro.png)
 
 
 

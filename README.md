@@ -51,11 +51,16 @@ L'architettura del sistema è composta dalle seguenti componenti e tecnologie:
 
 | Tecnologia | Descrizione | Immagine |
 | ---------- | ----------- | -------- |
-| Python | Python è il linguaggio di programmazione utilizzato per lo sviluppo di Firefly. Offre flessibilità e facilità di sviluppo per implementare le funzionalità del sistema. | ![Python](inserisci-il-tuo-link-all-immagine-python.png) |
-| Solidity | Solidity è il linguaggio di programmazione utilizzato per lo sviluppo di Hyperledger Besu. È noto per le sue prestazioni elevate e la concorrenza incorporata, rendendolo ideale per applicazioni blockchain. | ![Solidity](inserisci-il-tuo-link-all-immagine-solidity.png) |
-| Flutter | Flutter è un framework open-source sviluppato da Google per la creazione di app mobili multi-piattaforma. Utilizza il linguaggio di programmazione Dart e offre un'ampia gamma di widget personalizzabili e un sistema di rendering veloce. | ![Flutter](inserisci-il-tuo-link-all-immagine-flutter.png) |
-| JWT (JSON Web Token) | JWT è uno standard aperto (RFC 7519) che definisce un modo compatto e autonomo per trasmettere informazioni in sicurezza tra due parti come un oggetto JSON. È comunemente utilizzato per autenticare e autorizzare gli utenti in applicazioni web e API RESTful. | ![JWT](inserisci-il-tuo-link-all-immagine-jwt.png) |
-| Metamask | Metamask è un'estensione del browser che consente agli utenti di gestire facilmente il proprio portafoglio Ethereum e interagire con le DApp (Decentralized Applications) sulla blockchain Ethereum direttamente dal browser. | ![Metamask](inserisci-il-tuo-link-all-immagine-metamask.png) |
+| Python | Python è il linguaggio di programmazione utilizzato per lo sviluppo di Firefly. Offre flessibilità e facilità di sviluppo per implementare le funzionalità del sistema. <sup>[1]</sup> | ![Python](inserisci-il-tuo-link-all-immagine-python.png) |
+| Solidity | Solidity è il linguaggio di programmazione utilizzato per lo sviluppo di Hyperledger Besu. È noto per le sue prestazioni elevate e la concorrenza incorporata, rendendolo ideale per applicazioni blockchain. <sup>[2]</sup> | ![Solidity](./docs/solidity.jpg) |
+| Flutter | Flutter è un framework open-source sviluppato da Google per la creazione di app mobili multi-piattaforma. Utilizza il linguaggio di programmazione Dart e offre un'ampia gamma di widget personalizzabili e un sistema di rendering veloce. <sup>[3]</sup> | ![Flutter](./docs/fluttericon.png) |
+| JWT (JSON Web Token) | JWT è uno standard aperto (RFC 7519) che definisce un modo compatto e autonomo per trasmettere informazioni in sicurezza tra due parti come un oggetto JSON. È comunemente utilizzato per autenticare e autorizzare gli utenti in applicazioni web e API RESTful. <sup>[4]</sup> | ![JWT](./docs/jwt.png) |
+| Metamask | Metamask è un'estensione del browser che consente agli utenti di gestire facilmente il proprio portafoglio Ethereum e interagire con le DApp (Decentralized Applications) sulla blockchain Ethereum direttamente dal browser. <sup>[5]</sup> | ![Metamask](./docs/metamask.jpg) |
+| Ganache | Ganache è un ambiente di sviluppo personale Ethereum che consente di eseguire test, eseguire debug e realizzare contratti, oltre ad avere una blockchain Ethereum privata per lo sviluppo. <sup>[6]</sup> | ![Ganache](./docs/ganache.png) |
+
+### Riferimenti:
+
+
 
 
 ![Immagine Architettura](./docs/docker_architecture.png)
@@ -155,7 +160,6 @@ In conclusione, il sistema proposto offre un approccio innovativo e trasparente 
 - Pietro Catalano
 - Salvatore Moscariello 
 
-
 ## Riferimenti e Citazioni 
 
 1. **Docker**: 
@@ -177,6 +181,24 @@ In conclusione, il sistema proposto offre un approccio innovativo e trasparente 
 5. **HardHat**: 
    - [Repository GitHub](https://github.com/nomiclabs/hardhat)
    - [Documentazione](https://hardhat.org/getting-started/)
+
+6. **Python.org**: 
+   - [Python.org](https://www.python.org/)
+
+7. **Solidity Documentation**: 
+   - [Solidity Documentation](https://docs.soliditylang.org/en/v0.8.12/)
+
+8. **Flutter Documentation**: 
+   - [Flutter Documentation](https://flutter.dev/docs)
+
+9. **JWT.io**: 
+   - [JWT.io](https://jwt.io/)
+
+10. **Metamask Documentation**: 
+   - [Metamask Documentation](https://metamask.io/)
+
+11. **Truffle Suite - Ganache**: 
+   - [Truffle Suite - Ganache](https://www.trufflesuite.com/ganache)
 
 ## Altre Risorse:
 

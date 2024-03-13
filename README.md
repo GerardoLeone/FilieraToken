@@ -34,37 +34,26 @@ L'architettura del sistema è composta dalle seguenti componenti e tecnologie:
 
 ### Componenti:
 
-1. **Docker:** 
-   Docker permette di creare un ambiente virtuale isolato per l'esecuzione di Firefly. Questo fornisce un'infrastruttura modulare e scalabile per la gestione delle applicazioni blockchain.
+| Strumento/Framework | Descrizione                                                                                                                                                                            |
+|----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Docker               | Docker permette di creare un ambiente virtuale isolato per l'esecuzione di Firefly. Questo fornisce un'infrastruttura modulare e scalabile per la gestione delle applicazioni blockchain. |
+| Firefly              | Firefly rappresenta il nucleo del sistema, fornendo la piattaforma e le funzionalità essenziali per la gestione della filiera lattiero-casearia tramite la tecnologia blockchain.    |
+| Hyperledger Besu     | Hyperledger Besu è un client Ethereum completo che implementa la specifica Ethereum Proof of Authority (PoA). È utilizzato per l'interazione con la blockchain Ethereum e per l'esecuzione dei contratti intelligenti. |
+| Truffle              | Truffle è un framework di sviluppo per la scrittura e la migrazione di smart contract. Fornisce strumenti per lo sviluppo, il testing e la distribuzione di contratti intelligenti su blockchain Ethereum. |
+| HardHat              | Hardhat è un framework di sviluppo per la scrittura e la migrazione di smart contract. Fornisce strumenti per lo sviluppo, il testing e la distribuzione di contratti intelligenti su blockchain Ethereum. |
 
-2. **Firefly:** 
-   Firefly rappresenta il nucleo del sistema, fornendo la piattaforma e le funzionalità essenziali per la gestione della filiera lattiero-casearia tramite la tecnologia blockchain.
 
-3. **Hyperledger Besu:** 
-   Hyperledger Besu è un client Ethereum completo che implementa la specifica Ethereum Proof of Authority (PoA). È utilizzato per l'interazione con la blockchain Ethereum e per l'esecuzione dei contratti intelligenti.
-
-4. **Truffle:** 
-   Truffle è un framework di sviluppo per la scrittura e la migrazione di smart contract. Fornisce strumenti per lo sviluppo, il testing e la distribuzione di contratti intelligenti su blockchain Ethereum.
-
-5. **HardHat:** 
-   Hardhat è un framework di sviluppo per la scrittura e la migrazione di smart contract. Fornisce strumenti per lo sviluppo, il testing e la distribuzione di contratti intelligenti su blockchain Ethereum.
 
 ### Tecnologie:
 
-1. **Python:** 
-   Python è il linguaggio di programmazione utilizzato per lo sviluppo di Firefly. Offre flessibilità e facilità di sviluppo per implementare le funzionalità del sistema.
+| Tecnologia | Descrizione | Immagine |
+| ---------- | ----------- | -------- |
+| Python | Python è il linguaggio di programmazione utilizzato per lo sviluppo di Firefly. Offre flessibilità e facilità di sviluppo per implementare le funzionalità del sistema. | ![Python](inserisci-il-tuo-link-all-immagine-python.png) |
+| Solidity | Solidity è il linguaggio di programmazione utilizzato per lo sviluppo di Hyperledger Besu. È noto per le sue prestazioni elevate e la concorrenza incorporata, rendendolo ideale per applicazioni blockchain. | ![Solidity](inserisci-il-tuo-link-all-immagine-solidity.png) |
+| Flutter | Flutter è un framework open-source sviluppato da Google per la creazione di app mobili multi-piattaforma. Utilizza il linguaggio di programmazione Dart e offre un'ampia gamma di widget personalizzabili e un sistema di rendering veloce. | ![Flutter](inserisci-il-tuo-link-all-immagine-flutter.png) |
+| JWT (JSON Web Token) | JWT è uno standard aperto (RFC 7519) che definisce un modo compatto e autonomo per trasmettere informazioni in sicurezza tra due parti come un oggetto JSON. È comunemente utilizzato per autenticare e autorizzare gli utenti in applicazioni web e API RESTful. | ![JWT](inserisci-il-tuo-link-all-immagine-jwt.png) |
+| Metamask | Metamask è un'estensione del browser che consente agli utenti di gestire facilmente il proprio portafoglio Ethereum e interagire con le DApp (Decentralized Applications) sulla blockchain Ethereum direttamente dal browser. | ![Metamask](inserisci-il-tuo-link-all-immagine-metamask.png) |
 
-2. **Solidity:** 
-   Solidity è il linguaggio di programmazione utilizzato per lo sviluppo di Hyperledger Besu. È noto per le sue prestazioni elevate e la concorrenza incorporata, rendendolo ideale per applicazioni blockchain.
-
-3. **Flutter:** 
-   Flutter è un framework open-source sviluppato da Google per la creazione di app mobili multi-piattaforma. Utilizza il linguaggio di programmazione Dart e offre un'ampia gamma di widget personalizzabili e un sistema di rendering veloce, consentendo agli sviluppatori di creare app con una sola base di codice che possono essere eseguite su diverse piattaforme come iOS, Android e Web.
-
-4. **JWT (JSON Web Token):** 
-   JWT è uno standard aperto (RFC 7519) che definisce un modo compatto e autonomo per trasmettere informazioni in sicurezza tra due parti come un oggetto JSON. È comunemente utilizzato per autenticare e autorizzare gli utenti in applicazioni web e API RESTful.
-
-5. **Metamask:** 
-   Metamask è un'estensione del browser che consente agli utenti di gestire facilmente il proprio portafoglio Ethereum e interagire con le DApp (Decentralized Applications) sulla blockchain Ethereum direttamente dal browser. Fornisce un'interfaccia utente intuitiva e sicura per eseguire transazioni, firmare messaggi e interagire con i contratti intelligenti.
 
 ![Immagine Architettura](./docs/docker_architecture.png)
 
@@ -94,25 +83,40 @@ Gli utenti hanno accesso alle seguenti pagine in base al loro ruolo:
 | Setting | Pagina delle impostazioni, dove gli utenti possono visualizzare e modificare le proprie informazioni personali e le preferenze del sistema. | ![Setting](inserisci-il-tuo-link-all-immagine-setting.png) |
 
 ## Dapp : 
-- ![Immagine Architettura](./docs/dapp.png)
+![Immagine Architettura](./docs/dapp.png)
 
-## MilkHub Microservice: 
-- ![Immagine Architettura](./docs/milkhub_micro.png)
+| Microservizio         | Descrizione                                                                                                                                                           | Immagine                   |
+|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------|
+| MilkHub Microservice  | Il microservizio MilkHub gestisce le operazioni relative alla catena di distribuzione del latte, inclusa la raccolta, la trasformazione e la distribuzione ai clienti. | ![MilkHub](./docs/milkhub_micro.png)           |
+| CheeseProducer Microservice | Il microservizio CheeseProducer gestisce le operazioni relative alla produzione di formaggio, compresa la lavorazione del latte e la creazione di prodotti caseari. | ![CheeseProducer](./docs/cheese_producer_micro.png) |
+| Retailer Microservice | Il microservizio Retailer gestisce le operazioni di vendita al dettaglio, inclusa la gestione degli ordini, la gestione del magazzino e l'interazione con i clienti. | ![Retailer](./docs/retailer_micro.png)         |
+| Consumer Microservice | Il microservizio Consumer gestisce le operazioni relative agli utenti finali che acquistano prodotti, inclusa la visualizzazione dei prodotti disponibili e la gestione degli ordini. | ![Consumer](./docs/consumer_micro.png)         |
 
-## CheeseProducer Microservice: 
-- ![Immagine Architettura](./docs/cheese_producer_micro.png)
-
-## Retailer Microservice: 
-- ![Immagine Architettura](./docs/retailer_micro.png)
-
-## Consumer Microservice: 
-- ![Immagine Architettura](./docs/consumer_micro.png)
 
 
 
 
 ## UseCase
-Presentazione di casi d'uso o scenari tipici.
+
+- Questi risultano essere i principali Use Case sviluppati durante il progetto : 
+
+## Selezione del Prodotto
+
+L'utente che può acquistare i prodotti, andrà a cliccare sulla card del prodotto e si aprirà una finestra di Dialog dove si dovrà inserire la quantità che si vuole acquistare.
+
+![Step 1 - Selezione del Prodotto](inserisci-il-tuo-link-all-immagine-selezione-prodotto.png) ![Step 3 - Conversione del Prodotto](inserisci-il-tuo-link-all-immagine-conversione-prodotto.png) ![Step 3 - Conversione del Prodotto](inserisci-il-tuo-link-all-immagine-conversione-prodotto.png) 
+
+## Acquisto del Prodotto
+
+L'utente una volta selezionato il prodotto e una volta inserita la quantità riceverà una notifica di avvenuta conferma dell'applicazione oppure di errore.
+
+![Step 2 - Acquisto del Prodotto](inserisci-il-tuo-link-all-immagine-acquisto-prodotto.png) ![Step 3 - Conversione del Prodotto](inserisci-il-tuo-link-all-immagine-conversione-prodotto.png) ![Step 3 - Conversione del Prodotto](inserisci-il-tuo-link-all-immagine-conversione-prodotto.png) 
+
+## Conversione del Prodotto
+
+L'utente che avrà completato l'acquisto del prodotto, ha la possibilità di andare nei prodotti acquistati e provare a convertire il prodotto con la stessa modalità di acquisto: inserisce la quantità che vuole convertire e il prezzo con il quale andare a vendere il prodotto.
+
+![Step 3 - Conversione del Prodotto](inserisci-il-tuo-link-all-immagine-conversione-prodotto.png) ![Step 3 - Conversione del Prodotto](inserisci-il-tuo-link-all-immagine-conversione-prodotto.png) ![Step 3 - Conversione del Prodotto](inserisci-il-tuo-link-all-immagine-conversione-prodotto.png) 
 
 ### Sottosezione 1
 Descrizione di un caso d'uso specifico.

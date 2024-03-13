@@ -49,8 +49,6 @@
     </footer>
 </body>
 
-</html>
-
 <style>
 body {
     font-family: Arial, sans-serif;
@@ -84,3 +82,7 @@ footer {
     width: 100%;
 }
 </style>
+
+
+</html>
+

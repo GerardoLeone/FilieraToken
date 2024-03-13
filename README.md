@@ -48,7 +48,7 @@ L'architettura del sistema è composta dalle seguenti componenti e tecnologie:
 
 | Tecnologia | Descrizione | Immagine |
 | ---------- | ----------- | -------- |
-| Python | Python è il linguaggio di programmazione utilizzato per lo sviluppo di Firefly. Offre flessibilità e facilità di sviluppo per implementare le funzionalità del sistema. <sup>[1]</sup> | ![Python](inserisci-il-tuo-link-all-immagine-python.png) |
+| Python | Python è il linguaggio di programmazione utilizzato per lo sviluppo di Firefly. Offre flessibilità e facilità di sviluppo per implementare le funzionalità del sistema. <sup>[1]</sup> | ![Python](./docs/python.svg) |
 | Solidity | Solidity è il linguaggio di programmazione utilizzato per lo sviluppo di Hyperledger Besu. È noto per le sue prestazioni elevate e la concorrenza incorporata, rendendolo ideale per applicazioni blockchain. <sup>[2]</sup> | ![Solidity](./docs/solidity.jpg) |
 | Flutter | Flutter è un framework open-source sviluppato da Google per la creazione di app mobili multi-piattaforma. Utilizza il linguaggio di programmazione Dart e offre un'ampia gamma di widget personalizzabili e un sistema di rendering veloce. <sup>[3]</sup> | ![Flutter](./docs/fluttericon.png) |
 | JWT (JSON Web Token) | JWT è uno standard aperto (RFC 7519) che definisce un modo compatto e autonomo per trasmettere informazioni in sicurezza tra due parti come un oggetto JSON. È comunemente utilizzato per autenticare e autorizzare gli utenti in applicazioni web e API RESTful. <sup>[4]</sup> | ![JWT](./docs/jwt.png) |

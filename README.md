@@ -109,7 +109,12 @@ L'utente che può acquistare i prodotti, andrà a cliccare sulla card del prodot
 
 L'utente una volta selezionato il prodotto e una volta inserita la quantità riceverà una notifica di avvenuta conferma dell'applicazione oppure di errore.
 
-![Step 2 - Acquisto del Prodotto](./docs/acquisto/acquisto1.png) ![Step 2 - Acquisto del Prodotto](./docs/acquisto/acquisto2.png) ![Step 2 - Acquisto del Prodotto](./docs/acquisto/acquisto3.png) ![Step 2 - Acquisto del Prodotto](./docs/acquisto/acquisto_api.png) 
+| | | |
+| --- | --- | --- |
+| ![Step 2 - Acquisto del Prodotto](./docs/acquisto/acquisto1.png) | ![Step 2 - Acquisto del Prodotto](./docs/acquisto/acquisto2.png) | ![Step 2 - Acquisto del Prodotto](./docs/acquisto/acquisto3.png) |
+| | | |
+| ![Step 2 - Acquisto del Prodotto](./docs/acquisto/acquisto_api.png) | | |
+
 
 ## Conversione del Prodotto
 

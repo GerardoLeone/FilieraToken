@@ -6,25 +6,29 @@ Benvenuti nel progetto FilieraToken!
 
 Il sistema proposto si concentra sulla gestione della filiera lattiero-casearia attraverso un'applicazione distribuita (DApp) basata su tecnologia blockchain. Questa soluzione innovativa, chiamata FilieraToken, mira a garantire la trasparenza, l'efficienza e la tracciabilità lungo l'intera catena di produzione e distribuzione del formaggio.
 
+Per rendere le immagini più piccole, posso utilizzare un'opzione di ridimensionamento nel markdown. Ecco come modificare la tabella:
+
+```markdown
 ### Attori della Filiera:
 
 | Ruolo Attore | Descrizione | Immagine |
 | ------------ | ----------- | -------- |
-| Centro di Raccolta e Trasformazione del Latte | Il Centro di Raccolta e Trasformazione del Latte svolge un ruolo cruciale nel processo di produzione. È responsabile della raccolta del latte dalle aziende agricole, della sua trasformazione in formaggio e della distribuzione ai successivi attori della filiera. | ![Centro di Raccolta](./docs/milk_farm.jpg) |
-| Produttore di Formaggio | Il Produttore di Formaggio riceve il latte trasformato dal Centro di Raccolta e Trasformazione del Latte e lo utilizza per creare i prodotti caseari. Utilizzando la tecnologia blockchain, ogni passaggio nella produzione del formaggio viene registrato in modo sicuro e immutabile. | ![Produttore di Formaggio](./docs/cheeseProducer.jpg) |
-| Retailer | Il Retailer è l'ultimo anello della catena di distribuzione prima che il formaggio raggiunga il consumatore finale. Grazie a CheeseChain, il Retailer può garantire ai propri clienti la provenienza e la qualità del formaggio offerto. | ![Retailer](./docs/retailer.jpg) |
-| Consumatore | Il Consumatore rappresenta il destinatario finale del formaggio. Grazie alla tracciabilità garantita dalla tecnologia blockchain, il Consumatore può avere fiducia nell'origine e nella qualità del prodotto che sta acquistando. | ![Consumatore](./docs/consumer.jpg) |
-
+| Centro di Raccolta e Trasformazione del Latte | Il Centro di Raccolta e Trasformazione del Latte svolge un ruolo cruciale nel processo di produzione. È responsabile della raccolta del latte dalle aziende agricole, della sua trasformazione in formaggio e della distribuzione ai successivi attori della filiera. | <img src="./docs/milk_farm.jpg" alt="Centro di Raccolta" width="200"/> |
+| Produttore di Formaggio | Il Produttore di Formaggio riceve il latte trasformato dal Centro di Raccolta e Trasformazione del Latte e lo utilizza per creare i prodotti caseari. Utilizzando la tecnologia blockchain, ogni passaggio nella produzione del formaggio viene registrato in modo sicuro e immutabile. | <img src="./docs/cheeseProducer.jpg" alt="Produttore di Formaggio" width="200"/> |
+| Retailer | Il Retailer è l'ultimo anello della catena di distribuzione prima che il formaggio raggiunga il consumatore finale. Grazie a CheeseChain, il Retailer può garantire ai propri clienti la provenienza e la qualità del formaggio offerto. | <img src="./docs/retailer.jpg" alt="Retailer" width="200"/> |
+| Consumatore | Il Consumatore rappresenta il destinatario finale del formaggio. Grazie alla tracciabilità garantita dalla tecnologia blockchain, il Consumatore può avere fiducia nell'origine e nella qualità del prodotto che sta acquistando. | <img src="./docs/consumer.jpg" alt="Consumatore" width="200"/> |
 
 
 ### Prodotti:
 
 | Nome del Prodotto | Descrizione | Immagine |
 | ----------------- | ----------- | -------- |
-| CheeseBlock (Blocco di Formaggio) | Il CheeseBlock rappresenta un'unità di formaggio prodotta e distribuita lungo la filiera. Ogni CheeseBlock è unico e identificabile attraverso il suo hash sulla blockchain di CheeseChain. | ![CheeseBlock](./Filiera-Token-FrontEnd/filiera_token_front_end/assets/cheese_block.png) |
-| CheesePiece (Pezzetto di Formaggio) | Il CheesePiece è una frazione più piccola del formaggio, spesso utilizzata per degustazioni o per la preparazione di piatti specifici. Anche il CheesePiece è tracciabile attraverso la blockchain di CheeseChain. | ![CheesePiece](./Filiera-Token-FrontEnd/filiera_token_front_end/assets/cheese_piece.png) |
-| MilkBatch (Partita di Latte) | Il MilkBatch è una partita specifica di latte raccolto e trasformato in formaggio. Ogni MilkBatch è registrato sulla blockchain insieme alle informazioni riguardanti la sua origine e il suo percorso nella filiera. | ![MilkBatch](./Filiera-Token-FrontEnd/filiera_token_front_end/assets/milk.png) |
+| CheeseBlock (Blocco di Formaggio) | Il CheeseBlock rappresenta un'unità di formaggio prodotta e distribuita lungo la filiera. Ogni CheeseBlock è unico e identificabile attraverso il suo hash sulla blockchain di CheeseChain. | <img src="./Filiera-Token-FrontEnd/filiera_token_front_end/assets/cheese_block.png" alt="CheeseBlock" width="200"/> |
+| CheesePiece (Pezzetto di Formaggio) | Il CheesePiece è una frazione più piccola del formaggio, spesso utilizzata per degustazioni o per la preparazione di piatti specifici. Anche il CheesePiece è tracciabile attraverso la blockchain di CheeseChain. | <img src="./Filiera-Token-FrontEnd/filiera_token_front_end/assets/cheese_piece.png" alt="CheesePiece" width="200"/> |
+| MilkBatch (Partita di Latte) | Il MilkBatch è una partita specifica di latte raccolto e trasformato in formaggio. Ogni MilkBatch è registrato sulla blockchain insieme alle informazioni riguardanti la sua origine e il suo percorso nella filiera. | <img src="./Filiera-Token-FrontEnd/filiera_token_front_end/assets/milk.png" alt="MilkBatch" width="200"/> |
+```
 
+Con questo codice, le immagini verranno ridimensionate a una larghezza di 200 pixel mentre verranno visualizzate nella tabella.
 
 ## Architettura
 
@@ -136,15 +140,6 @@ L'utente che avrà completato l'acquisto del prodotto, ha la possibilità di and
 
 ## Conclusioni
 
-In questo documento abbiamo esaminato diverse componenti e funzionalità del sistema, concentrandoci sulla gestione della filiera lattiero-casearia tramite l'utilizzo di tecnologie blockchain. Abbiamo introdotto i principali attori coinvolti nella filiera, come il MilkHub, il CheeseProducer, il Retailer e il Consumer, delineando le loro specifiche responsabilità e privilegi all'interno del sistema.
-
-Abbiamo esaminato l'architettura del sistema, composta da diversi microservizi come MilkHub Microservice, CheeseProducer Microservice, Retailer Microservice e Consumer Microservice, ognuno dei quali svolge un ruolo fondamentale nella gestione e nel funzionamento della filiera.
-
-Inoltre, abbiamo esplorato le tecnologie utilizzate nel sistema, tra cui Docker, Firefly, Hyperledger Besu, Truffle e Hardhat, ognuna delle quali contribuisce alla creazione e alla gestione di una solida infrastruttura blockchain.
-
-Infine, abbiamo analizzato alcuni casi d'uso cruciali, come la selezione e l'acquisto dei prodotti, nonché la conversione dei prodotti acquistati. Questi casi d'uso illustrano il flusso di interazione degli utenti con il sistema e evidenziano le funzionalità chiave offerte.
-
-In conclusione, il sistema proposto offre un approccio innovativo e trasparente alla gestione della filiera lattiero-casearia, sfruttando le potenzialità della tecnologia blockchain per garantire tracciabilità, sicurezza e efficienza lungo l'intera catena di distribuzione.
 
 ![Conclusioni e Sviluppi Futuri](./docs/sviluppi.png)
 
@@ -204,10 +199,8 @@ In conclusione, il sistema proposto offre un approccio innovativo e trasparente 
    - [Specifiche ERC20](https://ethereum.org/en/developers/docs/standards/tokens/erc-20/)
    - [Documentazione](https://eips.ethereum.org/EIPS/eip-20)
 
-- **LinearIT**:
-   - [Sito Web](https://www.linearit.it/)
-
-
 ## Azienda 
-![Logo Azienda ](./docs/Logo_LinearIT_h68.png)
+
+[![Logo Azienda](./docs/Logo_LinearIT_h68.png)](https://www.linearit.it/)
+
 

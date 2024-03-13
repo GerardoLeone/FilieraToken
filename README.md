@@ -104,13 +104,12 @@ Gli utenti hanno accesso alle seguenti pagine in base al loro ruolo:
 
 L'utente che può acquistare i prodotti, andrà a cliccare sulla card del prodotto e si aprirà una finestra di Dialog dove si dovrà inserire la quantità che si vuole acquistare.
 
-![Step 1 - Selezione del Prodotto](inserisci-il-tuo-link-all-immagine-selezione-prodotto.png) ![Step 3 - Conversione del Prodotto](inserisci-il-tuo-link-all-immagine-conversione-prodotto.png) ![Step 3 - Conversione del Prodotto](inserisci-il-tuo-link-all-immagine-conversione-prodotto.png) 
-
+![Step 1 - Selezione del Prodotto](./docs/acquisto/selezione_acquisto.png) ![Step 3 - Conversione del Prodotto](inserisci-il-tuo-link-all-immagine-conversione-prodotto.png) 
 ## Acquisto del Prodotto
 
 L'utente una volta selezionato il prodotto e una volta inserita la quantità riceverà una notifica di avvenuta conferma dell'applicazione oppure di errore.
 
-![Step 2 - Acquisto del Prodotto](inserisci-il-tuo-link-all-immagine-acquisto-prodotto.png) ![Step 3 - Conversione del Prodotto](inserisci-il-tuo-link-all-immagine-conversione-prodotto.png) ![Step 3 - Conversione del Prodotto](inserisci-il-tuo-link-all-immagine-conversione-prodotto.png) 
+![Step 2 - Acquisto del Prodotto](./docs/acquisto/acquisto1.png) ![Step 2 - Acquisto del Prodotto](./docs/acquisto/acquisto2.png) ![Step 2 - Acquisto del Prodotto](./docs/acquisto/acquisto3.png) ![Step 2 - Acquisto del Prodotto](./docs/acquisto/acquisto_api.png) 
 
 ## Conversione del Prodotto
 

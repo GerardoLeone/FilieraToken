@@ -1,137 +1,86 @@
-# FilieraToken
-Il sistema proposto si concentra sulla gestione della filiera lattiero-casearia attraverso un'applicazione distribuita (DApp) basata su tecnologia blockchain. Gli attori coinvolti nella filiera sono il Centro di Raccolta e Trasformazione del Latte, il Produttore di Formaggio, il Retailer e il Consumatore.
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestione Filiera Lattiero-Casearia con Blockchain</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
 
-# QBFT - Net 
+<body>
+    <header>
+        <h1>Gestione Filiera Lattiero-Casearia con Blockchain</h1>
+    </header>
+    <section id="introduction">
+        <h2>Introduzione</h2>
+        <h3>Descrizione</h3>
+        <p>Questo progetto presenta un'applicazione distribuita (DApp) basata su tecnologia blockchain per la gestione della filiera lattiero-casearia. La DApp offre un sistema trasparente e sicuro per tracciare la filiera del latte, dalla produzione al consumo.</p>
+        <h3>Obiettivi</h3>
+        <ul>
+            <li>Migliorare la tracciabilità e la trasparenza della filiera lattiero-casearia</li>
+            <li>Aumentare la sicurezza alimentare</li>
+            <li>Ridurre le frodi alimentari</li>
+            <li>Promuovere un sistema di produzione e consumo più sostenibile</li>
+        </ul>
+    </section>
+    <section id="technologies">
+        <h2>Tecnologie utilizzate</h2>
+        <ul>
+            <li>Blockchain</li>
+            <li>Smart contracts</li>
+            <li>Solidity</li>
+            <li>Web3.js</li>
+            <li>IPFS</li>
+        </ul>
+    </section>
+    <section id="architecture">
+        <h2>Architettura</h2>
+        <h3>Livello Blockchain</h3>
+        <p>La blockchain Ethereum è utilizzata per registrare le transazioni e i dati relativi alla filiera lattiero-casearia.</p>
+        <h3>Livello Smart Contracts</h3>
+        <p>Gli smart contracts sono utilizzati per automatizzare i processi della filiera e per garantire la sicurezza e la trasparenza del sistema.</p>
+        <h3>Livello Interfaccia Utente</h3>
+        <p>Un'interfaccia web intuitiva permette agli attori della filiera di interagire con la DApp.</p>
+    </section>
+    <!-- Altre sezioni come homepage, funzionalità, use case, conclusione, ecc. -->
+    <footer>
+        <p>Creato con ❤️ da [Nome del Team].</p>
+    </footer>
+</body>
 
-    - [QBFT-Configuration] https://besu.hyperledger.org/stable/private-networks/tutorials/qbft
+</html>
 
-- 2 Modalità di configurazione : 
-    - Smart contract Validator : Utilizziamo gli Smart Contract per effettuare le configurazioni sulla rete 
-    - Header Validator : utilizziamo API di Besu per effettuare le configurazioni sulla rete besu 
-
-1. Utilizziamo il comando di Besu API : 
-
-```sh
-besu operator generate-blockchain-config --config-file=qbftConfigFile.json --to=networkFiles --private-key-file-name=key
-```
-- Produciamo il file di genesis.json con la relativa networkFile/ con le chiavi del BootNode e degli altri nodi che vi sono all'interno dell'applicazione 
-
-2. Start degli altri nodi con la stessa sequenza di comandi : 
-- besu --data-path=data --genesis-file=../genesis.json --rpc-http-enabled --rpc-http-api=ETH,NET,QBFT --host-allowlist="*" --rpc-http-cors-origins="all"
-
-
-- besu --data-path=data --genesis-file=../genesis.json --bootnodes=<Node-1 Enode URL> --p2p-port=30304 --rpc-http-enabled --rpc-http-api=ETH,NET,QBFT --host-allowlist="*" --rpc-http-cors-origins="all" --rpc-http-port=8546
-
-
-- besu --data-path=data --genesis-file=../genesis.json --bootnodes=<Node-1 Enode URL> --p2p-port=30305 --rpc-http-enabled --rpc-http-api=ETH,NET,QBFT --host-allowlist="*" --rpc-http-cors-origins="all" --rpc-http-port=8547
-
-
-
-- besu --data-path=data --genesis-file=../genesis.json --bootnodes=<Node-1 Enode URL> --p2p-port=30306 --rpc-http-enabled --rpc-http-api=ETH,NET,QBFT --host-allowlist="*" --rpc-http-cors-origins="all" --rpc-http-port=8548 
-
-3. Eseguire il bootnode e ti salvi nel file di .env l'url e poi esegui l'applicazione 
-
-4. Una volta che abbiamo settato l'ID o l'url del nodo di Environment eseguiamo il docker-compose up -d per settare tutti i container della rete di Besu QBFT nella cartella di 
-
--> besu_private...docker/
-
-```sh
-docker-compose up -d 
-```
-
-5. Verificare la modalità di Utilizzo : 
- - Gateway 
- - Multiparty * 
-
-
-6. Creare la cartella per il deploy dello smart contract : 
-```sh
-truffle init 
-```
-
-7. Prendiamo lo smart contract di Firefly.sol 
-
-6. Compiliamo e deployamo il contratto e salvare il Contract Address 
-
-7. Verificare la configurazione di Truffle nel file truffle-config.json 
-
-```js
-const PrivateKeyProvider = require("@truffle/hdwallet-provider");
-const privateKey = "ae6ae8e5ccbfb04590405997ee2d52d2b330726137b875053c36d94e974d162f";
-const privateKeyProvider = new PrivateKeyProvider(
-  privateKey,
-  "http://localhost:8545",
-);
-
-module.exports = {
-  networks: {
-    development: {
-     host: "127.0.0.1",     // Localhost (default: none)
-     port: 7545,            // Standard Ethereum port (default: none)
-     network_id: "*",       // Any network (default: none)
-    },
-    
-    besuWallet: {
-      provider: privateKeyProvider,
-      network_id: "*",
-      gasPrice: 0,
-      gas: 4500000,
-    },
-  },
-  mocha: {
-    timeout: 100000
-  },
-  compilers: {
-    solc: {
-      version: "^0.8.0",    // Fetch exact version from solc-bin (default: truffle's version)
-      evmVersion: "constantinople"
-    }
-  }
+<style>
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
 }
 
-```
+header, footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
 
+h1, h2, h3 {
+    color: #333;
+}
 
+section {
+    padding: 20px;
+}
 
-8. Inizializzo la rete di FireFly multiparty : 
+ul {
+    list-style-type: none;
+}
 
-```sh
- ff init ethereum filiera-token 4 --block-period 2 --blockchain-connector "evmconnect" --blockchain-node "remote-rpc" --chain-id 1337 --contract-address "0xb9A219631Aed55eBC3D998f17C3840B7eC39C0cc" --remote-node-url "http://host.docker.internal:8545" --org-name MilkHub_Org --node-name MilkHub_Node --org-name CheeseProducer_Org --node-name CheeseProducer_Name --org-name Retailer_Org --node-name Retailer_Node --org-name Consumer_Org --node-name Consumer_Node
-```
-
-
-9. Effettuare un PinBatch delle Organizzazioni e dei Nodi delle Organizzazioni 
-
-- * Effettuare la chiamata per tutte le organizzazioni definite precedentemente 
-
-```sh
- curl -X POST http://localhost:5000/api/v1/network/organizations/self   -H "Content-Type: application/json" -d '{"name":"MilkHub_Org","key":"019382"}'
-```
-```sh
- curl -X POST http://localhost:5000/api/v1/network/organizations/self   -H "Content-Type: application/json" -d '{"name":"CheeseProducer_Org","key":"019382"}'
-```
-```sh
- curl -X POST http://localhost:5000/api/v1/network/organizations/self   -H "Content-Type: application/json" -d '{"name":"Retailer_Org","key":"019382"}'
-```
-```sh
- curl -X POST http://localhost:5000/api/v1/network/organizations/self   -H "Content-Type: application/json" -d '{"name":"Consumer_Org","key":"019382"}'
-```
-
-- * Effettuare la chiamata per tutte i nodi delle Organizzazioni  definite precedentemente 
-
-
-```sh
- curl -X POST http://localhost:5000/api/v1/network/nodes/self   -H "Content-Type: application/json" -d '{"name":"MilkHub_Node"}'
-```
-```sh
- curl -X POST http://localhost:5001/api/v1/network/nodes/self   -H "Content-Type: application/json" -d '{"name":"CheeseProducer_Node","key":"019382"}'
-```
-```sh
- curl -X POST http://localhost:5002/api/v1/network/nodes/self   -H "Content-Type: application/json" -d '{"name":"Retailer_Node","key":"019382"}'
-```
-```sh
- curl -X POST http://localhost:5003/api/v1/network/nodes/self   -H "Content-Type: application/json" -d '{"name":"Consumer_Node","key":"019382"}'
-```
-
-
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+</style>

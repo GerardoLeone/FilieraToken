@@ -1,4 +1,12 @@
-![Logo Filiera-Token](./docs/filiera-token-logo.png) # Filiera-Token
+<p align="center">
+  <img width="300" src="./docs/filiera-token-logo.png">
+</p>
+
+<p align="center" dir="auto">
+  Un progetto sviluppato per il corso di Sicurezza dei Dati<br> 
+  Università di Salerno.
+</p>
+
 
 Benvenuti nel progetto FilieraToken!
 

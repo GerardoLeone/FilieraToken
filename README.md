@@ -1,12 +1,8 @@
-# Filiera-Token
-
-## Introduzione
+![Logo Filiera-Token](./docs/filiera-token-logo.png) # Filiera-Token
 
 Benvenuti nel progetto FilieraToken!
 
 Il sistema proposto si concentra sulla gestione della filiera lattiero-casearia attraverso un'applicazione distribuita (DApp) basata su tecnologia blockchain. Questa soluzione innovativa, chiamata FilieraToken, mira a garantire la trasparenza, l'efficienza e la tracciabilità lungo l'intera catena di produzione e distribuzione del formaggio.
-
-Per rendere le immagini più piccole, posso utilizzare un'opzione di ridimensionamento nel markdown. Ecco come modificare la tabella:
 
 ### Attori della Filiera:
 
@@ -53,7 +49,7 @@ L'architettura del sistema è composta dalle seguenti componenti e tecnologie:
 | Python | Python è il linguaggio di programmazione utilizzato per lo sviluppo di Firefly. Offre flessibilità e facilità di sviluppo per implementare le funzionalità del sistema. <sup>[1]</sup> | <img src="./docs/python.svg" alt="Python" width="100"/> |
 | Solidity | Solidity è il linguaggio di programmazione utilizzato per lo sviluppo di Hyperledger Besu. È noto per le sue prestazioni elevate e la concorrenza incorporata, rendendolo ideale per applicazioni blockchain. <sup>[2]</sup> | <img src="./docs/solidity.jpg" alt="Solidity" width="100"/> |
 | Flutter | Flutter è un framework open-source sviluppato da Google per la creazione di app mobili multi-piattaforma. Utilizza il linguaggio di programmazione Dart e offre un'ampia gamma di widget personalizzabili e un sistema di rendering veloce. <sup>[3]</sup> | <img src="./docs/fluttericon.png" alt="Flutter" width="100"/> |
-| JWT (JSON Web Token) | JWT è uno standard aperto (RFC 7519) che definisce un modo compatto e autonomo per trasmettere informazioni in sicurezza tra due parti come un oggetto JSON. È comunemente utilizzato per autenticare e autorizzare gli utenti in applicazioni web e API RESTful. <sup>[4]</sup> | <img src="./docs/jwt.png" alt="JWT" width="100"/> |
+| JWT (JSON Web Token) | JWT è uno standard aperto (RFC 7519) che definisce un modo compatto e autonomo per trasmettere informazioni in sicurezza tra due parti come un oggetto JSON. È comunemente utilizzato per autenticare e autorizzare gli utenti in applicazioni web e API RESTful. <sup>[4]</sup> | <img src="./docs/jwt_logo.jpg" alt="JWT" width="100"/> |
 | Metamask | Metamask è un'estensione del browser che consente agli utenti di gestire facilmente il proprio portafoglio Ethereum e interagire con le DApp (Decentralized Applications) sulla blockchain Ethereum direttamente dal browser. <sup>[5]</sup> | <img src="./docs/metamask.jpg" alt="Metamask" width="100"/> |
 | Ganache | Ganache è un ambiente di sviluppo personale Ethereum che consente di eseguire test, eseguire debug e realizzare contratti, oltre ad avere una blockchain Ethereum privata per lo sviluppo. <sup>[6]</sup> | <img src="./docs/ganache-logo.png" alt="Ganache" width="100"/> |
 
@@ -107,14 +103,6 @@ Gli utenti hanno accesso alle seguenti pagine in base al loro ruolo:
 ## UseCase
 
 - Questi risultano essere i principali Use Case sviluppati durante il progetto : 
-
-## Selezione del Prodotto
-
-L'utente che può acquistare i prodotti, andrà a cliccare sulla card del prodotto e si aprirà una finestra di Dialog dove si dovrà inserire la quantità che si vuole acquistare.
-
-| | |
-| --- | --- |
-| ![Step 1 - Selezione del Prodotto](./docs/acquisto/selezione_acquisto.png) | ![Step 3 - Conversione del Prodotto](./docs/conversione/conversione1.png) |
 
 ## Acquisto del Prodotto
 

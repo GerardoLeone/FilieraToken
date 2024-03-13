@@ -112,7 +112,6 @@ L'utente una volta selezionato il prodotto e una volta inserita la quantità ric
 | | | |
 | --- | --- | --- |
 | ![Step 2 - Acquisto del Prodotto](./docs/acquisto/acquisto1.png) | ![Step 2 - Acquisto del Prodotto](./docs/acquisto/acquisto2.png) | ![Step 2 - Acquisto del Prodotto](./docs/acquisto/acquisto3.png) |
-| | | |
 | ![Step 2 - Acquisto del Prodotto](./docs/acquisto/acquisto_api.png) | | |
 
 
@@ -120,13 +119,11 @@ L'utente una volta selezionato il prodotto e una volta inserita la quantità ric
 
 L'utente che avrà completato l'acquisto del prodotto, ha la possibilità di andare nei prodotti acquistati e provare a convertire il prodotto con la stessa modalità di acquisto: inserisce la quantità che vuole convertire e il prezzo con il quale andare a vendere il prodotto.
 
-![Step 3 - Conversione del Prodotto](inserisci-il-tuo-link-all-immagine-conversione-prodotto.png) ![Step 3 - Conversione del Prodotto](inserisci-il-tuo-link-all-immagine-conversione-prodotto.png) ![Step 3 - Conversione del Prodotto](inserisci-il-tuo-link-all-immagine-conversione-prodotto.png) 
+| | | |
+| --- | --- | --- |
+| ![Step 2 - Acquisto del Prodotto](./docs/acquisto/acquisto1.png) | ![Step 2 - Acquisto del Prodotto](./docs/acquisto/acquisto2.png) | ![Step 2 - Acquisto del Prodotto](./docs/acquisto/acquisto3.png) |
+| ![Step 2 - Acquisto del Prodotto](./docs/acquisto/acquisto_api.png) | | |
 
-### Sottosezione 1
-Descrizione di un caso d'uso specifico.
-
-### Sottosezione 2
-Altri casi d'uso rilevanti.
 
 ## Conclusioni
 Sintesi delle principali conclusioni tratte dal documento.
